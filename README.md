@@ -1,5 +1,5 @@
 # CODE FOR STARTUP
-We are make an template ready to ship for startup. This template is free and open source. Here is a list of features that we are going to implement.
+We are making an template ready to ship for startup. This template is free and open source. Here is a list of features that we are going to implement.
 
 ## TECHNICAL STACK
 - [x] Turbo repo  
