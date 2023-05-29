@@ -6,7 +6,7 @@ We are making an template ready to ship for startup. This template is free and o
 - [x] Typescript
 - [x] NextJS ^13.4.4  
 - [x] Tailwindcss
-- [ ] Typescript
+- [x] Typescript
 - [ ] Storybook
 - [x] Prisma
 - [ ] Postgres
@@ -14,7 +14,6 @@ We are making an template ready to ship for startup. This template is free and o
 - [ ] React hook form
 - [ ] I18n
 - [ ] Daisy UI
-- [ ] React Query
 - [ ] Recoil
 - [ ] ESLint
 - [ ] Prettier
