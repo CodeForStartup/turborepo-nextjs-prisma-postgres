@@ -1,7 +1,7 @@
 # CODE FOR STARTUP
 We are making an template ready to ship for startup. This template is free and open source. Here is a list of features that we are going to implement.
 
-## TECHNICAL STACK
+## TECHNOLOGIES STACK
 - [x] Turbo repo  
 - [x] Typescript
 - [x] NextJS ^13.4.4  
@@ -21,6 +21,8 @@ We are making an template ready to ship for startup. This template is free and o
 - [ ] SEO
 
 ## FUNCTIONALITY
+- [ ] Darkmode/Lightmode
+- [ ] Social login
 - [ ] Authentication
   - [ ] Register
   - [ ] Login
@@ -32,4 +34,3 @@ We are making an template ready to ship for startup. This template is free and o
   - [ ] Update avatar
 - [ ] CRUD Post with tag, image
 - [ ] CRUD Comments
-

@@ -24,6 +24,7 @@
     "postcss": "^8.4.24",
     "tailwindcss": "^3.3.2",
     "tsconfig": "workspace:0.0.0",
+    "database": "workspace:0.0.0",
     "typescript": "^4.9.5"
   }
 }
