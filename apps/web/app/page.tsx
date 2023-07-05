@@ -1,14 +1,16 @@
-import { Button, Header } from "ui";
+import { Button } from "ui";
 import { PrismaClient } from "database";
+import Header from "../components/Header";
 
 export default async function Page() {
   const prismaClient = new PrismaClient();
-
-  const post = await prismaClient.post.findFirst();
+  //   const post = await prismaClient.post.findFirst();
 
   return (
-    <div className="flex justify-center items-center h-96">
-      <h1 className="text-8xl font-bold">CODE FOR STARTUP</h1>
+    <div className="">
+      <Header />
+
+      <div className="max-w-7xl mx-auto"></div>
     </div>
   );
 }
