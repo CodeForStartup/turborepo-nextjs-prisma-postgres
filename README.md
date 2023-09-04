@@ -9,10 +9,24 @@
 🖋 Zod  
 🎯 TailwindCSS  
 🚀 Turbopack  
-💒 Tiptap 
+💒 Tiptap  
 🍾 react-textarea-autosize
 
-# DEV NOTES:
+# Functions
+
+[ ] Login  
+[ ] Logout  
+[ ] Register  
+[ ] Verify email   
+[ ] Forgot password  
+[ ] CRUD post  
+[ ] List post/Filter
+[ ] Like post
+[ ] Comment post 
+[ ] Manage tags
+[ ] Follow user
+
+# DEV NOTES
 
 [[1][DEV NOTE] Initial turbo project and add tailwindcss library](https://dev.to/codeforstartup/dev-note-initial-turbo-project-and-add-tailwindcss-library-4iae)  
 [[2][DEV NOTE] Integrate prisma and postgres database](https://dev.to/codeforstartup/2dev-note-add-prisma-and-postgres-database-2m84)  
