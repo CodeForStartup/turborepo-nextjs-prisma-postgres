@@ -20,11 +20,11 @@
 [ ] Verify email   
 [ ] Forgot password  
 [ ] CRUD post  
-[ ] List post/Filter
-[ ] Like post
-[ ] Comment post 
-[ ] Manage tags
-[ ] Follow user
+[ ] List post/Filter  
+[ ] Like post  
+[ ] Comment post  
+[ ] Manage tags  
+[ ] Follow user  
 
 # DEV NOTES
 
