@@ -1,4 +1,4 @@
-# Template for turbo-repo with NextJS, Prisma and Postgres
+# Libraries
 
 🤖 ReactJS  
 🎯 TypeScript  
@@ -8,7 +8,7 @@
 🎭 Postgres  
 🖋 Zod  
 🎯 TailwindCSS  
-🚀 Turbopack  
+🚀 Turborepo  
 💒 Tiptap  
 🍾 react-textarea-autosize
 
