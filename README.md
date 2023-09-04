@@ -1,4 +1,4 @@
-# Template for turbo with NextJS 13.x.x & Prisma
+# Template for turbo-repo with NextJS, Prisma and Postgres
 
 🤖 ReactJS  
 🎯 TypeScript  
