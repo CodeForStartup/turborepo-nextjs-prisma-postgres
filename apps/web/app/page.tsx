@@ -1,8 +1,6 @@
-import { PrismaClient } from "database";
+import prisma from "database";
 
 export default async function Page() {
-  const prisma = new PrismaClient();
-
   const allPosts = await prisma.post.findMany();
 
   return (

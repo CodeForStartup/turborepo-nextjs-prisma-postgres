@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import MenuItem from "./MenuItem";
+import MenuItem from "./menu-item";
 
 export default ({ editor }) => {
   const items = [
