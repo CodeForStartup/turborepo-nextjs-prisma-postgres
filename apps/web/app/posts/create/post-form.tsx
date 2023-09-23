@@ -9,6 +9,7 @@ import Image from "next/image";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { createPost, updatePost } from "../post-handlers";
 import { useParams } from "next/navigation";
+import Link from "next/link";
 
 export type PostFormProps = {
   defaultValues?: Pick<Prisma.Post, "title" | "content">;
@@ -64,7 +65,12 @@ const PostForm = ({
         />
       </div>
       <div className="flex justify-end p-2">
-        <Button variant="link">Cancel</Button>
+        <Link
+          className="flex items-center justify-center rounded-md text-sm font-medium mr-4 h-10"
+          href="/posts"
+        >
+          Cancel
+        </Link>
         <Button type="submit">Save</Button>
       </div>
     </form>
