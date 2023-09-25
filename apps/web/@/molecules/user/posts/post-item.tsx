@@ -24,7 +24,7 @@ export default function PostItem(post: Prisma.Post) {
       <div className="flex-1">
         <Link href={`posts/${post.id}/edit`}>
           <h2 className="text-2xl font-bold text-slate-700">{post.title}</h2>
-          <div className="text-xs mt-1">
+          <div className="text-xs mt-1 text-gray-400">
             Last edited: {dayjs(post.createdAt).format("MMMM D, YYYY")}
           </div>
         </Link>
@@ -36,6 +36,9 @@ export default function PostItem(post: Prisma.Post) {
         <DropdownMenuContent>
           <DropdownMenuItem>
             <Link href={`posts/${post.id}`}>Preview</Link>
+          </DropdownMenuItem>
+          <DropdownMenuItem>
+            <Link href={`posts/${post.id}/edit`}>Edit</Link>
           </DropdownMenuItem>
           <DropdownMenuItem onClick={onDeletePost}>Delete</DropdownMenuItem>
         </DropdownMenuContent>
