@@ -10,6 +10,8 @@ import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { createPost, updatePost } from "../post-handlers";
 import { useParams } from "next/navigation";
 import Link from "next/link";
+import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
 
 export type PostFormProps = {
   defaultValues?: Pick<Prisma.Post, "title" | "content">;
@@ -18,6 +20,7 @@ export type PostFormProps = {
 const PostForm = ({
   defaultValues = { title: "", content: "" },
 }: PostFormProps) => {
+  const router = useRouter();
   const { postId } = useParams();
 
   const { control, handleSubmit } = useForm({
@@ -27,16 +30,25 @@ const PostForm = ({
   const handleSubmitPost: SubmitHandler<
     Pick<Prisma.Post, "title" | "content">
   > = async (data) => {
-    if (postId) {
-      await updatePost(Number(postId), {
-        ...data,
-      });
-      return;
+    try {
+      if (postId) {
+        await updatePost(Number(postId), {
+          ...data,
+        });
+        toast.success("Post updated successfully", {
+          autoClose: 200,
+        });
+        router.push(`/posts/${postId}`);
+      } else {
+        const newPost = await createPost({
+          ...data,
+        });
+        toast.success("Post published successfully");
+        router.push(`/posts/${newPost.id}`);
+      }
+    } catch (error) {
+      toast.error(error.message);
     }
-
-    await createPost({
-      ...data,
-    });
   };
 
   return (
@@ -71,7 +83,7 @@ const PostForm = ({
         >
           Cancel
         </Link>
-        <Button type="submit">Save</Button>
+        <Button type="submit">Publish</Button>
       </div>
     </form>
   );
