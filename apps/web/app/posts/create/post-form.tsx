@@ -13,23 +13,24 @@ import Link from "next/link";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 
-export type PostFormProps = {
-  defaultValues?: Pick<Prisma.Post, "title" | "content">;
-};
-
 const PostForm = ({
-  defaultValues = { title: "", content: "" },
-}: PostFormProps) => {
+  title = "",
+  content = "",
+}: Partial<Prisma.PostCreateInput>) => {
   const router = useRouter();
   const { postId } = useParams();
 
-  const { control, handleSubmit } = useForm({
-    defaultValues,
+  const { control, handleSubmit } = useForm<{
+    title?: string;
+    content?: string;
+  }>({
+    defaultValues: {
+      title,
+      content,
+    },
   });
 
-  const handleSubmitPost: SubmitHandler<
-    Pick<Prisma.Post, "title" | "content">
-  > = async (data) => {
+  const handleSubmitPost = async (data) => {
     try {
       if (postId) {
         await updatePost(Number(postId), {

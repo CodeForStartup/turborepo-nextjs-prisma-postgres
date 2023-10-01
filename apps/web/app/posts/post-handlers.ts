@@ -3,6 +3,21 @@
 import prisma, { Prisma } from "database";
 import { revalidatePath } from "next/cache";
 
+const postSelect = {
+  id: true,
+  title: true,
+  content: true,
+  createdAt: true,
+  updatedAt: true,
+  author: {
+    select: {
+      id: true,
+      name: true,
+      email: true,
+    },
+  },
+} satisfies Prisma.PostSelect;
+
 export const getPosts = async () => {
   try {
     const posts = await prisma.post.findMany();
@@ -15,25 +30,17 @@ export const getPosts = async () => {
 };
 
 export const getPostById = async (id: number) => {
-  const postSelect = {} satisfies Prisma.PostSelect;
-
   const post = await prisma.post.findUnique({
     where: {
       id,
     },
-    select: {
-      id: true,
-      title: true,
-      content: true,
-      createdAt: true,
-      updatedAt: true,
-    },
+    select: postSelect,
   });
 
   return post;
 };
 
-export const createPost = async (data: Prisma.Post) => {
+export const createPost = async (data: Prisma.PostCreateInput) => {
   try {
     const post = await prisma.post.create({
       data: {
@@ -41,6 +48,7 @@ export const createPost = async (data: Prisma.Post) => {
         content: data.content,
         authorId: 1, // Temporary until we have authentication
       },
+      select: postSelect,
     });
 
     return post;
@@ -49,13 +57,14 @@ export const createPost = async (data: Prisma.Post) => {
   }
 };
 
-export const updatePost = async (id: number, data: Prisma.Post) => {
+export const updatePost = async (id: number, data: Prisma.PostCreateInput) => {
   try {
     const post = await prisma.post.update({
       where: {
         id,
       },
       data,
+      select: postSelect,
     });
 
     return post;
