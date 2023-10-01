@@ -1,4 +1,3 @@
-// import type * as Prisma from "@prisma/client";
 import { PrismaClient, Prisma } from "@prisma/client";
 
 declare global {
