@@ -9,7 +9,11 @@
     ],
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*", "@/*", "assets/*"]
+      "@/*": [
+        "src/*",
+        "@/*",
+        "assets/*"
+      ]
     }
   },
   "include": [

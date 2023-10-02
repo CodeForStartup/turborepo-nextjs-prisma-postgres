@@ -12,6 +12,8 @@ import { useParams } from "next/navigation";
 import Link from "next/link";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
+import z from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 const PostForm = ({
   title = "",
@@ -20,14 +22,25 @@ const PostForm = ({
   const router = useRouter();
   const { postId } = useParams();
 
-  const { control, handleSubmit } = useForm<{
-    title?: string;
-    content?: string;
-  }>({
+  const postSchema = z.object({
+    title: z.string(),
+    content: z
+      .string()
+      .max(10000, "Content must be at most 10000 characters")
+      .optional()
+      .nullable(),
+  }) satisfies z.ZodType<Partial<Prisma.PostCreateInput>>;
+
+  const {
+    control,
+    handleSubmit,
+    formState: { isValid },
+  } = useForm<Partial<Prisma.PostCreateInput>>({
     defaultValues: {
       title,
       content,
     },
+    resolver: zodResolver(postSchema),
   });
 
   const handleSubmitPost = async (data) => {
@@ -84,7 +97,9 @@ const PostForm = ({
         >
           Cancel
         </Link>
-        <Button type="submit">Publish</Button>
+        <Button type="submit" e>
+          Publish
+        </Button>
       </div>
     </form>
   );

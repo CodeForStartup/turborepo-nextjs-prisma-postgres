@@ -42,7 +42,7 @@ export const getPostById = async (id: number) => {
 
 export const createPost = async (data: Prisma.PostCreateInput) => {
   try {
-    const post = await prisma.post.create({
+    const newPost = await prisma.post.create({
       data: {
         title: data.title,
         content: data.content,
@@ -51,13 +51,15 @@ export const createPost = async (data: Prisma.PostCreateInput) => {
       select: postSelect,
     });
 
-    return post;
+    revalidatePath("user/posts");
+    revalidatePath(`user/posts/${newPost.id}`);
+    return newPost;
   } catch (error) {
     throw error;
   }
 };
 
-export const updatePost = async (id: number, data: Prisma.PostCreateInput) => {
+export const updatePost = async (id: number, data: Prisma.PostUpdateInput) => {
   try {
     const post = await prisma.post.update({
       where: {
@@ -66,6 +68,9 @@ export const updatePost = async (id: number, data: Prisma.PostCreateInput) => {
       data,
       select: postSelect,
     });
+
+    revalidatePath("user/posts");
+    revalidatePath(`user/posts/${id}`);
 
     return post;
   } catch (error) {
@@ -81,11 +86,11 @@ export const deletePost = async (id: number) => {
       },
     });
 
-    revalidatePath("user/posts");
-    revalidatePath(`user/posts/${id}`);
-
     return post;
   } catch (error) {
     throw error;
+  } finally {
+    revalidatePath("user/posts");
+    revalidatePath(`user/posts/${id}`);
   }
 };
