@@ -2,10 +2,11 @@
   "name": "database",
   "version": "0.0.0",
   "dependencies": {
-    "@prisma/client": "latest"
+    "@prisma/client": "^5.3.1"
   },
   "devDependencies": {
-    "prisma": "latest"
+    "@types/node": "^17.0.12",
+    "prisma": "^5.3.1"
   },
   "scripts": {
     "db:generate": "prisma generate",

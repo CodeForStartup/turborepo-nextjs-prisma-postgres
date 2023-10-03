@@ -8,7 +8,7 @@ export default async function Page({ params }: { params: { postId: string } }) {
 
   return (
     <Suspense fallback={<div>Loading...</div>}>
-      <PostForm defaultValues={post} />
+      <PostForm title={post.title} content={post.content} />
     </Suspense>
   );
 }

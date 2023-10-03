@@ -1,20 +1,16 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { deletePost } from "app/posts/post-handlers";
-import { Prisma } from "database";
+import { TPostItem, deletePost } from "app/posts/post-handlers";
 import dayjs from "dayjs";
-import { revalidatePath } from "next/cache";
 import Link from "next/link";
 
-export default function PostItem(post: Prisma.Post) {
+export default function PostItem(post: TPostItem) {
   const onDeletePost = async () => {
     await deletePost(post.id);
   };
