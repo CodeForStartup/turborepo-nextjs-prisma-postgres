@@ -97,7 +97,7 @@ const PostForm = ({
         >
           Cancel
         </Link>
-        <Button type="submit" e>
+        <Button type="submit" disabled={!isValid}>
           Publish
         </Button>
       </div>

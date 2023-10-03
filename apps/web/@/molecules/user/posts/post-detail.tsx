@@ -1,14 +1,13 @@
-import { Prisma } from "database";
-import dayjs from "dayjs";
 import Link from "next/link";
 import reactHtmlParser from "react-html-parser";
 import PostMeta from "./post-meta";
+import { TPostItem } from "app/posts/post-handlers";
 
 export type PostDetailProps = {
-  post: Prisma.Post;
+  post: TPostItem;
 };
 
-export default function PostDetail({ post }: { post: Prisma.Post }) {
+export default function PostDetail({ post }: PostDetailProps) {
   const shouldShowEditButton = true;
 
   return (
