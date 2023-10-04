@@ -19,8 +19,8 @@
 [ ] Register  
 [ ] Verify email   
 [ ] Forgot password  
-[ ] CRUD post  
-[ ] List post/Filter  
+[x] CRUD post  
+[x] List post/Filter  
 [ ] Like post  
 [ ] Comment post  
 [ ] Manage tags  
