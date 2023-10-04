@@ -14,17 +14,17 @@
 
 # Functions
 
-[ ] Login  
-[ ] Logout  
-[ ] Register  
-[ ] Verify email   
-[ ] Forgot password  
-[x] CRUD post  
-[x] List post/Filter  
-[ ] Like post  
-[ ] Comment post  
-[ ] Manage tags  
-[ ] Follow user  
+- [ ] Login  
+- [ ] Logout  
+- [ ] Register  
+- [ ] Verify email   
+- [ ] Forgot password  
+- [x] CRUD post  
+- [x] List post/Filter  
+- [ ] Like post  
+- [ ] Comment post  
+- [ ] Manage tags  
+- [ ] Follow user  
 
 # DEV NOTES
 
