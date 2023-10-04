@@ -1,5 +1,5 @@
 import React from "react";
-import { getPosts } from "./post-handlers";
+import { getPosts } from "./post-actions";
 import Link from "next/link";
 import PostItem from "@/molecules/user/posts/post-item";
 import { Button } from "@/components/ui/button";

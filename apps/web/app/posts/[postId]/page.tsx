@@ -1,4 +1,4 @@
-import { getPostById } from "../post-handlers";
+import { getPostById } from "../post-actions";
 import PostDetail from "@/molecules/user/posts/post-detail";
 
 export default async function Page({ params }: { params: { postId: string } }) {

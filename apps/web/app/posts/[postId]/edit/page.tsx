@@ -1,6 +1,6 @@
 import { Prisma } from "database";
 import PostForm from "../../create/post-form";
-import { getPostById, updatePost } from "../../post-handlers";
+import { getPostById, updatePost } from "../../post-actions";
 import { Suspense } from "react";
 
 export default async function Page({ params }: { params: { postId: string } }) {
