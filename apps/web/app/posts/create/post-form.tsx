@@ -7,13 +7,14 @@ import Editor from "@/molecules/editor";
 import InputTitle from "@/molecules/input-title";
 import Image from "next/image";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
-import { createPost, updatePost } from "../post-handlers";
+import { createPost, updatePost } from "../post-actions";
 import { useParams } from "next/navigation";
 import Link from "next/link";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { experimental_useFormStatus as useFormStatus } from "react-dom";
 
 const PostForm = ({
   title = "",
@@ -21,6 +22,7 @@ const PostForm = ({
 }: Partial<Prisma.PostCreateInput>) => {
   const router = useRouter();
   const { postId } = useParams();
+  const { pending } = useFormStatus();
 
   const postSchema = z.object({
     title: z.string(),
@@ -49,16 +51,10 @@ const PostForm = ({
         await updatePost(Number(postId), {
           ...data,
         });
-        toast.success("Post updated successfully", {
-          autoClose: 200,
-        });
-        router.push(`/posts/${postId}`);
       } else {
-        const newPost = await createPost({
+        await createPost({
           ...data,
         });
-        toast.success("Post published successfully");
-        router.push(`/posts/${newPost.id}`);
       }
     } catch (error) {
       toast.error(error.message);
@@ -97,7 +93,7 @@ const PostForm = ({
         >
           Cancel
         </Link>
-        <Button type="submit" disabled={!isValid}>
+        <Button type="submit" disabled={!isValid || pending}>
           Publish
         </Button>
       </div>

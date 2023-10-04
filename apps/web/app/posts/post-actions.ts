@@ -2,6 +2,7 @@
 
 import prisma, { Prisma } from "database";
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 
 const postSelect = {
   id: true,
@@ -64,12 +65,15 @@ export const createPost = async (
       select: postSelect,
     });
 
-    revalidatePath("user/posts");
-    revalidatePath(`user/posts/${newPost.id}`);
     return newPost;
   } catch (error) {
     throw error;
   }
+
+  revalidatePath("posts");
+  revalidatePath(`posts/${newPost.id}`);
+
+  redirect(`posts/${newPost.id}`);
 };
 
 export const updatePost = async (
@@ -84,14 +88,13 @@ export const updatePost = async (
       data,
       select: postSelect,
     });
-
-    revalidatePath("user/posts");
-    revalidatePath(`user/posts/${id}`);
-
-    return post;
+    revalidatePath("posts");
+    revalidatePath(`posts/${id}`);
   } catch (error) {
     throw error;
   }
+
+  redirect(`../../posts/${id}`);
 };
 
 export const deletePost = async (id: number): Promise<TPostItem> => {
@@ -103,10 +106,8 @@ export const deletePost = async (id: number): Promise<TPostItem> => {
       select: postSelect,
     });
 
-    revalidatePath("user/posts");
-    revalidatePath(`user/posts/${id}`);
-
-    return post;
+    revalidatePath("posts");
+    revalidatePath(`posts/${id}`);
   } catch (error) {
     throw error;
   }

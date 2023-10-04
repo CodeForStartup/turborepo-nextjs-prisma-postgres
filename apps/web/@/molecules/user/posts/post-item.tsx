@@ -6,7 +6,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { TPostItem, deletePost } from "app/posts/post-handlers";
+import { TPostItem, deletePost } from "app/posts/post-actions";
 import dayjs from "dayjs";
 import Link from "next/link";
 
