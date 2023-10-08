@@ -55,8 +55,9 @@ export const getPostById = async (id: number): Promise<TPostItem> => {
 export const createPost = async (
   data: Prisma.PostCreateInput
 ): Promise<TPostItem> => {
+  let newPost: TPostItem;
   try {
-    const newPost = await prisma.post.create({
+    newPost = await prisma.post.create({
       data: {
         title: data.title,
         content: data.content,
@@ -64,16 +65,12 @@ export const createPost = async (
       },
       select: postSelect,
     });
-
-    return newPost;
   } catch (error) {
     throw error;
   }
 
   revalidatePath("posts");
-  revalidatePath(`posts/${newPost.id}`);
-
-  redirect(`posts/${newPost.id}`);
+  redirect(newPost.id.toString());
 };
 
 export const updatePost = async (
@@ -81,7 +78,7 @@ export const updatePost = async (
   data: Prisma.PostUpdateInput
 ): Promise<TPostItem> => {
   try {
-    const post = await prisma.post.update({
+    await prisma.post.update({
       where: {
         id,
       },
@@ -97,9 +94,9 @@ export const updatePost = async (
   redirect(`../../posts/${id}`);
 };
 
-export const deletePost = async (id: number): Promise<TPostItem> => {
+export const deletePost = async (id: number): Promise<void> => {
   try {
-    const post = await prisma.post.delete({
+    await prisma.post.delete({
       where: {
         id,
       },
