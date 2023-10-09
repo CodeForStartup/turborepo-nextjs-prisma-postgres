@@ -1,10 +1,17 @@
 import React from "react";
 import { getPosts } from "./post-actions";
-import Link from "next/link";
 import PostItem from "@/molecules/user/posts/post-item";
-import { Button } from "@/components/ui/button";
+import { redirect } from "next/navigation";
+import { getServerSession } from "next-auth";
+import { authConfigs } from "configs/auth";
 
 export default async function Page() {
+  const session = await getServerSession(authConfigs);
+
+  if (!session) {
+    redirect("/signIn");
+  }
+
   const posts = await getPosts();
 
   return (
