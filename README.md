@@ -14,11 +14,11 @@
 
 # Functions
 
-- [ ] Login  
-- [ ] Logout  
-- [ ] Register  
-- [ ] Verify email   
-- [ ] Forgot password  
+- [x] Login  
+- [x] Logout  
+- [x] Register  
+- [x] Verify email   
+- [x] Forgot password  
 - [x] CRUD post  
 - [x] List post/Filter  
 - [ ] Like post  
