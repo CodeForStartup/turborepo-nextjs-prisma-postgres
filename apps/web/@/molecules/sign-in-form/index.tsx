@@ -46,7 +46,11 @@ export default function SignInForm() {
         <Button
           variant="outline"
           type="button"
-          onClick={() => signIn("github")}
+          onClick={() =>
+            signIn("github", {
+              callbackUrl: "/",
+            })
+          }
         >
           <GithubIcon size={16} />
           <span className="ml-2">GitHub</span>
