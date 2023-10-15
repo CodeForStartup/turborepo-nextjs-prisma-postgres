@@ -61,7 +61,7 @@ export const createPost = async (
       data: {
         title: data.title,
         content: data.content,
-        authorId: 1, // Temporary until we have authentication
+        authorId: "1", // Temporary until we have authentication
       },
       select: postSelect,
     });
