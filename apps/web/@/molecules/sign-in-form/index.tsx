@@ -1,19 +1,19 @@
 "use client";
 
-import Link from "next/link";
-import PostItem from "@/molecules/user/posts/post-item";
-import { useSession } from "next-auth/react";
-import { redirect } from "next/navigation";
 import { signIn } from "next-auth/react";
 import { Button } from "@/components/ui/button";
 import { GithubIcon, LoaderIcon } from "lucide-react";
-import PageTitle from "@/molecules/page-title";
-import { cn } from "@/lib/utils";
 import { Label } from "@radix-ui/react-dropdown-menu";
 import { Input } from "@/components/ui/input";
-import { sign } from "crypto";
 
 export default function SignInForm() {
+  const onSignIn = async (e) => {
+    e.preventDefault();
+    await signIn("github", {
+      callbackUrl: "/",
+    });
+  };
+
   return (
     <div className="mt-16 flex flex-1 justify-center">
       <div className="w-full max-w-md grid grid-6">
@@ -43,15 +43,7 @@ export default function SignInForm() {
             </span>
           </div>
         </div>
-        <Button
-          variant="outline"
-          type="button"
-          onClick={() =>
-            signIn("github", {
-              callbackUrl: "/",
-            })
-          }
-        >
+        <Button variant="outline" type="button" onClick={onSignIn}>
           <GithubIcon size={16} />
           <span className="ml-2">GitHub</span>
         </Button>

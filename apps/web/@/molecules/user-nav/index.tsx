@@ -22,7 +22,7 @@ export function UserNav() {
           <Avatar className="h-9 w-9">
             <AvatarImage src={data?.user?.image || ""} alt="@shadcn" />
             <AvatarFallback>
-              {(data?.user?.name || "CO").slice(0, 1)}
+              {(data?.user?.name || "CO").slice(0, 2)}
             </AvatarFallback>
           </Avatar>
         </Button>
