@@ -33,7 +33,7 @@ export default function Nav() {
           </div>
         ) : session ? (
           <div className="flex gap-8">
-            <Link href="/posts/create">
+            <Link href="/user/posts/create">
               <div className="flex gap-1 items-center font-bold text-slate-500 pt-1">
                 <Edit className="inline-block ml-2" size={16} />
                 Write
