@@ -1,5 +1,5 @@
 // generate react component meta data for post with author, date, and tags
-import { TPostItem } from "app/posts/post-actions";
+import { TPostItem } from "app/user/posts/post-actions";
 import { Prisma } from "database";
 import dayjs from "dayjs";
 import Link from "next/link";

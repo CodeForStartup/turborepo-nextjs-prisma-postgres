@@ -16,29 +16,15 @@ export default function PostItem(post: TPostItem) {
   };
 
   return (
-    <div className="py-4 flex flex-1 justify-between">
+    <div className="py-4 flex">
       <div className="flex-1">
-        <Link href={`posts/${post.id}/edit`}>
+        <Link href={`posts/${post.id}`}>
           <h2 className="text-2xl font-bold text-slate-700">{post.title}</h2>
           <div className="text-xs mt-1 text-gray-400">
             Last edited: {dayjs(post.createdAt).format("MMMM D, YYYY")}
           </div>
         </Link>
       </div>
-      <DropdownMenu>
-        <DropdownMenuTrigger>
-          <i className="ri-more-2-fill" />
-        </DropdownMenuTrigger>
-        <DropdownMenuContent>
-          <DropdownMenuItem>
-            <Link href={`posts/${post.id}`}>Preview</Link>
-          </DropdownMenuItem>
-          <DropdownMenuItem>
-            <Link href={`posts/${post.id}/edit`}>Edit</Link>
-          </DropdownMenuItem>
-          <DropdownMenuItem onClick={onDeletePost}>Delete</DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
     </div>
   );
 }

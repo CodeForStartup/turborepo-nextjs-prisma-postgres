@@ -1,6 +1,8 @@
 "use server";
 
 import prisma, { Prisma } from "database";
+import { getServerSession } from "next-auth";
+import { getSession } from "next-auth/react";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
@@ -56,12 +58,13 @@ export const createPost = async (
   data: Prisma.PostCreateInput
 ): Promise<TPostItem> => {
   let newPost: TPostItem;
+
   try {
     newPost = await prisma.post.create({
       data: {
         title: data.title,
         content: data.content,
-        authorId: 1, // Temporary until we have authentication
+        authorId: "1", // Temporary until we have authentication
       },
       select: postSelect,
     });

@@ -1,16 +1,7 @@
-import { getServerSession } from "next-auth";
-import { getPostById } from "../post-actions";
-import PostDetail from "@/molecules/user/posts/post-detail";
-import { authConfigs } from "configs/auth";
-import { redirect } from "next/navigation";
+import { getPostById } from "app/post-actions";
+import PostDetail from "@/molecules/posts/post-detai";
 
 export default async function Page({ params }: { params: { postId: string } }) {
-  const session = await getServerSession(authConfigs);
-
-  if (!session) {
-    redirect("/signIn");
-  }
-
   const post = await getPostById(Number(params?.postId));
 
   return (
