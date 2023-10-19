@@ -1,7 +1,7 @@
-import PostItem from "@/molecules/posts/post-item";
-import { getPosts } from "../post-actions";
-import SidebarItem, { SidebarItemProps } from "@/molecules/sidbar-item";
-import { BookCopy, HomeIcon, Smartphone, TagIcon } from "lucide-react";
+import PostItem from "@/molecules/posts/post-item"
+import { getPosts } from "../post-actions"
+import SidebarItem, { SidebarItemProps } from "@/molecules/sidbar-item"
+import { BookCopy, HomeIcon, Smartphone, TagIcon } from "lucide-react"
 
 const SIDE_BAR = [
   {
@@ -24,10 +24,10 @@ const SIDE_BAR = [
     link: "/about",
     icons: <BookCopy size={16} />,
   },
-] as Array<SidebarItemProps>;
+] as Array<SidebarItemProps>
 
 export default async function Page() {
-  const posts = await getPosts();
+  const posts = await getPosts()
 
   return (
     <div className="">
@@ -48,5 +48,5 @@ export default async function Page() {
         ))}
       </div>
     </div>
-  );
+  )
 }
