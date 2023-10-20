@@ -10,9 +10,17 @@
     "@turbo/gen": "^1.9.7",
     "eslint": "^7.32.0",
     "eslint-config-custom": "workspace:*",
-    "prettier": "^2.5.1",
-    "turbo": "latest"
+    "prettier": "^2.8.8",
+    "turbo": "latest",
+    "prettier-plugin-tailwindcss": "^0.5.3",
+    "@trivago/prettier-plugin-sort-imports": "^4.2.0"
   },
   "packageManager": "pnpm@8.6.10",
-  "name": "codeforstartup"
+  "name": "codeforstartup",
+  "description": "Code for Startup: Blogging for Developers",
+  "version": "1.0.0",
+  "main": ".eslintrc.js",
+  "author": "",
+  "license": "ISC",
+  "type": "module"
 }

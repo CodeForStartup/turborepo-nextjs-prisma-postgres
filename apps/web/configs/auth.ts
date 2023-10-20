@@ -1,7 +1,7 @@
-import { PrismaAdapter } from "@auth/prisma-adapter"
-import prisma from "database"
-import { NextAuthOptions } from "next-auth"
-import GithubProvider from "next-auth/providers/github"
+import { PrismaAdapter } from "@auth/prisma-adapter";
+import prisma from "database";
+import { NextAuthOptions } from "next-auth";
+import GithubProvider from "next-auth/providers/github";
 
 export const authConfigs = {
   adapter: PrismaAdapter(prisma),
@@ -14,4 +14,4 @@ export const authConfigs = {
   jwt: {
     secret: process.env.JWT_SECRET,
   },
-} satisfies NextAuthOptions
+} satisfies NextAuthOptions;
