@@ -1,7 +1,8 @@
-import { getPosts } from "../post-actions"
+import { BookCopy, HomeIcon, Smartphone, TagIcon } from "lucide-react"
+
 import PostItem from "@/molecules/posts/post-item"
 import SidebarItem, { SidebarItemProps } from "@/molecules/sidbar-item"
-import { BookCopy, HomeIcon, Smartphone, TagIcon } from "lucide-react"
+import { getPosts } from "../post-actions"
 
 const SIDE_BAR = [
   {

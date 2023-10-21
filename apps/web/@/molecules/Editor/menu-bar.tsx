@@ -1,5 +1,6 @@
-import MenuItem from "./menu-item"
 import React, { Fragment } from "react"
+
+import MenuItem from "./menu-item"
 
 export default ({ editor }) => {
   const items = [

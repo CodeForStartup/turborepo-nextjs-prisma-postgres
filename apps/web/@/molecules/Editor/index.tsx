@@ -1,12 +1,14 @@
 "use client"
 
 import "./index.css"
-import MenuBar from "./menu-bar"
+
+import React, { FormEventHandler } from "react"
 import CharacterCount from "@tiptap/extension-character-count"
 import Placeholder from "@tiptap/extension-placeholder"
 import { EditorContent, useEditor } from "@tiptap/react"
 import StarterKit from "@tiptap/starter-kit"
-import React, { FormEventHandler } from "react"
+
+import MenuBar from "./menu-bar"
 
 type EditorProps = {
   content?: string

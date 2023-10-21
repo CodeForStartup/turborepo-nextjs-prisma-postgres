@@ -11,8 +11,8 @@ module.exports = {
   bracketSameLine: false,
   importOrderSeparation: true,
   importOrderSortSpecifiers: true,
-  importOrder: ["<THIRD_PARTY_MODULES>", "", "^@/", "^[.][.]/", "^[.]/"],
+  importOrder: ["^react$", "<THIRD_PARTY_MODULES>", "", "^@/", "^[.][.]/", "^[.]/"],
   pluginSearchDirs: ["."],
   tailwindConfig: "./apps/web/tailwind.config.js",
-  plugins: ['@trivago/prettier-plugin-sort-imports', 'prettier-plugin-tailwindcss'],
+  plugins: ['@ianvs/prettier-plugin-sort-imports', 'prettier-plugin-tailwindcss'],
 }

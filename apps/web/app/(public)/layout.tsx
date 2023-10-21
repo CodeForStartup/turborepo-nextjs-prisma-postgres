@@ -1,5 +1,6 @@
-import SidebarItem, { SidebarItemProps } from "@/molecules/sidbar-item"
 import { BookCopy, HomeIcon, Smartphone, TagIcon } from "lucide-react"
+
+import SidebarItem, { SidebarItemProps } from "@/molecules/sidbar-item"
 
 const SIDE_BAR = [
   {

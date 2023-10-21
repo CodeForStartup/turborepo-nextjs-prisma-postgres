@@ -1,9 +1,10 @@
-import PageTitle from "@/molecules/page-title"
-import SignInForm from "@/molecules/sign-in-form"
+import React from "react"
 import { authConfigs } from "configs/auth"
 import { getServerSession } from "next-auth"
 import { redirect } from "next/navigation"
-import React from "react"
+
+import PageTitle from "@/molecules/page-title"
+import SignInForm from "@/molecules/sign-in-form"
 
 export default async function Page() {
   const session = await getServerSession(authConfigs)

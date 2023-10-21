@@ -1,10 +1,11 @@
 "use client"
 
-import { UserNav } from "../user-nav"
 import { Edit } from "lucide-react"
 import { useSession } from "next-auth/react"
 import Image from "next/image"
 import Link from "next/link"
+
+import { UserNav } from "../user-nav"
 
 export default function Nav() {
   const { data: session, status } = useSession()

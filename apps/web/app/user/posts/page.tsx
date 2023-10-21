@@ -1,9 +1,10 @@
-import { getPosts } from "./post-actions"
-import PostItem from "@/molecules/user/posts/post-item"
+import React from "react"
 import { authConfigs } from "configs/auth"
 import { getServerSession } from "next-auth"
 import { redirect } from "next/navigation"
-import React from "react"
+
+import PostItem from "@/molecules/user/posts/post-item"
+import { getPosts } from "./post-actions"
 
 export default async function Page() {
   const session = await getServerSession(authConfigs)
