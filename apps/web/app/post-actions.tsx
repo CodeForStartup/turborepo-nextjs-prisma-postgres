@@ -1,8 +1,8 @@
-"use server";
+"use server"
 
-import prisma, { Prisma } from "database";
-import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
+import prisma, { Prisma } from "database"
+import { revalidatePath } from "next/cache"
+import { redirect } from "next/navigation"
 
 const postSelect = {
   id: true,
@@ -17,25 +17,25 @@ const postSelect = {
       email: true,
     },
   },
-} satisfies Prisma.PostSelect;
+} satisfies Prisma.PostSelect
 
 const getPostItem = Prisma.validator<Prisma.PostDefaultArgs>()({
   select: postSelect,
-});
+})
 
-export type TPostItem = Prisma.PostGetPayload<typeof getPostItem>;
+export type TPostItem = Prisma.PostGetPayload<typeof getPostItem>
 
 export const getPosts = async (): Promise<TPostItem[]> => {
   try {
     const posts = await prisma.post.findMany({
       select: postSelect,
-    });
+    })
 
-    return posts;
+    return posts
   } catch (error) {
-    throw error;
+    throw error
   }
-};
+}
 
 export const getPostById = async (id: number): Promise<TPostItem> => {
   try {
@@ -44,10 +44,10 @@ export const getPostById = async (id: number): Promise<TPostItem> => {
         id,
       },
       select: postSelect,
-    });
+    })
 
-    return post;
+    return post
   } catch (error) {
-    throw error;
+    throw error
   }
-};
+}

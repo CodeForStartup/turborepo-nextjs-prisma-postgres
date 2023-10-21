@@ -1,11 +1,11 @@
-import React from "react";
+import React from "react"
 
 type MenuItemProps = {
-  icon?: string;
-  title?: string;
-  isActive?: () => boolean;
-  action?: () => void;
-};
+  icon?: string
+  title?: string
+  isActive?: () => boolean
+  action?: () => void
+}
 
 export default ({ icon, title, action, isActive = null }: MenuItemProps) => (
   <button
@@ -15,4 +15,4 @@ export default ({ icon, title, action, isActive = null }: MenuItemProps) => (
   >
     <i className={`ri-${icon}`}></i>
   </button>
-);
+)

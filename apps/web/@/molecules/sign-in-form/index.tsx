@@ -1,22 +1,22 @@
-"use client";
+"use client"
 
-import { signIn } from "next-auth/react";
-import { Button } from "@/components/ui/button";
-import { GithubIcon, LoaderIcon } from "lucide-react";
-import { Label } from "@radix-ui/react-dropdown-menu";
-import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Label } from "@radix-ui/react-dropdown-menu"
+import { GithubIcon, LoaderIcon } from "lucide-react"
+import { signIn } from "next-auth/react"
 
 export default function SignInForm() {
   const onSignIn = async (e) => {
-    e.preventDefault();
+    e.preventDefault()
     await signIn("github", {
       callbackUrl: "/",
-    });
-  };
+    })
+  }
 
   return (
     <div className="mt-16 flex flex-1 justify-center">
-      <div className="w-full max-w-md grid grid-6">
+      <div className="grid-6 grid w-full max-w-md">
         <form>
           <div className="grid gap-2">
             <div className="grid gap-1">
@@ -37,10 +37,8 @@ export default function SignInForm() {
           <div className="absolute inset-0 flex items-center">
             <span className="w-full border-t" />
           </div>
-          <div className="relative flex justify-center text-xs uppercase py-4">
-            <span className="bg-background px-2 text-muted-foreground">
-              Or continue with
-            </span>
+          <div className="relative flex justify-center py-4 text-xs uppercase">
+            <span className="bg-background px-2 text-muted-foreground">Or continue with</span>
           </div>
         </div>
         <Button variant="outline" type="button" onClick={onSignIn}>
@@ -49,5 +47,5 @@ export default function SignInForm() {
         </Button>
       </div>
     </div>
-  );
+  )
 }

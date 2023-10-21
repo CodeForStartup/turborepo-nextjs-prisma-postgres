@@ -1,41 +1,36 @@
-"use client";
+"use client"
 
-import { useSession } from "next-auth/react";
-import Image from "next/image";
-import { UserNav } from "../user-nav";
-import Link from "next/link";
-import { Edit } from "lucide-react";
+import { UserNav } from "../user-nav"
+import { Edit } from "lucide-react"
+import { useSession } from "next-auth/react"
+import Image from "next/image"
+import Link from "next/link"
 
 export default function Nav() {
-  const { data: session, status } = useSession();
+  const { data: session, status } = useSession()
 
-  const isLoading = status === "loading";
+  const isLoading = status === "loading"
 
   return (
-    <div className="flex mx-auto p-4 sm:px-6 items-center lg:px-8 border-b">
-      <div className="container justify-between flex items-center max-w-6xl">
+    <div className="mx-auto flex items-center border-b p-4 sm:px-6 lg:px-8">
+      <div className="container flex max-w-6xl items-center justify-between">
         <div className="flex items-center">
-          <div className="text-2xl font-bold mr-4">
+          <div className="mr-4 text-2xl font-bold">
             <a href="/">
-              <Image
-                alt="codeforstartup.com"
-                src="/assets/logo.png"
-                width={40}
-                height={40}
-              />
+              <Image alt="codeforstartup.com" src="/assets/logo.png" width={40} height={40} />
             </a>
           </div>
         </div>
 
         {isLoading ? (
           <div className="flex items-center">
-            <div className="w-8 h-8 bg-gray-200 rounded-full animate-pulse" />
+            <div className="h-8 w-8 animate-pulse rounded-full bg-gray-200" />
           </div>
         ) : session ? (
           <div className="flex gap-8">
             <Link href="/user/posts/create">
-              <div className="flex gap-1 items-center font-bold text-slate-500 pt-1">
-                <Edit className="inline-block ml-2" size={16} />
+              <div className="flex items-center gap-1 pt-1 font-bold text-slate-500">
+                <Edit className="ml-2 inline-block" size={16} />
                 Write
               </div>
             </Link>
@@ -44,7 +39,7 @@ export default function Nav() {
         ) : (
           <div className="flex items-center">
             <Link
-              className="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2"
+              className="inline-flex h-10 items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground ring-offset-background transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
               href="/signIn"
             >
               Sign in
@@ -53,5 +48,5 @@ export default function Nav() {
         )}
       </div>
     </div>
-  );
+  )
 }

@@ -1,0 +1,18 @@
+module.exports = {
+  semi: false,
+  printWidth: 100,
+  trailingComma: "es5",
+  arrowParens: "always",
+  tabWidth: 2,
+  useTabs: false,
+  quoteProps: "as-needed",
+  jsxSingleQuote: false,
+  bracketSpacing: true,
+  bracketSameLine: false,
+  importOrderSeparation: true,
+  importOrderSortSpecifiers: true,
+  importOrder: ["<THIRD_PARTY_MODULES>", "", "^@/", "^[.][.]/", "^[.]/"],
+  pluginSearchDirs: ["."],
+  tailwindConfig: "./apps/web/tailwind.config.js",
+  plugins: ['@trivago/prettier-plugin-sort-imports', 'prettier-plugin-tailwindcss'],
+}

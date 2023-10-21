@@ -1,26 +1,26 @@
-"use client";
+"use client"
 
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { TPostItem, deletePost } from "app/user/posts/post-actions";
-import dayjs from "dayjs";
-import Link from "next/link";
+} from "@/components/ui/dropdown-menu"
+import { TPostItem, deletePost } from "app/user/posts/post-actions"
+import dayjs from "dayjs"
+import Link from "next/link"
 
 export default function PostItem(post: TPostItem) {
   const onDeletePost = async () => {
-    await deletePost(post.id);
-  };
+    await deletePost(post.id)
+  }
 
   return (
-    <div className="py-4 flex flex-1 justify-between">
+    <div className="flex flex-1 justify-between py-4">
       <div className="flex-1">
         <Link href={`posts/${post.id}/edit`}>
           <h2 className="text-2xl font-bold text-slate-700">{post.title}</h2>
-          <div className="text-xs mt-1 text-gray-400">
+          <div className="mt-1 text-xs text-gray-400">
             Last edited: {dayjs(post.createdAt).format("MMMM D, YYYY")}
           </div>
         </Link>
@@ -40,5 +40,5 @@ export default function PostItem(post: TPostItem) {
         </DropdownMenuContent>
       </DropdownMenu>
     </div>
-  );
+  )
 }

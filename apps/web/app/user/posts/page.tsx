@@ -1,24 +1,24 @@
-import React from "react";
-import { getPosts } from "./post-actions";
-import PostItem from "@/molecules/user/posts/post-item";
-import { redirect } from "next/navigation";
-import { getServerSession } from "next-auth";
-import { authConfigs } from "configs/auth";
+import { getPosts } from "./post-actions"
+import PostItem from "@/molecules/user/posts/post-item"
+import { authConfigs } from "configs/auth"
+import { getServerSession } from "next-auth"
+import { redirect } from "next/navigation"
+import React from "react"
 
 export default async function Page() {
-  const session = await getServerSession(authConfigs);
+  const session = await getServerSession(authConfigs)
 
   if (!session) {
-    redirect("/signIn");
+    redirect("/signIn")
   }
 
-  const posts = await getPosts();
+  const posts = await getPosts()
 
   return (
     <div>
       <div className="flex justify-between">
         <div>
-          <h1 className="text-4xl text-slate-700 font-extrabold">POSTS</h1>
+          <h1 className="text-4xl font-extrabold text-slate-700">POSTS</h1>
           <p className="mt-1">Create, edit, and manage your posts.</p>
         </div>
       </div>
@@ -30,5 +30,5 @@ export default async function Page() {
         )}
       </div>
     </div>
-  );
+  )
 }

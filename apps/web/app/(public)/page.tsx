@@ -1,7 +1,7 @@
-import PostItem from "@/molecules/posts/post-item";
-import { getPosts } from "../post-actions";
-import SidebarItem, { SidebarItemProps } from "@/molecules/sidbar-item";
-import { BookCopy, HomeIcon, Smartphone, TagIcon } from "lucide-react";
+import { getPosts } from "../post-actions"
+import PostItem from "@/molecules/posts/post-item"
+import SidebarItem, { SidebarItemProps } from "@/molecules/sidbar-item"
+import { BookCopy, HomeIcon, Smartphone, TagIcon } from "lucide-react"
 
 const SIDE_BAR = [
   {
@@ -24,21 +24,21 @@ const SIDE_BAR = [
     link: "/about",
     icons: <BookCopy size={16} />,
   },
-] as Array<SidebarItemProps>;
+] as Array<SidebarItemProps>
 
 export default async function Page() {
-  const posts = await getPosts();
+  const posts = await getPosts()
 
   return (
     <div className="">
       <div className="flex gap-2">
-        <div className="bg-slate-200 py-1 px-2 text-slate-500 uppercase text-sm rounded-sm">
+        <div className="rounded-sm bg-slate-200 px-2 py-1 text-sm uppercase text-slate-500">
           Newest
         </div>
-        <div className="bg-slate-200 py-1 px-2 text-slate-500 uppercase text-sm rounded-sm">
+        <div className="rounded-sm bg-slate-200 px-2 py-1 text-sm uppercase text-slate-500">
           Hot
         </div>
-        <div className="bg-slate-200 py-1 px-2 text-slate-500 uppercase text-sm rounded-sm">
+        <div className="rounded-sm bg-slate-200 px-2 py-1 text-sm uppercase text-slate-500">
           Trending
         </div>
       </div>
@@ -48,5 +48,5 @@ export default async function Page() {
         ))}
       </div>
     </div>
-  );
+  )
 }
