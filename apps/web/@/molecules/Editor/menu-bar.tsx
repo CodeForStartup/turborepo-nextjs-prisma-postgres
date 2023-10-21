@@ -1,5 +1,5 @@
-import React, { Fragment } from "react";
-import MenuItem from "./menu-item";
+import MenuItem from "./menu-item"
+import React, { Fragment } from "react"
 
 export default ({ editor }) => {
   const items = [
@@ -118,19 +118,15 @@ export default ({ editor }) => {
       title: "Redo",
       action: () => editor.chain().focus().redo().run(),
     },
-  ];
+  ]
 
   return (
     <div className="editor__header">
       {items.map((item, index) => (
         <Fragment key={index}>
-          {item.type === "divider" ? (
-            <div className="divider" />
-          ) : (
-            <MenuItem {...item} />
-          )}
+          {item.type === "divider" ? <div className="divider" /> : <MenuItem {...item} />}
         </Fragment>
       ))}
     </div>
-  );
-};
+  )
+}

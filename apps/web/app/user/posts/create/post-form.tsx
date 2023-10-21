@@ -1,28 +1,24 @@
-"use client";
+"use client"
 
-import { Prisma } from "database";
+import { createPost, updatePost } from "../post-actions"
+import { Button } from "@/components/ui/button"
+import Editor from "@/molecules/editor"
+import InputTitle from "@/molecules/input-title"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { Prisma } from "database"
+import Image from "next/image"
+import Link from "next/link"
+import { useParams } from "next/navigation"
+import { useRouter } from "next/navigation"
+import { useFormStatus } from "react-dom"
+import { Controller, SubmitHandler, useForm } from "react-hook-form"
+import { toast } from "react-toastify"
+import z from "zod"
 
-import { Button } from "@/components/ui/button";
-import Editor from "@/molecules/editor";
-import InputTitle from "@/molecules/input-title";
-import Image from "next/image";
-import { useForm, Controller, SubmitHandler } from "react-hook-form";
-import { createPost, updatePost } from "../post-actions";
-import { useParams } from "next/navigation";
-import Link from "next/link";
-import { toast } from "react-toastify";
-import { useRouter } from "next/navigation";
-import z from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useFormStatus } from "react-dom";
-
-const PostForm = ({
-  title = "",
-  content = "",
-}: Partial<Prisma.PostCreateInput>) => {
-  const router = useRouter();
-  const { postId } = useParams();
-  const { pending } = useFormStatus();
+const PostForm = ({ title = "", content = "" }: Partial<Prisma.PostCreateInput>) => {
+  const router = useRouter()
+  const { postId } = useParams()
+  const { pending } = useFormStatus()
 
   const postSchema = z.object({
     title: z.string(),
@@ -31,7 +27,7 @@ const PostForm = ({
       .max(10000, "Content must be at most 10000 characters")
       .optional()
       .nullable(),
-  }) satisfies z.ZodType<Partial<Prisma.PostCreateInput>>;
+  }) satisfies z.ZodType<Partial<Prisma.PostCreateInput>>
 
   const {
     control,
@@ -43,52 +39,43 @@ const PostForm = ({
       content,
     },
     resolver: zodResolver(postSchema),
-  });
+  })
 
   const handleSubmitPost = async (data) => {
     try {
       if (postId) {
         await updatePost(Number(postId), {
           ...data,
-        });
+        })
       } else {
         await createPost({
           ...data,
-        });
+        })
       }
     } catch (error) {
-      toast.error(error.message);
+      toast.error(error.message)
     }
-  };
+  }
 
   return (
-    <form
-      className="mx-auto w-full max-w-6xl"
-      onSubmit={handleSubmit(handleSubmitPost)}
-    >
-      <div className="mx-auto w-full max-w-6xl mt-8">
+    <form className="mx-auto w-full max-w-6xl" onSubmit={handleSubmit(handleSubmitPost)}>
+      <div className="mx-auto mt-8 w-full max-w-6xl">
         <Controller
           name="title"
           control={control}
-          render={({ field }) => (
-            <InputTitle placeholder="Title..." {...field} />
-          )}
+          render={({ field }) => <InputTitle placeholder="Title..." {...field} />}
         />
         <Controller
           name="content"
           control={control}
           render={({ field }) => (
-            <Editor
-              content={field?.value}
-              placeholder="Content..."
-              {...field}
-            />
+            <Editor content={field?.value} placeholder="Content..." {...field} />
           )}
         />
       </div>
       <div className="flex justify-end p-2">
         <Link
-          className="flex items-center justify-center rounded-md text-sm font-medium mr-4 h-10"
+          className="mr-4 flex h-10 items-center justify-center rounded-md text-sm font-medium"
           href="/posts"
         >
           Cancel
@@ -98,7 +85,7 @@ const PostForm = ({
         </Button>
       </div>
     </form>
-  );
-};
+  )
+}
 
-export default PostForm;
+export default PostForm

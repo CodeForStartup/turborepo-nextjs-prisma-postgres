@@ -1,4 +1,4 @@
-import { Skeleton } from "@/components/ui/skeleton";
+import { Skeleton } from "@/components/ui/skeleton"
 
 export default function UserPostLoading() {
   return (
@@ -12,11 +12,11 @@ export default function UserPostLoading() {
             <Skeleton className="h-24 w-24" />
             <div className="flex-1">
               <Skeleton className="h-12" />
-              <Skeleton className="h-4 w-full mt-2" />
+              <Skeleton className="mt-2 h-4 w-full" />
             </div>
           </div>
         ))}
       </div>
     </div>
-  );
+  )
 }

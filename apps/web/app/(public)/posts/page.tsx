@@ -1,7 +1,7 @@
-import { redirect } from "next/navigation";
+import { redirect } from "next/navigation"
 
 export default async function Page() {
-  redirect("/");
+  redirect("/")
 
-  return null;
+  return null
 }

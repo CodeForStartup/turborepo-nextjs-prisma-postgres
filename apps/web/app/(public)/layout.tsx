@@ -1,5 +1,5 @@
-import SidebarItem, { SidebarItemProps } from "@/molecules/sidbar-item";
-import { BookCopy, HomeIcon, Smartphone, TagIcon } from "lucide-react";
+import SidebarItem, { SidebarItemProps } from "@/molecules/sidbar-item"
+import { BookCopy, HomeIcon, Smartphone, TagIcon } from "lucide-react"
 
 const SIDE_BAR = [
   {
@@ -22,15 +22,11 @@ const SIDE_BAR = [
     link: "/about",
     icons: <BookCopy size={16} />,
   },
-] as Array<SidebarItemProps>;
+] as Array<SidebarItemProps>
 
-export default async function PublicLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default async function PublicLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="w-full grid grid-cols-12">
+    <div className="grid w-full grid-cols-12">
       <div className="col-span-3">
         {SIDE_BAR.map((item) => (
           <div key={item.label} className="mb-4">
@@ -41,5 +37,5 @@ export default async function PublicLayout({
       <div className="col-span-12 md:col-span-7">{children}</div>
       <div className="hide md:col-span-2"></div>
     </div>
-  );
+  )
 }

@@ -1,11 +1,11 @@
-import Link from "next/link";
-import reactHtmlParser from "react-html-parser";
-import { TPostItem } from "app/user/posts/post-actions";
-import PostMeta from "@/molecules/user/posts/post-meta";
+import PostMeta from "@/molecules/user/posts/post-meta"
+import { TPostItem } from "app/user/posts/post-actions"
+import Link from "next/link"
+import reactHtmlParser from "react-html-parser"
 
 export type PostDetailProps = {
-  post: TPostItem;
-};
+  post: TPostItem
+}
 
 export default function PostDetail({ post }: PostDetailProps) {
   return (
@@ -18,5 +18,5 @@ export default function PostDetail({ post }: PostDetailProps) {
 
       <div className="mt-12">{reactHtmlParser(post.content)}</div>
     </div>
-  );
+  )
 }

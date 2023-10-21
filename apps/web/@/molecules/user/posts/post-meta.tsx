@@ -1,26 +1,24 @@
 // generate react component meta data for post with author, date, and tags
-import { TPostItem } from "app/user/posts/post-actions";
-import { Prisma } from "database";
-import dayjs from "dayjs";
-import Link from "next/link";
+import { TPostItem } from "app/user/posts/post-actions"
+import { Prisma } from "database"
+import dayjs from "dayjs"
+import Link from "next/link"
 
 export type PostMetaProps = {
-  post: TPostItem;
-};
+  post: TPostItem
+}
 
 export default function PostMeta({ post }: PostMetaProps) {
   // TODO: implement edit button
-  const shouldShowEditButton = true;
+  const shouldShowEditButton = true
 
   return (
-    <div className="flex items-center mt-6">
+    <div className="mt-6 flex items-center">
       <Link href={`/users/${post.author.id}`}>
         <div className="flex items-center">
           <i className="ri-user-3-line text-3xl text-gray-500" />
-          <div className="flex flex-col ml-2">
-            <div className="text-sm font-bold text-gray-500">
-              {post.author.name}
-            </div>
+          <div className="ml-2 flex flex-col">
+            <div className="text-sm font-bold text-gray-500">{post.author.name}</div>
             <div className="text-sm text-gray-400">
               Posted on {dayjs(post.createdAt).format("MMMM D, YYYY")}
             </div>
@@ -28,5 +26,5 @@ export default function PostMeta({ post }: PostMetaProps) {
         </div>
       </Link>
     </div>
-  );
+  )
 }
