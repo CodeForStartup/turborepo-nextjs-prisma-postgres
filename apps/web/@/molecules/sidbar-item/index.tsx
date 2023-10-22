@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link"
+import { usePathname } from "next/navigation"
 
 import { cn } from "@/lib/utils"
 
@@ -11,7 +12,9 @@ export type SidebarItemProps = {
 }
 
 export default function SidebarItem({ label, link, icons }: SidebarItemProps) {
-  const isActive = link === window.location.pathname
+  const currentPathname = usePathname()
+
+  const isActive = link === currentPathname
 
   return (
     <Link href={link}>

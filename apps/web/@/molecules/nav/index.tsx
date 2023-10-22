@@ -1,16 +1,13 @@
-"use client"
-
+import { authConfigs } from "configs/auth"
 import { Edit } from "lucide-react"
-import { useSession } from "next-auth/react"
+import { getServerSession } from "next-auth"
 import Image from "next/image"
 import Link from "next/link"
 
 import { UserNav } from "../user-nav"
 
-export default function Nav() {
-  const { data: session, status } = useSession()
-
-  const isLoading = status === "loading"
+export default async function Nav() {
+  const session = await getServerSession(authConfigs)
 
   return (
     <div className="mx-auto flex items-center border-b p-4 sm:px-6 lg:px-8">
@@ -23,11 +20,7 @@ export default function Nav() {
           </div>
         </div>
 
-        {isLoading ? (
-          <div className="flex items-center">
-            <div className="h-8 w-8 animate-pulse rounded-full bg-gray-200" />
-          </div>
-        ) : session ? (
+        {session?.user ? (
           <div className="flex gap-8">
             <Link href="/user/posts/create">
               <div className="flex items-center gap-1 pt-1 font-bold text-slate-500">
