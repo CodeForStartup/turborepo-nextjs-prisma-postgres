@@ -1,10 +1,11 @@
 "use client"
 
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
 import { Label } from "@radix-ui/react-dropdown-menu"
 import { GithubIcon, LoaderIcon } from "lucide-react"
 import { signIn } from "next-auth/react"
+
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
 
 export default function SignInForm() {
   const onSignIn = async (e) => {

@@ -1,14 +1,15 @@
 "use client"
 
+import { deletePost, TPostItem } from "app/user/posts/post-actions"
+import dayjs from "dayjs"
+import Link from "next/link"
+
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { TPostItem, deletePost } from "app/user/posts/post-actions"
-import dayjs from "dayjs"
-import Link from "next/link"
 
 export default function PostItem(post: TPostItem) {
   const onDeletePost = async () => {

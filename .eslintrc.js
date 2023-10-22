@@ -7,4 +7,9 @@ module.exports = {
       rootDir: ["apps/*/"],
     },
   },
+  parserOptions: {
+    babelOptions: {
+      presets: [require.resolve('next/babel')],
+    },
+  },
 };

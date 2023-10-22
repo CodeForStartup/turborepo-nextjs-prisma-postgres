@@ -1,9 +1,10 @@
-import PostForm from "../../create/post-form"
-import { getPostById, updatePost } from "../../post-actions"
+import { Suspense } from "react"
 import { authConfigs } from "configs/auth"
 import { getServerSession } from "next-auth"
 import { redirect } from "next/navigation"
-import { Suspense } from "react"
+
+import PostForm from "../../create/post-form"
+import { getPostById } from "../../post-actions"
 
 export default async function Page({ params }: { params: { postId: string } }) {
   const session = await getServerSession(authConfigs)

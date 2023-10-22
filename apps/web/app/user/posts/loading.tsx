@@ -12,7 +12,7 @@ export default function UserPostLoading() {
             <Skeleton className="h-24 w-24" />
             <div className="flex-1">
               <Skeleton className="h-12" />
-              <Skeleton className="mt-2 h-4 w-full" />
+              <Skeleton className=" mt-2 h-4 w-full" />
             </div>
           </div>
         ))}

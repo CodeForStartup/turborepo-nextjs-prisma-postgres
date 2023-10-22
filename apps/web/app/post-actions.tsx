@@ -1,8 +1,6 @@
 "use server"
 
 import prisma, { Prisma } from "database"
-import { revalidatePath } from "next/cache"
-import { redirect } from "next/navigation"
 
 const postSelect = {
   id: true,

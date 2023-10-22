@@ -1,22 +1,20 @@
 "use client"
 
-import { createPost, updatePost } from "../post-actions"
-import { Button } from "@/components/ui/button"
-import Editor from "@/molecules/editor"
-import InputTitle from "@/molecules/input-title"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Prisma } from "database"
-import Image from "next/image"
 import Link from "next/link"
 import { useParams } from "next/navigation"
-import { useRouter } from "next/navigation"
 import { useFormStatus } from "react-dom"
-import { Controller, SubmitHandler, useForm } from "react-hook-form"
+import { Controller, useForm } from "react-hook-form"
 import { toast } from "react-toastify"
 import z from "zod"
 
+import { Button } from "@/components/ui/button"
+import Editor from "@/molecules/editor"
+import InputTitle from "@/molecules/input-title"
+import { createPost, updatePost } from "../post-actions"
+
 const PostForm = ({ title = "", content = "" }: Partial<Prisma.PostCreateInput>) => {
-  const router = useRouter()
   const { postId } = useParams()
   const { pending } = useFormStatus()
 

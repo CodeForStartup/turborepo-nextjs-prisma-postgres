@@ -1,11 +1,38 @@
 module.exports = {
-  extends: ["next", "turbo", "prettier", "plugin:react-hooks/recommended", "plugin:jsx-a11y/recommended"],
+  root: true,
+  parser: "@typescript-eslint/parser",
+  extends: [
+    "next",
+    "turbo",
+    "prettier",
+    "next/core-web-vitals",
+    "plugin:react-hooks/recommended",
+    "plugin:jsx-a11y/recommended",
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/recommended"
+  ],
+  plugins: ["unused-imports", "@typescript-eslint"],
   rules: {
-    "@next/next/no-html-link-for-pages": "off",
+    "react/react-in-jsx-scope": "off",
+    '@typescript-eslint/no-unused-vars': [
+      'error',
+      { varsIgnorePattern: '^_', argsIgnorePattern: '^_' },
+    ],
+    "no-unused-vars": "off",
+    "unused-imports/no-unused-imports": "error",
+    "unused-imports/no-unused-vars": [
+      "warn",
+      { "vars": "all", "varsIgnorePattern": "^_", "args": "after-used", "argsIgnorePattern": "^_" }
+    ],
+    "no-console": "error",
+    "react/jsx-uses-react": "error",
+    "react/jsx-uses-vars": "error",
+    "@next/next/no-html-link-for-pages": "error",
+    "react-hooks/exhaustive-deps": "warn",
   },
   parserOptions: {
     babelOptions: {
       presets: [require.resolve("next/babel")],
     },
   },
-};
+}
