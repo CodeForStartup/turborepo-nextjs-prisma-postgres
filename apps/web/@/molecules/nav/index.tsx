@@ -17,9 +17,9 @@ export default function Nav() {
       <div className="container flex max-w-6xl items-center justify-between">
         <div className="flex items-center">
           <div className="mr-4 text-2xl font-bold">
-            <a href="/">
+            <Link href="/">
               <Image alt="codeforstartup.com" src="/assets/logo.png" width={40} height={40} />
-            </a>
+            </Link>
           </div>
         </div>
 

@@ -3,9 +3,9 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Prisma } from "database"
 import Link from "next/link"
-import { useParams, useRouter } from "next/navigation"
+import { useParams } from "next/navigation"
 import { useFormStatus } from "react-dom"
-import { Controller, SubmitHandler, useForm } from "react-hook-form"
+import { Controller, useForm } from "react-hook-form"
 import { toast } from "react-toastify"
 import z from "zod"
 
@@ -15,7 +15,6 @@ import InputTitle from "@/molecules/input-title"
 import { createPost, updatePost } from "../post-actions"
 
 const PostForm = ({ title = "", content = "" }: Partial<Prisma.PostCreateInput>) => {
-  const router = useRouter()
   const { postId } = useParams()
   const { pending } = useFormStatus()
 

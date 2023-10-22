@@ -1,8 +1,6 @@
 "use server"
 
 import prisma, { Prisma } from "database"
-import { getServerSession } from "next-auth"
-import { getSession } from "next-auth/react"
 import { revalidatePath } from "next/cache"
 import { redirect } from "next/navigation"
 

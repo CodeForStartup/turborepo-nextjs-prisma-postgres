@@ -4,7 +4,7 @@ import { getServerSession } from "next-auth"
 import { redirect } from "next/navigation"
 
 import PostForm from "../../create/post-form"
-import { getPostById, updatePost } from "../../post-actions"
+import { getPostById } from "../../post-actions"
 
 export default async function Page({ params }: { params: { postId: string } }) {
   const session = await getServerSession(authConfigs)

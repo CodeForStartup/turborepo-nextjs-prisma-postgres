@@ -1,31 +1,5 @@
-import { BookCopy, HomeIcon, Smartphone, TagIcon } from "lucide-react"
-
 import PostItem from "@/molecules/posts/post-item"
-import SidebarItem, { SidebarItemProps } from "@/molecules/sidbar-item"
 import { getPosts } from "../post-actions"
-
-const SIDE_BAR = [
-  {
-    label: "Home",
-    link: "/",
-    icons: <HomeIcon size={16} />,
-  },
-  {
-    label: "Tags",
-    link: "/tags",
-    icons: <TagIcon size={16} />,
-  },
-  {
-    label: "Contact",
-    link: "/contact",
-    icons: <Smartphone size={16} />,
-  },
-  {
-    label: "About",
-    link: "/about",
-    icons: <BookCopy size={16} />,
-  },
-] as Array<SidebarItemProps>
 
 export default async function Page() {
   const posts = await getPosts()
