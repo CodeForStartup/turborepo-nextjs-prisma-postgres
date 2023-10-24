@@ -4,6 +4,8 @@ import prisma, { Prisma } from "database"
 import { revalidatePath } from "next/cache"
 import { redirect } from "next/navigation"
 
+import { getServerSession } from "@/utitls/auth"
+
 const postSelect = {
   id: true,
   title: true,
@@ -27,8 +29,14 @@ export type TPostItem = Prisma.PostGetPayload<typeof getPostItem>
 
 export const getPosts = async (): Promise<TPostItem[]> => {
   try {
+    const session = await getServerSession()
     const posts = await prisma.post.findMany({
       select: postSelect,
+      where: {
+        author: {
+          id: session?.user?.id,
+        },
+      },
     })
 
     return posts
@@ -39,9 +47,13 @@ export const getPosts = async (): Promise<TPostItem[]> => {
 
 export const getPostById = async (id: number): Promise<TPostItem> => {
   try {
+    const session = await getServerSession()
     const post = await prisma.post.findUnique({
       where: {
         id,
+        author: {
+          id: session?.user?.id,
+        },
       },
       select: postSelect,
     })
@@ -56,11 +68,13 @@ export const createPost = async (data: Prisma.PostCreateInput): Promise<TPostIte
   let newPost: TPostItem
 
   try {
+    const session = await getServerSession()
+
     newPost = await prisma.post.create({
       data: {
         title: data.title,
         content: data.content,
-        authorId: "1", // Temporary until we have authentication
+        authorId: session?.user?.id,
       },
       select: postSelect,
     })
@@ -74,9 +88,12 @@ export const createPost = async (data: Prisma.PostCreateInput): Promise<TPostIte
 
 export const updatePost = async (id: number, data: Prisma.PostUpdateInput): Promise<TPostItem> => {
   try {
+    const session = await getServerSession()
+
     await prisma.post.update({
       where: {
         id,
+        authorId: session?.user?.id,
       },
       data,
       select: postSelect,
@@ -92,9 +109,12 @@ export const updatePost = async (id: number, data: Prisma.PostUpdateInput): Prom
 
 export const deletePost = async (id: number): Promise<void> => {
   try {
+    const session = await getServerSession()
+
     await prisma.post.delete({
       where: {
         id,
+        authorId: session?.user?.id,
       },
       select: postSelect,
     })
