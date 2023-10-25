@@ -2,20 +2,13 @@
 
 import { signOut } from "next-auth/react"
 
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuShortcut,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+import { DropdownMenuItem, DropdownMenuShortcut } from "@/components/ui/dropdown-menu"
 
 export const LogoutMenu = () => {
   const onSignOut = () => {
-    signOut()
+    signOut({
+      callbackUrl: "/",
+    })
   }
 
   return (

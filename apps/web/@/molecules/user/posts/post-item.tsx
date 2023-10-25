@@ -1,6 +1,6 @@
 "use client"
 
-import { deletePost, TPostItem } from "app/user/posts/post-actions"
+import { deletePost, TPostItem } from "app/(protected)/user/posts/post-actions"
 import dayjs from "dayjs"
 import Link from "next/link"
 

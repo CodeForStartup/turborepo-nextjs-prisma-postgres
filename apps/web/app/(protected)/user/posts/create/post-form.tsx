@@ -74,7 +74,7 @@ const PostForm = ({ title = "", content = "" }: Partial<Prisma.PostCreateInput>)
       <div className="flex justify-end p-2">
         <Link
           className="mr-4 flex h-10 items-center justify-center rounded-md text-sm font-medium"
-          href="/posts"
+          href="/user/posts"
         >
           Cancel
         </Link>

@@ -1,17 +1,20 @@
 "use client"
 
 import { Label } from "@radix-ui/react-dropdown-menu"
-import { GithubIcon, LoaderIcon } from "lucide-react"
+import { GithubIcon } from "lucide-react"
 import { signIn } from "next-auth/react"
+import { useSearchParams } from "next/navigation"
 
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 
 export default function SignInForm() {
+  const searchParams = useSearchParams()
+
   const onSignIn = async (e) => {
     e.preventDefault()
     await signIn("github", {
-      callbackUrl: "/",
+      callbackUrl: (searchParams.get("callbackUrl") as string) || "/",
     })
   }
 
