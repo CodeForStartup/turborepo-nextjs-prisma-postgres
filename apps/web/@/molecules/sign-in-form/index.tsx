@@ -14,6 +14,7 @@ export default function SignInForm() {
   const onSignIn = async (e) => {
     e.preventDefault()
     await signIn("github", {
+      redirect: true,
       callbackUrl: (searchParams.get("callbackUrl") as string) || "/",
     })
   }
