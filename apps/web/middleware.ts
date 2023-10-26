@@ -1,15 +1,17 @@
-import { withAuth } from "next-auth/middleware"
+import { getToken } from "next-auth/jwt"
+import { NextRequest, NextResponse } from "next/server"
 
-// More on how NextAuth.js middleware works: https://next-auth.js.org/configuration/nextjs#middleware
-export default withAuth({
-  callbacks: {
-    authorized({ token }) {
-      return !!token
-    },
-  },
-  pages: {
-    signIn: "/signIn",
-  },
-})
+export async function middleware(req: NextRequest) {
+  const session = await getToken({ req, secret: process.env.NEXTAUTH_SECRET })
+  const pathname = req.nextUrl.pathname
 
-export const config = { matcher: "/user/:path*" }
+  if (!session?.email && pathname.startsWith("/user")) {
+    const newUrl = req.nextUrl.clone()
+    newUrl.pathname = "/signIn"
+    newUrl.searchParams.set("callbackUrl", pathname)
+
+    return NextResponse.redirect(newUrl)
+  }
+
+  return NextResponse.next()
+}
