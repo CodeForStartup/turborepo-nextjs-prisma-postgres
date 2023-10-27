@@ -20,7 +20,7 @@ export default function SidebarItem({ label, link, icons }: SidebarItemProps) {
   return (
     <Link href={link}>
       <div
-        className={cn(buttonVariants({ variant: "ghost" }), "w-full justify-start", {
+        className={cn(buttonVariants({ variant: "ghost" }), "my-[2px] w-full justify-start", {
           "bg-accent": isActive,
         })}
       >
