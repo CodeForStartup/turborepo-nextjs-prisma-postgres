@@ -1,12 +1,12 @@
 "use client"
 
-import { TPostItem } from "app/user/posts/post-actions"
+import { TPostItem } from "app/(protected)/user/posts/post-actions"
 import dayjs from "dayjs"
 import Link from "next/link"
 
 export default function PostItem(post: TPostItem) {
   return (
-    <div className="flex py-4">
+    <div className="mb-4 flex rounded-sm bg-neutral-100 px-8 py-4">
       <div className="flex-1">
         <Link href={`posts/${post.id}`}>
           <h2 className="text-2xl font-bold text-slate-700">{post.title}</h2>

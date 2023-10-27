@@ -27,15 +27,13 @@ const SIDE_BAR = [
 
 export default async function PublicLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="grid w-full grid-cols-12">
-      <div className="col-span-3">
+    <div className="grid w-full grid-cols-12 gap-8">
+      <div className="col-span-2">
         {SIDE_BAR.map((item) => (
-          <div key={item.label} className="mb-4">
-            <SidebarItem {...item} />
-          </div>
+          <SidebarItem {...item} key={item.link} />
         ))}
       </div>
-      <div className="col-span-12 md:col-span-7">{children}</div>
+      <div className="col-span-12 md:col-span-8">{children}</div>
       <div className="hide md:col-span-2"></div>
     </div>
   )
