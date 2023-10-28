@@ -1,5 +1,12 @@
+import { Metadata } from "next"
+
 import PostItem from "@/molecules/posts/post-item"
 import { getPosts } from "../post-actions"
+
+export const metadata: Metadata = {
+  title: "Mooncake - Share you ideas with the world",
+  description: "Share you ideas with the world",
+}
 
 export default async function Page() {
   const posts = await getPosts()
