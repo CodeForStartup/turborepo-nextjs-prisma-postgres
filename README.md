@@ -1,8 +1,39 @@
+<p align="center">
+    <a href="https://codeforstartup.com/">
+        <img style="width: 180px;" src="./apps/web/public/assets/logo.png">
+        <h1 align="center">TOPLIST</h1>
+    </a>
+</p>
+
+# About TOPLIST
+
+
+# Installation
+
+Install
+```
+turbo install
+```
+
+In the `apps/web` folder, copy the env.example to env.local and enter the environment values
+
+In the `packages/database`, copy the env.example to .env and enter the DATABASE_URL
+
+Migration
+```
+db:migrate
+```
+
+Start
+```
+turbo dev
+```
+
 # Libraries
 
 🤖 ReactJS  
 🎯 TypeScript  
-💫 NextJS  
+💫 NextJS 14 - App router and server actions
 🤗 Prisma  
 🎰 React Form Hook  
 🎭 Postgres  
@@ -11,6 +42,7 @@
 🚀 Turborepo  
 💒 Tiptap  
 🍾 react-textarea-autosize
+
 
 # Functions
 
