@@ -10,15 +10,102 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum PostType {
+  POST
+  PAGE
+  LIST
+  COMPARE
+  POLL
+}
+
+enum PostFormat {
+  STANDARD
+  ASIDE
+  CHAT
+  GALLERY
+  LINK
+  IMAGE
+  QUOTE
+  STATUS
+  VIDEO
+  AUDIO
+}
+
+enum PostStatus {
+  DRAFT
+  PUBLISHED
+}
+
 model Post {
-  id        Int      @id @default(autoincrement())
+  id        String   @id @default(cuid())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  title     String   @db.VarChar(255)
-  content   String?
-  published Boolean  @default(false)
-  author    User     @relation(fields: [authorId], references: [id])
-  authorId  String
+
+  title   String  @db.VarChar(255)
+  content String?
+
+  author   User   @relation(fields: [authorId], references: [id])
+  authorId String
+
+  postType   PostType   @default(POST)
+  postStatus PostStatus @default(DRAFT)
+
+  PostContent       PostContent[]
+  PostContentOnPost PostContentOnPost[]
+  TagOnPost         TagOnPost[]
+
+  postFormat PostFormat @default(STANDARD)
+}
+
+model PostContentOnPost {
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  postId String
+  post   Post   @relation(fields: [postId], references: [id])
+
+  postContentId String
+  postContent   PostContent @relation(fields: [postContentId], references: [id])
+
+  @@id([postId, postContentId])
+}
+
+model PostContent {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  title   String  @db.VarChar(255)
+  content String?
+
+  author   User   @relation(fields: [authorId], references: [id])
+  authorId String
+
+  Post              Post?               @relation(fields: [postId], references: [id])
+  postId            String?
+  PostContentOnPost PostContentOnPost[]
+}
+
+model PostContentType {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  name        String  @unique @db.VarChar(255)
+  slug        String  @unique @db.VarChar(255)
+  description String?
+}
+
+model PostMetaData {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  title   String  @db.VarChar(255)
+  content String?
+
+  author   User   @relation(fields: [authorId], references: [id])
+  authorId String
 }
 
 model User {
@@ -29,7 +116,36 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
-  Post          Post[]
+
+  Post         Post[]
+  PostContent  PostContent[]
+  PostMetaData PostMetaData[]
+}
+
+model TagOnPost {
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  postId String
+  post   Post   @relation(fields: [postId], references: [id])
+
+  tagId String
+  tag   Tags   @relation(fields: [tagId], references: [id])
+
+  @@id([postId, tagId])
+}
+
+model Tags {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  name        String      @unique @db.VarChar(255)
+  slug        String      @unique @db.VarChar(255)
+  description String?
+  parent      String?     @db.VarChar(255)
+  count       Int         @default(0)
+  TagOnPost   TagOnPost[]
 }
 
 model Account {

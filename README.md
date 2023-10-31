@@ -33,7 +33,7 @@ turbo dev
 
 🤖 ReactJS  
 🎯 TypeScript  
-💫 NextJS 14 - App router and server actions
+💫 NextJS 14 - App router and server actions  
 🤗 Prisma  
 🎰 React Form Hook  
 🎭 Postgres  
