@@ -35,7 +35,7 @@ export const getPosts = async (): Promise<TPostItem[]> => {
   }
 }
 
-export const getPostById = async (id: number): Promise<TPostItem> => {
+export const getPostById = async (id: string): Promise<TPostItem> => {
   try {
     const post = await prisma.post.findUnique({
       where: {

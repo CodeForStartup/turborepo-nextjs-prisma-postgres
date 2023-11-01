@@ -45,7 +45,7 @@ export const getPosts = async (): Promise<TPostItem[]> => {
   }
 }
 
-export const getPostById = async (id: number): Promise<TPostItem> => {
+export const getPostById = async (id: string): Promise<TPostItem> => {
   try {
     const session = await getServerSession()
     const post = await prisma.post.findUnique({
@@ -86,7 +86,7 @@ export const createPost = async (data: Prisma.PostCreateInput): Promise<TPostIte
   redirect(newPost.id.toString())
 }
 
-export const updatePost = async (id: number, data: Prisma.PostUpdateInput): Promise<TPostItem> => {
+export const updatePost = async (id: string, data: Prisma.PostUpdateInput): Promise<TPostItem> => {
   try {
     const session = await getServerSession()
 
@@ -107,7 +107,7 @@ export const updatePost = async (id: number, data: Prisma.PostUpdateInput): Prom
   redirect(`../../posts/${id}`)
 }
 
-export const deletePost = async (id: number): Promise<void> => {
+export const deletePost = async (id: string): Promise<void> => {
   try {
     const session = await getServerSession()
 
