@@ -12,6 +12,9 @@
       "cache": false,
       "persistent": true
     },
+    "install": {
+      "cache": false
+    },
     "db:generate": {
       "cache": false
     },
@@ -19,6 +22,9 @@
       "cache": false
     },
     "db:migrate": {
+      "cache": false
+    },
+    "db:reset": {
       "cache": false
     }
   }
