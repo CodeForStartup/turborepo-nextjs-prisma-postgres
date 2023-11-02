@@ -1,6 +1,6 @@
 import React from "react"
 import { authConfigs } from "configs/auth"
-import { getServerSession } from "next-auth"
+import { getServerSession } from "next-auth/next"
 import { redirect } from "next/navigation"
 
 import PostItem from "@/molecules/user/posts/post-item"

@@ -42,7 +42,7 @@ const PostForm = ({ title = "", content = "" }: Partial<Prisma.PostCreateInput>)
   const handleSubmitPost = async (data) => {
     try {
       if (postId) {
-        await updatePost(Number(postId), {
+        await updatePost(postId, {
           ...data,
         })
       } else {
