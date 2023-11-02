@@ -45,15 +45,11 @@ export const getPosts = async (): Promise<TPostItem[]> => {
   }
 }
 
-export const getPostById = async (id: string): Promise<TPostItem> => {
+export const getPostById = async (postId: string): Promise<TPostItem> => {
   try {
-    const session = await getServerSession()
     const post = await prisma.post.findUnique({
       where: {
-        id,
-        author: {
-          id: session?.user?.id,
-        },
+        id: postId,
       },
       select: postSelect,
     })
