@@ -10,7 +10,7 @@ export type PostDetailProps = {
 
 export default function PostDetail({ post }: PostDetailProps) {
   return (
-    <div className="mb-8 rounded-sm bg-neutral-100 p-8">
+    <div className="mb-8 w-full rounded bg-neutral-100 p-8">
       <h1 className="flex-1 text-4xl font-extrabold text-slate-700">
         <Link href={`${post.id}`}>{post.title}</Link>
       </h1>

@@ -1,5 +1,6 @@
 import { getPostById } from "app/post-actions"
 
+import LikePost from "@/molecules/posts/like-post"
 import PostDetail from "@/molecules/posts/post-detail"
 
 export default async function Page({ params }: { params: { postId: string } }) {
@@ -7,8 +8,10 @@ export default async function Page({ params }: { params: { postId: string } }) {
 
   return (
     <div className="flex gap-4">
-      <div className="w-20">
-        <div className="h-20 w-20 rounded-full bg-neutral-100"></div>
+      <div className="w-12">
+        <div className="h-full w-12 rounded-full">
+          <LikePost totalLikes={post?.postOnUser?.length} postId={params?.postId} />
+        </div>
       </div>
       <PostDetail post={post} />
     </div>

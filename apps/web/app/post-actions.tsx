@@ -1,5 +1,6 @@
 "use server"
 
+import { count } from "console"
 import prisma, { Prisma } from "database"
 
 const postSelect = {
@@ -13,6 +14,11 @@ const postSelect = {
       id: true,
       name: true,
       email: true,
+    },
+  },
+  postOnUser: {
+    select: {
+      userId: true,
     },
   },
 } satisfies Prisma.PostSelect
@@ -42,6 +48,33 @@ export const getPostById = async (id: string): Promise<TPostItem> => {
         id,
       },
       select: postSelect,
+    })
+
+    return post
+  } catch (error) {
+    throw error
+  }
+}
+
+export const likePost = async (postId: string, userId: string): Promise<TPostItem> => {
+  try {
+    const post = await prisma.post.update({
+      where: {
+        id: postId,
+      },
+      data: {
+        postOnUser: {
+          create: [
+            {
+              user: {
+                connect: {
+                  id: userId,
+                },
+              },
+            },
+          ],
+        },
+      },
     })
 
     return post
