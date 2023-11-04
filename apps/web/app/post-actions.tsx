@@ -1,6 +1,7 @@
 "use server"
 
 import prisma, { Prisma } from "database"
+import { revalidatePath } from "next/cache"
 
 const postSelect = {
   id: true,
@@ -13,6 +14,13 @@ const postSelect = {
       id: true,
       name: true,
       email: true,
+      image: true,
+    },
+  },
+  postOnUser: {
+    select: {
+      userId: true,
+      type: true,
     },
   },
 } satisfies Prisma.PostSelect
@@ -48,4 +56,92 @@ export const getPostById = async (id: string): Promise<TPostItem> => {
   } catch (error) {
     throw error
   }
+}
+
+export const getTotalLikes = async (postId: string): Promise<number> => {
+  try {
+    const totalLikes = await prisma.postOnUser.count({
+      where: {
+        postId,
+        type: "LIKE",
+      },
+    })
+
+    return totalLikes
+  } catch (error) {
+    throw error
+  }
+}
+
+export const isLiked = async (postId: string, userId: string): Promise<boolean> => {
+  try {
+    const post = await prisma.postOnUser.findUnique({
+      where: {
+        userId_postId: {
+          userId,
+          postId,
+        },
+      },
+    })
+
+    return !!post
+  } catch (error) {
+    throw error
+  }
+}
+
+export const likePost = async (postId: string, userId: string): Promise<TPostItem> => {
+  let post = null
+  try {
+    post = await prisma.post.update({
+      where: {
+        id: postId,
+      },
+      data: {
+        postOnUser: {
+          create: [
+            {
+              user: {
+                connect: {
+                  id: userId,
+                },
+              },
+            },
+          ],
+        },
+      },
+    })
+  } catch (error) {
+    throw error
+  }
+
+  revalidatePath(`posts/${postId}`)
+  return post
+}
+
+export const unlikePost = async (postId: string, userId: string): Promise<TPostItem> => {
+  let post = null
+  try {
+    post = await prisma.post.update({
+      where: {
+        id: postId,
+      },
+      data: {
+        postOnUser: {
+          delete: [
+            {
+              userId_postId: {
+                userId,
+                postId,
+              },
+            },
+          ],
+        },
+      },
+    })
+  } catch (error) {
+    throw error
+  }
+  revalidatePath(`posts/${postId}`)
+  return post
 }

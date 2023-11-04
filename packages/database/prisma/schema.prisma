@@ -50,11 +50,12 @@ model Post {
   postType   PostType   @default(POST)
   postStatus PostStatus @default(DRAFT)
 
-  PostContent       PostContent[]
-  PostContentOnPost PostContentOnPost[]
-  TagOnPost         TagOnPost[]
+  postContent       PostContent[]
+  postContentOnPost PostContentOnPost[]
+  pagOnPost         TagOnPost[]
 
-  postFormat PostFormat @default(STANDARD)
+  postFormat PostFormat   @default(STANDARD)
+  postOnUser PostOnUser[]
 }
 
 model PostContentOnPost {
@@ -70,6 +71,28 @@ model PostContentOnPost {
   @@id([postId, postContentId])
 }
 
+enum PostOnUserType {
+  LIKE
+  FAVORITE
+  FOLLOW
+  BOOKMARK
+}
+
+model PostOnUser {
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+
+  postId String
+  post   Post   @relation(fields: [postId], references: [id])
+
+  type PostOnUserType @default(LIKE)
+
+  @@id([userId, postId])
+}
+
 model PostContent {
   id        String   @id @default(cuid())
   createdAt DateTime @default(now())
@@ -81,9 +104,9 @@ model PostContent {
   author   User   @relation(fields: [authorId], references: [id])
   authorId String
 
-  Post              Post?               @relation(fields: [postId], references: [id])
+  post              Post?               @relation(fields: [postId], references: [id])
   postId            String?
-  PostContentOnPost PostContentOnPost[]
+  postContentOnPost PostContentOnPost[]
 }
 
 model PostContentType {
@@ -117,9 +140,10 @@ model User {
   accounts      Account[]
   sessions      Session[]
 
-  Post         Post[]
-  PostContent  PostContent[]
-  PostMetaData PostMetaData[]
+  post         Post[]
+  postContent  PostContent[]
+  postMetaData PostMetaData[]
+  postOnUser   PostOnUser[]
 }
 
 model TagOnPost {
@@ -145,7 +169,7 @@ model Tags {
   description String?
   parent      String?     @db.VarChar(255)
   count       Int         @default(0)
-  TagOnPost   TagOnPost[]
+  tagOnPost   TagOnPost[]
 }
 
 model Account {
