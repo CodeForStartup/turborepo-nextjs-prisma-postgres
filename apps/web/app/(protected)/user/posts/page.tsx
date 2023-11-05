@@ -1,10 +1,10 @@
 import React from "react"
+import { getPosts } from "app/(protected-post)/user/posts/post-actions"
 import { authConfigs } from "configs/auth"
 import { getServerSession } from "next-auth/next"
 import { redirect } from "next/navigation"
 
 import PostItem from "@/molecules/user/posts/post-item"
-import { getPosts } from "./post-actions"
 
 export default async function Page() {
   const session = await getServerSession(authConfigs)

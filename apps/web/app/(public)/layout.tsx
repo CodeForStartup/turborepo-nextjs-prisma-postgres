@@ -20,7 +20,7 @@ const SIDE_BAR = [
   },
   {
     label: "About",
-    link: "/about",
+    link: "/about-us",
     icons: <BookCopy size={16} />,
   },
 ] as Array<SidebarItemProps>

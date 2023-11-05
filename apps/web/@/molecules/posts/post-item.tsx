@@ -1,6 +1,6 @@
 "use client"
 
-import { TPostItem } from "app/(protected)/user/posts/post-actions"
+import { TPostItem } from "app/(protected-post)/user/posts/post-actions"
 import dayjs from "dayjs"
 import Link from "next/link"
 
