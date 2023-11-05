@@ -56,14 +56,16 @@ const PostForm = ({ title = "", content = "" }: Partial<Prisma.PostCreateInput>)
   }
 
   return (
-    <form className="mx-auto w-full max-w-6xl" onSubmit={handleSubmit(handleSubmitPost)}>
-      <div className="mx-auto mt-8 w-full max-w-6xl">
+    <form className="w-full max-w-6xl" onSubmit={handleSubmit(handleSubmitPost)}>
+      <div className="w-full max-w-6xl">
         <Controller
           name="title"
           control={control}
           render={({ field }) => <InputTitle placeholder="Title..." {...field} />}
         />
+
         <Controller
+          className="mt-4 rounded"
           name="content"
           control={control}
           render={({ field }) => (
