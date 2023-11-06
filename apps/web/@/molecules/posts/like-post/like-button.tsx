@@ -1,9 +1,9 @@
 "use client"
 
-import { likePost, unlikePost } from "app/post-actions"
 import { Heart } from "lucide-react"
 import { useSession } from "next-auth/react"
 
+import { likePost, unlikePost } from "@/actions/public/posts"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 
@@ -11,6 +11,8 @@ const LikeButton = ({ postId, isLiked }: { postId: string; isLiked: boolean }) =
   const sessions = useSession()
 
   const handleToggleLike = async () => {
+    if (!sessions?.data?.user?.id) return alert("Please login to like this post")
+
     if (isLiked) {
       await unlikePost(postId, sessions?.data?.user?.id)
       return

@@ -1,5 +1,4 @@
-import { getPostById } from "app/post-actions"
-
+import { getPostById } from "@/actions/public/posts"
 import LikePost from "@/molecules/posts/like-post"
 import PostDetail from "@/molecules/posts/post-detail"
 

@@ -1,14 +1,14 @@
 import { authConfigs } from "configs/auth"
 import { Edit } from "lucide-react"
-import { getServerSession } from "next-auth"
 import Image from "next/image"
 import Link from "next/link"
 
 import { Input } from "@/components/ui/input"
+import { getServerSession } from "@/utitls/auth"
 import { UserNav } from "../user-nav"
 
 export default async function Nav() {
-  const session = await getServerSession(authConfigs)
+  const session = await getServerSession()
 
   return (
     <div className="mx-auto flex items-center bg-neutral-100 p-2 sm:px-6 lg:px-8">
@@ -34,9 +34,9 @@ export default async function Nav() {
               <UserNav />
             </div>
           ) : (
-            <div className="flex items-center">
+            <div className="flex w-20 items-center">
               <Link
-                className="inline-flex h-10 items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground ring-offset-background transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
+                className="inline-flex h-10 w-20 items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground ring-offset-background transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
                 href="/signIn"
               >
                 Sign in
