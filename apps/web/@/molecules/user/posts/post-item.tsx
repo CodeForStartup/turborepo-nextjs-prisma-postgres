@@ -1,9 +1,9 @@
 "use client"
 
-import { deletePost, TPostItem } from "app/(protected-post)/user/posts/post-actions"
 import dayjs from "dayjs"
 import Link from "next/link"
 
+import { deletePost, TPostItem } from "@/actions/protected/posts"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -17,7 +17,7 @@ export default function PostItem(post: TPostItem) {
   }
 
   return (
-    <div className="flex flex-1 justify-between py-4">
+    <div className="mb-4 flex rounded-sm bg-neutral-50 px-8 py-4">
       <div className="flex-1">
         <Link href={`posts/${post.id}/edit`}>
           <h2 className="text-2xl font-bold text-slate-700">{post.title}</h2>

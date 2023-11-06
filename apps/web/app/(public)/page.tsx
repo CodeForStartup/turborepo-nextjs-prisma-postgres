@@ -1,7 +1,7 @@
 import { Metadata } from "next"
 
+import { getPosts } from "@/actions/public/posts"
 import PostItem from "@/molecules/posts/post-item"
-import { getPosts } from "../post-actions"
 
 export const metadata: Metadata = {
   title: "Mooncake - Share you ideas with the world",

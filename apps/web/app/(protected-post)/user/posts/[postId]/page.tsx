@@ -3,7 +3,7 @@ import { getServerSession } from "next-auth/next"
 import { redirect } from "next/navigation"
 
 import PostDetail from "@/molecules/user/posts/post-detail"
-import { getPostById } from "../post-actions"
+import { getPostById } from "../../../../../@/actions/protected/posts"
 
 export default async function Page({ params }: { params: { postId: string } }) {
   const session = await getServerSession(authConfigs)

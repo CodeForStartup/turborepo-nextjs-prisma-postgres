@@ -19,6 +19,11 @@ const postSelect = {
       email: true,
     },
   },
+  postOnUser: {
+    select: {
+      type: true,
+    },
+  },
 } satisfies Prisma.PostSelect
 
 const getPostItem = Prisma.validator<Prisma.PostDefaultArgs>()({

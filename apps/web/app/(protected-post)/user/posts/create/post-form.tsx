@@ -12,7 +12,7 @@ import z from "zod"
 import { Button } from "@/components/ui/button"
 import Editor from "@/molecules/editor"
 import InputTitle from "@/molecules/input-title"
-import { createPost, updatePost } from "../post-actions"
+import { createPost, updatePost } from "../../../../../@/actions/protected/posts"
 
 const PostForm = ({ title = "", content = "" }: Partial<Prisma.PostCreateInput>) => {
   const { postId } = useParams()
