@@ -14,8 +14,6 @@ export async function GET(request: NextRequest) {
       },
     })
 
-    console.log(posts)
-
     return NextResponse.json(posts)
   } catch (error) {
     throw error
