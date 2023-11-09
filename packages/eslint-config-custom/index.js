@@ -27,7 +27,6 @@ module.exports = {
     "no-console": "error",
     "react/jsx-uses-react": "error",
     "react/jsx-uses-vars": "error",
-    "@next/next/no-html-link-for-pages": "error",
     "react-hooks/exhaustive-deps": "warn",
   },
   parserOptions: {

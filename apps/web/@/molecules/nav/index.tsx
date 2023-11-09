@@ -1,4 +1,3 @@
-import { authConfigs } from "configs/auth"
 import { Edit } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"

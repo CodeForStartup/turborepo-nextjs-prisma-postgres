@@ -67,7 +67,6 @@ export const getPostById = async (postId: string): Promise<TPostItem> => {
 
 export const createPost = async (data: Prisma.PostCreateInput): Promise<TPostItem> => {
   let newPost: TPostItem
-
   try {
     const session = await getServerSession()
 
@@ -89,6 +88,7 @@ export const createPost = async (data: Prisma.PostCreateInput): Promise<TPostIte
 
 export const updatePost = async (id: string, data: Prisma.PostUpdateInput): Promise<TPostItem> => {
   try {
+    console.log("updatePost", id, data)
     const session = await getServerSession()
 
     await prisma.post.update({

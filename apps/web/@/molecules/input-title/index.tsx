@@ -16,12 +16,11 @@ const InputTitle: React.FunctionComponent<InputTitleProps> = ({
   onChange,
   onBlur,
   ...props
-}) => {
+}: InputTitleProps) => {
   return (
     <div className="w-full">
       <TextareaAutosize
         {...props}
-        autoFocus
         name={name}
         placeholder={placeholder}
         onChange={onChange}

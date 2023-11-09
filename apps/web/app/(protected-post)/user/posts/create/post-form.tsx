@@ -6,13 +6,14 @@ import Link from "next/link"
 import { useParams } from "next/navigation"
 import { useFormStatus } from "react-dom"
 import { Controller, useForm } from "react-hook-form"
+import AsyncCreatableSelect from "react-select/async-creatable"
 import { toast } from "react-toastify"
 import z from "zod"
 
+import { createPost, updatePost } from "@/actions/protected/posts"
 import { Button } from "@/components/ui/button"
 import Editor from "@/molecules/editor"
 import InputTitle from "@/molecules/input-title"
-import { createPost, updatePost } from "../../../../../@/actions/protected/posts"
 
 const PostForm = ({ title = "", content = "" }: Partial<Prisma.PostCreateInput>) => {
   const { postId } = useParams()
@@ -34,45 +35,80 @@ const PostForm = ({ title = "", content = "" }: Partial<Prisma.PostCreateInput>)
   } = useForm<Partial<Prisma.PostCreateInput>>({
     defaultValues: {
       title,
+      tags: "????",
+      title2: ">>>>",
       content,
     },
     resolver: zodResolver(postSchema),
   })
 
   const handleSubmitPost = async (data) => {
+    console.log(data)
     try {
-      if (postId) {
-        await updatePost(postId, {
-          ...data,
-        })
-      } else {
-        await createPost({
-          ...data,
-        })
-      }
+      // if (postId) {
+      //   await updatePost(postId, {
+      //     ...data,
+      //   })
+      // } else {
+      //   await createPost({
+      //     ...data,
+      //   })
+      // }
     } catch (error) {
       toast.error(error.message)
     }
   }
 
+  const promiseOptions = async (inputValue: string) => {
+    const tags = await fetch("/api/protected/tags?search=" + inputValue)
+    return await tags.json()
+  }
+
   return (
     <form className="w-full max-w-6xl" onSubmit={handleSubmit(handleSubmitPost)}>
       <div className="w-full max-w-6xl">
-        <Controller
-          name="title"
-          control={control}
-          render={({ field }) => <InputTitle placeholder="Title..." {...field} />}
-        />
+        <div>
+          <Controller
+            name="title"
+            control={control}
+            render={({ field }) => <InputTitle placeholder="Title..." {...field} />}
+          />
+          <Controller
+            name="title2"
+            control={control}
+            render={({ field }) => <InputTitle placeholder="Title..." {...field} />}
+          />
+        </div>
 
-        <Controller
-          className="mt-4 rounded"
-          name="content"
-          control={control}
-          render={({ field }) => (
-            <Editor content={field?.value} placeholder="Content..." {...field} />
-          )}
-        />
+        <div className="mt-2">
+          <Controller
+            name="tags"
+            control={control}
+            render={({ field }) => (
+              <AsyncCreatableSelect
+                isClearable
+                isMulti
+                name="colors"
+                className="basic-multi-select"
+                classNamePrefix="select"
+                loadOptions={promiseOptions}
+                {...field}
+              />
+            )}
+          />
+        </div>
+
+        <div className="mt-3 rounded">
+          <Controller
+            name="content"
+            control={control}
+            render={({ field }) => (
+              <Editor content={field?.value} placeholder="Content..." {...field} />
+            )}
+          />
+        </div>
       </div>
+
       <div className="flex justify-end p-2">
         <Link
           className="mr-4 flex h-10 items-center justify-center rounded-md text-sm font-medium"
