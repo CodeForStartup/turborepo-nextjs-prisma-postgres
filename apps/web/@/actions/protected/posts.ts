@@ -4,7 +4,7 @@ import prisma, { Prisma } from "database"
 import { revalidatePath } from "next/cache"
 import { redirect } from "next/navigation"
 
-import { getServerSession } from "@/utitls/auth"
+import { getServerSession } from "@/utils/auth"
 
 const postSelect = {
   id: true,
@@ -88,15 +88,38 @@ export const createPost = async (data: Prisma.PostCreateInput): Promise<TPostIte
 
 export const updatePost = async (id: string, data: Prisma.PostUpdateInput): Promise<TPostItem> => {
   try {
-    console.log("updatePost", id, data)
     const session = await getServerSession()
+    const { tags, ...postData } = data
 
     await prisma.post.update({
       where: {
         id,
         authorId: session?.user?.id,
       },
-      data,
+      data: {
+        ...postData,
+        pagOnPost: {
+          create: tags.map((tag) => {
+            if (tag.__isNew__) {
+              return {
+                tag: {
+                  create: {
+                    name: tag.label,
+                    slug: tag.label.toLowerCase().replace(/\s/g, "-"),
+                  },
+                },
+              }
+            }
+            return {
+              tag: {
+                connect: {
+                  id: tag.value,
+                },
+              },
+            }
+          }),
+        },
+      },
       select: postSelect,
     })
     revalidatePath("posts")

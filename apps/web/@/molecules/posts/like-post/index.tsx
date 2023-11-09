@@ -1,5 +1,5 @@
 import { getTotalLikes, isLiked } from "@/actions/public/posts"
-import { getServerSession } from "@/utitls/auth"
+import { getServerSession } from "@/utils/auth"
 import LikeButton from "./like-button"
 
 const LikePost = async ({ postId }: { postId: string; totalLikes: number }) => {

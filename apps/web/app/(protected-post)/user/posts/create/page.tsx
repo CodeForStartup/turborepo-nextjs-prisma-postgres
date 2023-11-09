@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation"
 
-import { getServerSession } from "@/utitls/auth"
+import { getServerSession } from "@/utils/auth"
 import PostForm from "./post-form"
 
 export default async function Page() {
