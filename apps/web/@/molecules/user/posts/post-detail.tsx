@@ -1,7 +1,7 @@
-import { TPostItem } from "app/user/posts/post-actions"
 import Link from "next/link"
 import reactHtmlParser from "react-html-parser"
 
+import { TPostItem } from "@/actions/public/posts"
 import PostMeta from "./post-meta"
 
 export type PostDetailProps = {

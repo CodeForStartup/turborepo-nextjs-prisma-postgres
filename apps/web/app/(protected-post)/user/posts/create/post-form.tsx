@@ -10,17 +10,31 @@ import AsyncCreatableSelect from "react-select/async-creatable"
 import { toast } from "react-toastify"
 import z from "zod"
 
-import { createPost, updatePost } from "@/actions/protected/posts"
+import { createPost, TPostItem, updatePost } from "@/actions/protected/posts"
 import { Button } from "@/components/ui/button"
 import Editor from "@/molecules/editor"
 import InputTitle from "@/molecules/input-title"
 
-const PostForm = ({ title = "", content = "" }: Partial<Prisma.PostCreateInput>) => {
+const PostForm = ({ post: postData }: { post?: TPostItem }) => {
+  const { title = "", content = "", pagOnPost = [] } = postData
+
   const { postId } = useParams()
   const { pending } = useFormStatus()
 
   const postSchema = z.object({
     title: z.string(),
+    tags: z
+      .array(
+        z.object({
+          label: z.string(),
+          value: z.string(),
+          id: z.string().optional().nullable(),
+          __isNew__: z.boolean().optional().nullable(),
+        })
+      )
+      .max(5, "You can only add up to 5 tags")
+      .optional()
+      .nullable(),
     content: z
       .string()
       .max(10000, "Content must be at most 10000 characters")
@@ -32,36 +46,44 @@ const PostForm = ({ title = "", content = "" }: Partial<Prisma.PostCreateInput>)
     control,
     handleSubmit,
     formState: { isValid },
-  } = useForm<Partial<Prisma.PostCreateInput>>({
+  } = useForm({
     defaultValues: {
       title,
-      tags: "????",
-      title2: ">>>>",
+      tags: pagOnPost?.map((tag) => ({
+        id: tag?.tag?.id,
+        label: tag?.tag?.name,
+        value: tag?.tag?.slug,
+        __isNew__: false,
+      })),
       content,
     },
     resolver: zodResolver(postSchema),
   })
 
   const handleSubmitPost = async (data) => {
-    console.log(data)
     try {
-      // if (postId) {
-      //   await updatePost(postId, {
-      //     ...data,
-      //   })
-      // } else {
-      //   await createPost({
-      //     ...data,
-      //   })
-      // }
+      if (postId) {
+        await updatePost(postId as string, {
+          ...data,
+        })
+      } else {
+        await createPost({
+          ...data,
+        })
+      }
     } catch (error) {
       toast.error(error.message)
     }
   }
 
   const promiseOptions = async (inputValue: string) => {
-    const tags = await fetch("/api/protected/tags?search=" + inputValue)
-    return await tags.json()
+    const rawData = await fetch("/api/protected/tags?search=" + inputValue)
+    const tags = await rawData.json()
+
+    return tags.map((tag) => ({
+      label: tag.name,
+      value: tag.id,
+    }))
   }
 
   return (
@@ -70,11 +92,6 @@ const PostForm = ({ title = "", content = "" }: Partial<Prisma.PostCreateInput>)
         <div>
           <Controller
             name="title"
-            control={control}
-            render={({ field }) => <InputTitle placeholder="Title..." {...field} />}
-          />
-          <Controller
-            name="title2"
             control={control}
             render={({ field }) => <InputTitle placeholder="Title..." {...field} />}
           />

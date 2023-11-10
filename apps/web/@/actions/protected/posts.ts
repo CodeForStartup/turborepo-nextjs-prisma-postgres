@@ -4,7 +4,7 @@ import prisma, { Prisma } from "database"
 import { revalidatePath } from "next/cache"
 import { redirect } from "next/navigation"
 
-import { getServerSession } from "@/utitls/auth"
+import { getServerSession } from "@/utils/auth"
 
 const postSelect = {
   id: true,
@@ -22,6 +22,17 @@ const postSelect = {
   postOnUser: {
     select: {
       type: true,
+    },
+  },
+  pagOnPost: {
+    select: {
+      tag: {
+        select: {
+          id: true,
+          name: true,
+          slug: true,
+        },
+      },
     },
   },
 } satisfies Prisma.PostSelect
@@ -80,32 +91,60 @@ export const createPost = async (data: Prisma.PostCreateInput): Promise<TPostIte
     })
   } catch (error) {
     throw error
+  } finally {
+    revalidatePath("posts")
+    redirect(newPost.id.toString())
   }
-
-  revalidatePath("posts")
-  redirect(newPost.id.toString())
 }
 
 export const updatePost = async (id: string, data: Prisma.PostUpdateInput): Promise<TPostItem> => {
   try {
-    console.log("updatePost", id, data)
     const session = await getServerSession()
+    const { tags, ...postData } = data
+
+    console.log(tags)
 
     await prisma.post.update({
       where: {
         id,
         authorId: session?.user?.id,
       },
-      data,
-      select: postSelect,
+      data: {
+        ...postData,
+        pagOnPost: {
+          deleteMany: {},
+          create: tags.map((tag) => {
+            if (!tag.__isNew__) {
+              return {
+                tag: {
+                  connect: {
+                    id: tag.id,
+                  },
+                },
+              }
+            }
+            return {
+              tag: {
+                create: {
+                  name: tag.label,
+                  slug: tag.label.toLowerCase().replace(/\s/g, "-"),
+                },
+              },
+            }
+          }),
+        },
+      },
+      // select: postSelect,
     })
     revalidatePath("posts")
     revalidatePath(`posts/${id}`)
   } catch (error) {
-    throw error
-  }
+    console.log(">>>>", error)
 
-  redirect(`../../posts/${id}`)
+    throw error
+  } finally {
+    redirect(`../../posts/${id}`)
+  }
 }
 
 export const deletePost = async (id: string): Promise<void> => {
@@ -119,10 +158,10 @@ export const deletePost = async (id: string): Promise<void> => {
       },
       select: postSelect,
     })
-
-    revalidatePath("posts")
-    revalidatePath(`posts/${id}`)
   } catch (error) {
     throw error
+  } finally {
+    revalidatePath("posts")
+    revalidatePath(`posts/${id}`)
   }
 }

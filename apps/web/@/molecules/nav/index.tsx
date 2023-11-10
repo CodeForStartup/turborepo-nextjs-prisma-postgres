@@ -3,7 +3,7 @@ import Image from "next/image"
 import Link from "next/link"
 
 import { Input } from "@/components/ui/input"
-import { getServerSession } from "@/utitls/auth"
+import { getServerSession } from "@/utils/auth"
 import { UserNav } from "../user-nav"
 
 export default async function Nav() {
