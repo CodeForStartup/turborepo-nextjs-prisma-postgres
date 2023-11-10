@@ -23,6 +23,17 @@ const postSelect = {
       type: true,
     },
   },
+  pagOnPost: {
+    select: {
+      tag: {
+        select: {
+          id: true,
+          name: true,
+          slug: true,
+        },
+      },
+    },
+  },
 } satisfies Prisma.PostSelect
 
 const getPostItem = Prisma.validator<Prisma.PostDefaultArgs>()({

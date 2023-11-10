@@ -10,12 +10,14 @@ import AsyncCreatableSelect from "react-select/async-creatable"
 import { toast } from "react-toastify"
 import z from "zod"
 
-import { createPost, updatePost } from "@/actions/protected/posts"
+import { createPost, TPostItem, updatePost } from "@/actions/protected/posts"
 import { Button } from "@/components/ui/button"
 import Editor from "@/molecules/editor"
 import InputTitle from "@/molecules/input-title"
 
-const PostForm = ({ title = "", content = "" }: Partial<Prisma.PostCreateInput>) => {
+const PostForm = ({ post: postData }: { post?: TPostItem }) => {
+  const { title = "", content = "", pagOnPost = [] } = postData
+
   const { postId } = useParams()
   const { pending } = useFormStatus()
 
@@ -26,7 +28,8 @@ const PostForm = ({ title = "", content = "" }: Partial<Prisma.PostCreateInput>)
         z.object({
           label: z.string(),
           value: z.string(),
-          __isNew__: z.boolean(),
+          id: z.string().optional().nullable(),
+          __isNew__: z.boolean().optional().nullable(),
         })
       )
       .max(5, "You can only add up to 5 tags")
@@ -46,10 +49,14 @@ const PostForm = ({ title = "", content = "" }: Partial<Prisma.PostCreateInput>)
   } = useForm({
     defaultValues: {
       title,
-      tags: [],
+      tags: pagOnPost?.map((tag) => ({
+        id: tag?.tag?.id,
+        label: tag?.tag?.name,
+        value: tag?.tag?.slug,
+        __isNew__: false,
+      })),
       content,
     },
-
     resolver: zodResolver(postSchema),
   })
 

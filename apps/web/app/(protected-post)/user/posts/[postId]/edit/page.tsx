@@ -3,7 +3,7 @@ import { authConfigs } from "configs/auth"
 import { getServerSession } from "next-auth/next"
 import { redirect } from "next/navigation"
 
-import { getPostById } from "../../../../../../@/actions/protected/posts"
+import { getPostById } from "@/actions/protected/posts"
 import PostForm from "../../create/post-form"
 
 export default async function Page({ params }: { params: { postId: string } }) {
@@ -17,7 +17,7 @@ export default async function Page({ params }: { params: { postId: string } }) {
 
   return (
     <Suspense fallback={<div>Loading...</div>}>
-      <PostForm title={post.title} content={post.content} />
+      <PostForm post={post} />
     </Suspense>
   )
 }
