@@ -23,15 +23,14 @@ export default function PostItem(post: TPostItem) {
           <div>Last edited: {dayjs(post.createdAt).format("MMMM D, YYYY")}</div>
         </div>
         <div className="mt-2">
-          <Badge className="mr-2 rounded-sm bg-slate-200 text-gray-600 hover:bg-slate-300">
-            Typescript
-          </Badge>
-          <Badge className="mr-2 rounded-sm bg-slate-200 text-gray-600 hover:bg-slate-300">
-            React
-          </Badge>
-          <Badge className="mr-2 rounded-sm bg-slate-200 text-gray-600 hover:bg-slate-300">
-            Nextjs
-          </Badge>
+          {post?.pagOnPost?.length > 0 &&
+            post?.pagOnPost?.map((tag) => (
+              <Link href={`/tags/${tag?.tag?.id}`} key={tag?.tag?.id}>
+                <Badge className="mr-2 rounded-sm bg-slate-200 text-gray-600 hover:bg-slate-300">
+                  {tag?.tag?.name}
+                </Badge>
+              </Link>
+            ))}
         </div>
         <div className="mt-2 flex justify-between">
           <div className="flex gap-8">

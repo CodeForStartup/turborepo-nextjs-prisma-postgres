@@ -2,7 +2,7 @@ import { Skeleton } from "@/components/ui/skeleton"
 
 export default function UserPostLoading() {
   return (
-    <div>
+    <div className="w-full">
       <div>
         <Skeleton className="h-12 w-full" />
       </div>
