@@ -102,8 +102,6 @@ export const updatePost = async (id: string, data: Prisma.PostUpdateInput): Prom
     const session = await getServerSession()
     const { tags, ...postData } = data
 
-    console.log(tags)
-
     await prisma.post.update({
       where: {
         id,
@@ -118,7 +116,7 @@ export const updatePost = async (id: string, data: Prisma.PostUpdateInput): Prom
               return {
                 tag: {
                   connect: {
-                    id: tag.id,
+                    id: tag.value,
                   },
                 },
               }
@@ -134,16 +132,14 @@ export const updatePost = async (id: string, data: Prisma.PostUpdateInput): Prom
           }),
         },
       },
-      // select: postSelect,
+      select: postSelect,
     })
     revalidatePath("posts")
     revalidatePath(`posts/${id}`)
   } catch (error) {
-    console.log(">>>>", error)
-
     throw error
   } finally {
-    redirect(`../../posts/${id}`)
+    redirect(`../../../posts/${id}`)
   }
 }
 
@@ -162,6 +158,6 @@ export const deletePost = async (id: string): Promise<void> => {
     throw error
   } finally {
     revalidatePath("posts")
-    revalidatePath(`posts/${id}`)
+    revalidatePath(`../../posts/${id}`)
   }
 }
