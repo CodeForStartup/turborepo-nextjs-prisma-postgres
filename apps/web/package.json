@@ -29,7 +29,7 @@
     "cmdk": "^0.2.0",
     "dayjs": "^1.11.9",
     "lucide-react": "^0.270.0",
-    "next": "14.0.2-canary.6",
+    "next": "14.0.3-canary.3",
     "next-auth": "^4.23.2",
     "postcss": "^8.4.28",
     "react": "^18.2.0",
