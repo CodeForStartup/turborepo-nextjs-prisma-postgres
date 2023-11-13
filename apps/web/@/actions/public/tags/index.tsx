@@ -23,6 +23,31 @@ const tagItemSelect = {
           content: true,
           createdAt: true,
           updatedAt: true,
+          author: {
+            select: {
+              id: true,
+              name: true,
+              email: true,
+              image: true,
+            },
+          },
+          postOnUser: {
+            select: {
+              userId: true,
+              type: true,
+            },
+          },
+          pagOnPost: {
+            select: {
+              tag: {
+                select: {
+                  id: true,
+                  name: true,
+                  slug: true,
+                },
+              },
+            },
+          },
         },
       },
     },

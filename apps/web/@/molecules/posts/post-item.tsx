@@ -8,7 +8,7 @@ import { TPostItem } from "@/actions/protected/posts"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 
-export default function PostItem(post: TPostItem) {
+export default function PostItem({ post }: { post: TPostItem }) {
   return (
     <div className="mb-4 flex rounded-sm bg-neutral-100 px-8 py-4">
       <div className="flex-1">
