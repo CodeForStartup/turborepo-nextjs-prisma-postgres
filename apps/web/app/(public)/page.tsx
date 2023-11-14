@@ -24,7 +24,7 @@ export default async function Page() {
       </div>
       <div className="mt-4">
         {posts.map((post) => (
-          <PostItem key={post.id} {...post} />
+          <PostItem key={post.id} post={post} />
         ))}
       </div>
     </div>
