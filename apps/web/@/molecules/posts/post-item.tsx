@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button"
 
 export default function PostItem({ post }: { post: TPostItem }) {
   return (
-    <div className="mb-4 flex rounded-sm bg-neutral-100 px-8 py-4">
+    <div className="mb-4 flex rounded-sm bg-white px-8 py-4">
       <div className="flex-1">
         <Link href={`posts/${post.id}`}>
           <h2 className="text-2xl font-bold text-slate-700">{post.title}</h2>
