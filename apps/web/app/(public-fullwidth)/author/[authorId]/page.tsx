@@ -1,7 +1,7 @@
 import { Tag } from "lucide-react"
 import Link from "next/link"
 
-import { getTagById } from "@/actions/public/tags"
+import { getUserById } from "@/actions/public/authors"
 import { Button } from "@/components/ui/button"
 import PostItem from "@/molecules/posts/post-item"
 
@@ -10,8 +10,8 @@ export const metadata = {
   description: "A list of tags used in the blog posts",
 }
 
-export default async function Page({ params }: { params: { tagId: string } }) {
-  const tag = await getTagById(params?.tagId as string)
+export default async function Page({ params }: { params: { authorId: string } }) {
+  const author = await getUserById(params?.authorId as string)
 
   return (
     <div className="grid grid-cols-12 gap-10">
@@ -22,15 +22,15 @@ export default async function Page({ params }: { params: { tagId: string } }) {
               <Tag size={32} />
             </div>
             <h1 className="flex-1 text-center text-4xl font-extrabold text-slate-700">
-              <Link href={`${tag.id}`}>{tag.name}</Link>
+              <Link href={`${author.id}`}>{author.name}</Link>
             </h1>
             <div className="mt-4 flex w-full flex-1 divide-x">
               <div className="flex flex-1 flex-col items-center justify-center">
-                <div className="font-bold text-slate-800">{tag?.tagOnPost?.length}</div>
+                <div className="font-bold text-slate-800">{author?.post?.length}</div>
                 <div className="text-gray-400">posts</div>
               </div>
               <div className="flex flex-1 flex-col items-center justify-center">
-                <div className="font-bold text-slate-800">{tag?.tagOnPost?.length}</div>
+                <div className="font-bold text-slate-800">{author?.post?.length}</div>
                 <div className="text-gray-400">followers</div>
               </div>
             </div>
@@ -41,7 +41,7 @@ export default async function Page({ params }: { params: { tagId: string } }) {
         </div>
       </div>
       <div className="col-span-8 rounded-md">
-        {tag?.tagOnPost?.map((post) => <PostItem key={post?.post?.id} post={post?.post} />)}
+        {author?.post?.map((post) => <PostItem key={post?.id} post={post} />)}
       </div>
     </div>
   )
