@@ -12,7 +12,7 @@ export default function PostItem({ post }: { post: TPostItem }) {
   return (
     <div className="mb-4 flex rounded-sm bg-white px-8 py-4">
       <div className="flex-1">
-        <Link href={`posts/${post.id}`}>
+        <Link href={`/posts/${post.id}`}>
           <h2 className="text-2xl font-bold text-slate-700">{post.title}</h2>
         </Link>
         <div className="mt-2 flex items-center gap-2 text-xs text-gray-400">

@@ -1,7 +1,8 @@
-import { TPostItem } from "app/post-actions"
 import Link from "next/link"
 import reactHtmlParser from "react-html-parser"
 
+import { TPostItem } from "@/actions/public/posts"
+import { Badge } from "@/components/ui/badge"
 import PostMeta from "@/molecules/user/posts/post-meta"
 
 export type PostDetailProps = {
@@ -17,7 +18,18 @@ export default function PostDetail({ post }: PostDetailProps) {
 
       <PostMeta post={post} />
 
-      <div className="mt-12">{reactHtmlParser(post.content)}</div>
+      <div className="mt-4">
+        {post?.pagOnPost?.length > 0 &&
+          post?.pagOnPost?.map((tag) => (
+            <Link href={`/tags/${tag?.tag?.id}`} key={tag?.tag?.id}>
+              <Badge className="mr-2 rounded-sm bg-slate-200 text-gray-600 hover:bg-slate-300">
+                {tag?.tag?.name}
+              </Badge>
+            </Link>
+          ))}
+      </div>
+
+      <div className="mt-8">{reactHtmlParser(post.content)}</div>
     </div>
   )
 }

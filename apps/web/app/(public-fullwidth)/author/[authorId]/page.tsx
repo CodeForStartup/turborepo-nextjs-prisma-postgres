@@ -1,7 +1,7 @@
-import { Tag } from "lucide-react"
 import Link from "next/link"
 
 import { getUserById } from "@/actions/public/authors"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
 import PostItem from "@/molecules/posts/post-item"
 
@@ -19,7 +19,10 @@ export default async function Page({ params }: { params: { authorId: string } })
         <div className="rounded-md bg-white p-8">
           <div className="flex flex-col items-center justify-center gap-2">
             <div className="m-0 flex h-[80px] w-[80px] items-center justify-center rounded-[100%] border-dashed border-stone-900 bg-slate-200">
-              <Tag size={32} />
+              <Avatar className="h-20 w-20">
+                <AvatarImage src={author?.image || ""} alt={author?.name} />
+                <AvatarFallback>{(author?.name || "CO").slice(0, 2)}</AvatarFallback>
+              </Avatar>{" "}
             </div>
             <h1 className="flex-1 text-center text-4xl font-extrabold text-slate-700">
               <Link href={`${author.id}`}>{author.name}</Link>
@@ -31,7 +34,9 @@ export default async function Page({ params }: { params: { authorId: string } })
               </div>
               <div className="flex flex-1 flex-col items-center justify-center">
                 <div className="font-bold text-slate-800">{author?.post?.length}</div>
-                <div className="text-gray-400">followers</div>
+                <div className="text-gray-400 hover:underline">
+                  <Link href={`/author/${params?.authorId}/followers`}>followers</Link>
+                </div>
               </div>
             </div>
             <Button className="mt-4 w-full" variant="outline">
