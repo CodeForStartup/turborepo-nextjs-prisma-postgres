@@ -3,6 +3,7 @@ import { Prisma } from "database"
 const userItemSelect = {
   id: true,
   name: true,
+  image: true,
   post: {
     select: {
       id: true,

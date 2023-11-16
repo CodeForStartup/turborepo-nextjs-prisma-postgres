@@ -1,10 +1,10 @@
 import { getUserById } from "@/actions/public/authors"
+import FollowerItem from "@/molecules/follower/follower-item"
 import UserProfile from "@/molecules/follower/user-profile"
-import PostItem from "@/molecules/posts/post-item"
 
 export const metadata = {
-  title: "Tags",
-  description: "A list of tags used in the blog posts",
+  title: "Follower",
+  description: "List of followers",
 }
 
 export default async function Page({ params }: { params: { authorId: string } }) {
@@ -13,8 +13,11 @@ export default async function Page({ params }: { params: { authorId: string } })
   return (
     <div className="grid grid-cols-12 gap-10">
       <UserProfile author={author} />
-      <div className="col-span-8 rounded-md">
-        {author?.post?.map((post) => <PostItem key={post?.id} post={post} />)}
+      <div className="col-span-8 flex flex-col gap-4">
+        <FollowerItem />
+        <FollowerItem />
+        <FollowerItem />
+        <FollowerItem />
       </div>
     </div>
   )

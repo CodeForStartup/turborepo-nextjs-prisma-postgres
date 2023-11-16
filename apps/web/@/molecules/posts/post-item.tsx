@@ -12,12 +12,12 @@ export default function PostItem({ post }: { post: TPostItem }) {
   return (
     <div className="mb-4 flex rounded-sm bg-white px-8 py-4">
       <div className="flex-1">
-        <Link href={`posts/${post.id}`}>
+        <Link href={`/posts/${post.id}`}>
           <h2 className="text-2xl font-bold text-slate-700">{post.title}</h2>
         </Link>
         <div className="mt-2 flex items-center gap-2 text-xs text-gray-400">
           <div className="text hover:underline">
-            <Link href={`author/${post?.author?.id}`}>@{post?.author?.name}</Link>
+            <Link href={`/author/${post?.author?.id}`}>@{post?.author?.name}</Link>
           </div>
           <div className="h-1 w-1 rounded bg-gray-400" />
           <div>Last edited: {dayjs(post.createdAt).format("MMMM D, YYYY")}</div>
@@ -41,7 +41,7 @@ export default function PostItem({ post }: { post: TPostItem }) {
             <div className="flex items-center gap-1">
               <LucideMessageSquare className="h-4 w-4 text-gray-600" />
               <div className="text-sm text-gray-600">
-                <Link href={`posts/${post.id}`}>100</Link>
+                <Link href={`/posts/${post.id}`}>100</Link>
               </div>
             </div>
           </div>
