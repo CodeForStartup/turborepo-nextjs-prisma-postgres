@@ -1,6 +1,7 @@
 import { Metadata } from "next"
 
 import { getPosts } from "@/actions/public/posts"
+import Filter from "@/molecules/home/filter"
 import PostItem from "@/molecules/posts/post-item"
 
 export const metadata: Metadata = {
@@ -13,15 +14,7 @@ export default async function Page() {
 
   return (
     <div className="">
-      <div className="flex gap-2">
-        <div className="rounded-sm bg-gray-100 px-2 py-1 text-sm uppercase text-slate-500">
-          Newest
-        </div>
-        <div className="rounded-sm bg-gray-100 px-2 py-1 text-sm uppercase text-slate-500">Hot</div>
-        <div className="rounded-sm bg-gray-100 px-2 py-1 text-sm uppercase text-slate-500">
-          Trending
-        </div>
-      </div>
+      <Filter />
       <div className="mt-4">
         {posts.map((post) => (
           <PostItem key={post.id} post={post} />
