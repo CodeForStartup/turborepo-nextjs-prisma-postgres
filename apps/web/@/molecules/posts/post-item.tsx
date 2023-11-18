@@ -5,15 +5,17 @@ import { LucideBookmark, LucideHeart, LucideMessageSquare } from "lucide-react"
 import Link from "next/link"
 
 import { TPostItem } from "@/actions/protected/posts"
-import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
+import TagBadge from "../tag/tag-badge"
 
 export default function PostItem({ post }: { post: TPostItem }) {
   return (
     <div className="mb-4 flex rounded-sm bg-white px-8 py-4">
       <div className="flex-1">
         <Link href={`/posts/${post.id}`}>
-          <h2 className="text-2xl font-bold text-slate-700">{post.title}</h2>
+          <h2 className="flex flex-1 text-2xl font-bold text-slate-700 hover:underline">
+            {post.title}
+          </h2>
         </Link>
         <div className="mt-2 flex items-center gap-2 text-xs text-gray-400">
           <div className="text hover:underline">
@@ -24,13 +26,7 @@ export default function PostItem({ post }: { post: TPostItem }) {
         </div>
         <div className="mt-2">
           {post?.pagOnPost?.length > 0 &&
-            post?.pagOnPost?.map((tag) => (
-              <Link href={`/tags/${tag?.tag?.id}`} key={tag?.tag?.id}>
-                <Badge className="mr-2 rounded-sm bg-slate-200 text-gray-600 hover:bg-slate-300">
-                  {tag?.tag?.name}
-                </Badge>
-              </Link>
-            ))}
+            post?.pagOnPost?.map(({ tag }) => <TagBadge key={tag?.id} tag={tag} />)}
         </div>
         <div className="mt-2 flex justify-between">
           <div className="flex gap-8">
@@ -40,7 +36,7 @@ export default function PostItem({ post }: { post: TPostItem }) {
             </div>
             <div className="flex items-center gap-1">
               <LucideMessageSquare className="h-4 w-4 text-gray-600" />
-              <div className="text-sm text-gray-600">
+              <div className="text-sm text-gray-600 hover:underline">
                 <Link href={`/posts/${post.id}`}>100</Link>
               </div>
             </div>
