@@ -16,6 +16,15 @@ enum PostType {
   LIST
   COMPARE
   POLL
+  QUIZ
+  WIDGET
+  ORGANIZATION
+  SLIDE
+}
+
+enum TagType {
+  TAG
+  CATEGORY
 }
 
 enum PostFormat {
@@ -43,32 +52,20 @@ model Post {
 
   title   String  @db.VarChar(255)
   content String?
+  slug    String  @unique @db.VarChar(255)
 
   author   User   @relation(fields: [authorId], references: [id])
   authorId String
 
-  postType   PostType   @default(POST)
-  postStatus PostStatus @default(DRAFT)
+  parentPostId String?
+  pinned       Boolean @default(false)
 
-  postContent       PostContent[]
-  postContentOnPost PostContentOnPost[]
-  pagOnPost         TagOnPost[]
-
+  postType   PostType     @default(POST)
+  postStatus PostStatus   @default(DRAFT)
   postFormat PostFormat   @default(STANDARD)
+  tagOnPost  TagOnPost[]
   postOnUser PostOnUser[]
-}
-
-model PostContentOnPost {
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  postId String
-  post   Post   @relation(fields: [postId], references: [id])
-
-  postContentId String
-  postContent   PostContent @relation(fields: [postContentId], references: [id])
-
-  @@id([postId, postContentId])
+  Comment    Comment[]
 }
 
 enum PostOnUserType {
@@ -76,6 +73,7 @@ enum PostOnUserType {
   FAVORITE
   FOLLOW
   BOOKMARK
+  PINNED
 }
 
 model PostOnUser {
@@ -91,22 +89,6 @@ model PostOnUser {
   type PostOnUserType @default(LIKE)
 
   @@id([userId, postId])
-}
-
-model PostContent {
-  id        String   @id @default(cuid())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  title   String  @db.VarChar(255)
-  content String?
-
-  author   User   @relation(fields: [authorId], references: [id])
-  authorId String
-
-  post              Post?               @relation(fields: [postId], references: [id])
-  postId            String?
-  postContentOnPost PostContentOnPost[]
 }
 
 model PostContentType {
@@ -137,13 +119,30 @@ model User {
   email         String?   @unique
   emailVerified DateTime?
   image         String?
-  accounts      Account[]
-  sessions      Session[]
 
-  post         Post[]
-  postContent  PostContent[]
-  postMetaData PostMetaData[]
-  postOnUser   PostOnUser[]
+  accounts Account[]
+  sessions Session[]
+
+  post          Post[]
+  postMetaData  PostMetaData[]
+  postOnUser    PostOnUser[]
+  followers     Follower[]      @relation("follower")
+  followings    Follower[]      @relation("following")
+  Comment       Comment[]
+  CommentOnUser CommentOnUser[]
+}
+
+model Follower {
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  followerId String
+  follower   User   @relation("follower", fields: [followerId], references: [id])
+
+  followingId String
+  following   User   @relation("following", fields: [followingId], references: [id])
+
+  @@id([followerId, followingId])
 }
 
 model TagOnPost {
@@ -164,12 +163,56 @@ model Tags {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  type  TagType @default(TAG)
+  image String?
+
   name        String      @unique @db.VarChar(255)
   slug        String      @unique @db.VarChar(255)
   description String?
   parent      String?     @db.VarChar(255)
   count       Int         @default(0)
   tagOnPost   TagOnPost[]
+}
+
+model Comment {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  content String?
+
+  author   User   @relation(fields: [authorId], references: [id])
+  authorId String
+
+  parentCommentId String?
+  pinned          Boolean @default(false)
+
+  commentOnPostId String
+  commentOnPost   Post            @relation(fields: [commentOnPostId], references: [id])
+  CommentOnUser   CommentOnUser[]
+}
+
+enum CommentOnUserType {
+  LIKE
+  FAVORITE
+  FOLLOW
+  BOOKMARK
+  PINNED
+}
+
+model CommentOnUser {
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+
+  commentId String
+  comment   Comment @relation(fields: [commentId], references: [id])
+
+  type CommentOnUserType @default(LIKE)
+
+  @@id([userId, commentId])
 }
 
 model Account {
