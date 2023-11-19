@@ -63,7 +63,7 @@ const Filter: React.FC = () => {
   }
 
   return (
-    <div className="flex justify-between">
+    <div className="flex h-10 items-center justify-between">
       <div className="flex gap-2">
         <FilterItem label="Lasted" param="lasted" />
         <FilterItem label="Hot" param="hot" />

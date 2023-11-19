@@ -1,11 +1,20 @@
 -- CreateEnum
-CREATE TYPE "PostType" AS ENUM ('POST', 'PAGE', 'LIST', 'COMPARE', 'POLL');
+CREATE TYPE "PostType" AS ENUM ('POST', 'PAGE', 'LIST', 'COMPARE', 'POLL', 'QUIZ', 'WIDGET', 'ORGANIZATION', 'SLIDE');
+
+-- CreateEnum
+CREATE TYPE "TagType" AS ENUM ('TAG', 'CATEGORY');
 
 -- CreateEnum
 CREATE TYPE "PostFormat" AS ENUM ('STANDARD', 'ASIDE', 'CHAT', 'GALLERY', 'LINK', 'IMAGE', 'QUOTE', 'STATUS', 'VIDEO', 'AUDIO');
 
 -- CreateEnum
 CREATE TYPE "PostStatus" AS ENUM ('DRAFT', 'PUBLISHED');
+
+-- CreateEnum
+CREATE TYPE "PostOnUserType" AS ENUM ('LIKE', 'FAVORITE', 'FOLLOW', 'BOOKMARK', 'PINNED');
+
+-- CreateEnum
+CREATE TYPE "CommentOnUserType" AS ENUM ('LIKE', 'FAVORITE', 'FOLLOW', 'BOOKMARK', 'PINNED');
 
 -- CreateTable
 CREATE TABLE "Post" (
@@ -14,7 +23,10 @@ CREATE TABLE "Post" (
     "updatedAt" TIMESTAMP(3) NOT NULL,
     "title" VARCHAR(255) NOT NULL,
     "content" TEXT,
+    "slug" VARCHAR(255) NOT NULL,
     "authorId" TEXT NOT NULL,
+    "parentPostId" TEXT,
+    "pinned" BOOLEAN NOT NULL DEFAULT false,
     "postType" "PostType" NOT NULL DEFAULT 'POST',
     "postStatus" "PostStatus" NOT NULL DEFAULT 'DRAFT',
     "postFormat" "PostFormat" NOT NULL DEFAULT 'STANDARD',
@@ -23,26 +35,14 @@ CREATE TABLE "Post" (
 );
 
 -- CreateTable
-CREATE TABLE "PostContentOnPost" (
+CREATE TABLE "PostOnUser" (
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
+    "userId" TEXT NOT NULL,
     "postId" TEXT NOT NULL,
-    "postContentId" TEXT NOT NULL,
+    "type" "PostOnUserType" NOT NULL DEFAULT 'LIKE',
 
-    CONSTRAINT "PostContentOnPost_pkey" PRIMARY KEY ("postId","postContentId")
-);
-
--- CreateTable
-CREATE TABLE "PostContent" (
-    "id" TEXT NOT NULL,
-    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMP(3) NOT NULL,
-    "title" VARCHAR(255) NOT NULL,
-    "content" TEXT,
-    "authorId" TEXT NOT NULL,
-    "postId" TEXT,
-
-    CONSTRAINT "PostContent_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "PostOnUser_pkey" PRIMARY KEY ("userId","postId")
 );
 
 -- CreateTable
@@ -81,6 +81,16 @@ CREATE TABLE "User" (
 );
 
 -- CreateTable
+CREATE TABLE "Follower" (
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+    "followerId" TEXT NOT NULL,
+    "followingId" TEXT NOT NULL,
+
+    CONSTRAINT "Follower_pkey" PRIMARY KEY ("followerId","followingId")
+);
+
+-- CreateTable
 CREATE TABLE "TagOnPost" (
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
@@ -95,6 +105,8 @@ CREATE TABLE "Tags" (
     "id" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
+    "type" "TagType" NOT NULL DEFAULT 'TAG',
+    "image" TEXT,
     "name" VARCHAR(255) NOT NULL,
     "slug" VARCHAR(255) NOT NULL,
     "description" TEXT,
@@ -102,6 +114,31 @@ CREATE TABLE "Tags" (
     "count" INTEGER NOT NULL DEFAULT 0,
 
     CONSTRAINT "Tags_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Comment" (
+    "id" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+    "content" TEXT,
+    "authorId" TEXT NOT NULL,
+    "parentCommentId" TEXT,
+    "pinned" BOOLEAN NOT NULL DEFAULT false,
+    "commentOnPostId" TEXT NOT NULL,
+
+    CONSTRAINT "Comment_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "CommentOnUser" (
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+    "userId" TEXT NOT NULL,
+    "commentId" TEXT NOT NULL,
+    "type" "CommentOnUserType" NOT NULL DEFAULT 'LIKE',
+
+    CONSTRAINT "CommentOnUser_pkey" PRIMARY KEY ("userId","commentId")
 );
 
 -- CreateTable
@@ -140,6 +177,9 @@ CREATE TABLE "VerificationToken" (
 );
 
 -- CreateIndex
+CREATE UNIQUE INDEX "Post_slug_key" ON "Post"("slug");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "PostContentType_name_key" ON "PostContentType"("name");
 
 -- CreateIndex
@@ -170,25 +210,37 @@ CREATE UNIQUE INDEX "VerificationToken_identifier_token_key" ON "VerificationTok
 ALTER TABLE "Post" ADD CONSTRAINT "Post_authorId_fkey" FOREIGN KEY ("authorId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "PostContentOnPost" ADD CONSTRAINT "PostContentOnPost_postId_fkey" FOREIGN KEY ("postId") REFERENCES "Post"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "PostOnUser" ADD CONSTRAINT "PostOnUser_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "PostContentOnPost" ADD CONSTRAINT "PostContentOnPost_postContentId_fkey" FOREIGN KEY ("postContentId") REFERENCES "PostContent"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "PostContent" ADD CONSTRAINT "PostContent_authorId_fkey" FOREIGN KEY ("authorId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "PostContent" ADD CONSTRAINT "PostContent_postId_fkey" FOREIGN KEY ("postId") REFERENCES "Post"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "PostOnUser" ADD CONSTRAINT "PostOnUser_postId_fkey" FOREIGN KEY ("postId") REFERENCES "Post"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "PostMetaData" ADD CONSTRAINT "PostMetaData_authorId_fkey" FOREIGN KEY ("authorId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Follower" ADD CONSTRAINT "Follower_followerId_fkey" FOREIGN KEY ("followerId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Follower" ADD CONSTRAINT "Follower_followingId_fkey" FOREIGN KEY ("followingId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "TagOnPost" ADD CONSTRAINT "TagOnPost_postId_fkey" FOREIGN KEY ("postId") REFERENCES "Post"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "TagOnPost" ADD CONSTRAINT "TagOnPost_tagId_fkey" FOREIGN KEY ("tagId") REFERENCES "Tags"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Comment" ADD CONSTRAINT "Comment_authorId_fkey" FOREIGN KEY ("authorId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Comment" ADD CONSTRAINT "Comment_commentOnPostId_fkey" FOREIGN KEY ("commentOnPostId") REFERENCES "Post"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "CommentOnUser" ADD CONSTRAINT "CommentOnUser_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "CommentOnUser" ADD CONSTRAINT "CommentOnUser_commentId_fkey" FOREIGN KEY ("commentId") REFERENCES "Comment"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Account" ADD CONSTRAINT "Account_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
