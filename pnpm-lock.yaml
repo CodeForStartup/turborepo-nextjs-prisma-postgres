@@ -68,7 +68,7 @@ importers:
     dependencies:
       '@auth/prisma-adapter':
         specifier: ^1.0.3
-        version: 1.0.4(@prisma/client@5.5.2)
+        version: 1.0.4(@prisma/client@5.6.0)
       '@hookform/resolvers':
         specifier: ^3.3.1
         version: 3.3.2(react-hook-form@7.47.0)
@@ -162,6 +162,9 @@ importers:
       remixicon:
         specifier: ^3.5.0
         version: 3.5.0
+      slugify:
+        specifier: ^1.6.6
+        version: 1.6.6
       tailwind-merge:
         specifier: ^1.14.0
         version: 1.14.0
@@ -323,13 +326,13 @@ packages:
       preact-render-to-string: 5.2.3(preact@10.11.3)
     dev: false
 
-  /@auth/prisma-adapter@1.0.4(@prisma/client@5.5.2):
+  /@auth/prisma-adapter@1.0.4(@prisma/client@5.6.0):
     resolution: {integrity: sha512-3Zj8mvU1sIIMZScduvLUWZk1apd7rWsNznONnwh0BJe5zdlW1al5OMpE/k7e/slRG7Hr20n6wt2z5Npdydwybw==}
     peerDependencies:
       '@prisma/client': '>=2.26.0 || >=3 || >=4 || >=5'
     dependencies:
       '@auth/core': 0.17.0
-      '@prisma/client': 5.5.2
+      '@prisma/client': 5.6.0(prisma@5.6.0)
     transitivePeerDependencies:
       - nodemailer
     dev: false
@@ -1009,19 +1012,6 @@ packages:
     resolution: {integrity: sha512-P1st0aksCrn9sGZhp8GMYwBnQsbvAWsZAX44oXNNvLHGqAOcoVxmjZiohstwQ7SqKnbR47akdNi+uleWD8+g6A==}
     dev: false
 
-  /@prisma/client@5.5.2:
-    resolution: {integrity: sha512-54XkqR8M+fxbzYqe+bIXimYnkkcGqgOh0dn0yWtIk6CQT4IUCAvNFNcQZwk2KqaLU+/1PHTSWrcHtx4XjluR5w==}
-    engines: {node: '>=16.13'}
-    requiresBuild: true
-    peerDependencies:
-      prisma: '*'
-    peerDependenciesMeta:
-      prisma:
-        optional: true
-    dependencies:
-      '@prisma/engines-version': 5.5.1-1.aebc046ce8b88ebbcb45efe31cbe7d06fd6abc0a
-    dev: false
-
   /@prisma/client@5.6.0(prisma@5.6.0):
     resolution: {integrity: sha512-mUDefQFa1wWqk4+JhKPYq8BdVoFk9NFMBXUI8jAkBfQTtgx8WPx02U2HB/XbAz3GSUJpeJOKJQtNvaAIDs6sug==}
     engines: {node: '>=16.13'}
@@ -1034,10 +1024,6 @@ packages:
     dependencies:
       '@prisma/engines-version': 5.6.0-32.e95e739751f42d8ca026f6b910f5a2dc5adeaeee
       prisma: 5.6.0
-    dev: false
-
-  /@prisma/engines-version@5.5.1-1.aebc046ce8b88ebbcb45efe31cbe7d06fd6abc0a:
-    resolution: {integrity: sha512-O+qHFnZvAyOFk1tUco2/VdiqS0ym42a3+6CYLScllmnpbyiTplgyLt2rK/B9BTjYkSHjrgMhkG47S0oqzdIckA==}
     dev: false
 
   /@prisma/engines-version@5.6.0-32.e95e739751f42d8ca026f6b910f5a2dc5adeaeee:
@@ -6106,6 +6092,11 @@ packages:
       astral-regex: 2.0.0
       is-fullwidth-code-point: 3.0.0
     dev: true
+
+  /slugify@1.6.6:
+    resolution: {integrity: sha512-h+z7HKHYXj6wJU+AnS/+IH8Uh9fdcX1Lrhg1/VMdf9PwoBQXFcXiAdsy2tSK0P6gKwJLXp02r90ahUCqHk9rrw==}
+    engines: {node: '>=8.0.0'}
+    dev: false
 
   /smart-buffer@4.2.0:
     resolution: {integrity: sha512-94hK0Hh8rPqQl2xXc3HsaBoOXKV20MToPkcXvwbISWLEs+64sBq5kFgn2kJDHb1Pry9yrP0dxrCI9RRci7RXKg==}

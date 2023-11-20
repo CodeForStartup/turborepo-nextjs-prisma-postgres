@@ -37,7 +37,7 @@ const tagItemSelect = {
               type: true,
             },
           },
-          pagOnPost: {
+          tagOnPost: {
             select: {
               tag: {
                 select: {
