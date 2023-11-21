@@ -19,7 +19,7 @@ import Editor from "@/molecules/editor"
 import InputTitle from "@/molecules/input-title"
 
 const PostForm = ({ post: postData }: { post?: TPostItem }) => {
-  const { title = "", content = "", pagOnPost = [] } = postData || {}
+  const { title = "", content = "", tagOnPost = [] } = postData || {}
 
   const { postId } = useParams()
   const { pending } = useFormStatus()
@@ -52,7 +52,7 @@ const PostForm = ({ post: postData }: { post?: TPostItem }) => {
   } = useForm({
     defaultValues: {
       title,
-      tags: pagOnPost?.map((tag) => ({
+      tags: tagOnPost?.map((tag) => ({
         id: tag?.tag?.id,
         label: tag?.tag?.name,
         value: tag?.tag?.id,

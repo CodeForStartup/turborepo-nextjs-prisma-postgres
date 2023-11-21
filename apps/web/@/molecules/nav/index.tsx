@@ -2,9 +2,9 @@ import { Edit } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 
-import { Input } from "@/components/ui/input"
 import { getServerSession } from "@/utils/auth"
 import { UserNav } from "../user-nav"
+import SearchBar from "./search-bar"
 
 export default async function Nav() {
   const session = await getServerSession()
@@ -21,7 +21,7 @@ export default async function Nav() {
         </div>
 
         <div className="flex items-center gap-8">
-          <Input className="min-w-[200px]" />
+          <SearchBar />
           {session?.user ? (
             <div className="flex gap-8">
               <Link href="/user/posts/create">

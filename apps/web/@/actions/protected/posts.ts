@@ -3,6 +3,7 @@
 import prisma, { Prisma } from "database"
 import { revalidatePath } from "next/cache"
 import { redirect } from "next/navigation"
+import slugify from "slugify"
 
 import { getServerSession } from "@/utils/auth"
 
@@ -24,7 +25,7 @@ const postSelect = {
       type: true,
     },
   },
-  pagOnPost: {
+  tagOnPost: {
     select: {
       tag: {
         select: {
@@ -81,11 +82,35 @@ export const createPost = async (data: Prisma.PostCreateInput): Promise<TPostIte
   try {
     const session = await getServerSession()
 
+    const slug = slugify(data.title) + "-" + Math.floor(Math.random() * 1000)
+
     newPost = await prisma.post.create({
       data: {
+        slug: slug,
         title: data.title,
         content: data.content,
         authorId: session?.user?.id,
+        tagOnPost: {
+          create: data.tags.map((tag) => {
+            if (!tag.__isNew__) {
+              return {
+                tag: {
+                  connect: {
+                    id: tag.value,
+                  },
+                },
+              }
+            }
+            return {
+              tag: {
+                create: {
+                  name: tag.label,
+                  slug: tag.label.toLowerCase().replace(/\s/g, "-"),
+                },
+              },
+            }
+          }),
+        },
       },
       select: postSelect,
     })
@@ -93,7 +118,7 @@ export const createPost = async (data: Prisma.PostCreateInput): Promise<TPostIte
     throw error
   } finally {
     revalidatePath("posts")
-    redirect(newPost.id.toString())
+    redirect(`/posts/${newPost?.id}`)
   }
 }
 
@@ -109,7 +134,7 @@ export const updatePost = async (id: string, data: Prisma.PostUpdateInput): Prom
       },
       data: {
         ...postData,
-        pagOnPost: {
+        tagOnPost: {
           deleteMany: {},
           create: tags.map((tag) => {
             if (!tag.__isNew__) {

@@ -25,8 +25,8 @@ export default function PostItem({ post }: { post: TPostItem }) {
           <div>Last edited: {dayjs(post.createdAt).format("MMMM D, YYYY")}</div>
         </div>
         <div className="mt-2">
-          {post?.pagOnPost?.length > 0 &&
-            post?.pagOnPost?.map(({ tag }) => <TagBadge key={tag?.id} tag={tag} />)}
+          {post?.tagOnPost?.length > 0 &&
+            post?.tagOnPost?.map(({ tag }) => <TagBadge key={tag?.id} tag={tag} />)}
         </div>
         <div className="mt-2 flex justify-between">
           <div className="flex gap-8">

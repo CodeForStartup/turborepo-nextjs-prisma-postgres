@@ -19,8 +19,8 @@ export default function PostDetail({ post }: PostDetailProps) {
       <PostMeta post={post} />
 
       <div className="mt-4">
-        {post?.pagOnPost?.length > 0 &&
-          post?.pagOnPost?.map((tag) => (
+        {post?.tagOnPost?.length > 0 &&
+          post?.tagOnPost?.map((tag) => (
             <Link href={`/tags/${tag?.tag?.id}`} key={tag?.tag?.id}>
               <Badge className="mr-2 rounded-sm bg-slate-200 text-gray-600 hover:bg-slate-300">
                 {tag?.tag?.name}

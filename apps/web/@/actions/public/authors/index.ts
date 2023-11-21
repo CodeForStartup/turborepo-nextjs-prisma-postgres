@@ -25,7 +25,7 @@ const userItemSelect = {
           type: true,
         },
       },
-      pagOnPost: {
+      tagOnPost: {
         select: {
           tag: {
             select: {
