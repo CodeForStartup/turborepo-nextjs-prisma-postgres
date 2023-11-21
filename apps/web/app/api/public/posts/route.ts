@@ -1,35 +1,60 @@
 import prisma from "database"
-import { NextRequest, NextResponse } from "next/server"
-
-import { postSelect } from "@/actions/public/posts"
-
-export const dynamic = "force-dynamic"
+import { NextRequest } from "next/server"
 
 export async function GET(request: NextRequest) {
   const newUrl = request.nextUrl.clone()
-  const searchTerm = newUrl.searchParams.get("query")
+  const searchTerm = newUrl.searchParams.get("query") || ""
+
   try {
     const posts = await prisma.post.findMany({
       where: {
-        OR: [
-          {
-            title: {
-              contains: searchTerm,
-              mode: "insensitive",
-            },
-          },
-          {
-            content: {
-              contains: searchTerm,
-              mode: "insensitive",
-            },
-          },
-        ],
+        title: {
+          search: searchTerm,
+          mode: "insensitive",
+        },
+        content: {
+          search: searchTerm,
+          mode: "insensitive",
+        },
+        postStatus: {
+          equals: "PUBLISHED",
+        },
       },
-      select: postSelect,
+      select: {
+        id: true,
+        title: true,
+        content: true,
+        createdAt: true,
+        updatedAt: true,
+        author: {
+          select: {
+            id: true,
+            name: true,
+            email: true,
+            image: true,
+          },
+        },
+        postOnUser: {
+          select: {
+            userId: true,
+            type: true,
+          },
+        },
+        tagOnPost: {
+          select: {
+            tag: {
+              select: {
+                id: true,
+                name: true,
+                slug: true,
+              },
+            },
+          },
+        },
+      },
     })
 
-    return NextResponse.json(posts)
+    return Response.json(posts)
   } catch (error) {
     throw error
   }

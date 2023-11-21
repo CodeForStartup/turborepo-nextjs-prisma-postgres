@@ -3,7 +3,7 @@
 import prisma, { Prisma } from "database"
 import { revalidatePath } from "next/cache"
 
-export const postSelect = {
+const postSelect = {
   id: true,
   title: true,
   content: true,
