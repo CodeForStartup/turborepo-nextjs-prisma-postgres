@@ -19,7 +19,9 @@ export default async function Page() {
         title="Sign in"
         description="Sign in to Code for Startup to create posts, comment on posts, and more."
       />
-      <SignInForm />
+      <div className="flex justify-center">
+        <SignInForm />
+      </div>
     </div>
   )
 }
