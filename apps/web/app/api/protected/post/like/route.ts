@@ -1,37 +1,61 @@
 import prisma from "database"
-import { getSession } from "next-auth/react"
-import { NextRequest, NextResponse } from "next/server"
+import { z } from "zod"
 
-export async function POST(request: NextRequest) {
-  const session = await getSession({ req: request.nextRequest })
+import { getServerSession } from "@/utils/auth"
+
+export async function POST(request: Request) {
+  const session = await getServerSession()
   if (!session) {
-    return Response.unauthorized()
+    return new Response(null, { status: 403 })
   }
+  const data = await request.json()
 
-  const { postId, userId } = await request.body.json()
+  const userId = session?.user?.id
 
   try {
-    const post = await prisma.post.update({
-      where: {
-        id: postId,
-      },
-      data: {
-        postOnUser: {
-          create: [
-            {
-              user: {
-                connect: {
-                  id: userId,
+    if (data.action === "like") {
+      await prisma.post.update({
+        where: {
+          id: data?.postId,
+        },
+        data: {
+          postOnUser: {
+            create: [
+              {
+                user: {
+                  connect: {
+                    id: userId,
+                  },
                 },
               },
-            },
-          ],
+            ],
+          },
         },
-      },
-    })
+      })
+    } else {
+      await prisma.post.update({
+        where: {
+          id: data?.postId,
+        },
+        data: {
+          postOnUser: {
+            delete: {
+              userId_postId: {
+                userId,
+                postId: data?.postId,
+              },
+            },
+          },
+        },
+      })
+    }
 
-    return NextResponse.json(post)
+    return new Response(null, { status: 204 })
   } catch (error) {
-    return NextResponse.error(error)
+    if (error instanceof z.ZodError) {
+      return new Response(JSON.stringify(error.issues), { status: 422 })
+    }
+
+    return new Response(null, { status: 500 })
   }
 }
