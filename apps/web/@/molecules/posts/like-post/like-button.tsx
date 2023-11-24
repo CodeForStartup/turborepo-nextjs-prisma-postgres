@@ -2,6 +2,7 @@
 
 import { Heart } from "lucide-react"
 import { useSession } from "next-auth/react"
+import { toast } from "react-toastify"
 
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
@@ -13,15 +14,16 @@ const LikeButton = ({ postId, isLiked }: { postId: string; isLiked: boolean }) =
     if (!sessions?.data?.user?.id) return alert("Please login to like this post")
 
     try {
-      await fetch("/api/protected/post/like", {
+      await fetch("/api/protected/post/actions", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ postId, action: isLiked ? "unlike" : "like" }),
+        body: JSON.stringify({ postId, action: isLiked ? "UNLIKE" : "LIKE" }),
       })
     } catch (error) {
       // show error
+      toast.error(error.message)
     }
   }
 

@@ -13,7 +13,7 @@ export async function POST(request: Request) {
   const userId = session?.user?.id
 
   try {
-    if (data.action === "like") {
+    if (data.action === "LIKE" || data.action === "BOOKMARK") {
       await prisma.post.update({
         where: {
           id: data?.postId,
@@ -22,6 +22,7 @@ export async function POST(request: Request) {
           postOnUser: {
             create: [
               {
+                type: data.action,
                 user: {
                   connect: {
                     id: userId,
@@ -32,20 +33,14 @@ export async function POST(request: Request) {
           },
         },
       })
-    } else {
-      await prisma.post.update({
+    }
+
+    if (data.action === "UNLIKE" || data.action === "UNBOOKMARK") {
+      await prisma.postOnUser.deleteMany({
         where: {
-          id: data?.postId,
-        },
-        data: {
-          postOnUser: {
-            delete: {
-              userId_postId: {
-                userId,
-                postId: data?.postId,
-              },
-            },
-          },
+          postId: data?.postId,
+          userId,
+          type: data.action === "UNLIKE" ? "LIKE" : "BOOKMARK",
         },
       })
     }
