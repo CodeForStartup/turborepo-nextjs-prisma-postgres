@@ -89,7 +89,7 @@ model PostOnUser {
 
   type PostOnUserType @default(LIKE)
 
-  @@id([userId, postId])
+  @@id([userId, postId, type])
 }
 
 model PostContentType {
