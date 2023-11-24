@@ -1,6 +1,7 @@
 import { Metadata } from "next"
 
 import Filter from "@/molecules/home/filter"
+import NoItemFounded from "@/molecules/no-item-founded"
 import PostItem from "@/molecules/posts/post-item"
 
 export const metadata: Metadata = {
@@ -25,7 +26,22 @@ export default async function Page({ searchParams }) {
     <div className="">
       <Filter />
 
-      <div className="mt-4">{postsJson?.map((post) => <PostItem key={post.id} post={post} />)}</div>
+      {postsJson?.length === 0 ? (
+        <NoItemFounded />
+      ) : (
+        <div className="mt-4">
+          <div>
+            <h1 className="flex-1 text-xl font-extrabold text-slate-700">
+              Search results for:{" "}
+              <span className="text-2xl text-slate-900">{searchParams?.query}</span> (
+              {postsJson.length} founded)
+            </h1>
+          </div>
+          <div className="mt-4">
+            {postsJson?.map((post) => <PostItem key={post.id} post={post} />)}
+          </div>
+        </div>
+      )}
     </div>
   )
 }

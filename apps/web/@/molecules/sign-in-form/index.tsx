@@ -20,7 +20,7 @@ export default function SignInForm() {
   }
 
   return (
-    <div className="mt-16 flex flex-1 justify-center">
+    <div className="mt-16 flex w-full flex-1 justify-center rounded-md bg-white p-20 md:max-w-[500px]">
       <div className="grid-6 grid w-full max-w-md">
         <form>
           <div className="grid gap-2">
