@@ -129,8 +129,8 @@ model User {
   postOnUser    PostOnUser[]
   followers     Follower[]      @relation("follower")
   followings    Follower[]      @relation("following")
-  Comment       Comment[]
-  CommentOnUser CommentOnUser[]
+  comment       Comment[]
+  commentOnUser CommentOnUser[]
 }
 
 model Follower {

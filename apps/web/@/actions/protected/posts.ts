@@ -23,6 +23,16 @@ const postSelect = {
   postOnUser: {
     select: {
       type: true,
+      userId: true,
+      postId: true,
+    },
+  },
+  Comment: {
+    select: {
+      id: true,
+      content: true,
+      createdAt: true,
+      updatedAt: true,
     },
   },
   tagOnPost: {

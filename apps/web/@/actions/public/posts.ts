@@ -34,6 +34,14 @@ const postSelect = {
       },
     },
   },
+  Comment: {
+    select: {
+      id: true,
+      content: true,
+      createdAt: true,
+      updatedAt: true,
+    },
+  },
 } satisfies Prisma.PostSelect
 
 const getPostItem = Prisma.validator<Prisma.PostDefaultArgs>()({
@@ -79,23 +87,6 @@ export const getTotalLikes = async (postId: string): Promise<number> => {
     })
 
     return totalLikes
-  } catch (error) {
-    throw error
-  }
-}
-
-export const isLiked = async (postId: string, userId: string): Promise<boolean> => {
-  try {
-    const post = await prisma.postOnUser.findUnique({
-      where: {
-        userId_postId: {
-          userId,
-          postId,
-        },
-      },
-    })
-
-    return !!post
   } catch (error) {
     throw error
   }

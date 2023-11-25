@@ -2,7 +2,7 @@ const APP_APIS = {
   public: {},
   protected: {
     post: {
-      like: "/api/protected/post/actions",
+      actions: "/api/protected/post/:postId/actions",
     },
   },
 }
