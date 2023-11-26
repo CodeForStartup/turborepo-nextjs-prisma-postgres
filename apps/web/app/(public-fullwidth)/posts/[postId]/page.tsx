@@ -1,6 +1,6 @@
 import { getPostById } from "@/actions/public/posts"
-import LikePost from "@/molecules/posts/like-post"
 import PostDetail from "@/molecules/posts/post-detail"
+import LikePost from "@/molecules/posts/post-item/like-button"
 
 export default async function Page({ params }: { params: { postId: string } }) {
   const post = await getPostById(params?.postId)

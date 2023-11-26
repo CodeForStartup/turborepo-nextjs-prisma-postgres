@@ -5,6 +5,7 @@ import { useSession } from "next-auth/react"
 import { toast } from "react-toastify"
 
 import { Button } from "@/components/ui/button"
+import APP_APIS from "@/constants/apis"
 import { cn } from "@/lib/utils"
 
 const LikeButton = ({ postId, isLiked }: { postId: string; isLiked: boolean }) => {
@@ -14,7 +15,7 @@ const LikeButton = ({ postId, isLiked }: { postId: string; isLiked: boolean }) =
     if (!sessions?.data?.user?.id) return alert("Please login to like this post")
 
     try {
-      await fetch("/api/protected/post/actions", {
+      await fetch(APP_APIS.protected.post.actions, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -12,11 +12,13 @@ const APP_ROUTES = {
   TECHNICAL: "/technical",
 
   POSTS: "/posts",
-  POST: "/posts/[post]",
+  POST: "/posts/:postId",
   TAGS: "/tags",
-  TAG: "/tags/[tag]",
+  TAG: "/tags/:tagId",
   USERS: "/users",
-  USER: "/users/[user]",
+  USER: "/users/:userId",
+  AUTHOR: "/authors/:authorId",
+  AUTHORS: "/authors",
 
   // Authenticated routes
   PROFILE: "user/profile",
@@ -25,7 +27,7 @@ const APP_ROUTES = {
 
   USER_POSTS: "user/posts",
   CREATE_POST: "user/posts/create",
-  EDIT_POST: "user/posts/[post]/edit",
+  EDIT_POST: "user/posts/:postId/edit",
 }
 
 export default APP_ROUTES
