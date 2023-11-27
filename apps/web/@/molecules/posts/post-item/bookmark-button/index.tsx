@@ -2,6 +2,7 @@
 
 import React, { useState } from "react"
 import { LucideBookmarkMinus, LucideBookmarkPlus } from "lucide-react"
+import { getSession } from "next-auth/react"
 import { toast } from "react-toastify"
 
 import { Button } from "@/components/ui/button"
@@ -24,6 +25,13 @@ const BookmarkButton: React.FC<BookmarkButtonProps> = ({ post }) => {
   })
 
   const onBookmark = async () => {
+    const session = await getSession()
+
+    if (!session) {
+      toast.error("You must be logged in to like a post")
+      return
+    }
+
     try {
       setIsLoading(true)
       await fetch(generatePath(APP_APIS.protected.post.actions, { postId: post?.id }), {
