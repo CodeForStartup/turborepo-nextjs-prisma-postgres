@@ -1,9 +1,10 @@
 import prisma from "database"
+import { NextRequest } from "next/server"
 import { z } from "zod"
 
 import { getServerSession } from "@/utils/auth"
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest, { params }: { params: { postId: string } }) {
   const session = await getServerSession()
   if (!session) {
     return new Response(null, { status: 403 })
@@ -16,7 +17,7 @@ export async function POST(request: Request) {
     if (data.action === "LIKE" || data.action === "BOOKMARK") {
       await prisma.post.update({
         where: {
-          id: data?.postId,
+          id: params?.postId,
         },
         data: {
           postOnUser: {
@@ -51,6 +52,6 @@ export async function POST(request: Request) {
       return new Response(JSON.stringify(error.issues), { status: 422 })
     }
 
-    return new Response(null, { status: 500 })
+    return new Response(error, { status: 500 })
   }
 }

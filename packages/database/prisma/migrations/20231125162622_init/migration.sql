@@ -42,7 +42,7 @@ CREATE TABLE "PostOnUser" (
     "postId" TEXT NOT NULL,
     "type" "PostOnUserType" NOT NULL DEFAULT 'LIKE',
 
-    CONSTRAINT "PostOnUser_pkey" PRIMARY KEY ("userId","postId")
+    CONSTRAINT "PostOnUser_pkey" PRIMARY KEY ("userId","postId","type")
 );
 
 -- CreateTable

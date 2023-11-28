@@ -12,7 +12,7 @@ export type PostMetaProps = {
 export default function PostMeta({ post }: PostMetaProps) {
   return (
     <div className="mt-6 flex items-center">
-      <Link href={`/author/${post.author.id}`}>
+      <Link href={`/author/${post?.author?.id}`}>
         <div className="flex items-center">
           <div>
             <Avatar className="h-9 w-9">
@@ -21,7 +21,7 @@ export default function PostMeta({ post }: PostMetaProps) {
             </Avatar>
           </div>
           <div className="ml-2 flex flex-col">
-            <div className="text-sm font-bold text-gray-500">{post.author.name}</div>
+            <div className="text-sm font-bold text-gray-500">{post?.author?.name}</div>
             <div className="text-sm text-gray-400">
               Last edit on {dayjs(post?.updatedAt).format("MMMM D, YYYY")}
             </div>
