@@ -5,8 +5,8 @@ import Filter from "@/molecules/home/filter"
 import PostItem from "@/molecules/posts/post-item"
 
 export const metadata: Metadata = {
-  title: "Mooncake - Share you ideas with the world",
-  description: "Share you ideas with the world",
+  title: "Toplist360 - Share the best things",
+  description: "Top of the best things in the world",
 }
 
 export default async function Page() {
