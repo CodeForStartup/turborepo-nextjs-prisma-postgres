@@ -15,7 +15,7 @@ export default function PostDetail({ post }: PostDetailProps) {
     <div className="mb-8">
       <div className="flex">
         <h1 className="flex-1 text-4xl font-extrabold text-slate-700">
-          <Link href={`${post.id}`}>{post.title}</Link>
+          <Link href={`${post?.id}`}>{post?.title}</Link>
         </h1>
         {shouldShowEditButton && (
           <div className="ml-4 flex items-center" title="Edit">
@@ -28,7 +28,7 @@ export default function PostDetail({ post }: PostDetailProps) {
 
       <PostMeta post={post} />
 
-      <div className="mt-12">{reactHtmlParser(post.content)}</div>
+      <div className="mt-12">{reactHtmlParser(post?.content)}</div>
     </div>
   )
 }

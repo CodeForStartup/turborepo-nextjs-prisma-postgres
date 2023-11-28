@@ -1,4 +1,4 @@
-import { Prisma, PrismaClient } from "@prisma/client"
+import { PrismaClient } from "@prisma/client"
 
 declare global {
   var prisma: PrismaClient | undefined
@@ -13,4 +13,4 @@ const prisma =
 if (process.env.NODE_ENV === "development") global.prisma = prisma
 
 export default prisma
-export { Prisma }
+export * from "@prisma/client"
