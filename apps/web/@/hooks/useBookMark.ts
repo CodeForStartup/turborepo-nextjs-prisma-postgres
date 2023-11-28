@@ -6,31 +6,31 @@ import APP_APIS from "@/constants/apis"
 import { TPostItem } from "@/types/posts"
 import { generatePath } from "@/utils/generatePath"
 
-type UseLikeProps = {
+interface BookMarkProps {
   post: TPostItem
 }
 
-type UseLikeReturn = {
+interface BookMarkState {
   isLoading: boolean
-  totalLike: number | undefined
-  isLiked: boolean | undefined
-  likePost: () => Promise<void>
+  totalBookMark: number
+  isBookMarked: boolean
+  bookMark: () => Promise<void>
 }
 
-const useLike = ({ post }: UseLikeProps): UseLikeReturn => {
+const useBookMark = ({ post }: BookMarkProps): BookMarkState => {
   const [isLoading, setIsLoading] = useState(false)
 
-  const [totalLike, setTotalLike] = useState(
-    post?.postOnUser?.filter((user) => user?.type === "LIKE").length
-  )
-
-  const [isLiked, setIsLiked] = useState(() => {
+  const [isBookMarked, setIsBookMarked] = useState(() => {
     return post?.postOnUser?.some(
-      (user) => user?.userId === post?.author?.id && user?.type === "LIKE"
+      (user) => user?.userId === post?.author?.id && user?.type === "BOOKMARK"
     )
   })
 
-  const likePost = async () => {
+  const [totalBookMark, setTotalBookMark] = useState(
+    post?.postOnUser?.filter((user) => user?.type === "BOOKMARK").length
+  )
+
+  const bookMark = async () => {
     const session = await getSession()
 
     if (!session) {
@@ -46,11 +46,11 @@ const useLike = ({ post }: UseLikeProps): UseLikeReturn => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          action: isLiked ? "UNLIKE" : "LIKE",
+          action: isBookMarked ? "UNBOOKMARK" : "BOOKMARK",
         }),
       })
-      setIsLiked((prev) => !prev)
-      setTotalLike((prev) => (isLiked ? prev - 1 : prev + 1))
+      setIsBookMarked((prev) => !prev)
+      setTotalBookMark((prev) => (isBookMarked ? prev - 1 : prev + 1))
     } catch (error) {
       toast.error(error.message)
     } finally {
@@ -58,7 +58,12 @@ const useLike = ({ post }: UseLikeProps): UseLikeReturn => {
     }
   }
 
-  return { totalLike, isLiked, isLoading, likePost }
+  return {
+    totalBookMark,
+    isBookMarked,
+    isLoading,
+    bookMark,
+  }
 }
 
-export default useLike
+export default useBookMark
