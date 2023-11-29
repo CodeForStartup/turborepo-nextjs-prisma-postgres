@@ -9,9 +9,9 @@ export default async function Page({ params }: { params: { postId: string } }) {
   return (
     <div className="grid grid-cols-12 gap-4">
       <div className="col-span-9 flex gap-4">
-        <div className="w-12">
+        <div className="mt-8 flex w-12 flex-col gap-6">
           <LikeButton post={post} />
-          <BookmarkButton post={post} />
+          <BookmarkButton post={post} showCount />
         </div>
 
         <PostDetail post={post} />

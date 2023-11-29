@@ -34,7 +34,7 @@ const LikeButton: React.FC<LikeButtonProps> = ({ post }: LikeButtonProps) => {
           <TooltipContent>{isLiked ? "Unlike" : "Like"}</TooltipContent>
         </Tooltip>
       </TooltipProvider>
-      <Button variant="link" className="text-bold h-8 text-lg">
+      <Button variant="link" className="h-8 text-lg font-bold">
         {totalLike}
       </Button>
     </div>
