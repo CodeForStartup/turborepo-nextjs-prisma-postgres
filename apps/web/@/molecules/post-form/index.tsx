@@ -12,11 +12,12 @@ import AsyncCreatableSelect from "react-select/async-creatable"
 import { toast } from "react-toastify"
 import z from "zod"
 
-import { createPost, TPostItem, updatePost } from "@/actions/protected/posts"
+import { createPost, updatePost } from "@/actions/protected/posts"
 import { Button, buttonVariants } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import Editor from "@/molecules/editor"
 import InputTitle from "@/molecules/input-title"
+import { TPostItem } from "@/types/posts"
 
 const PostForm = ({ post: postData }: { post?: TPostItem }) => {
   const { title = "", content = "", tagOnPost = [] } = postData || {}

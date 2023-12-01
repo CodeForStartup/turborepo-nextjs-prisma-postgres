@@ -17,7 +17,7 @@ type EditorProps = {
   onChange: FormEventHandler<HTMLDivElement>
 }
 
-export default ({ content = "", placeholder = "", name, onChange, ...props }: EditorProps) => {
+const Editor = ({ content = "", placeholder = "", name, onChange, ...props }: EditorProps) => {
   const editor = useEditor({
     extensions: [
       StarterKit,
@@ -35,14 +35,16 @@ export default ({ content = "", placeholder = "", name, onChange, ...props }: Ed
           name,
           value: editor.getHTML(),
         },
-      } as any)
+      })
     },
   })
 
   return (
-    <div className="editor h-full w-full p-3">
+    <div className="editor h-full w-full bg-red-500 p-3">
       {editor && <MenuBar editor={editor} />}
       <EditorContent {...props} name={name} editor={editor} />
     </div>
   )
 }
+
+export default Editor

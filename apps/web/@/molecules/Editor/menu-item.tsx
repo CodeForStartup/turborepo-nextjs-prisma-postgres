@@ -7,12 +7,15 @@ type MenuItemProps = {
   action?: () => void
 }
 
-export default ({ icon, title, action, isActive = null }: MenuItemProps) => (
+const MenuItem = ({ icon, title, action, isActive = null }: MenuItemProps) => (
   <button
-    className={`menu-item${isActive && isActive() ? " is-active" : ""}`}
+    className={`menu-item ${isActive && isActive() ? "is-active" : ""}`}
     onClick={action}
     title={title}
+    type="button"
   >
     <i className={`ri-${icon}`}></i>
   </button>
 )
+
+export default MenuItem

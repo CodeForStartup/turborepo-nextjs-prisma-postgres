@@ -1,8 +1,13 @@
 import React, { Fragment } from "react"
+import { Editor } from "@tiptap/react"
 
 import MenuItem from "./menu-item"
 
-export default ({ editor }) => {
+type MenuBarProps = {
+  editor: Editor
+}
+
+const MenuBar = ({ editor }: MenuBarProps) => {
   const items = [
     {
       icon: "bold",
@@ -131,3 +136,5 @@ export default ({ editor }) => {
     </div>
   )
 }
+
+export default MenuBar
