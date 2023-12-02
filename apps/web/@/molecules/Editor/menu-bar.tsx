@@ -33,12 +33,12 @@ const MenuBar = ({ editor }: MenuBarProps) => {
       action: () => editor.chain().focus().toggleCode().run(),
       isActive: () => editor.isActive("code"),
     },
-    {
-      icon: "mark-pen-line",
-      title: "Highlight",
-      action: () => editor.chain().focus().toggleHighlight().run(),
-      isActive: () => editor.isActive("highlight"),
-    },
+    // {
+    //   icon: "mark-pen-line",
+    //   title: "Highlight",
+    //   action: () => editor.chain().focus().toggleHighlight().run(),
+    //   isActive: () => editor.isActive("highlight"),
+    // },
     {
       type: "divider",
     },
@@ -72,12 +72,12 @@ const MenuBar = ({ editor }: MenuBarProps) => {
       action: () => editor.chain().focus().toggleOrderedList().run(),
       isActive: () => editor.isActive("orderedList"),
     },
-    {
-      icon: "list-check-2",
-      title: "Task List",
-      action: () => editor.chain().focus().toggleTaskList().run(),
-      isActive: () => editor.isActive("taskList"),
-    },
+    // {
+    //   icon: "list-check-2",
+    //   title: "Task List",
+    //   action: () => editor.chain().focus().toggleTaskList().run(),
+    //   isActive: () => editor.isActive("taskList"),
+    // },
     {
       icon: "code-box-line",
       title: "Code Block",
@@ -127,7 +127,7 @@ const MenuBar = ({ editor }: MenuBarProps) => {
   ]
 
   return (
-    <div className="editor__header">
+    <div className="editor__header mb-4">
       {items.map((item, index) => (
         <Fragment key={index}>
           {item.type === "divider" ? <div className="divider" /> : <MenuItem {...item} />}

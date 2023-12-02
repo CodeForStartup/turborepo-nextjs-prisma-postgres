@@ -9,15 +9,6 @@
     padding: 0 1rem;
   }
 
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    line-height: 1.1;
-  }
-
   code {
     background-color: rgba(#616161, 0.1);
     color: #616161;
@@ -164,7 +155,7 @@
 }
 
 .divider {
-  background-color: rgba(#fff, 0.25);
+  background-color: #adb5bd;
   height: 1.25rem;
   margin-left: 0.5rem;
   margin-right: 0.75rem;
@@ -173,7 +164,6 @@
 
 .menu-item {
   background-color: transparent;
-  border: none;
   border-radius: 0.4rem;
   color: #adb5bd;
   cursor: pointer;

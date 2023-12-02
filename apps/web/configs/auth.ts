@@ -29,10 +29,9 @@ export const authConfigs = {
       return baseUrl
     },
     session: async ({ session, token }) => {
-      if (session?.user) {
-        session.user.id = token?.uid
+      if (token) {
+        session.user.id = token.uid as string
       }
-
       return session
     },
     jwt: async ({ user, token }) => {
@@ -42,4 +41,4 @@ export const authConfigs = {
       return token
     },
   },
-} satisfies NextAuthOptions
+} as NextAuthOptions

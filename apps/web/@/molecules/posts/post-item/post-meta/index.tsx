@@ -23,7 +23,7 @@ const PostMeta: React.FC<PostMetaProps> = ({ post }) => {
         </Link>
       </div>
       <div className="h-1 w-1 rounded bg-gray-400" />
-      <div>Last edited: {dayjs(post?.createdAt).format("MMMM D, YYYY")}</div>
+      <time>Last edited: {dayjs(post?.createdAt).format("MMMM D, YYYY")}</time>
     </div>
   )
 }

@@ -2,8 +2,8 @@
 import dayjs from "dayjs"
 import Link from "next/link"
 
-import { TPostItem } from "@/actions/public/posts"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { TPostItem } from "@/types/posts"
 
 export type PostMetaProps = {
   post: TPostItem
@@ -22,9 +22,9 @@ export default function PostMeta({ post }: PostMetaProps) {
           </div>
           <div className="ml-2 flex flex-col">
             <div className="text-sm font-bold text-gray-500">{post?.author?.name}</div>
-            <div className="text-sm text-gray-400">
+            <time className="text-sm text-gray-400">
               Last edit on {dayjs(post?.updatedAt).format("MMMM D, YYYY")}
-            </div>
+            </time>
           </div>
         </div>
       </Link>
