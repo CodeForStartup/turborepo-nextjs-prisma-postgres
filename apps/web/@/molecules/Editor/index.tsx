@@ -26,50 +26,43 @@ type EditorProps = {
 }
 
 const Editor = ({ content = "", placeholder = "", name, onChange, ...props }: EditorProps) => {
+  const MyHeading = Heading.extend({
+    levels: [2, 3, 4, 5, 6],
+    renderHTML({ node, HTMLAttributes }) {
+      const level = this.options.levels.includes(node.attrs.level)
+        ? node.attrs.level
+        : this.options.levels[0]
+
+      const classes = {
+        2: "text-2xl font-bold",
+        3: "text-xl",
+        4: "text-lg",
+        5: "text-base",
+        6: "text-sm",
+      }
+
+      return [
+        `h${level}`,
+        mergeAttributes(this.options.HTMLAttributes, HTMLAttributes, {
+          class: `${classes[level]}`,
+        }),
+        0,
+      ]
+    },
+  }).configure({
+    levels: [1, 2, 3],
+  })
+
   const editor = useEditor({
     extensions: [
       Bold,
       Document,
       Paragraph,
       Text,
-      StarterKit.configure({
-        heading: false,
-      }),
       CodeBlock,
       TaskList,
       TaskItem,
-      Heading.extend({
-        addAttributes() {
-          return {
-            class: {
-              default: null,
-              parseHTML: (element) => ({
-                class: element.getAttribute("class"),
-              }),
-              renderHTML: (attributes) => ({
-                class: attributes.class,
-              }),
-              // renderHTML({ node, HTMLAttributes }) {
-              //   const level = this.options.levels.includes(node.attrs.level)
-              //     ? node.attrs.level
-              //     : this.options.levels[0]
-              //   const classes: { [index: number]: string } = {
-              //     1: "text-2xl",
-              //     2: "text-xl",
-              //   }
-              //   return [
-              //     `h${level}`,
-              //     mergeAttributes(this.options.HTMLAttributes, HTMLAttributes, {
-              //       class: `${classes[level]}`,
-              //     }),
-              //     0,
-              //   ]
-              // },
-            },
-          }
-        },
-      }).configure({ levels: [1, 2] }),
-
+      MyHeading,
       CharacterCount.configure({
         limit: 10000,
       }),
@@ -77,7 +70,7 @@ const Editor = ({ content = "", placeholder = "", name, onChange, ...props }: Ed
         placeholder,
       }),
       StarterKit.configure({
-        history: false,
+        heading: false,
       }),
     ],
     content,
@@ -89,14 +82,6 @@ const Editor = ({ content = "", placeholder = "", name, onChange, ...props }: Ed
         },
       })
     },
-  })
-
-  editor?.on("transaction", ({ doc }) => {
-    const heading = doc.querySelector("h1, h2, h3, h4")
-    if (heading) {
-      const classes = heading.attrs.class || []
-      heading.attrs.class = classes.concat("your-custom-class")
-    }
   })
 
   return (

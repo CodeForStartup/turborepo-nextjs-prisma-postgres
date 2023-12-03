@@ -9,7 +9,9 @@ type MenuItemProps = {
 
 const MenuItem = ({ icon, title, action, isActive = null }: MenuItemProps) => (
   <button
-    className={`menu-item border border-gray-400 ${isActive && isActive() ? "is-active" : ""}`}
+    className={`menu-item border border-gray-500 text-gray-500 hover:bg-gray-500 hover:bg-gray-900 hover:text-gray-100 ${
+      isActive && isActive() ? "is-active" : ""
+    }`}
     onClick={action}
     title={title}
     type="button"
