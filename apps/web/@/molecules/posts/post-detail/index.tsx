@@ -6,6 +6,7 @@ import PostMeta from "@/molecules/user/posts/post-meta"
 import { TPostItem } from "@/types/posts"
 import { generatePath } from "@/utils/generatePath"
 import Comments from "./comments"
+import EditPostButton from "./edit-post-button"
 import PostContent from "./post-content"
 
 export type PostDetailProps = {
@@ -15,16 +16,19 @@ export type PostDetailProps = {
 export default function PostDetail({ post }: PostDetailProps) {
   return (
     <div className="w-full">
-      <div className="mb-8 w-full rounded bg-neutral-100 p-8">
-        <h1 className="flex-1 text-4xl font-extrabold text-slate-700">
-          <Link
-            href={generatePath(APP_ROUTES.POST, {
-              postId: post?.id,
-            })}
-          >
-            {post?.title}
-          </Link>
-        </h1>
+      <article className="mb-8 w-full rounded bg-white p-8">
+        <div className="flex">
+          <h1 className="flex flex-1 text-4xl font-extrabold text-slate-700">
+            <Link
+              href={generatePath(APP_ROUTES.POST, {
+                postId: post?.id,
+              })}
+            >
+              {post?.title}
+            </Link>
+          </h1>
+          <EditPostButton post={post} />
+        </div>
 
         <PostMeta post={post} />
 
@@ -36,7 +40,7 @@ export default function PostDetail({ post }: PostDetailProps) {
         />
 
         <PostContent post={post} />
-      </div>
+      </article>
       <Comments />
     </div>
   )

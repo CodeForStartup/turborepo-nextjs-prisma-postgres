@@ -17,7 +17,7 @@ const APP_ROUTES = {
   TAG: "/tags/:tagId",
   USERS: "/users",
   USER: "/users/:userId",
-  AUTHOR: "/authors/:authorId",
+  AUTHOR: "/author/:authorId",
   AUTHORS: "/authors",
 
   // Authenticated routes
