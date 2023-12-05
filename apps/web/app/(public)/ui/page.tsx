@@ -1,5 +1,7 @@
+import { LucideHeart } from "lucide-react"
 import { Metadata } from "next"
 
+import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import PageTitle from "@/molecules/page-title"
 import TagBadge from "@/molecules/tag/tag-badge"
@@ -34,15 +36,27 @@ export default async function Page() {
         <h4 className="text-xl font-bold">
           H4. React is the library for web and native user interfaces
         </h4>
-        <h5 className="text-lg font-bold">
-          H5. React is the library for web and native user interfaces
-        </h5>
-        <h6 className="text-sm font-bold">
-          H6. React is the library for web and native user interfaces
-        </h6>
         <p>p. React is the library for web and native user interfaces</p>
         <p className="text-sm text-muted-foreground">
           p.sm React is the library for web and native user interfaces
+        </p>
+
+        <blockquote className="mt-6 border-l-2 pl-6 italic">
+          React is the library for web and native user interfaces
+        </blockquote>
+
+        <ul className="my-6 ml-6 list-disc [&>li]:mt-2">
+          <li>React is the library for web and native user interfaces</li>
+          <li>React is the library for web and native user interfaces</li>
+          <li>React is the library for web and native user interfaces</li>
+        </ul>
+
+        <code className="relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold">
+          React is the library for web and native user interfaces
+        </code>
+
+        <p className="text-xl text-muted-foreground">
+          A modal dialog that interrupts the user with important content and expects a response.
         </p>
       </Section>
 
@@ -54,6 +68,10 @@ export default async function Page() {
             slug: "tag",
           }}
         />
+        <Button variant="link" className="h-8 rounded-md p-0 px-2 text-gray-600 hover:bg-slate-300">
+          <LucideHeart className="h-4 w-4 text-red-500" />
+          <span className="ml-1 hover:no-underline">999</span>
+        </Button>
       </Section>
 
       <Section title="Inputs">
