@@ -3,13 +3,14 @@
 import dayjs from "dayjs"
 import Link from "next/link"
 
-import { deletePost, TPostItem } from "@/actions/protected/posts"
+import { deletePost } from "@/actions/protected/posts"
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { TPostItem } from "@/types/posts"
 
 export default function PostItem(post: TPostItem) {
   const onDeletePost = async () => {
