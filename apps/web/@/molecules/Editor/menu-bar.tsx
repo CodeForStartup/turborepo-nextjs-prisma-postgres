@@ -43,16 +43,22 @@ const MenuBar = ({ editor }: MenuBarProps) => {
       type: "divider",
     },
     {
-      icon: "h-1",
-      title: "Heading 1",
-      action: () => editor.chain().focus().toggleHeading({ level: 1 }).run(),
-      isActive: () => editor.isActive("heading", { level: 1 }),
-    },
-    {
       icon: "h-2",
       title: "Heading 2",
       action: () => editor.chain().focus().toggleHeading({ level: 2 }).run(),
       isActive: () => editor.isActive("heading", { level: 2 }),
+    },
+    {
+      icon: "h-3",
+      title: "Heading 3",
+      action: () => editor.chain().focus().toggleHeading({ level: 3 }).run(),
+      isActive: () => editor.isActive("heading", { level: 3 }),
+    },
+    {
+      icon: "h-4",
+      title: "Heading 4",
+      action: () => editor.chain().focus().toggleHeading({ level: 4 }).run(),
+      isActive: () => editor.isActive("heading", { level: 4 }),
     },
     {
       icon: "paragraph",
@@ -72,12 +78,6 @@ const MenuBar = ({ editor }: MenuBarProps) => {
       action: () => editor.chain().focus().toggleOrderedList().run(),
       isActive: () => editor.isActive("orderedList"),
     },
-    // {
-    //   icon: "list-check-2",
-    //   title: "Task List",
-    //   action: () => editor.chain().focus().toggleTaskList().run(),
-    //   isActive: () => editor.isActive("taskList"),
-    // },
     {
       icon: "code-box-line",
       title: "Code Block",

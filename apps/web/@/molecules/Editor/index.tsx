@@ -4,14 +4,15 @@ import "./index.css"
 
 import React, { FormEventHandler } from "react"
 import Bold from "@tiptap/extension-bold"
+import BulletList from "@tiptap/extension-bullet-list"
 import CharacterCount from "@tiptap/extension-character-count"
 import CodeBlock from "@tiptap/extension-code-block"
 import Document from "@tiptap/extension-document"
 import Heading from "@tiptap/extension-heading"
+import ListItem from "@tiptap/extension-list-item"
+import OrderedList from "@tiptap/extension-ordered-list"
 import Paragraph from "@tiptap/extension-paragraph"
 import Placeholder from "@tiptap/extension-placeholder"
-import TaskItem from "@tiptap/extension-task-item"
-import TaskList from "@tiptap/extension-task-list"
 import Text from "@tiptap/extension-text"
 import { EditorContent, mergeAttributes, useEditor } from "@tiptap/react"
 import StarterKit from "@tiptap/starter-kit"
@@ -27,18 +28,16 @@ type EditorProps = {
 
 const Editor = ({ content = "", placeholder = "", name, onChange, ...props }: EditorProps) => {
   const MyHeading = Heading.extend({
-    levels: [2, 3, 4, 5, 6],
+    levels: [2, 3, 4],
     renderHTML({ node, HTMLAttributes }) {
       const level = this.options.levels.includes(node.attrs.level)
         ? node.attrs.level
         : this.options.levels[0]
 
       const classes = {
-        2: "text-2xl font-bold",
-        3: "text-xl",
-        4: "text-lg",
-        5: "text-base",
-        6: "text-sm",
+        2: "text-3xl font-bold",
+        3: "text-2xl font-bold",
+        4: "text-xl font-bold",
       }
 
       return [
@@ -50,7 +49,7 @@ const Editor = ({ content = "", placeholder = "", name, onChange, ...props }: Ed
       ]
     },
   }).configure({
-    levels: [1, 2, 3],
+    levels: [2, 3, 4],
   })
 
   const editor = useEditor({
@@ -60,8 +59,6 @@ const Editor = ({ content = "", placeholder = "", name, onChange, ...props }: Ed
       Paragraph,
       Text,
       CodeBlock,
-      TaskList,
-      TaskItem,
       MyHeading,
       CharacterCount.configure({
         limit: 10000,
@@ -71,7 +68,21 @@ const Editor = ({ content = "", placeholder = "", name, onChange, ...props }: Ed
       }),
       StarterKit.configure({
         heading: false,
+        listItem: false,
+        bulletList: false,
+        orderedList: false,
       }),
+      BulletList.configure({
+        HTMLAttributes: {
+          class: "list-disc ml-6",
+        },
+      }),
+      OrderedList.configure({
+        HTMLAttributes: {
+          class: "list-decimal ml-6",
+        },
+      }),
+      ListItem,
     ],
     content,
     onUpdate: ({ editor }) => {
@@ -85,7 +96,7 @@ const Editor = ({ content = "", placeholder = "", name, onChange, ...props }: Ed
   })
 
   return (
-    <div className="editor h-full w-full bg-red-500 p-3">
+    <div className="editor h-full w-full p-3">
       {editor && <MenuBar editor={editor} />}
       <EditorContent {...props} name={name} editor={editor} />
     </div>
