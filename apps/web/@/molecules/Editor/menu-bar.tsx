@@ -5,9 +5,10 @@ import MenuItem from "./menu-item"
 
 type MenuBarProps = {
   editor: Editor
+  setLink: () => void
 }
 
-const MenuBar = ({ editor }: MenuBarProps) => {
+const MenuBar = ({ editor, setLink }: MenuBarProps) => {
   const items = [
     {
       icon: "bold",
@@ -26,6 +27,12 @@ const MenuBar = ({ editor }: MenuBarProps) => {
       title: "Strike",
       action: () => editor.chain().focus().toggleStrike().run(),
       isActive: () => editor.isActive("strike"),
+    },
+    {
+      icon: "underline",
+      title: "Underline",
+      action: () => editor.chain().focus().toggleUnderline().run(),
+      isActive: () => editor.isActive("underline"),
     },
     {
       icon: "code-view",
@@ -83,6 +90,12 @@ const MenuBar = ({ editor }: MenuBarProps) => {
       title: "Code Block",
       action: () => editor.chain().focus().toggleCodeBlock().run(),
       isActive: () => editor.isActive("codeBlock"),
+    },
+    {
+      icon: "link",
+      title: "Link",
+      action: () => setLink(),
+      isActive: () => editor.isActive("link"),
     },
     {
       type: "divider",
