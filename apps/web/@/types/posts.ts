@@ -6,6 +6,7 @@ export const postSelect = {
   content: true,
   createdAt: true,
   updatedAt: true,
+  slug: true,
   author: {
     select: {
       id: true,

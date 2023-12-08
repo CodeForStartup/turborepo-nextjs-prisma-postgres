@@ -1,5 +1,5 @@
 import prisma from "database"
-import { NextRequest, NextResponse } from "next/server"
+import { NextRequest } from "next/server"
 
 export async function GET(request: NextRequest) {
   const newUrl = request.nextUrl.clone()
@@ -14,7 +14,7 @@ export async function GET(request: NextRequest) {
       },
     })
 
-    return NextResponse.json(posts)
+    return Response.json(posts)
   } catch (error) {
     throw error
   }
