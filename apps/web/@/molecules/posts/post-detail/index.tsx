@@ -21,7 +21,7 @@ export default function PostDetail({ post }: PostDetailProps) {
           <h1 className="flex flex-1 text-4xl font-extrabold text-slate-700">
             <Link
               href={generatePath(APP_ROUTES.POST, {
-                postId: post?.id,
+                postId: post?.slug || post?.id,
               })}
             >
               {post?.title}

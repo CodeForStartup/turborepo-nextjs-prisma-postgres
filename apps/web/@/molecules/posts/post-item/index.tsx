@@ -15,7 +15,7 @@ export default function PostItem({ post }: { post: TPostItem }) {
       <div className="flex-1">
         <Link
           href={generatePath(APP_ROUTES.POST, {
-            postId: post?.id,
+            postId: post?.slug || post?.id,
           })}
         >
           <h2 className="flex flex-1 text-2xl font-bold text-slate-700 hover:underline">

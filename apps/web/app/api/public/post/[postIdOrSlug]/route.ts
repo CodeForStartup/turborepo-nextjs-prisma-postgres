@@ -1,4 +1,3 @@
-import { PostStatus } from "database"
 import { NextRequest } from "next/server"
 
 import { postSelect } from "@/types/posts"
@@ -8,18 +7,27 @@ export async function GET(request: NextRequest, { params }: { params: { postIdOr
     const post = await prisma.post.findUnique({
       where: {
         // postStatus: PostStatus.PUBLISHED,
-        id: params.postIdOrSlug,
+        // id: params.postIdOrSlug,
         OR: [
           {
             id: params.postIdOrSlug,
+          },
+          {
+            slug: params.postIdOrSlug,
           },
         ],
       },
       select: postSelect,
     })
 
-    return Response.json(post)
+    if (!post)
+      return Response.json({
+        status: 404,
+        message: "Post not found",
+      })
+
+    return Response.json(post, { status: 200 })
   } catch (error) {
-    return Response.json(error, { status: 500 })
+    return Response.error()
   }
 }
