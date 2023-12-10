@@ -22,7 +22,7 @@ export const postSelect = {
       postId: true,
     },
   },
-  Comment: {
+  comment: {
     select: {
       id: true,
       content: true,

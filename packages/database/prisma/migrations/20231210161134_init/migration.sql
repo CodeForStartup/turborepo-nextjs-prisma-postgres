@@ -27,6 +27,7 @@ CREATE TABLE "Post" (
     "authorId" TEXT NOT NULL,
     "parentPostId" TEXT,
     "pinned" BOOLEAN NOT NULL DEFAULT false,
+    "approved" BOOLEAN NOT NULL DEFAULT false,
     "postType" "PostType" NOT NULL DEFAULT 'POST',
     "postStatus" "PostStatus" NOT NULL DEFAULT 'DRAFT',
     "postFormat" "PostFormat" NOT NULL DEFAULT 'STANDARD',

@@ -61,12 +61,14 @@ model Post {
   parentPostId String?
   pinned       Boolean @default(false)
 
+  approved Boolean @default(false)
+
   postType   PostType     @default(POST)
   postStatus PostStatus   @default(DRAFT)
   postFormat PostFormat   @default(STANDARD)
   tagOnPost  TagOnPost[]
   postOnUser PostOnUser[]
-  Comment    Comment[]
+  comment    Comment[]
 }
 
 enum PostOnUserType {
