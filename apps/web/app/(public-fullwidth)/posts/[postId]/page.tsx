@@ -21,12 +21,25 @@ export async function generateMetadata({ params }): Promise<Metadata> {
 }
 
 export default async function Page({ params }: { params: { postId: string } }) {
-  const postRaw = await fetch(
-    `${process.env.FRONTEND_URL}${generatePath(APP_APIS.public.post.GET, {
-      postIdOrSlug: params?.postId,
-    })}`
-  )
-  const post = await postRaw.json()
+  let post = null
+  try {
+    const postRaw = await fetch(
+      `${process.env.FRONTEND_URL}${generatePath(APP_APIS.public.post.GET, {
+        postIdOrSlug: params?.postId,
+      })}`,
+      {
+        cache: "no-cache",
+      }
+    )
+
+    post = await postRaw.json()
+  } catch (error) {
+    //
+  }
+
+  if (!post || post?.status === 404) {
+    return <div>Post not found</div>
+  }
 
   return (
     <div className="grid grid-cols-12 gap-4">

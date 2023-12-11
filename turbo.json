@@ -1,6 +1,15 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "globalDependencies": ["**/.env.*local"],
+  "globalEnv": [
+    "FRONTEND_URL",
+    "NEXTAUTH_SECRET",
+    "NEXTAUTH_URL",
+    "GITHUB_ID",
+    "GITHUB_SECRET",
+    "JWT_SECRET",
+    "NEXT_PUBLIC_FB_APP_ID"
+  ],
   "pipeline": {
     "build": {
       "dependsOn": ["^db:generate", "^build"],
