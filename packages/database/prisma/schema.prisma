@@ -8,7 +8,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  url      = "postgresql://postgres:example@localhost:5432/codeforstartup2"
 }
 
 enum PostType {
@@ -61,14 +61,12 @@ model Post {
   parentPostId String?
   pinned       Boolean @default(false)
 
-  approved Boolean @default(false)
-
   postType   PostType     @default(POST)
   postStatus PostStatus   @default(DRAFT)
   postFormat PostFormat   @default(STANDARD)
   tagOnPost  TagOnPost[]
   postOnUser PostOnUser[]
-  comment    Comment[]
+  Comment    Comment[]
 }
 
 enum PostOnUserType {
