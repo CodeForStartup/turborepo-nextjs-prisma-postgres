@@ -30,6 +30,14 @@ export const postSelect = {
       updatedAt: true,
     },
   },
+  // comment: {
+  //   select: {
+  //     id: true,
+  //     content: true,
+  //     createdAt: true,
+  //     updatedAt: true,
+  //   },
+  // },
   tagOnPost: {
     select: {
       tag: {
