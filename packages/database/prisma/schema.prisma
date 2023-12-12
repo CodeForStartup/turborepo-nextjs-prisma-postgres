@@ -8,7 +8,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = "postgresql://postgres:example@localhost:5432/codeforstartup2"
+  url      = env("DATABASE_URL")
 }
 
 enum PostType {
