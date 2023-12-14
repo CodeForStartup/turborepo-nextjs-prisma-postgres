@@ -4,11 +4,8 @@ import { postSelect } from "@/types/posts"
 
 export async function GET(request: NextRequest, { params }: { params: { postIdOrSlug: string } }) {
   try {
-    const post = await prisma.post.findUnique({
+    const post = await prisma.post.findFirst({
       where: {
-        // postStatus: PostStatus.PUBLISHED,
-        id: params.postIdOrSlug,
-        // slug: params.postIdOrSlug,
         OR: [
           {
             id: params.postIdOrSlug,
