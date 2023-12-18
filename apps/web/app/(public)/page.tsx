@@ -10,13 +10,20 @@ export const metadata: Metadata = {
 }
 
 export default async function Page() {
-  const posts = await getPosts()
+  const posts = await fetch(`${process.env.FRONTEND_URL}/api/public/posts`, {
+    method: "GET",
+    cache: "no-cache",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+  const postsJson = await posts.json()
 
   return (
     <div className="">
       <Filter />
       <div className="mt-4">
-        {posts.map((post) => (
+        {postsJson.map((post) => (
           <PostItem key={post.id} post={post} />
         ))}
       </div>
