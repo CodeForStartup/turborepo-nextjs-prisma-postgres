@@ -40,7 +40,7 @@ const useBookMark = ({ post }: BookMarkProps): BookMarkState => {
 
     try {
       setIsLoading(true)
-      await fetch(generatePath(APP_APIS.protected.post.actions, { postId: post?.id }), {
+      await fetch(generatePath(APP_APIS.protected.post.ACTIONS, { postId: post?.id }), {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

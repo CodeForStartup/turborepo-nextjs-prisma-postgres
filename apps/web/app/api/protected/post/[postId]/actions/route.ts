@@ -1,8 +1,11 @@
 import prisma from "database"
+import { revalidatePath } from "next/cache"
 import { NextRequest } from "next/server"
 import { z } from "zod"
 
+import APP_APIS from "@/constants/apis"
 import { getServerSession } from "@/utils/auth"
+import { generatePath } from "@/utils/generatePath"
 
 export async function POST(request: NextRequest, { params }: { params: { postId: string } }) {
   const session = await getServerSession()
@@ -45,6 +48,9 @@ export async function POST(request: NextRequest, { params }: { params: { postId:
         },
       })
     }
+
+    revalidatePath(generatePath(APP_APIS.public.posts.GET))
+    revalidatePath(generatePath(APP_APIS.public.post.GET, { postIdOrSlug: params?.postId }))
 
     return new Response(null, { status: 204 })
   } catch (error) {
