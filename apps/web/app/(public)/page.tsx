@@ -1,6 +1,5 @@
 import { Metadata } from "next"
 
-import { getPosts } from "@/actions/public/posts"
 import Filter from "@/molecules/home/filter"
 import PostItem from "@/molecules/posts/post-item"
 
