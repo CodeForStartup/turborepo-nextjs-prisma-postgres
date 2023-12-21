@@ -2,6 +2,7 @@ import Link from "next/link"
 
 import APP_ROUTES from "@/constants/routes"
 import TagList from "@/molecules/tag/tag-list"
+import Typography from "@/molecules/typography"
 import PostMeta from "@/molecules/user/posts/post-meta"
 import { TPostItem } from "@/types/posts"
 import { generatePath } from "@/utils/generatePath"
@@ -17,8 +18,8 @@ export default function PostDetail({ post }: PostDetailProps) {
   return (
     <div className="w-full">
       <article className="mb-8 w-full rounded bg-white p-8">
-        <div className="flex">
-          <h1 className="flex flex-1 text-4xl font-extrabold text-slate-700">
+        <div className="flex w-full">
+          <Typography variant="h1" className="flex flex-1">
             <Link
               href={generatePath(APP_ROUTES.POST, {
                 postId: post?.slug || post?.id,
@@ -26,7 +27,7 @@ export default function PostDetail({ post }: PostDetailProps) {
             >
               {post?.title}
             </Link>
-          </h1>
+          </Typography>
           <EditPostButton post={post} />
         </div>
 

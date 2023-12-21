@@ -2,6 +2,7 @@ import Link from "next/link"
 
 import APP_ROUTES from "@/constants/routes"
 import TagList from "@/molecules/tag/tag-list"
+import Typography from "@/molecules/typography"
 import { TPostItem } from "@/types/posts"
 import { generatePath } from "@/utils/generatePath"
 import BookmarkButton from "./bookmark-button"
@@ -18,9 +19,7 @@ export default function PostItem({ post }: { post: TPostItem }) {
             postId: post?.slug || post?.id,
           })}
         >
-          <h2 className="flex flex-1 text-2xl font-bold text-slate-700 hover:underline">
-            {post.title}
-          </h2>
+          <Typography variant="h2">{post.title}</Typography>
         </Link>
 
         <PostMeta post={post} />
