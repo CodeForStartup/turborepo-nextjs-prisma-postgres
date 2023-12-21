@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import PageTitle from "@/molecules/page-title"
 import TagBadge from "@/molecules/tag/tag-badge"
+import Typography from "@/molecules/typography"
 
 export const metadata: Metadata = {
   title: "Toplist360 - Page UI",
@@ -24,40 +25,34 @@ export default async function Page() {
       <PageTitle title="List of UI components" description="Pages components" />
 
       <Section title="Typography">
-        <h1 className="text-4xl font-bold tracking-tight text-slate-800">
+        <Typography variant="h1">
           H1. React is the library for web and native user interfaces.
-        </h1>
-        <h2 className="text-3xl font-bold">
+        </Typography>
+        <Typography variant="h2">
           H2. React is the library for web and native user interfaces
-        </h2>
-        <h3 className="text-2xl font-bold">
+        </Typography>
+        <Typography variant="h3">
           H3. React is the library for web and native user interfaces
-        </h3>
-        <h4 className="text-xl font-bold">
+        </Typography>
+        <Typography variant="h4">
           H4. React is the library for web and native user interfaces
-        </h4>
-        <p>p. React is the library for web and native user interfaces</p>
-        <p className="text-sm text-muted-foreground">
+        </Typography>
+        <Typography>p. React is the library for web and native user interfaces</Typography>
+        <Typography variant="p" className="text-sm text-muted-foreground">
           p.sm React is the library for web and native user interfaces
-        </p>
-
-        <blockquote className="mt-6 border-l-2 pl-6 italic">
+        </Typography>
+        <Typography variant="blockquote">
           React is the library for web and native user interfaces
-        </blockquote>
+        </Typography>
+        <Typography variant="code">
+          React is the library for web and native user interfaces
+        </Typography>
 
         <ul className="my-6 ml-6 list-disc [&>li]:mt-2">
           <li>React is the library for web and native user interfaces</li>
           <li>React is the library for web and native user interfaces</li>
           <li>React is the library for web and native user interfaces</li>
         </ul>
-
-        <code className="relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold">
-          React is the library for web and native user interfaces
-        </code>
-
-        <p className="text-xl text-muted-foreground">
-          A modal dialog that interrupts the user with important content and expects a response.
-        </p>
       </Section>
 
       <Section title="Buttons">
