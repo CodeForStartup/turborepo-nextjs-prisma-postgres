@@ -1,30 +1,45 @@
 import Link from "next/link"
 
 import { getTags } from "@/actions/public/tags"
-import { Badge } from "@/components/ui/badge"
+import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import PageTitle from "@/molecules/page-title"
+import Typography from "@/molecules/typography"
 
 export const metadata = {
   title: "Tags",
-  description: "A list of tags used in the blog posts",
+  description:
+    "A tag is a keyword or label that categorizes your question with other, similar questions. Using the right tags makes it easier for others to find and answer your question.",
 }
 
 export default async function Page() {
   const tags = await getTags()
 
   return (
-    <div className="gap-10 rounded-md bg-white p-8">
-      <PageTitle title="Tags" description="A list of tags used in the blog posts" />
-      <div className="mt-8">
+    <div className="">
+      <PageTitle
+        title="Tags"
+        description="A tag is a keyword or label that categorizes your question with other, similar questions. Using the right tags makes it easier for others to find and answer your question."
+      />
+      <div className="mt-8 grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
         {tags?.map((tag) => (
           <Link href={`/tags/${tag?.id}`} key={tag?.id}>
-            <div>
-              <Badge className="my-2 mr-4 rounded-sm bg-slate-200 text-gray-600 hover:bg-slate-300 hover:underline">
-                <div>{tag?.name}</div>
-                <div>[{tag?._count?.tagOnPost} articles]</div>
-              </Badge>
-              <div>{tag?.description}</div>
-            </div>
+            <Card className="sm:col-span-1">
+              <CardHeader>
+                <Typography variant="h2" className="text-xl hover:underline">
+                  {tag?.name}
+                </Typography>
+              </CardHeader>
+              <CardContent>
+                {tag?.description && (
+                  <Typography variant="p" className="text-gray-500">
+                    {tag?.description}
+                  </Typography>
+                )}
+                <Typography variant="p" className="text-gray-500">
+                  {tag?._count.tagOnPost} posts
+                </Typography>
+              </CardContent>
+            </Card>
           </Link>
         ))}
       </div>
