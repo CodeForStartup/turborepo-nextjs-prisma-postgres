@@ -1,7 +1,9 @@
 import Link from "next/link"
 
 import { getTags } from "@/actions/public/tags"
+import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
+import { Input } from "@/components/ui/input"
 import PageTitle from "@/molecules/page-title"
 import Typography from "@/molecules/typography"
 
@@ -20,6 +22,11 @@ export default async function Page() {
         title="Tags"
         description="A tag is a keyword or label that categorizes your question with other, similar questions. Using the right tags makes it easier for others to find and answer your question."
       />
+
+      <div className="mt-4 flex max-w-[500px]">
+        <Input placeholder="Filter tags..." />
+        <Button className="ml-2">Search</Button>
+      </div>
       <div className="mt-8 grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
         {tags?.map((tag) => (
           <Link href={`/tags/${tag?.id}`} key={tag?.id}>

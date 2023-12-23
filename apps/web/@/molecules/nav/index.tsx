@@ -11,7 +11,7 @@ export default async function Nav() {
 
   return (
     <div className="mx-auto flex items-center bg-neutral-100 p-2 sm:px-6 lg:px-8">
-      <div className="container flex max-w-6xl items-center justify-between">
+      <div className="container flex items-center justify-between">
         <div className="flex items-center">
           <div className="mr-4 text-2xl font-bold">
             <Link href="/">
