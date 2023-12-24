@@ -22,12 +22,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="bg-white">
         <AuthProvider>
           <Nav />
-          <main className="container mx-auto mt-12 min-h-[800px] px-4 sm:px-6 lg:px-8">
+          <main className="container mx-auto mt-12 min-h-[800px] px-4 pb-16 sm:px-6 lg:px-8">
             {children}
             <ToastContainer />
           </main>
+          <Footer />
         </AuthProvider>
-        <Footer />
       </body>
     </html>
   )
