@@ -1,10 +1,11 @@
 import Link from "next/link"
+import querystring from "qs"
 
-import { getTags } from "@/actions/public/tags"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import APP_APIS from "@/constants/apis"
 import PageTitle from "@/molecules/page-title"
 import Filter from "@/molecules/tag/filter"
+import TagPagination from "@/molecules/tag/pagination"
 import Typography from "@/molecules/typography"
 
 export const metadata = {
@@ -15,12 +16,24 @@ export const metadata = {
 
 export default async function Page({ searchParams }) {
   const tagsRaw = await fetch(
-    `${process.env.FRONTEND_URL}${APP_APIS.public.tags.GET}?query=${searchParams?.query || ""}`,
+    `${process.env.FRONTEND_URL}${APP_APIS.public.tags.GET}?${querystring.stringify({
+      query: searchParams?.query,
+      limit: searchParams?.limit,
+      page: searchParams?.page,
+    })}`,
     {
       method: "GET",
       cache: "no-cache",
     }
   )
+
+  // console.log(
+  //   "path:",
+  //   generatePath(`${process.env.FRONTEND_URL}${APP_APIS.public.tags.GET}`, {
+  //     ...searchParams,
+  //   })
+  // )
+
   const tags = await tagsRaw.json()
 
   return (
@@ -55,6 +68,8 @@ export default async function Page({ searchParams }) {
           </Link>
         ))}
       </div>
+
+      <TagPagination {...searchParams} />
     </div>
   )
 }

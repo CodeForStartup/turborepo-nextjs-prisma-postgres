@@ -49,6 +49,7 @@
     "next": "14.0.5-canary.17",
     "next-auth": "^4.23.2",
     "postcss": "^8.4.28",
+    "qs": "^6.11.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.46.1",

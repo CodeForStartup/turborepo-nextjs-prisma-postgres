@@ -33,8 +33,7 @@ export default async function PublicLayout({ children }: { children: React.React
           <SidebarItem {...item} key={item.link} />
         ))}
       </div>
-      <div className="col-span-12 md:col-span-8">{children}</div>
-      <div className="hide md:col-span-2"></div>
+      <div className="col-span-12 md:col-span-10">{children}</div>
     </div>
   )
 }
