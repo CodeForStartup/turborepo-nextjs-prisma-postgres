@@ -7,26 +7,34 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 
 const Filter = () => {
-  const params = useSearchParams()
+  const searchParams = useSearchParams()
 
   const router = useRouter()
-  const [searchTerm, setSearchTerm] = useState(params.get("query") || "")
+  const [searchTerm, setSearchTerm] = useState(searchParams.get("query") || "")
+
+  const onSearch = () => {
+    const current = new URLSearchParams(Array.from(searchParams.entries()))
+
+    current.set("query", searchTerm)
+
+    router.push(`/tags?${current.toString()}`)
+  }
 
   return (
     <div className="mt-8 flex w-full max-w-sm items-center space-x-2">
       <Input
         placeholder="Filter tags..."
         value={searchTerm}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            onSearch()
+          }
+        }}
         onChange={(e) => {
           setSearchTerm(e?.target?.value || "")
         }}
       />
-      <Button
-        className="ml-2"
-        onClick={() => {
-          router.push(`/tags?query=${searchTerm}`)
-        }}
-      >
+      <Button className="ml-2" onClick={onSearch}>
         Filter
       </Button>
     </div>

@@ -3,8 +3,6 @@ import React from "react"
 import {
   Pagination,
   PaginationContent,
-  PaginationEllipsis,
-  PaginationItem,
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
@@ -12,30 +10,33 @@ import {
 
 interface TagPaginationProps {
   totalPages: number
-  currentPage: number
-  onPageChange: (page: number) => void
+  currentPage?: number
 }
 
-const TagPagination: React.FC<TagPaginationProps> = ({ totalPages, currentPage, onPageChange }) => {
+const TagPagination: React.FC<TagPaginationProps> = ({ totalPages, currentPage }) => {
   const handlePageChange = (page: number) => {
-    onPageChange(page)
+    // TODO
+  }
+
+  if (totalPages <= 1) {
+    return null
   }
 
   return (
     <Pagination className="mt-8">
       <PaginationContent>
-        <PaginationItem>
-          <PaginationPrevious href="#" />
-        </PaginationItem>
-        <PaginationItem>
-          <PaginationLink href="#">1</PaginationLink>
-        </PaginationItem>
-        <PaginationItem>
-          <PaginationEllipsis />
-        </PaginationItem>
-        <PaginationItem>
-          <PaginationNext href="#" />
-        </PaginationItem>
+        <PaginationPrevious href="#" />
+        {Array.from({ length: totalPages }, (_, i) => (
+          <PaginationLink
+            key={i}
+            href="#"
+            // onClick={() => handlePageChange(i + 1)}
+            isActive={i + 1 === Number(currentPage)}
+          >
+            {i + 1}
+          </PaginationLink>
+        ))}
+        <PaginationNext href="#" />
       </PaginationContent>
     </Pagination>
   )

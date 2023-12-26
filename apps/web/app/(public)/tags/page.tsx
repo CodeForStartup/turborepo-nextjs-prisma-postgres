@@ -3,6 +3,7 @@ import querystring from "qs"
 
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import APP_APIS from "@/constants/apis"
+import NoItemFounded from "@/molecules/no-item-founded"
 import PageTitle from "@/molecules/page-title"
 import Filter from "@/molecules/tag/filter"
 import TagPagination from "@/molecules/tag/pagination"
@@ -27,13 +28,6 @@ export default async function Page({ searchParams }) {
     }
   )
 
-  // console.log(
-  //   "path:",
-  //   generatePath(`${process.env.FRONTEND_URL}${APP_APIS.public.tags.GET}`, {
-  //     ...searchParams,
-  //   })
-  // )
-
   const tags = await tagsRaw.json()
 
   return (
@@ -45,31 +39,35 @@ export default async function Page({ searchParams }) {
 
       <Filter />
 
-      <div className="mt-8 grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
-        {tags?.map((tag) => (
-          <Link href={`/tags/${tag?.id}`} key={tag?.id}>
-            <Card className="sm:col-span-1">
-              <CardHeader>
-                <Typography variant="h2" className="text-xl hover:underline">
-                  {tag?.name}
-                </Typography>
-              </CardHeader>
-              <CardContent>
-                {tag?.description && (
-                  <Typography variant="p" className="text-gray-500">
-                    {tag?.description}
+      {tags?.data?.length === 0 ? (
+        <NoItemFounded />
+      ) : (
+        <div className="mt-8 grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
+          {tags?.data?.map((tag) => (
+            <Link href={`/tags/${tag?.id}`} key={tag?.id}>
+              <Card className="sm:col-span-1">
+                <CardHeader>
+                  <Typography variant="h2" className="text-xl hover:underline">
+                    {tag?.name}
                   </Typography>
-                )}
-                <Typography variant="p" className="text-gray-500">
-                  {tag?._count?.tagOnPost} posts
-                </Typography>
-              </CardContent>
-            </Card>
-          </Link>
-        ))}
-      </div>
+                </CardHeader>
+                <CardContent>
+                  {tag?.description && (
+                    <Typography variant="p" className="text-gray-500">
+                      {tag?.description}
+                    </Typography>
+                  )}
+                  <Typography variant="p" className="text-gray-500">
+                    {tag?._count?.tagOnPost} posts
+                  </Typography>
+                </CardContent>
+              </Card>
+            </Link>
+          ))}
+        </div>
+      )}
 
-      <TagPagination {...searchParams} />
+      {tags && <TagPagination totalPages={tags?.totalItems || 0} currentPage={1} />}
     </div>
   )
 }
