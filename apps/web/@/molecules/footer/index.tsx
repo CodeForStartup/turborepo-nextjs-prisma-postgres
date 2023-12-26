@@ -20,15 +20,31 @@ const Footer: React.FC = () => {
             </div>
           </div>
           <div className="col-span-4 md:col-span-2 lg:col-span-1">
-            <Typography variant="h5">TOP</Typography>
+            <Typography variant="h5" className="mb-4">
+              TOP
+            </Typography>
             <ul>
-              <li>Top lists</li>
-              <li>Top questions</li>
-              <li>Top tags</li>
+              <li>
+                <Typography>
+                  <Link href="/top">TOP users</Link>
+                </Typography>
+              </li>
+              <li>
+                <Typography>
+                  <Link href="/top">TOP questions</Link>
+                </Typography>
+              </li>
+              <li>
+                <Typography>
+                  <Link href="/top">TOP tags</Link>
+                </Typography>
+              </li>
             </ul>
           </div>
           <div className="col-span-4 md:col-span-2 lg:col-span-1">
-            <Typography variant="h5">About us</Typography>
+            <Typography variant="h5" className="mb-4">
+              About us
+            </Typography>
             <ul>
               <li>About us</li>
               <li>Term and condition</li>
@@ -36,7 +52,9 @@ const Footer: React.FC = () => {
             </ul>
           </div>
           <div className="col-span-4 md:col-span-2 lg:col-span-1">
-            <Typography variant="h5">Our services</Typography>
+            <Typography variant="h5" className="mb-4">
+              Our services
+            </Typography>
             <ul>
               <li>Code For Startup</li>
               <li>SAAS</li>

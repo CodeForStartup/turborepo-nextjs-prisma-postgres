@@ -12,7 +12,7 @@ import PostMeta from "./post-meta"
 
 export default function PostItem({ post }: { post: TPostItem }) {
   return (
-    <div className="mb-4 flex rounded-sm bg-white px-8 py-4">
+    <div className="mb-4 flex rounded-sm border border-neutral-100 bg-neutral-50  px-8 py-4">
       <div className="flex-1">
         <Link
           href={generatePath(APP_ROUTES.POST, {
