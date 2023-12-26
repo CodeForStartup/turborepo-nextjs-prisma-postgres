@@ -13,11 +13,7 @@ const Filter = () => {
   const [searchTerm, setSearchTerm] = useState(searchParams.get("query") || "")
 
   const onSearch = () => {
-    const current = new URLSearchParams(Array.from(searchParams.entries()))
-
-    current.set("query", searchTerm)
-
-    router.push(`/tags?${current.toString()}`)
+    router.push(`/tags?query=${searchTerm}`)
   }
 
   return (

@@ -15,6 +15,7 @@ const variants: Record<string, string> = {
   label: "",
   caption: "",
   time: "",
+  a: "hover:underline",
 }
 
 type TypographyProps = {
@@ -33,6 +34,7 @@ type TypographyProps = {
     | "label"
     | "caption"
     | "time"
+    | "a"
   children: React.ReactNode
   className?: string
 }
