@@ -17,7 +17,6 @@ export default async function Page({ params }: { params: { tagId: string } }) {
 
   const tag = await fetch(`${process.env.FRONTEND_URL}/api/public/tag/${params.tagId}`, {
     method: "GET",
-    cache: "no-cache",
     headers: {
       "Content-Type": "application/json",
     },

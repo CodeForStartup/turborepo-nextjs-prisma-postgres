@@ -16,7 +16,7 @@ export async function GET(request: NextRequest) {
       tagOnPost: {
         some: {
           tag: {
-            slug: tag,
+            id: tag,
           },
         },
       },
