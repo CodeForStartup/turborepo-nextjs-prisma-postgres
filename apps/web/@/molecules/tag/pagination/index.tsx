@@ -13,14 +13,15 @@ import {
 
 interface TagPaginationProps {
   totalPages: number
+  baseUrl: string
 }
 
-const generatePaginationPath = (page: number, searchParams: URLSearchParams) => {
+const generatePaginationPath = (baseUrl: string, page: number, searchParams: URLSearchParams) => {
   searchParams.set("page", String(page))
-  return `/tags?${searchParams.toString()}`
+  return `${baseUrl}?${searchParams.toString()}`
 }
 
-const TagPagination: React.FC<TagPaginationProps> = ({ totalPages }) => {
+const TagPagination: React.FC<TagPaginationProps> = ({ baseUrl, totalPages }) => {
   const searchParams = useSearchParams()
   const currentSearchParams = new URLSearchParams(Array.from(searchParams.entries()))
 
@@ -36,7 +37,7 @@ const TagPagination: React.FC<TagPaginationProps> = ({ totalPages }) => {
         <PaginationPrevious
           href={
             Number(currentPage) > 1
-              ? generatePaginationPath(currentPage - 1, currentSearchParams)
+              ? generatePaginationPath(baseUrl, currentPage - 1, currentSearchParams)
               : "#"
           }
           isActive={currentPage > 1}
@@ -44,7 +45,7 @@ const TagPagination: React.FC<TagPaginationProps> = ({ totalPages }) => {
         {Array.from({ length: totalPages }, (_, i) => (
           <PaginationLink
             key={i}
-            href={generatePaginationPath(i + 1, currentSearchParams)}
+            href={generatePaginationPath(baseUrl, i + 1, currentSearchParams)}
             isActive={i + 1 === Number(currentPage)}
           >
             {i + 1}
@@ -53,7 +54,7 @@ const TagPagination: React.FC<TagPaginationProps> = ({ totalPages }) => {
         <PaginationNext
           href={
             Number(currentPage) < totalPages
-              ? generatePaginationPath(currentPage + 1, currentSearchParams)
+              ? generatePaginationPath(baseUrl, currentPage + 1, currentSearchParams)
               : "#"
           }
           isActive={Number(currentPage) < totalPages}

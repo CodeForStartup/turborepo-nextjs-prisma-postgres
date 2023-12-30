@@ -7,6 +7,7 @@ export const postSelect = {
   createdAt: true,
   updatedAt: true,
   slug: true,
+  postStatus: true,
   author: {
     select: {
       id: true,

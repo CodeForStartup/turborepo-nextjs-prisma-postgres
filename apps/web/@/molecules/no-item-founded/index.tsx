@@ -16,7 +16,7 @@ const NoItemFounded: React.FC<NoItemFoundedProps> = ({ className = "" }) => {
         className
       )}
     >
-      <LucideDog className="mx-auto h-16 w-16" />
+      <LucideDog className="mx-auto mb-4 h-16 w-16" />
       <Typography>There are no items founded.</Typography>
     </div>
   )
