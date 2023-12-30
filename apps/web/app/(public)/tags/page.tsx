@@ -2,12 +2,15 @@ import Link from "next/link"
 import querystring from "qs"
 
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
+import { DEFAULT_TAG_PAGE_LIMIT } from "@/constants"
 import APP_APIS from "@/constants/apis"
 import NoItemFounded from "@/molecules/no-item-founded"
 import PageTitle from "@/molecules/page-title"
 import Filter from "@/molecules/tag/filter"
 import TagPagination from "@/molecules/tag/pagination"
 import Typography from "@/molecules/typography"
+import { GetDataSuccessType } from "@/types"
+import { TTagItem } from "@/types/tags"
 
 export const metadata = {
   title: "Tags",
@@ -28,7 +31,7 @@ export default async function Page({ searchParams }) {
     }
   )
 
-  const tags = await tagsRaw.json()
+  const tags: GetDataSuccessType<TTagItem[]> = await tagsRaw.json()
 
   return (
     <div className="">
@@ -39,7 +42,7 @@ export default async function Page({ searchParams }) {
 
       <Filter />
 
-      {tags?.data?.length === 0 ? (
+      {tags?.total === 0 ? (
         <NoItemFounded />
       ) : (
         <div className="mt-8 grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
@@ -67,7 +70,14 @@ export default async function Page({ searchParams }) {
         </div>
       )}
 
-      {tags && <TagPagination totalPages={tags?.totalItems || 0} currentPage={1} />}
+      {tags && (
+        <TagPagination
+          baseUrl="/tags"
+          totalPages={Math.ceil(
+            tags?.total / (Number(searchParams?.limit) || DEFAULT_TAG_PAGE_LIMIT)
+          )}
+        />
+      )}
     </div>
   )
 }

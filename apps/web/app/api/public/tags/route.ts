@@ -1,13 +1,13 @@
 import prisma, { Prisma } from "database"
 import { NextRequest } from "next/server"
 
-import { DEFAULT_TAG_LIMIT } from "@/constants"
+import { DEFAULT_TAG_PAGE_LIMIT } from "@/constants"
 
 export async function GET(request: NextRequest) {
   const newUrl = request.nextUrl.clone()
   const searchTerm = newUrl.searchParams.get("query") || ""
   const page = Number(newUrl.searchParams.get("page")) || 0
-  const limit = newUrl.searchParams.get("limit") || DEFAULT_TAG_LIMIT
+  const limit = newUrl.searchParams.get("limit") || DEFAULT_TAG_PAGE_LIMIT
 
   const query = {
     select: {
@@ -32,7 +32,7 @@ export async function GET(request: NextRequest) {
   } as Prisma.TagsFindManyArgs
 
   try {
-    const [data, count] = await Promise.all([
+    const [data, total] = await Promise.all([
       prisma.tags.findMany(query),
       prisma.tags.count({
         where: query.where,
@@ -40,8 +40,10 @@ export async function GET(request: NextRequest) {
     ])
 
     return Response.json({
-      totalItems: Math.ceil(count / Number(limit)),
-      data: data,
+      total,
+      data,
+      limit,
+      page,
     })
   } catch (error) {
     throw error

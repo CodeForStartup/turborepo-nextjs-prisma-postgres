@@ -19,7 +19,7 @@ const TagBadge: React.FC<TagBadgeProps> = ({ tag }) => {
     <Link
       key={tag.id}
       href={generatePath(APP_ROUTES.TAG, {
-        tagId: tag.id,
+        tagId: tag.slug,
       })}
     >
       <Badge className="mr-2 rounded-sm bg-slate-200 text-gray-600 hover:bg-slate-300 hover:underline">
