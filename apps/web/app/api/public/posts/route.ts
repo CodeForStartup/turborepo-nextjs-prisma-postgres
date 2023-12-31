@@ -9,9 +9,17 @@ export async function GET(request: NextRequest) {
   const tag = newUrl.searchParams.get("tag") || ""
   const limit = newUrl.searchParams.get("limit") || 10
   const page = newUrl.searchParams.get("page") || 1
+  const authorId = newUrl.searchParams.get("authorId") || ""
 
   let where: Prisma.PostWhereInput = {
     // postStatus: "PUBLISHED",
+  }
+
+  if (authorId) {
+    where = {
+      ...where,
+      authorId,
+    }
   }
 
   if (tag) {
