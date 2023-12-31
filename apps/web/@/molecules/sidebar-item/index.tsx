@@ -15,7 +15,8 @@ export type SidebarItemProps = {
 export default function SidebarItem({ label, link, icons }: SidebarItemProps) {
   const currentPathname = usePathname()
 
-  const isActive = currentPathname.startsWith(link)
+  const isActive =
+    currentPathname === "/" ? link === "/" : currentPathname.startsWith(link) && link !== "/"
 
   return (
     <Link href={link}>

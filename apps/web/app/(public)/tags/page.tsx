@@ -42,7 +42,7 @@ export default async function Page({ searchParams }) {
 
       <Filter />
 
-      {tags?.total === 0 ? (
+      {tags?.data?.length === 0 ? (
         <NoItemFounded />
       ) : (
         <div className="mt-8 grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">

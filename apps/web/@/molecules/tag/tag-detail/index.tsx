@@ -21,7 +21,7 @@ const TagDetail = ({ tag }: TagDetailProp) => {
         <CardContent>
           <div className="flex flex-col items-center justify-center gap-2">
             <h1 className="flex-1 text-center text-4xl font-extrabold text-slate-700">
-              <Link href={`/tags/${tag.id}`}>{tag.name}</Link>
+              <Link href={`/tags/${tag?.slug || tag?.id}`}>{tag.name}</Link>
             </h1>
             <div className="mt-4 flex w-full flex-1 divide-x">
               <div className="flex flex-1 flex-col items-center justify-center">
