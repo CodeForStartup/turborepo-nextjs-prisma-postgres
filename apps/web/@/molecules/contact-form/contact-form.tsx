@@ -2,6 +2,11 @@
 
 import { useForm } from "react-hook-form"
 
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { Textarea } from "@/components/ui/textarea"
+
 type FormData = {
   name: string
   email: string
@@ -11,24 +16,37 @@ type FormData = {
 const ContactForm = () => {
   const { register, handleSubmit } = useForm<FormData>()
 
-  const onSubmit = (data: FormData) => {
+  const onSubmit = () => {
     // Handle form submission
-    console.log(data)
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <label htmlFor="name">Name</label>
-      <input type="text" id="name" {...register("name")} />
+    <div className="mt-16 flex items-center justify-center">
+      <div className="w-full max-w-lg">
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <div className="mb-4 grid w-full max-w-lg items-center gap-1.5">
+            <Label htmlFor="name">Your name</Label>
+            <Input id="name" {...register("name")} />
+          </div>
 
-      <label htmlFor="email">Email</label>
-      <input type="email" id="email" {...register("email")} />
+          <div className="mb-4 grid w-full max-w-lg items-center gap-1.5">
+            <Label htmlFor="email">Your email</Label>
+            <Input id="email" {...register("email")} />
+          </div>
 
-      <label htmlFor="description">Description</label>
-      <textarea id="description" {...register("description")} />
+          <div className="mb-4 grid w-full max-w-lg items-center gap-1.5">
+            <Label htmlFor="description">Your request</Label>
+            <Textarea id="description" {...register("description")} />
+          </div>
 
-      <button type="submit">Submit</button>
-    </form>
+          <div className="mt-4">
+            <Button type="submit" className="w-full max-w-lg">
+              Submit
+            </Button>
+          </div>
+        </form>
+      </div>
+    </div>
   )
 }
 
