@@ -12,7 +12,7 @@ const Comments: React.FC<CommentsProps> = () => {
   // TODO: Implement the logic to fetch and display comments
 
   return (
-    <div className="mt-8 rounded-md bg-gray-50">
+    <div className="mt-8 rounded-md border bg-gray-50">
       <div className="border-b border-b-slate-300 px-8 py-4">
         <h2 className="font-bold">Comments</h2>
       </div>

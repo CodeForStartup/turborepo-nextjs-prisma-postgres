@@ -22,7 +22,17 @@ const CommentInput: React.FC<CommentInputProps> = () => {
   const shouldDisableSubmit = text.length === 0 || text.length > 255
 
   const handleSubmit = () => {
-    // Handle submit logic here
+    if (shouldDisableSubmit) return
+
+    fetch("/api/protected/comment", {
+      method: "POST",
+      body: JSON.stringify({
+        comment: text,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
   }
 
   return (

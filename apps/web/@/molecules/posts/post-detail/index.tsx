@@ -17,7 +17,7 @@ export type PostDetailProps = {
 export default function PostDetail({ post }: PostDetailProps) {
   return (
     <div className="w-full">
-      <article className="mb-8 w-full rounded-md bg-gray-50 p-8">
+      <article className="mb-8 w-full rounded-md border bg-gray-50 p-8">
         <div className="flex w-full">
           <Typography variant="h1" className="flex flex-1">
             <Link
