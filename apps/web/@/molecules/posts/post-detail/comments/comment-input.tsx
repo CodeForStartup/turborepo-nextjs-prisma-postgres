@@ -2,6 +2,7 @@
 
 import React, { useState } from "react"
 import Link from "next/link"
+import { useParams } from "next/navigation"
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
@@ -12,6 +13,7 @@ interface CommentInputProps {}
 const CommentInput: React.FC<CommentInputProps> = () => {
   const [text, setText] = useState("")
   const [charCount, setCharCount] = useState(0)
+  const params = useParams()
 
   const handleTextChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     const newText = event.target.value
@@ -28,6 +30,7 @@ const CommentInput: React.FC<CommentInputProps> = () => {
       method: "POST",
       body: JSON.stringify({
         comment: text,
+        postId: params?.postIdOrSlug,
       }),
       headers: {
         "Content-Type": "application/json",
