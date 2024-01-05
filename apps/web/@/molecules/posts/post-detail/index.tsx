@@ -42,7 +42,7 @@ export default function PostDetail({ post }: PostDetailProps) {
 
         <PostContent post={post} />
       </article>
-      <Comments />
+      <Comments post={post} />
     </div>
   )
 }

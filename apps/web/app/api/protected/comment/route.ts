@@ -5,17 +5,18 @@ import { z } from "zod"
 import { getServerSession } from "@/utils/auth"
 
 export async function POST(request: NextRequest) {
-  const session = getServerSession()
+  const session = await getServerSession()
 
-  if (!session) return Response.error()
+  if (!session?.user?.id) return Response.error()
 
-  const { body } = request
+  const data = await request.json()
+
   const { comment, postId } = z
     .object({
       comment: z.string().min(1).max(255),
-      postId: z.string().uuid(),
+      postId: z.string().min(1).max(255),
     })
-    .parse(body)
+    .parse(data)
 
   await prisma.comment.create({
     data: {
@@ -28,7 +29,7 @@ export async function POST(request: NextRequest) {
       parentCommentId: null,
       commentOnPost: {
         connect: {
-          slug: postId,
+          id: postId,
         },
       },
     },

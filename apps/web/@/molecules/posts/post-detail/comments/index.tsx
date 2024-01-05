@@ -1,15 +1,32 @@
 import React from "react"
 
+import { TPostItem } from "@/types/posts"
 import CommentItem from "./comment-detail"
 import CommentInput from "./comment-input"
 
-interface CommentsProps {}
+interface CommentsProps {
+  post: TPostItem
+}
 
 /**
  * This component displays the comments for a post.
  */
-const Comments: React.FC<CommentsProps> = () => {
-  // TODO: Implement the logic to fetch and display comments
+const Comments: React.FC<CommentsProps> = async ({ post }) => {
+  let comments = null
+  try {
+    const commentRaw = await fetch(
+      `${process.env.FRONTEND_URL}/api/public/post/${post?.id}/comments`,
+      {
+        cache: "no-cache",
+      }
+    )
+
+    comments = await commentRaw.json()
+  } catch (error) {}
+
+  if (!comments || comments?.status === 404) {
+    return <div>Comments not found</div>
+  }
 
   return (
     <div className="mt-8 rounded-md border bg-gray-50">
@@ -17,13 +34,12 @@ const Comments: React.FC<CommentsProps> = () => {
         <h2 className="font-bold">Comments</h2>
       </div>
       <div className="p-8">
-        <CommentInput />
+        <CommentInput postId={post?.id} />
       </div>
 
-      <CommentItem
-        comment="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
-        author="Luan Nguyen"
-      />
+      {comments?.data?.map((comment) => (
+        <CommentItem key={comment?.id} comment={comment?.content} author={comment?.author} />
+      ))}
     </div>
   )
 }
