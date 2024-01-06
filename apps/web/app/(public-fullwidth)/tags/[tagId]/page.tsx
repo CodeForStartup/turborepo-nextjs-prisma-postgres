@@ -15,7 +15,7 @@ export const metadata = {
 
 export default async function Page({ searchParams, params }) {
   const posts = await fetch(
-    `${process.env.FRONTEND_URL}/api/public/posts?${querystring.stringify({
+    `${process.env.NEXT_PUBLIC_FRONTEND_URL}/api/public/posts?${querystring.stringify({
       tag: params?.tagId,
       limit: searchParams?.limit,
       page: searchParams?.page,
@@ -29,12 +29,15 @@ export default async function Page({ searchParams, params }) {
     }
   )
 
-  const tag = await fetch(`${process.env.FRONTEND_URL}/api/public/tag/${params.tagId}`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  })
+  const tag = await fetch(
+    `${process.env.NEXT_PUBLIC_FRONTEND_URL}/api/public/tag/${params.tagId}`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  )
   const postsJson: GetDataSuccessType<TPostItem[]> = await posts.json()
   const tagJson = await tag.json()
 

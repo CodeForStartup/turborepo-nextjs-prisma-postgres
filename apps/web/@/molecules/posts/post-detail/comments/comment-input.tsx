@@ -1,41 +1,72 @@
 "use client"
 
 import React, { useState } from "react"
+import { useSession } from "next-auth/react"
 import Link from "next/link"
+import { toast } from "react-toastify"
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Button } from "@/components/ui/button"
+import { Button, buttonVariants } from "@/components/ui/button"
 import { Textarea } from "@/components/ui/textarea"
+import APP_APIS from "@/constants/apis"
+import APP_ROUTES from "@/constants/routes"
+import { cn } from "@/lib/utils"
+import { TCommentItem } from "@/types/comment"
 
 interface CommentInputProps {
   postId: string
+  onAddComment: (comment: TCommentItem) => void
 }
 
-const CommentInput: React.FC<CommentInputProps> = ({ postId }) => {
+const CommentInput: React.FC<CommentInputProps> = ({ postId, onAddComment }) => {
   const [text, setText] = useState("")
-  const [charCount, setCharCount] = useState(0)
+  const { data } = useSession()
 
   const handleTextChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     const newText = event.target.value
     setText(newText)
-    setCharCount(newText.length)
   }
 
   const shouldDisableSubmit = text.length === 0 || text.length > 255
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (shouldDisableSubmit) return
 
-    fetch("/api/protected/comment", {
-      method: "POST",
-      body: JSON.stringify({
-        postId,
-        comment: text,
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
+    try {
+      const newComment = await fetch(APP_APIS.protected.comment.CREATE, {
+        method: "POST",
+        body: JSON.stringify({
+          postId,
+          comment: text,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      const newCommentJson = await newComment.json()
+      onAddComment(newCommentJson?.data)
+    } catch (error) {
+      toast.error(error.message)
+    } finally {
+      setText("")
+    }
+  }
+
+  if (!data?.user?.id) {
+    return (
+      <div className="flex justify-center">
+        <Link
+          href={APP_ROUTES.LOGIN}
+          className={cn(
+            buttonVariants({
+              variant: "default",
+            })
+          )}
+        >
+          Sign in to comment
+        </Link>
+      </div>
+    )
   }
 
   return (
@@ -45,7 +76,7 @@ const CommentInput: React.FC<CommentInputProps> = ({ postId }) => {
           <div className="flex items-center">
             <div>
               <Avatar className="h-9 w-9">
-                <AvatarImage />
+                <AvatarImage src={data?.user?.image || ""} alt={data?.user?.name} />
                 <AvatarFallback>{"CO".slice(0, 2)}</AvatarFallback>
               </Avatar>
             </div>
@@ -60,7 +91,7 @@ const CommentInput: React.FC<CommentInputProps> = ({ postId }) => {
         <Textarea value={text} onChange={handleTextChange} maxLength={255} />
       </div>
       <div className="mt-2 flex items-center justify-between">
-        <p>{charCount}/255</p>
+        <p>{text?.length || 0}/255</p>
         <Button onClick={handleSubmit} disabled={shouldDisableSubmit}>
           Submit
         </Button>

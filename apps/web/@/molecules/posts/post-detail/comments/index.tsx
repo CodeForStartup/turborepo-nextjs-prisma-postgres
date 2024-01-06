@@ -1,5 +1,8 @@
-import React from "react"
+"use client"
 
+import React, { useEffect, useState } from "react"
+
+import { TCommentItem } from "@/types/comment"
 import { TPostItem } from "@/types/posts"
 import CommentItem from "./comment-detail"
 import CommentInput from "./comment-input"
@@ -11,20 +14,33 @@ interface CommentsProps {
 /**
  * This component displays the comments for a post.
  */
-const Comments: React.FC<CommentsProps> = async ({ post }) => {
-  let comments = null
-  try {
-    const commentRaw = await fetch(
-      `${process.env.FRONTEND_URL}/api/public/post/${post?.id}/comments`,
-      {
-        cache: "no-cache",
-      }
-    )
+const Comments: React.FC<CommentsProps> = ({ post }) => {
+  const [comments, setComments] = useState<Array<TCommentItem>>([])
 
-    comments = await commentRaw.json()
-  } catch (error) {}
+  useEffect(() => {
+    const getComments = async () => {
+      try {
+        const commentRaw = await fetch(
+          `${process.env.NEXT_PUBLIC_FRONTEND_URL}/api/public/post/${post?.id}/comments`,
+          {
+            cache: "no-cache",
+          }
+        )
 
-  if (!comments || comments?.status === 404) {
+        const commentParsed = await commentRaw.json()
+
+        setComments(commentParsed?.data)
+      } catch (error) {}
+    }
+
+    getComments()
+  }, [])
+
+  const onAddComment = (comment: TCommentItem) => {
+    setComments([comment, ...comments])
+  }
+
+  if (comments.length === 0) {
     return <div>Comments not found</div>
   }
 
@@ -34,12 +50,10 @@ const Comments: React.FC<CommentsProps> = async ({ post }) => {
         <h2 className="font-bold">Comments</h2>
       </div>
       <div className="p-8">
-        <CommentInput postId={post?.id} />
+        <CommentInput postId={post?.id} onAddComment={onAddComment} />
       </div>
 
-      {comments?.data?.map((comment) => (
-        <CommentItem key={comment?.id} comment={comment?.content} author={comment?.author} />
-      ))}
+      {comments?.map((comment) => <CommentItem key={comment?.id} comment={comment} />)}
     </div>
   )
 }

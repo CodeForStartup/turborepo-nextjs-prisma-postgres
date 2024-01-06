@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 }
 
 export default async function Page() {
-  const posts = await fetch(`${process.env.FRONTEND_URL}/api/public/posts`, {
+  const posts = await fetch(`${process.env.NEXT_PUBLIC_FRONTEND_URL}/api/public/posts`, {
     method: "GET",
     cache: "no-cache",
     headers: {

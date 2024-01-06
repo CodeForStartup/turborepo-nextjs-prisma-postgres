@@ -27,11 +27,11 @@ const APP_APIS = {
     },
   },
   protected: {
-    comments: {
-      CREATE: "/api/protected/comments",
-      DELETE: "/api/protected/comments/:commentId",
-      UPDATE: "/api/protected/comments/:commentId",
-      ACTIONS: "/api/protected/comments/:commentId/actions",
+    comment: {
+      CREATE: "/api/protected/comment",
+      DELETE: "/api/protected/comment/:commentId",
+      UPDATE: "/api/protected/comment/:commentId",
+      ACTIONS: "/api/protected/comment/:commentId/actions",
     },
     posts: {
       GET: "/api/protected/posts",

@@ -2,6 +2,7 @@ import prisma from "database"
 import { NextRequest } from "next/server"
 import { z } from "zod"
 
+import { commentSelect } from "@/types/comment"
 import { getServerSession } from "@/utils/auth"
 
 export async function POST(request: NextRequest) {
@@ -18,7 +19,7 @@ export async function POST(request: NextRequest) {
     })
     .parse(data)
 
-  await prisma.comment.create({
+  const result = await prisma.comment.create({
     data: {
       content: comment,
       author: {
@@ -33,7 +34,8 @@ export async function POST(request: NextRequest) {
         },
       },
     },
+    select: commentSelect,
   })
 
-  return Response.json({ message: "Success" })
+  return Response.json({ message: "Success", data: result })
 }
