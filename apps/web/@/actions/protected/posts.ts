@@ -1,11 +1,11 @@
 "use server"
 
-import prisma, { Prisma } from "database"
+import prisma from "database"
 import { revalidatePath } from "next/cache"
 import { redirect } from "next/navigation"
 import slugify from "slugify"
 
-import { postSelect, TPostItem } from "@/types/posts"
+import { postSelect, TCreatePostInput, TPostItem } from "@/types/posts"
 import { getServerSession } from "@/utils/auth"
 
 export const getPosts = async (): Promise<TPostItem[]> => {
@@ -41,7 +41,7 @@ export const getPostById = async (postId: string): Promise<TPostItem> => {
   }
 }
 
-export const createPost = async (data: Prisma.PostCreateInput): Promise<TPostItem> => {
+export const createPost = async (data: TCreatePostInput): Promise<TPostItem> => {
   let newPost: TPostItem
   try {
     const session = await getServerSession()
@@ -86,7 +86,7 @@ export const createPost = async (data: Prisma.PostCreateInput): Promise<TPostIte
   }
 }
 
-export const updatePost = async (id: string, data: Prisma.PostUpdateInput): Promise<TPostItem> => {
+export const updatePost = async (id: string, data: TCreatePostInput): Promise<TPostItem> => {
   try {
     const session = await getServerSession()
     const { tags, ...postData } = data

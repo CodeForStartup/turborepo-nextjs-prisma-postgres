@@ -6,8 +6,13 @@ import { type DefaultSession } from "next-auth"
 // Read more at: https://next-auth.js.org/getting-started/typescript#module-augmentation
 
 declare module "next-auth/jwt" {
-  interface JWT {
-    id?: "string"
+  interface Session {
+    user?: {
+      id?: string | null
+      name?: string | null
+      email?: string | null
+      image?: string | null
+    } & DefaultSession["user"]
   }
 }
 

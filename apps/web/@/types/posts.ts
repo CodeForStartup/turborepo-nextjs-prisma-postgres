@@ -58,4 +58,12 @@ const getPostItem = Prisma.validator<Prisma.PostDefaultArgs>()({
 
 export type TPostItem = Prisma.PostGetPayload<typeof getPostItem>
 
+export type TCreatePostInput = Prisma.PostCreateInput & {
+  tags: {
+    value: string
+    label: string
+    __isNew__: boolean
+  }[]
+}
+
 export type TPostActionType = PostOnUserType | "UNLIKE" | "UNBOOKMARK"

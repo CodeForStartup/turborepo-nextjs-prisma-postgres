@@ -18,7 +18,7 @@ export default async function Page({ params, searchParams }) {
   const author = await getUserById(params?.authorId as string)
 
   const posts = await fetch(
-    `${process.env.FRONTEND_URL}/api/public/posts?${querystring.stringify({
+    `${process.env.NEXT_PUBLIC_FRONTEND_URL}/api/public/posts?${querystring.stringify({
       authorId: params?.authorId,
       limit: searchParams?.limit,
       page: searchParams?.page,

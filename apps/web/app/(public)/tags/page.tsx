@@ -20,7 +20,7 @@ export const metadata = {
 
 export default async function Page({ searchParams }) {
   const tagsRaw = await fetch(
-    `${process.env.FRONTEND_URL}${APP_APIS.public.tags.GET}?${querystring.stringify({
+    `${process.env.NEXT_PUBLIC_FRONTEND_URL}${APP_APIS.public.tags.GET}?${querystring.stringify({
       query: searchParams?.query,
       limit: searchParams?.limit,
       page: searchParams?.page,

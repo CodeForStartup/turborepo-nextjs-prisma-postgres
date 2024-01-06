@@ -8,7 +8,7 @@ import { generatePath } from "@/utils/generatePath"
 
 export async function generateMetadata({ params }): Promise<Metadata> {
   const postRaw = await fetch(
-    `${process.env.FRONTEND_URL}${generatePath(APP_APIS.public.post.GET, {
+    `${process.env.NEXT_PUBLIC_FRONTEND_URL}${generatePath(APP_APIS.public.post.GET, {
       postIdOrSlug: params?.postId,
     })}`
   )
@@ -24,7 +24,7 @@ export default async function Page({ params }: { params: { postId: string } }) {
   let post = null
   try {
     const postRaw = await fetch(
-      `${process.env.FRONTEND_URL}${generatePath(APP_APIS.public.post.GET, {
+      `${process.env.NEXT_PUBLIC_FRONTEND_URL}${generatePath(APP_APIS.public.post.GET, {
         postIdOrSlug: params?.postId,
       })}`,
       {
