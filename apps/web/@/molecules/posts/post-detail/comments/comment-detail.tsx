@@ -18,7 +18,7 @@ interface CommentItemProps {
 
 const CommentItem: React.FC<CommentItemProps> = ({ comment }) => {
   return (
-    <div className="border-t p-8">
+    <div className="border-t px-8 py-4">
       <div className="flex items-center">
         <div>
           <Link
@@ -33,7 +33,15 @@ const CommentItem: React.FC<CommentItemProps> = ({ comment }) => {
           </Link>
         </div>
         <div className="ml-2 flex flex-1 justify-between">
-          <div className="text-sm font-bold text-gray-500">{comment?.author?.name}</div>
+          <Link
+            href={generatePath(APP_ROUTES.USER, {
+              userId: comment?.author?.id,
+            })}
+          >
+            <div className="text-sm font-bold text-gray-500 hover:underline">
+              @{comment?.author?.name}
+            </div>
+          </Link>
           <time className="text-sm text-gray-400">
             {dayjs(comment?.updatedAt).format("MMMM D, YYYY")}
           </time>
@@ -44,7 +52,7 @@ const CommentItem: React.FC<CommentItemProps> = ({ comment }) => {
           </Button>
         </div>
       </div>
-      <div className="mt-2">
+      <div className="mt-4">
         <Typography>{comment?.content}</Typography>
       </div>
 

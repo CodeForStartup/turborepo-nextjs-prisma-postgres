@@ -8,9 +8,14 @@ export async function GET(request: NextRequest, { params }: { params: { postIdOr
   const searchTerm = newUrl.searchParams.get("query") || ""
   const limit = newUrl.searchParams.get("limit") || 10
   const page = newUrl.searchParams.get("page") || 1
+  const sort = newUrl.searchParams.get("sort") || "new"
 
   let where: Prisma.CommentWhereInput = {
     commentOnPostId: params.postIdOrSlug,
+  }
+
+  const orderBy: Prisma.CommentOrderByWithRelationAndSearchRelevanceInput = {
+    updatedAt: sort === "new" ? "desc" : "asc",
   }
 
   if (searchTerm) {
@@ -31,6 +36,9 @@ export async function GET(request: NextRequest, { params }: { params: { postIdOr
         select: commentSelect,
         take: Number(limit),
         skip: (Number(page) - 1) * Number(limit),
+        orderBy: {
+          ...orderBy,
+        },
       }),
     ])
 
