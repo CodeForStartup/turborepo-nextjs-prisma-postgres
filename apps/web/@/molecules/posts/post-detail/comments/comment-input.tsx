@@ -11,7 +11,9 @@ import { Textarea } from "@/components/ui/textarea"
 import APP_APIS from "@/constants/apis"
 import APP_ROUTES from "@/constants/routes"
 import { cn } from "@/lib/utils"
+import Typography from "@/molecules/typography"
 import { TCommentItem } from "@/types/comment"
+import { generatePath } from "@/utils/generatePath"
 
 interface CommentInputProps {
   postId: string
@@ -72,7 +74,11 @@ const CommentInput: React.FC<CommentInputProps> = ({ postId, onAddComment }) => 
   return (
     <div className="">
       <div className="flex items-center">
-        <Link href={`/author/`}>
+        <Link
+          href={generatePath(APP_ROUTES.USER, {
+            userId: data?.user?.id,
+          })}
+        >
           <div className="flex items-center">
             <div>
               <Avatar className="h-9 w-9">
@@ -80,10 +86,7 @@ const CommentInput: React.FC<CommentInputProps> = ({ postId, onAddComment }) => 
                 <AvatarFallback>{"CO".slice(0, 2)}</AvatarFallback>
               </Avatar>
             </div>
-            <div className="ml-2 flex flex-col">
-              <div className="text-sm font-bold text-gray-500">Luan Nguyen</div>
-              <time className="text-sm text-gray-400"></time>
-            </div>
+            <div className="ml-2 text-sm font-bold text-gray-500">@{data?.user?.name}</div>
           </div>
         </Link>
       </div>
@@ -91,7 +94,9 @@ const CommentInput: React.FC<CommentInputProps> = ({ postId, onAddComment }) => 
         <Textarea value={text} onChange={handleTextChange} maxLength={255} />
       </div>
       <div className="mt-2 flex items-center justify-between">
-        <p>{text?.length || 0}/255</p>
+        <Typography variant="span" className="text-sm text-gray-500">
+          <strong>{text?.length || 0}</strong>/255
+        </Typography>
         <Button onClick={handleSubmit} disabled={shouldDisableSubmit}>
           Submit
         </Button>

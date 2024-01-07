@@ -1,9 +1,12 @@
 import { Metadata } from "next"
+import { notFound } from "next/navigation"
 
 import APP_APIS from "@/constants/apis"
 import PostDetail from "@/molecules/posts/post-detail"
+import Comments from "@/molecules/posts/post-detail/comments"
 import LikeButton from "@/molecules/posts/post-detail/like-button"
 import BookmarkButton from "@/molecules/posts/post-item/bookmark-button"
+import { TSearchParams } from "@/types"
 import { generatePath } from "@/utils/generatePath"
 
 export async function generateMetadata({ params }): Promise<Metadata> {
@@ -20,7 +23,13 @@ export async function generateMetadata({ params }): Promise<Metadata> {
   }
 }
 
-export default async function Page({ params }: { params: { postId: string } }) {
+export default async function Page({
+  params,
+  searchParams,
+}: {
+  params: { postId: string }
+  searchParams: TSearchParams
+}) {
   let post = null
   try {
     const postRaw = await fetch(
@@ -38,7 +47,7 @@ export default async function Page({ params }: { params: { postId: string } }) {
   }
 
   if (!post || post?.status === 404) {
-    return <div>Post not found</div>
+    return notFound()
   }
 
   return (
@@ -49,7 +58,10 @@ export default async function Page({ params }: { params: { postId: string } }) {
           <BookmarkButton post={post} showCount />
         </div>
 
-        <PostDetail post={post} />
+        <div className="flex-1">
+          <PostDetail post={post} />
+          <Comments post={post} searchParams={searchParams} />
+        </div>
       </div>
 
       <div className="col-span-3">

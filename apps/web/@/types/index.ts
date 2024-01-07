@@ -9,3 +9,7 @@ export type GetDataErrorType = {
   message: string
   code: number
 }
+
+export type TSearchParams = {
+  [key: string]: string | string[][] | Record<string, string> | URLSearchParams
+}

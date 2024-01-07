@@ -6,7 +6,6 @@ import Typography from "@/molecules/typography"
 import PostMeta from "@/molecules/user/posts/post-meta"
 import { TPostItem } from "@/types/posts"
 import { generatePath } from "@/utils/generatePath"
-import Comments from "./comments"
 import EditPostButton from "./edit-post-button"
 import PostContent from "./post-content"
 
@@ -42,7 +41,6 @@ export default function PostDetail({ post }: PostDetailProps) {
 
         <PostContent post={post} />
       </article>
-      <Comments post={post} />
     </div>
   )
 }

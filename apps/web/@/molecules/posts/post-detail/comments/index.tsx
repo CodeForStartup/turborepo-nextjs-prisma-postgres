@@ -1,59 +1,38 @@
-"use client"
+import React from "react"
 
-import React, { useEffect, useState } from "react"
-
+import { GetDataSuccessType, TSearchParams } from "@/types"
 import { TCommentItem } from "@/types/comment"
 import { TPostItem } from "@/types/posts"
-import CommentItem from "./comment-detail"
-import CommentInput from "./comment-input"
+import CommentHeader from "./comment-header"
+import CommentList from "./comment-list"
 
 interface CommentsProps {
   post: TPostItem
+  searchParams: TSearchParams
 }
 
-/**
- * This component displays the comments for a post.
- */
-const Comments: React.FC<CommentsProps> = ({ post }) => {
-  const [comments, setComments] = useState<Array<TCommentItem>>([])
+const Comments: React.FC<CommentsProps> = async ({ post, searchParams }) => {
+  let comments: GetDataSuccessType<TCommentItem[]> = null
+  try {
+    const urlSearchParam = new URLSearchParams(searchParams as Record<string, string>)
+    const commentRaw = await fetch(
+      `${
+        process.env.NEXT_PUBLIC_FRONTEND_URL
+      }/api/public/post/${post?.id}/comments?${urlSearchParam.toString()}`,
+      {
+        cache: "no-cache",
+      }
+    )
 
-  useEffect(() => {
-    const getComments = async () => {
-      try {
-        const commentRaw = await fetch(
-          `${process.env.NEXT_PUBLIC_FRONTEND_URL}/api/public/post/${post?.id}/comments`,
-          {
-            cache: "no-cache",
-          }
-        )
-
-        const commentParsed = await commentRaw.json()
-
-        setComments(commentParsed?.data)
-      } catch (error) {}
-    }
-
-    getComments()
-  }, [])
-
-  const onAddComment = (comment: TCommentItem) => {
-    setComments([comment, ...comments])
-  }
-
-  if (comments.length === 0) {
-    return <div>Comments not found</div>
+    comments = await commentRaw.json()
+  } catch (error) {
+    //
   }
 
   return (
     <div className="mt-8 rounded-md border bg-gray-50">
-      <div className="border-b border-b-slate-300 px-8 py-4">
-        <h2 className="font-bold">Comments</h2>
-      </div>
-      <div className="p-8">
-        <CommentInput postId={post?.id} onAddComment={onAddComment} />
-      </div>
-
-      {comments?.map((comment) => <CommentItem key={comment?.id} comment={comment} />)}
+      <CommentHeader post={post} comments={comments} />
+      <CommentList comments={comments?.data} postId={post?.id} />
     </div>
   )
 }
