@@ -23,12 +23,9 @@ export const postSelect = {
       postId: true,
     },
   },
-  Comment: {
+  _count: {
     select: {
-      id: true,
-      content: true,
-      createdAt: true,
-      updatedAt: true,
+      Comment: true,
     },
   },
   // comment: {

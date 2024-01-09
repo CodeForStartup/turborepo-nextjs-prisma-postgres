@@ -63,6 +63,7 @@
     "tailwind-merge": "^1.14.0",
     "tailwindcss": "^3.2.4",
     "tailwindcss-animate": "^1.0.7",
+    "tocbot": "^4.25.0",
     "ui": "workspace:*",
     "zod": "^3.22.2"
   },

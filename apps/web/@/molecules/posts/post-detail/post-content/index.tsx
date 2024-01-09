@@ -8,7 +8,7 @@ interface PostContentProps {
 }
 
 const PostContent: React.FC<PostContentProps> = ({ post }) => {
-  return <div className="mt-8">{reactHtmlParser(post?.content)}</div>
+  return <div className="post-content mt-8">{reactHtmlParser(post?.content)}</div>
 }
 
 export default PostContent
