@@ -19,6 +19,7 @@ const variants: Record<string, string> = {
 }
 
 type TypographyProps = {
+  id?: string
   variant?:
     | "h1"
     | "h2"
@@ -39,10 +40,11 @@ type TypographyProps = {
   className?: string
 }
 
-const Typography: React.FC<TypographyProps> = ({ variant = "p", className = "", children }) => {
+const Typography: React.FC<TypographyProps> = ({ id, variant = "p", className = "", children }) => {
   return React.createElement(
     variant,
     {
+      id,
       className: cn(variants[variant] || "", className),
     },
     children

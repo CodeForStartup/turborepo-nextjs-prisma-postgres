@@ -1,4 +1,4 @@
-import prisma, { Prisma } from "database"
+import prisma, { PostStatus, Prisma } from "database"
 import { NextRequest } from "next/server"
 
 import { postSelect } from "@/types/posts"
@@ -12,7 +12,7 @@ export async function GET(request: NextRequest) {
   const authorId = newUrl.searchParams.get("authorId") || ""
 
   let where: Prisma.PostWhereInput = {
-    // postStatus: "PUBLISHED",
+    postStatus: PostStatus.PUBLISHED,
   }
 
   if (authorId) {

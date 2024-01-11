@@ -1,6 +1,6 @@
 "use server"
 
-import prisma from "database"
+import prisma, { PostStatus } from "database"
 import { revalidatePath } from "next/cache"
 import { redirect } from "next/navigation"
 import slugify from "slugify"
@@ -54,6 +54,7 @@ export const createPost = async (data: TCreatePostInput): Promise<TPostItem> => 
         title: data.title,
         content: data.content,
         authorId: session?.user?.id,
+        postStatus: PostStatus.PUBLISHED,
         tagOnPost: {
           create: data.tags.map((tag) => {
             if (!tag.__isNew__) {

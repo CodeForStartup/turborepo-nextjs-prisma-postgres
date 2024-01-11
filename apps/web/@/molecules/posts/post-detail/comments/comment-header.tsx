@@ -1,7 +1,6 @@
 "use client"
 
 import React from "react"
-import Link from "next/link"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
 
 import {
@@ -12,19 +11,17 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import APP_ROUTES from "@/constants/routes"
 import Typography from "@/molecules/typography"
 import { GetDataSuccessType } from "@/types"
 import { TCommentItem } from "@/types/comment"
 import { TPostItem } from "@/types/posts"
-import { generatePath } from "@/utils/generatePath"
 
 type CommentHeaderProps = {
   post: TPostItem
   comments: GetDataSuccessType<TCommentItem[]>
 }
 
-const CommentHeader: React.FC<CommentHeaderProps> = ({ post, comments }) => {
+const CommentHeader: React.FC<CommentHeaderProps> = ({ comments }) => {
   const searchParams = useSearchParams()
   const router = useRouter()
   const pathname = usePathname()
@@ -40,15 +37,9 @@ const CommentHeader: React.FC<CommentHeaderProps> = ({ post, comments }) => {
 
   return (
     <div className="flex items-center justify-between border-b border-b-slate-300 px-8 py-4">
-      <Link
-        href={`${generatePath(APP_ROUTES.POST, {
-          postId: post?.slug || post?.id,
-        })}#comments`}
-      >
-        <Typography variant="h4" className="flex items-center gap-1">
-          {`${comments?.total} comments`}
-        </Typography>
-      </Link>
+      <Typography variant="h4" id="comments" className="flex items-center gap-1">
+        {`${comments?.total} comments`}
+      </Typography>
       <div className="flex gap-4 text-sm text-slate-500">
         <Typography className="flex items-center">Sort by</Typography>
         <Select value={sortKey} onValueChange={onChangeSort}>
