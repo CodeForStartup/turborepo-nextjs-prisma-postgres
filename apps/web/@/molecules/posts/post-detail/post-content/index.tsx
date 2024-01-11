@@ -1,12 +1,23 @@
 import React from "react"
 import htmlReactParser, { attributesToProps, domToReact } from "html-react-parser"
+import slugify from "slugify"
 
-import APP_ROUTES from "@/constants/routes"
 import { TPostItem } from "@/types/posts"
-import { generatePath } from "@/utils/generatePath"
 
 interface PostContentProps {
   post: TPostItem
+}
+
+const extractDataFromDomNode = (domNode) => {
+  if (domNode.type === "text") {
+    return domNode.data
+  }
+
+  return domNode.children
+    .map((childNode) => {
+      return extractDataFromDomNode(childNode)
+    })
+    .join("")
 }
 
 const PostContent: React.FC<PostContentProps> = ({ post }) => {
@@ -15,57 +26,32 @@ const PostContent: React.FC<PostContentProps> = ({ post }) => {
       if (domNode.name === "h1") {
         const props = attributesToProps(domNode.attribs)
         return (
-          <h1 {...props}>
-            <a
-              href={generatePath(APP_ROUTES.POST, {
-                postId: post?.slug || post?.id,
-              })}
-            >
-              1
-            </a>
-            {domNode.children[0].data}
+          <h1 {...props} id={slugify(extractDataFromDomNode(domNode))}>
+            {domToReact(domNode.children, options)}
           </h1>
         )
       }
       if (domNode.name === "h2") {
         const props = attributesToProps(domNode.attribs)
         return (
-          <h2 {...props} id={domNode.children[0].data}>
-            <a
-              href={`${generatePath(APP_ROUTES.POST, {
-                postId: post?.slug || post?.id,
-              })}#${domNode.children[0].data}`}
-            >
-              {domNode.children[0].data}
-            </a>
+          <h2 {...props} id={slugify(extractDataFromDomNode(domNode))}>
+            {domToReact(domNode.children, options)}
           </h2>
         )
       }
       if (domNode.name === "h3") {
         const props = attributesToProps(domNode.attribs)
         return (
-          <h3 {...props} id={domNode.children[0].data}>
-            <a
-              href={`${generatePath(APP_ROUTES.POST, {
-                postId: post?.slug || post?.id,
-              })}#${domNode.children[0].data}`}
-            >
-              {domNode.children[0].data}
-            </a>
+          <h3 {...props} id={slugify(extractDataFromDomNode(domNode))}>
+            {domToReact(domNode.children, options)}
           </h3>
         )
       }
       if (domNode.name === "h4") {
         const props = attributesToProps(domNode.attribs)
         return (
-          <h4 {...props} id={domNode.children[0].data}>
-            <a
-              href={`${generatePath(APP_ROUTES.POST, {
-                postId: post?.slug || post?.id,
-              })}#${domNode.children[0].data}`}
-            >
-              {domToReact(domNode.children)}
-            </a>
+          <h4 {...props} id={slugify(extractDataFromDomNode(domNode))}>
+            {domToReact(domNode.children, options)}
           </h4>
         )
       }
