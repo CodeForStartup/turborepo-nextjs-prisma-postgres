@@ -17,16 +17,17 @@ const TableOfContents: React.FC = () => {
       hasInnerContainers: true,
       // positionFixedSelector: ".tocbot",
       includeHtml: true,
-      includeTitleTags: false,
+      // includeTitleTags: false,
+      collapseDepth: 6,
       onClick: (e) => {
         // console.log("you clicked a link", e)
       },
-      headingsOffset: 100,
-      scrollSmoothOffset: 0,
+      headingsOffset: 0,
+      // scrollSmoothOffset: 0,
     })
   }, [])
 
-  return <div className="tocbot sticky top-[56px]">{/* Render table of contents here */}</div>
+  return <div className="tocbot toc sticky top-[56px]">{/* Render table of contents here */}</div>
 }
 
 export default TableOfContents

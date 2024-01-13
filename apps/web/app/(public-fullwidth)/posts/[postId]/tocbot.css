@@ -22,7 +22,18 @@
 
 a.toc-link {
   color: currentColor;
-  height: 100%
+  height: 100%;
+  height: 32px;
+  display: flex;
+  border-radius: 4px;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 0 8px;
+}
+
+a.toc-link:hover {
+  background-color: #f5f5f5;
+  color: #000;
 }
 
 .is-collapsible {
@@ -41,11 +52,11 @@ a.toc-link {
 }
 
 .is-active-link {
-  font-weight: 700
+  font-weight: 700;
+  background-color: #f5f5f5;
 }
 
 .toc-link::before {
-  background-color: #EEE;
   content: ' ';
   display: inline-block;
   height: inherit;
@@ -55,6 +66,6 @@ a.toc-link {
   width: 2px
 }
 
-.is-active-link::before {
+/* .is-active-link::before {
   background-color: #54BC4B
-}
+} */
