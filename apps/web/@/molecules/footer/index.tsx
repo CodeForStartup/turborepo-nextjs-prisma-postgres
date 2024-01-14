@@ -1,12 +1,15 @@
 import React from "react"
 import dayjs from "dayjs"
+import { TwitterIcon } from "lucide-react"
 import Link from "next/link"
 
+import { buttonVariants } from "@/components/ui/button"
+import { cn } from "@/lib/utils"
 import Typography from "../typography"
 
 const Footer: React.FC = () => {
   return (
-    <footer className="bg-neutral-100">
+    <footer className="bg-gray-200">
       <div className="container py-16">
         <div className="grid grid-cols-4 gap-4">
           <div className="col-span-4 md:col-span-2 lg:col-span-1">
@@ -17,6 +20,11 @@ const Footer: React.FC = () => {
               <Typography variant="p" className="text-gray-500">
                 Top list of everything
               </Typography>
+            </div>
+            <div>
+              <Link href="/" className={cn(buttonVariants({ variant: "ghost" }), "h-4 w-4")}>
+                <TwitterIcon size={24} />
+              </Link>
             </div>
           </div>
           <div className="col-span-4 md:col-span-2 lg:col-span-1">
@@ -63,7 +71,7 @@ const Footer: React.FC = () => {
           </div>
         </div>
       </div>
-      <div className="flex justify-center border-b-8 border-red-400 bg-neutral-200 py-4">
+      <div className="flex justify-center border-b-8 border-gray-400 bg-gray-300 py-4">
         <Typography variant="p" className="text-gray-500">
           ©{dayjs().year()} <Link href={"https://codeforstartup.com"}>codeforstartup</Link>
         </Typography>
