@@ -189,6 +189,9 @@ importers:
       next-auth:
         specifier: ^4.23.2
         version: 4.24.3(next@14.0.5-canary.17)(react-dom@18.2.0)(react@18.2.0)
+      next-themes:
+        specifier: ^0.2.1
+        version: 0.2.1(next@14.0.5-canary.17)(react-dom@18.2.0)(react@18.2.0)
       postcss:
         specifier: ^8.4.28
         version: 8.4.31
@@ -5090,6 +5093,18 @@ packages:
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
       uuid: 8.3.2
+    dev: false
+
+  /next-themes@0.2.1(next@14.0.5-canary.17)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-B+AKNfYNIzh0vqQQKqQItTS8evEouKD7H5Hj3kmuPERwddR2TxvDSFZuTj6T7Jfn1oyeUyJMydPl1Bkxkh0W7A==}
+    peerDependencies:
+      next: '*'
+      react: '*'
+      react-dom: '*'
+    dependencies:
+      next: 14.0.5-canary.17(@babel/core@7.23.2)(react-dom@18.2.0)(react@18.2.0)
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
     dev: false
 
   /next@13.5.6(@babel/core@7.23.2)(react-dom@18.2.0)(react@18.2.0):

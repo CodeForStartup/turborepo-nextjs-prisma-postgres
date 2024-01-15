@@ -9,6 +9,7 @@ import "react-toastify/dist/ReactToastify.css"
 import "remixicon/fonts/remixicon.css"
 
 import Footer from "@/molecules/footer"
+import { Providers } from "@/providers"
 
 export const metadata = {
   icons: {
@@ -18,15 +19,17 @@ export const metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className="bg-gray-100">
         <AuthProvider>
-          <Nav />
-          <main className="container mx-auto mt-12 min-h-[800px] px-4 pb-16 sm:px-6 lg:px-8">
-            {children}
-            <ToastContainer />
-          </main>
-          <Footer />
+          <Providers>
+            <Nav />
+            <main className="container mx-auto mt-12 min-h-[800px] px-4 pb-16 sm:px-6 lg:px-8">
+              {children}
+              <ToastContainer />
+            </main>
+            <Footer />
+          </Providers>
         </AuthProvider>
       </body>
     </html>
