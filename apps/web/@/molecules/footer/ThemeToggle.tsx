@@ -13,7 +13,7 @@ const ThemeToggle: React.FC = () => {
   }
 
   return (
-    <div className="flex gap-4">
+    <div className="flex gap-2">
       <Button onClick={toggleTheme} variant="link" className="hover:no-underline">
         <i className="ri-mac-line" />
       </Button>

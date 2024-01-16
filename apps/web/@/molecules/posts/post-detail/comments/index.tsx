@@ -30,7 +30,7 @@ const Comments: React.FC<CommentsProps> = async ({ post, searchParams }) => {
   }
 
   return (
-    <div className="mt-8 rounded-md border bg-gray-50">
+    <div className="mt-8 rounded-md border">
       <CommentHeader post={post} comments={comments} />
       <CommentList comments={comments?.data} postId={post?.id} />
     </div>

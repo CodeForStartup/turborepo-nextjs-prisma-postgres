@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation"
 
 import { buttonVariants } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
+import Typography from "../typography"
 
 export type SidebarItemProps = {
   label: string
@@ -26,7 +27,13 @@ export default function SidebarItem({ label, link, icons }: SidebarItemProps) {
         })}
       >
         {icons && <div className="mr-2 flex h-6 w-4 items-center justify-center">{icons}</div>}
-        <div className={cn(isActive ? "font-bold text-slate-900" : "text-slate-500")}>{label}</div>
+        <div
+          className={cn({
+            "font-bold": isActive,
+          })}
+        >
+          <Typography>{label}</Typography>
+        </div>
       </div>
     </Link>
   )

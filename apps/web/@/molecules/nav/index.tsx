@@ -10,7 +10,7 @@ export default async function Nav() {
   const session = await getServerSession()
 
   return (
-    <div className="mx-auto flex items-center bg-white p-2 sm:px-6 lg:px-8">
+    <div className="mx-auto flex items-center border-b p-2 sm:px-6 lg:px-8">
       <div className="container flex items-center justify-between">
         <div className="flex items-center">
           <div className="mr-4 text-2xl font-bold">

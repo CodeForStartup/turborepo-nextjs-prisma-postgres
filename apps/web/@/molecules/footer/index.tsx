@@ -10,7 +10,7 @@ import ThemeToggle from "./ThemeToggle"
 
 const Footer: React.FC = () => {
   return (
-    <footer className="bg-gray-200">
+    <footer className="border-t">
       <div className="container py-16">
         <div className="grid grid-cols-4 gap-4">
           <div className="col-span-4 md:col-span-2 lg:col-span-1">
@@ -72,7 +72,7 @@ const Footer: React.FC = () => {
           </div>
         </div>
       </div>
-      <div className="border-b-8 border-gray-400 bg-gray-300 py-4">
+      <div className="border py-4">
         <div className="container flex items-center justify-between">
           <Typography variant="p" className="text-gray-500">
             ©{dayjs().year()} <Link href={"https://codeforstartup.com"}>codeforstartup</Link>
