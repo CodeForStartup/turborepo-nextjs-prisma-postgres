@@ -36,7 +36,7 @@ const CommentHeader: React.FC<CommentHeaderProps> = ({ comments }) => {
   const sortKey = searchParams.get("sort") || "top"
 
   return (
-    <div className="flex items-center justify-between border-b border-b-slate-300 px-8 py-4">
+    <div className="flex items-center justify-between border-b px-8 py-4">
       <Typography variant="h4" id="comments" className="flex items-center gap-1">
         {`${comments?.total} comments`}
       </Typography>

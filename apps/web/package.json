@@ -50,6 +50,7 @@
     "lucide-react": "^0.270.0",
     "next": "14.0.5-canary.17",
     "next-auth": "^4.23.2",
+    "next-themes": "^0.2.1",
     "postcss": "^8.4.28",
     "qs": "^6.11.2",
     "react": "^18.2.0",

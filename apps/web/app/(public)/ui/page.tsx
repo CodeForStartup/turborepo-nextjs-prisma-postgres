@@ -21,7 +21,7 @@ const Section = ({ children, title }: { children: React.ReactNode; title: string
 
 export default async function Page() {
   return (
-    <div className="mb-16 rounded-md bg-white p-8">
+    <div className="mb-16 rounded-md p-8">
       <PageTitle title="List of UI components" description="Pages components" />
 
       <Section title="Typography">
