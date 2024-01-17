@@ -75,7 +75,11 @@
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply font-bold mb-1;
+    @apply font-bold mb-4;
+  }
+
+  p {
+    @apply mb-2;
   }
 
   code {
