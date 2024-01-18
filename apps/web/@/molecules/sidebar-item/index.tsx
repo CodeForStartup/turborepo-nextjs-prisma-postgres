@@ -20,21 +20,25 @@ export default function SidebarItem({ label, link, icons }: SidebarItemProps) {
     currentPathname === "/" ? link === "/" : currentPathname.startsWith(link) && link !== "/"
 
   return (
-    <Link href={link}>
-      <div
-        className={cn(buttonVariants({ variant: "ghost" }), "my-[2px] w-full justify-start", {
+    <Link
+      href={link}
+      className={cn(
+        buttonVariants({ variant: "ghost", size: "sm" }),
+        "flex items-center justify-start dark:text-white dark:hover:bg-muted dark:hover:text-white",
+        {
           "bg-accent": isActive,
+        }
+      )}
+    >
+      {icons && <div className="mr-2 flex h-6 w-4 items-center justify-center">{icons}</div>}
+      <Typography
+        variant="span"
+        className={cn({
+          "font-bold": isActive,
         })}
       >
-        {icons && <div className="mr-2 flex h-6 w-4 items-center justify-center">{icons}</div>}
-        <div
-          className={cn({
-            "font-bold": isActive,
-          })}
-        >
-          <Typography>{label}</Typography>
-        </div>
-      </div>
+        {label}
+      </Typography>
     </Link>
   )
 }

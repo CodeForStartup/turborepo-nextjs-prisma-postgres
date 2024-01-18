@@ -4,7 +4,13 @@ import { getServerSession } from "next-auth/next"
 import { redirect } from "next/navigation"
 
 import { getPosts } from "@/actions/protected/posts"
+import PageTitle from "@/molecules/page-title"
 import PostItem from "@/molecules/user/posts/post-item"
+
+export const metadata = {
+  title: "Posts",
+  description: "Your posts...",
+}
 
 export default async function Page() {
   const session = await getServerSession(authConfigs)
@@ -17,12 +23,8 @@ export default async function Page() {
 
   return (
     <div>
-      <div className="flex justify-between">
-        <div>
-          <h1 className="text-4xl font-extrabold text-slate-700">POSTS</h1>
-          <p className="mt-1">Create, edit, and manage your posts.</p>
-        </div>
-      </div>
+      <PageTitle title="Posts" description="Your posts" />
+
       <div className="mt-12">
         {posts.length === 0 ? (
           <div>You haven’t any post yet.</div>

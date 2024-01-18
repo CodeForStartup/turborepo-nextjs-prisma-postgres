@@ -14,6 +14,7 @@ import {
   DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import Typography from "../typography"
 import { LogoutMenu } from "./LogoutMenu"
 
 export async function UserNav() {
@@ -31,28 +32,41 @@ export async function UserNav() {
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56" align="end" forceMount>
         <DropdownMenuLabel className="font-normal">
-          <div className="flex flex-col space-y-1">
-            <p className="text-sm font-medium leading-none">{session?.user?.name}</p>
-            <p className="text-xs leading-none text-muted-foreground">{session?.user?.email}</p>
-          </div>
+          <Link href={`/author/${session?.user?.id}`}>
+            <div className="flex flex-col justify-center rounded-sm p-2 hover:bg-muted hover:underline">
+              <Typography className="font-bold leading-none">@{session?.user?.name}</Typography>
+              <Typography variant="span" className="text-xs leading-none text-muted-foreground">
+                {session?.user?.email}
+              </Typography>
+            </div>
+          </Link>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <DropdownMenuItem>
-            <Link href="/user/profile">Profile</Link>
+            <Link href="/user/profile" className="flex flex-1">
+              Profile
+            </Link>
             <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
           </DropdownMenuItem>
-          <DropdownMenuItem asChild>
-            <Link href="/user/posts">
+          <DropdownMenuItem>
+            <Link href="/user/posts" className="flex flex-1">
               Posts
-              <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
             </Link>
+            <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
           </DropdownMenuItem>
           <DropdownMenuItem>
-            Settings
+            <Link href="/user/settings" className="flex flex-1">
+              Settings
+            </Link>
             <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
           </DropdownMenuItem>
-          <DropdownMenuItem>Password</DropdownMenuItem>
+          <DropdownMenuItem>
+            <Link href="/user/password" className="flex flex-1">
+              Password
+            </Link>
+            <DropdownMenuShortcut>⌘P</DropdownMenuShortcut>
+          </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <LogoutMenu />
