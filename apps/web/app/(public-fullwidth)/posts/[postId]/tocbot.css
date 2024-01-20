@@ -32,7 +32,7 @@ a.toc-link {
 }
 
 a.toc-link:hover {
-  background-color: #f5f5f5;
+  /* background-color: #f5f5f5; */
   color: #000;
 }
 
@@ -53,7 +53,7 @@ a.toc-link:hover {
 
 .is-active-link {
   font-weight: 700;
-  background-color: #f5f5f5;
+  /* background-color: #f5f5f5; */
 }
 
 .toc-link::before {
