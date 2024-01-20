@@ -111,7 +111,7 @@ const PostForm = ({ post: postData }: { post?: TPostItem }) => {
         </div>
       </div>
       <form className="mb-4 w-full max-w-6xl" onSubmit={handleSubmit(handleSubmitPost)}>
-        <div className="mb-4 w-full rounded-md bg-white p-8">
+        <div className="mb-4 w-full rounded-md p-8">
           <div className="w-full max-w-6xl">
             <div>
               <Controller

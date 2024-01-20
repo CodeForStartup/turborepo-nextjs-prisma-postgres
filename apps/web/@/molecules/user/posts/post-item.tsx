@@ -4,12 +4,15 @@ import dayjs from "dayjs"
 import Link from "next/link"
 
 import { deletePost } from "@/actions/protected/posts"
+import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import Typography from "@/molecules/typography"
 import { TPostItem } from "@/types/posts"
 
 export default function PostItem(post: TPostItem) {
@@ -18,15 +21,25 @@ export default function PostItem(post: TPostItem) {
   }
 
   return (
-    <div className="mb-4 flex rounded-sm bg-neutral-50 px-8 py-4">
+    <div className="mb-4 flex items-center justify-center rounded-sm border px-8 py-4 hover:bg-muted">
       <div className="flex-1">
         <Link href={`posts/${post.id}/edit`}>
-          <h2 className="text-2xl font-bold text-slate-700">{post.title}</h2>
-          <div className="mt-1 text-xs text-gray-400">
-            Last edited: {dayjs(post.createdAt).format("MMMM D, YYYY")}
+          <Typography variant="h2">{post.title}</Typography>
+          <div className="mt-1 text-xs">
+            <Badge className="mr-2 rounded-sm text-gray-600">
+              {post?.postStatus === "PUBLISHED" ? "PUBLISHED" : "DRAFT"}
+            </Badge>
+            <Typography variant="span">
+              Last edited: <time>{dayjs(post.createdAt).format("MMMM D, YYYY")}</time>
+            </Typography>
           </div>
         </Link>
       </div>
+
+      <div className="">
+        <Button variant="link">Edit</Button>
+      </div>
+
       <DropdownMenu>
         <DropdownMenuTrigger>
           <i className="ri-more-2-fill" />
