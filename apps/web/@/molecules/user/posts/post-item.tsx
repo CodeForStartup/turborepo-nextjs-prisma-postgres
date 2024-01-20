@@ -12,7 +12,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { cn } from "@/lib/utils"
+import Typography from "@/molecules/typography"
 import { TPostItem } from "@/types/posts"
 
 export default function PostItem(post: TPostItem) {
@@ -21,15 +21,17 @@ export default function PostItem(post: TPostItem) {
   }
 
   return (
-    <div className="mb-4 flex items-center justify-center rounded-sm border px-8 py-4">
+    <div className="mb-4 flex items-center justify-center rounded-sm border px-8 py-4 hover:bg-muted">
       <div className="flex-1">
         <Link href={`posts/${post.id}/edit`}>
-          <h2 className="text-2xl font-bold">{post.title} </h2>
+          <Typography variant="h2">{post.title}</Typography>
           <div className="mt-1 text-xs">
             <Badge className="mr-2 rounded-sm text-gray-600">
               {post?.postStatus === "PUBLISHED" ? "PUBLISHED" : "DRAFT"}
             </Badge>
-            Last edited: <time>{dayjs(post.createdAt).format("MMMM D, YYYY")}</time>
+            <Typography variant="span">
+              Last edited: <time>{dayjs(post.createdAt).format("MMMM D, YYYY")}</time>
+            </Typography>
           </div>
         </Link>
       </div>
