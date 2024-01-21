@@ -46,12 +46,11 @@ const APP_APIS = {
     tag: {
       CREATE: "/api/protected/tags",
     },
-    users: {
-      GET: "/api/protected/users",
-      TOGGLE_FOLLOWER: "/api/protected/users/:userIdOrSlug/follow",
-    },
-    profile: {
-      UPDATE: "/api/protected/profile",
+    user: {
+      GET: "/api/protected/user/:userId",
+      UPDATE: "/api/protected/user/:userId",
+      DELETE: "/api/protected/user/:userId", // Deactivate account
+      TOGGLE_FOLLOWER: "/api/protected/user/:userId/follow",
     },
   },
 }

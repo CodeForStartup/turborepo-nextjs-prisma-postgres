@@ -7,13 +7,55 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
+import APP_APIS from "@/constants/apis"
+import { TUserItem } from "@/types/users"
+import { generatePath } from "@/utils/generatePath"
 import Typography from "../typography"
 
-const Profile = () => {
-  const { register, handleSubmit } = useForm()
+type ProfileType = {
+  user: TUserItem
+}
 
-  const onSubmit = () => {
-    // TODO: implement
+const Profile: React.FC<ProfileType> = ({ user }) => {
+  const { register, handleSubmit } = useForm<
+    TUserItem & {
+      firstName: string
+      lastName: string
+    }
+  >({
+    defaultValues: {
+      name: user?.name,
+      firstName: user?.name,
+      lastName: user?.name,
+      email: user?.email,
+      address: user?.address,
+      phone: user?.phone,
+      twitter: user?.twitter,
+      github: user?.github,
+      facebook: user?.facebook,
+      bio: user?.bio,
+    },
+  })
+
+  const onSubmit = async ({ firstName, lastName, ...data }: TUserItem) => {
+    try {
+      // Post to API
+      await fetch(
+        generatePath(APP_APIS.protected.user.UPDATE, {
+          userId: user.id,
+        }),
+        {
+          method: "PUT",
+          body: JSON.stringify({
+            ...data,
+            // name: `${firstName} ${lastName}`,
+          }),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
+    } catch (error) {}
   }
 
   return (
@@ -26,7 +68,7 @@ const Profile = () => {
             <Label className="pb-2" htmlFor="email">
               Username
             </Label>
-            <Input disabled id="username" {...register("username")} />
+            <Input disabled id="name" {...register("name")} />
           </div>
 
           <div className="mb-4 flex gap-4">
@@ -46,53 +88,44 @@ const Profile = () => {
           </div>
 
           <div className="mb-4">
-            <Label htmlFor="phoneNumber">Phone number</Label>
-            <Input id="phoneNumber" {...register("phoneNumber")} />
-          </div>
-
-          <div className="mb-4">
-            <Label htmlFor="address">Twitter</Label>
+            <Label htmlFor="address">Address</Label>
             <Input id="address" {...register("address")} />
           </div>
 
+          {/* <div className="mb-4">
+            <Label htmlFor="country">Country</Label>
+            <Input id="country" {...register("country")} />
+          </div> */}
+
           <div className="mb-4">
-            <Label htmlFor="address">Github</Label>
-            <Input id="address" {...register("address")} />
+            <Label htmlFor="phone">Phone number</Label>
+            <Input id="phone" {...register("phone")} />
           </div>
 
           <div className="mb-4">
-            <Label htmlFor="address">Facebook</Label>
-            <Input id="address" {...register("address")} />
+            <Label htmlFor="twitter">Twitter</Label>
+            <Input id="twitter" {...register("twitter")} />
           </div>
 
           <div className="mb-4">
-            <Label htmlFor="address">Bio</Label>
-            <Textarea id="address" {...register("address")} />
+            <Label htmlFor="github">Github</Label>
+            <Input id="github" {...register("address")} />
+          </div>
+
+          <div className="mb-4">
+            <Label htmlFor="facebook">Facebook</Label>
+            <Input id="facebook" {...register("facebook")} />
+          </div>
+
+          <div className="mb-4">
+            <Label htmlFor="bio">Bio</Label>
+            <Textarea id="bio" {...register("bio")} />
           </div>
 
           <div className="w-full">
             <Button className="w-full" type="submit">
               Update your account
             </Button>
-          </div>
-        </div>
-
-        <div className="mt-8 rounded-md border p-8">
-          <Typography variant="h2">Password</Typography>
-
-          <div className="mb-4">
-            <Label htmlFor="password">Current password</Label>
-            <Input id="password" {...register("password")} />
-          </div>
-
-          <div className="mb-4">
-            <Label htmlFor="password">Password</Label>
-            <Input id="password" {...register("password")} />
-          </div>
-
-          <div className="mb-4">
-            <Label htmlFor="confirmPassword">Confirm password</Label>
-            <Input id="confirmPassword" {...register("confirmPassword")} />
           </div>
         </div>
 
