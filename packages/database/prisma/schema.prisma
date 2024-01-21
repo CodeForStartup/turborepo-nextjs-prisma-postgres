@@ -8,7 +8,13 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  url      = "postgresql://postgres:example@localhost:5432/codeforstartup" //env("DATABASE_URL")
+}
+
+enum UserType {
+  ADMIN
+  MODERATOR
+  AUTHOR
 }
 
 enum PostType {
@@ -60,13 +66,29 @@ model Post {
 
   parentPostId String?
   pinned       Boolean @default(false)
+  userPinned   Boolean @default(false)
 
   postType   PostType     @default(POST)
   postStatus PostStatus   @default(DRAFT)
   postFormat PostFormat   @default(STANDARD)
   tagOnPost  TagOnPost[]
   postOnUser PostOnUser[]
-  Comment    Comment[]
+  comments   Comment[]
+  parentOf   ParentPost[] @relation("parentPost")
+  parent     ParentPost[] @relation("post")
+}
+
+model ParentPost {
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  parentPostId String
+  parentPost   Post   @relation("parentPost", fields: [parentPostId], references: [id])
+
+  postId String
+  post   Post   @relation("post", fields: [postId], references: [id])
+
+  @@id([parentPostId, postId])
 }
 
 enum PostOnUserType {
@@ -120,6 +142,20 @@ model User {
   email         String?   @unique
   emailVerified DateTime?
   image         String?
+
+  userType UserType @default(AUTHOR)
+
+  username  String? @unique
+  bio       String?
+  website   String?
+  address   String?
+  phone     String?
+  twitter   String?
+  facebook  String?
+  github    String?
+  youtube   String?
+  linkedin  String?
+  instagram String?
 
   accounts Account[]
   sessions Session[]
@@ -190,7 +226,7 @@ model Comment {
 
   commentOnPostId String
   commentOnPost   Post            @relation(fields: [commentOnPostId], references: [id])
-  CommentOnUser   CommentOnUser[]
+  commentOnUser   CommentOnUser[]
 }
 
 enum CommentOnUserType {

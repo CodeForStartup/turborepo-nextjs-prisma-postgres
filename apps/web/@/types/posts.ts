@@ -25,7 +25,7 @@ export const postSelect = {
   },
   _count: {
     select: {
-      Comment: true,
+      comments: true,
     },
   },
   // comment: {

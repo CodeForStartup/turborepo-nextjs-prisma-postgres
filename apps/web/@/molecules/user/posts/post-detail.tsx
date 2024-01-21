@@ -1,5 +1,5 @@
+import reactHtmlParser from "html-react-parser"
 import Link from "next/link"
-import reactHtmlParser from "react-html-parser"
 
 import { TPostItem } from "@/types/posts"
 import PostMeta from "./post-meta"
@@ -12,7 +12,7 @@ export default function PostDetail({ post }: PostDetailProps) {
   const shouldShowEditButton = true
 
   return (
-    <div className="mb-8">
+    <div className="mb-8 bg-red-500">
       <div className="flex">
         <h1 className="flex-1 text-4xl font-extrabold text-slate-700">
           <Link href={`${post?.id}`}>{post?.title}</Link>

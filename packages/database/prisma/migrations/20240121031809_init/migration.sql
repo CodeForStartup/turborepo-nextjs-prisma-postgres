@@ -1,4 +1,7 @@
 -- CreateEnum
+CREATE TYPE "UserType" AS ENUM ('ADMIN', 'MODERATOR', 'AUTHOR');
+
+-- CreateEnum
 CREATE TYPE "PostType" AS ENUM ('POST', 'PAGE', 'LIST', 'COMPARE', 'POLL', 'QUIZ', 'WIDGET', 'ORGANIZATION', 'SLIDE');
 
 -- CreateEnum
@@ -27,12 +30,22 @@ CREATE TABLE "Post" (
     "authorId" TEXT NOT NULL,
     "parentPostId" TEXT,
     "pinned" BOOLEAN NOT NULL DEFAULT false,
-    "approved" BOOLEAN NOT NULL DEFAULT false,
+    "userPinned" BOOLEAN NOT NULL DEFAULT false,
     "postType" "PostType" NOT NULL DEFAULT 'POST',
     "postStatus" "PostStatus" NOT NULL DEFAULT 'DRAFT',
     "postFormat" "PostFormat" NOT NULL DEFAULT 'STANDARD',
 
     CONSTRAINT "Post_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "ParentPost" (
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+    "parentPostId" TEXT NOT NULL,
+    "postId" TEXT NOT NULL,
+
+    CONSTRAINT "ParentPost_pkey" PRIMARY KEY ("parentPostId","postId")
 );
 
 -- CreateTable
@@ -77,6 +90,18 @@ CREATE TABLE "User" (
     "email" TEXT,
     "emailVerified" TIMESTAMP(3),
     "image" TEXT,
+    "userType" "UserType" NOT NULL DEFAULT 'AUTHOR',
+    "username" TEXT,
+    "bio" TEXT,
+    "website" TEXT,
+    "address" TEXT,
+    "phone" TEXT,
+    "twitter" TEXT,
+    "facebook" TEXT,
+    "github" TEXT,
+    "youtube" TEXT,
+    "linkedin" TEXT,
+    "instagram" TEXT,
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
 );
@@ -190,6 +215,9 @@ CREATE UNIQUE INDEX "PostContentType_slug_key" ON "PostContentType"("slug");
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 
 -- CreateIndex
+CREATE UNIQUE INDEX "User_username_key" ON "User"("username");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "Tags_name_key" ON "Tags"("name");
 
 -- CreateIndex
@@ -209,6 +237,12 @@ CREATE UNIQUE INDEX "VerificationToken_identifier_token_key" ON "VerificationTok
 
 -- AddForeignKey
 ALTER TABLE "Post" ADD CONSTRAINT "Post_authorId_fkey" FOREIGN KEY ("authorId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "ParentPost" ADD CONSTRAINT "ParentPost_parentPostId_fkey" FOREIGN KEY ("parentPostId") REFERENCES "Post"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "ParentPost" ADD CONSTRAINT "ParentPost_postId_fkey" FOREIGN KEY ("postId") REFERENCES "Post"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "PostOnUser" ADD CONSTRAINT "PostOnUser_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
