@@ -113,7 +113,7 @@ export default function SignInForm() {
       </div>
 
       <div className="mt-4 text-center">
-        <Link href="signup">
+        <Link href="register">
           <Typography variant="span" className="mt-4">
             Don&apos;t have an account?{" "}
             <Typography className="font-bold hover:underline" variant="span">
