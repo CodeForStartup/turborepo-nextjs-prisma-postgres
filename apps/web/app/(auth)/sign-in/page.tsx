@@ -13,10 +13,8 @@ export default async function Page() {
   }
 
   return (
-    <div>
-      <div className="flex justify-center">
-        <SignInForm />
-      </div>
+    <div className="flex justify-center">
+      <SignInForm />
     </div>
   )
 }
