@@ -1,44 +1,10 @@
 "use client"
 
-import React, { useEffect, useState } from "react"
-import Link from "next/link"
+import React, { useState } from "react"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
 
-import { Button, buttonVariants } from "@/components/ui/button"
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
-import { cn } from "@/lib/utils"
-
-enum FilteredValue {
-  lasted = "lasted",
-  hot = "hot",
-}
-
-type FilterItemProps = {
-  label: string
-  isActive: boolean
-  onclick: () => void
-}
-
-const FilterItem: React.FC<FilterItemProps> = ({ label, isActive, onclick }) => {
-  return (
-    <Button
-      variant="link"
-      onClick={onclick}
-      className={cn("w-[60px]", {
-        "font-bold text-red-300": isActive,
-      })}
-    >
-      <div>{label}</div>
-    </Button>
-  )
-}
+import { capitalizeFirstLetter } from "@/utils/capitalize"
+import { FilteredValue, FilterItem, PeriodValues } from "./filter-item"
 
 const Filter: React.FC = () => {
   const searchParams = useSearchParams()
@@ -89,10 +55,10 @@ const Filter: React.FC = () => {
       </div>
       {filterValue === FilteredValue.hot && (
         <div className="flex gap-1">
-          {["week", "month", "yearn", "infinity"].map((period) => (
+          {Object.values(PeriodValues).map((period) => (
             <FilterItem
               key={period}
-              label={period}
+              label={capitalizeFirstLetter(period)}
               isActive={periodKey === period}
               onclick={() => onChangePeriod(period)}
             />
