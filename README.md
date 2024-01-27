@@ -51,27 +51,27 @@ turbo dev
 🐠 lucide-react icon  
 🐧 next-auth  
 🐴 dayjs  
-🐢 react-toastify  
+🐢 react-toastify
 
 # Functions
 
-- [x] Register by email or github  
-- [x] Login by email, github or magic link  
-- [x] User logout  
-- [ ] Verify email  
-- [ ] Forgot password  
-- [x] CRUD post  
-- [x] List post: Search & filter by top or hot week, month, year, infinity  
-- [x] Like post  
-- [x] Comment on post  
-- [ ] Share post 
-- [x] Manage tag  
-- [ ] Follow user  
-- [ ] Multiple theme & dark mode or light mode  
-- [ ] Multiple language  
-- [ ] Follow tag  
-- [ ] Manage user profile  
-- [ ] Multiple type: post/question  
+- [x] Register by email or github
+- [x] Login by email, github or magic link
+- [x] User logout
+- [ ] Verify email
+- [ ] Forgot password
+- [x] CRUD post
+- [x] List post: Search & filter by top or hot week, month, year, infinity
+- [x] Like post
+- [x] Comment on post
+- [ ] Share post
+- [x] Manage tag
+- [ ] Follow user
+- [ ] Multiple theme & dark mode or light mode
+- [ ] Multiple language
+- [ ] Follow tag
+- [ ] Manage user profile
+- [ ] Multiple type: post/question
 
 # DEV NOTES
 
