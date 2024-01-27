@@ -39,25 +39,39 @@ turbo dev
 🤗 Prisma  
 🎰 React Form Hook  
 🎭 Postgres  
-🖋 Zod validation    
+🖋 Zod validation  
 🎯 TailwindCSS  
 🚀 Turborepo  
 💒 Tiptap  
-🍾 react-textarea-autosize
+🍾 react-textarea-autosize  
+👽 Prettier
+💥 Husky  
+🔥 shadcn  
+💌 next-themes  
+🐠 lucide-react icon  
+🐧 next-auth  
+🐴 dayjs  
+🐢 react-toastify  
 
 # Functions
 
-- [x] Login
-- [x] Logout
-- [x] Register
-- [x] Verify email
-- [x] Forgot password
-- [x] CRUD post
-- [x] List post/Filter
-- [ ] Like post
-- [ ] Comment post
-- [ ] Manage tags
-- [ ] Follow user
+- [x] Register by email or github  
+- [x] Login by email, github or magic link  
+- [x] User logout  
+- [ ] Verify email  
+- [ ] Forgot password  
+- [x] CRUD post  
+- [x] List post: Search & filter by top or hot week, month, year, infinity  
+- [x] Like post  
+- [x] Comment on post  
+- [ ] Share post 
+- [x] Manage tag  
+- [ ] Follow user  
+- [ ] Multiple theme & dark mode or light mode  
+- [ ] Multiple language  
+- [ ] Follow tag  
+- [ ] Manage user profile  
+- [ ] Multiple type: post/question  
 
 # DEV NOTES
 
