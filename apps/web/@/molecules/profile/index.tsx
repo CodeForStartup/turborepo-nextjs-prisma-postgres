@@ -37,7 +37,7 @@ const Profile: React.FC<ProfileType> = ({ user }) => {
     },
   })
 
-  const onSubmit = async ({ firstName, lastName, ...data }: TUserItem) => {
+  const onSubmit = async (user: TUserItem) => {
     try {
       // Post to API
       await fetch(
@@ -47,7 +47,7 @@ const Profile: React.FC<ProfileType> = ({ user }) => {
         {
           method: "PUT",
           body: JSON.stringify({
-            ...data,
+            ...user,
             // name: `${firstName} ${lastName}`,
           }),
           headers: {

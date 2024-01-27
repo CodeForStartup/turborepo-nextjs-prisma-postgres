@@ -1,6 +1,6 @@
 import { NextRequest } from "next/server"
 
-import { tagSelect } from "@/types/tags"
+import { tagItemSelect } from "@/types/tags"
 
 export async function GET(request: NextRequest, { params }: { params: { tagIdOrSlug: string } }) {
   try {
@@ -15,7 +15,7 @@ export async function GET(request: NextRequest, { params }: { params: { tagIdOrS
           },
         ],
       },
-      select: tagSelect,
+      select: tagItemSelect,
     })
 
     if (!tag)

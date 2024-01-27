@@ -6,5 +6,4 @@ module.exports = {
       presets: [require.resolve('next/babel')],
     },
   },
-  ignorePatterns: ["@/components/*", "src/components/*"]
 };
