@@ -7,10 +7,10 @@
 
 # About TOPLIST
 
-
 # Installation
 
 Install
+
 ```
 turbo install
 ```
@@ -20,11 +20,13 @@ In the `apps/web` folder, copy the env.example to env.local and enter the enviro
 In the `packages/database`, copy the env.example to .env and enter the DATABASE_URL
 
 Migration
+
 ```
 db:migrate
 ```
 
 Start
+
 ```
 turbo dev
 ```
@@ -37,12 +39,11 @@ turbo dev
 🤗 Prisma  
 🎰 React Form Hook  
 🎭 Postgres  
-🖋 Zod  
+🖋 Zod validation    
 🎯 TailwindCSS  
 🚀 Turborepo  
 💒 Tiptap  
 🍾 react-textarea-autosize
-
 
 # Functions
 

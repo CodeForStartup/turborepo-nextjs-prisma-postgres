@@ -7,6 +7,7 @@ module.exports = {
   useTabs: false,
   quoteProps: "as-needed",
   jsxSingleQuote: false,
+  singleQuote: false,
   bracketSpacing: true,
   bracketSameLine: false,
   importOrderSeparation: true,
