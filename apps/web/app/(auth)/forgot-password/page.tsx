@@ -1,24 +1,13 @@
-import React, { useState } from "react"
+import React from "react"
 
 const ForgotPasswordPage: React.FC = () => {
-  const [email, setEmail] = useState("")
-
-  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setEmail(e.target.value)
-  }
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    // TODO: Implement password reset logic here
-  }
-
   return (
     <div>
       <h1>Forgot Password</h1>
-      <form onSubmit={handleSubmit}>
+      <form>
         <label>
           Email:
-          <input type="email" value={email} onChange={handleEmailChange} />
+          <input type="email" />
         </label>
         <button type="submit">Reset Password</button>
       </form>

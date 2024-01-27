@@ -1,22 +1,77 @@
 import { Prisma } from "database"
 
-export const tagSelect = {
+export const tagListSelect = {
   id: true,
-  createdAt: true,
-  updatedAt: true,
-  type: true,
-  image: true,
   name: true,
   slug: true,
   description: true,
-  parent: true,
-  count: true,
-  tagOnPost: true,
-  _count: true,
 } satisfies Prisma.TagsSelect
 
-const getTagItem = Prisma.validator<Prisma.PostDefaultArgs>()({
-  select: tagSelect,
+export const tagItemSelect = {
+  id: true,
+  name: true,
+  slug: true,
+  description: true,
+  _count: {
+    select: {
+      tagOnPost: true,
+    },
+  },
+  tagOnPost: {
+    select: {
+      post: {
+        select: {
+          id: true,
+          title: true,
+          content: true,
+          createdAt: true,
+          updatedAt: true,
+          author: {
+            select: {
+              id: true,
+              name: true,
+              email: true,
+              image: true,
+            },
+          },
+          postOnUser: {
+            select: {
+              userId: true,
+              type: true,
+            },
+          },
+          tagOnPost: {
+            select: {
+              tag: {
+                select: {
+                  id: true,
+                  name: true,
+                  slug: true,
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+  },
+} satisfies Prisma.TagsSelect
+
+const getTagItem = Prisma.validator<Prisma.TagsDefaultArgs>()({
+  select: tagItemSelect,
 })
 
-export type TTagItem = Prisma.PostGetPayload<typeof getTagItem>
+const getTagList = Prisma.validator<Prisma.TagsDefaultArgs>()({
+  select: tagListSelect,
+  include: {
+    _count: {
+      select: {
+        tagOnPost: true,
+      },
+    },
+  },
+})
+
+export type TTagItem = Prisma.TagsGetPayload<typeof getTagItem>
+
+export type TTagListItem = Prisma.TagsGetPayload<typeof getTagList>

@@ -2,6 +2,7 @@ import prisma, { Prisma } from "database"
 import { NextRequest } from "next/server"
 
 import { DEFAULT_TAG_PAGE_LIMIT } from "@/constants"
+import { tagListSelect } from "@/types/tags"
 
 export async function GET(request: NextRequest) {
   const newUrl = request.nextUrl.clone()
@@ -10,17 +11,7 @@ export async function GET(request: NextRequest) {
   const limit = newUrl.searchParams.get("limit") || DEFAULT_TAG_PAGE_LIMIT
 
   const query = {
-    select: {
-      id: true,
-      name: true,
-      slug: true,
-      description: true,
-      _count: {
-        select: {
-          tagOnPost: true,
-        },
-      },
-    },
+    select: tagListSelect,
     take: Number(limit),
     skip: (page === 0 ? 0 : page - 1) * Number(limit),
     where: {

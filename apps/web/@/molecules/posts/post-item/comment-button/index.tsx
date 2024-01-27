@@ -24,11 +24,11 @@ const CommentButton: React.FC<CommentButtonProps> = ({ post }) => {
           >
             <LucideMessageSquare className="h-4 w-4 text-gray-600" />
             <div className="ml-1 flex items-center text-sm text-gray-600">
-              {post?._count?.Comment || 0}
+              {post?._count?.comments || 0}
             </div>
           </Link>
         </TooltipTrigger>
-        <TooltipContent>{`${post?._count?.Comment || 0} comments`}</TooltipContent>
+        <TooltipContent>{`${post?._count?.comments || 0} comments`}</TooltipContent>
       </Tooltip>
     </TooltipProvider>
   )
