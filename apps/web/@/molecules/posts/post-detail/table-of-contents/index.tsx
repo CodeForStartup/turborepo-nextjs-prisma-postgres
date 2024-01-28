@@ -3,6 +3,7 @@
 import React, { useEffect } from "react"
 import * as tocbot from "tocbot"
 
+let a
 const TableOfContents: React.FC = () => {
   // Generate table of contents logic here
   useEffect(() => {
@@ -19,7 +20,7 @@ const TableOfContents: React.FC = () => {
       includeHtml: true,
       // includeTitleTags: false,
       collapseDepth: 6,
-      onClick: (e) => {
+      onClick: () => {
         // console.log("you clicked a link", e)
       },
       headingsOffset: 0,

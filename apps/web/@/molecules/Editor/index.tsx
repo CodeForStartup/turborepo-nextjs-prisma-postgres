@@ -2,7 +2,7 @@
 
 import "./index.css"
 
-import React, { FormEventHandler, useCallback } from "react"
+import React, { useCallback } from "react"
 import Blockquote from "@tiptap/extension-blockquote"
 import Bold from "@tiptap/extension-bold"
 import BulletList from "@tiptap/extension-bullet-list"
@@ -28,7 +28,7 @@ type EditorProps = {
   content?: string
   placeholder?: string
   name: string
-  onChange: FormEventHandler<HTMLDivElement>
+  onChange: (content: string) => void
 }
 
 const Editor = ({ content = "", placeholder = "", name, onChange, ...props }: EditorProps) => {
@@ -109,12 +109,7 @@ const Editor = ({ content = "", placeholder = "", name, onChange, ...props }: Ed
     ],
     content,
     onUpdate: ({ editor }) => {
-      onChange({
-        target: {
-          name: name as string,
-          value: editor.getHTML(),
-        },
-      })
+      onChange(editor.getHTML())
     },
   })
 
