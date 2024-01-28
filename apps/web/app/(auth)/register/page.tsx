@@ -13,10 +13,10 @@ const RegisterPage: React.FC = () => {
     <div className="flex justify-center">
       <div className="mt-16 w-full max-w-md flex-1 rounded-md p-8">
         <div>
-          <Typography variant="h1">Sign Up</Typography>
+          <Typography variant="h1">Register</Typography>
 
           <Typography variant="span" className="mt-4">
-            Sign up to your account to continue.
+            Register to your account to continue.
           </Typography>
         </div>
 

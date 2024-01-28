@@ -10,6 +10,7 @@
     "cssVariables": true
   },
   "aliases": {
+    "ui": "@/components/ui",
     "components": "@/components",
     "utils": "@/lib/utils",
     "molecules": "@/components/molecules"
