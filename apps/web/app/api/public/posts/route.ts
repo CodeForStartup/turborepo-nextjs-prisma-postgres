@@ -1,13 +1,16 @@
 import prisma, { PostStatus, Prisma } from "database"
+import dayjs from "dayjs"
 import { NextRequest } from "next/server"
 
+import { FilterValues, PeriodValues } from "@/types/filter"
 import { postSelect } from "@/types/posts"
 
 export async function GET(request: NextRequest) {
   const newUrl = request.nextUrl.clone()
   const searchTerm = newUrl.searchParams.get("query") || ""
   const tag = newUrl.searchParams.get("tag") || ""
-  const filter = newUrl.searchParams.get("filter") || "lasted" // lasted or hot
+  const filter = newUrl.searchParams.get("filter") || FilterValues.LASTED // lasted or hot
+  const period = newUrl.searchParams.get("period") || PeriodValues.INFINITY // lasted or hot
   const limit = newUrl.searchParams.get("limit") || 10
   const page = newUrl.searchParams.get("page") || 1
   const authorId = newUrl.searchParams.get("authorId") || ""
@@ -25,7 +28,25 @@ export async function GET(request: NextRequest) {
     }
   }
 
-  if (filter === "hot") {
+  if (filter === FilterValues.HOT) {
+    if (period === PeriodValues.THIS_MONTH) {
+      where = {
+        ...where,
+        updatedAt: {
+          gte: dayjs().subtract(30, "day").toDate(),
+        },
+      }
+    }
+
+    if (period === PeriodValues.THIS_WEEK) {
+      where = {
+        ...where,
+        updatedAt: {
+          gte: dayjs().subtract(7, "day").toDate(),
+        },
+      }
+    }
+
     orderBy = {
       ...orderBy,
       comments: {
@@ -34,7 +55,7 @@ export async function GET(request: NextRequest) {
     }
   }
 
-  if (filter === "lasted") {
+  if (filter === FilterValues.LASTED) {
     orderBy = {
       ...orderBy,
       updatedAt: "desc",

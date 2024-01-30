@@ -3,8 +3,9 @@
 import React, { useState } from "react"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
 
+import { FilterValues, PeriodValues } from "@/types/filter"
 import { capitalizeFirstLetter } from "@/utils/capitalize"
-import { FilteredValue, FilterItem, PeriodValues } from "./filter-item"
+import { FilterItem } from "./filter-item"
 
 const Filter: React.FC = () => {
   const searchParams = useSearchParams()
@@ -14,8 +15,8 @@ const Filter: React.FC = () => {
   const currentFilterValue = searchParams.get("filter")
   const periodKey = searchParams.get("period")
 
-  const [filterValue, setFilterValue] = useState<FilteredValue>(
-    (currentFilterValue as FilteredValue) || FilteredValue.lasted
+  const [filterValue, setFilterValue] = useState<FilterValues>(
+    (currentFilterValue as FilterValues) || FilterValues.LASTED
   )
 
   const onChangeFilter = (value: string) => {
@@ -29,7 +30,7 @@ const Filter: React.FC = () => {
   const onChangePeriod = (value: string) => {
     const urlSearchParam = new URLSearchParams(searchParams)
     urlSearchParam.set("period", value)
-    urlSearchParam.set("filter", FilteredValue.hot)
+    urlSearchParam.set("filter", FilterValues.HOT)
 
     router.push(`${pathname}?${urlSearchParam.toString()}`)
   }
@@ -41,19 +42,19 @@ const Filter: React.FC = () => {
           label="New"
           isActive={filterValue === "lasted"}
           onclick={() => {
-            setFilterValue(FilteredValue.lasted)
+            setFilterValue(FilterValues.LASTED)
             onChangeFilter("lasted")
           }}
         />
         <FilterItem
           label="Hot"
-          isActive={filterValue === "hot"}
+          isActive={filterValue === FilterValues.HOT}
           onclick={() => {
-            setFilterValue(FilteredValue.hot)
+            setFilterValue(FilterValues.HOT)
           }}
         />
       </div>
-      {filterValue === FilteredValue.hot && (
+      {filterValue === FilterValues.HOT && (
         <div className="flex gap-1">
           {Object.values(PeriodValues).map((period) => (
             <FilterItem

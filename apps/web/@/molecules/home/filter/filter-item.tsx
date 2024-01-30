@@ -1,18 +1,6 @@
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 
-export enum FilteredValue {
-  lasted = "lasted",
-  hot = "hot",
-}
-
-export enum PeriodValues {
-  week = "week",
-  month = "month",
-  yearn = "yearn",
-  infinity = "infinity",
-}
-
 type FilterItemProps = {
   label: string
   isActive: boolean
