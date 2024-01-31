@@ -1,6 +1,8 @@
 import { BookCopy, HomeIcon, Smartphone, TagIcon } from "lucide-react"
 
 import SidebarItem, { SidebarItemProps } from "@/molecules/sidebar-item"
+import SquareAdvertisement from "@/molecules/square-advertisement"
+import TopTag from "@/molecules/top-tags"
 
 const SIDE_BAR = [
   {
@@ -32,8 +34,13 @@ export default async function PublicLayout({ children }: { children: React.React
         {SIDE_BAR.map((item) => (
           <SidebarItem {...item} key={item.link} />
         ))}
+
+        <TopTag />
       </div>
-      <div className="col-span-12 md:col-span-10">{children}</div>
+      <div className="col-span-10 md:col-span-8">{children}</div>
+      <div className="hide md:col-span-2">
+        <SquareAdvertisement />
+      </div>
     </div>
   )
 }

@@ -5,6 +5,11 @@ export const tagListSelect = {
   name: true,
   slug: true,
   description: true,
+  _count: {
+    select: {
+      tagOnPost: true,
+    },
+  },
 } satisfies Prisma.TagsSelect
 
 export const tagItemSelect = {
