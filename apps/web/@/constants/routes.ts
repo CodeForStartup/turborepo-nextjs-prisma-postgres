@@ -2,7 +2,7 @@ const APP_ROUTES = {
   // Public routes
   HOME: "/",
 
-  LOGIN: "/signIn",
+  LOGIN: "/sign-in",
   REGISTER: "/register",
   FORGOT_PASSWORD: "/forgot-password",
   RESET_PASSWORD: "/reset-password",

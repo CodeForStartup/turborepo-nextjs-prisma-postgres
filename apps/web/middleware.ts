@@ -3,13 +3,19 @@ import Negotiator from "negotiator"
 import { getToken } from "next-auth/jwt"
 import { NextRequest, NextResponse } from "next/server"
 
-const locales = ["en-US", "nl-NL", "nl"]
+import APP_ROUTES from "@/constants/routes"
+
+const locales = ["en", "ja", "vi", "zh", "fr"]
+const defaultLocale = "en"
 
 function getLocale(req: NextRequest) {
-  const languages = new Negotiator({ headers: req.headers }).languages()
-  const defaultLocale = "en-US"
+  const languages = new Negotiator({
+    headers: {
+      "accept-language": req.headers.get("accept-language"),
+    },
+  }).languages()
 
-  match(languages, locales, defaultLocale) // -> 'en-US'
+  return match(languages, locales, defaultLocale) || defaultLocale
 }
 
 export async function middleware(req: NextRequest) {
@@ -21,23 +27,32 @@ export async function middleware(req: NextRequest) {
     (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
   )
 
-  if (pathnameHasLocale) return
-
-  // Redirect if there is no locale
-  const locale = getLocale(req)
-  req.nextUrl.pathname = `/${locale}${pathname}`
+  let locale = defaultLocale
+  if (!pathnameHasLocale) {
+    locale = getLocale(req)
+    req.nextUrl.pathname = `/${locale}${pathname}`
+  }
 
   if (!session?.email && currentPathname.startsWith("/user")) {
     const newUrl = req.nextUrl.clone()
     const currentSearchParam = newUrl.searchParams.toString()
-    newUrl.pathname = "/signIn"
+    newUrl.pathname = APP_ROUTES.LOGIN
     newUrl.searchParams.set(
       "callbackUrl",
       encodeURIComponent(`${currentPathname}?${currentSearchParam}`)
     )
 
-    return NextResponse.redirect(newUrl)
+    return NextResponse.rewrite(newUrl.toString())
   }
 
-  return NextResponse.next(req)
+  return NextResponse.rewrite(req.nextUrl)
+}
+
+export const config = {
+  matcher: [
+    // Skip all internal paths (_next)
+    // "/((?!_next).*)",
+    // Optional: only run on root (/) URL
+    "/((?!api/|_next/|_proxy/|asset|_static|_vercel|[\\w-]+\\.\\w+).*)",
+  ],
 }
