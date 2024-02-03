@@ -6,7 +6,7 @@ import Typography from "../typography"
 
 const SquareAdvertisement: React.FC = () => {
   return (
-    <div className="flex aspect-square w-full flex-col justify-end border-4 border-double p-4">
+    <div className="flex w-full flex-col justify-end border-4 border-double p-4">
       <Typography className="hidden font-bold lg:block">faster with</Typography>
       <Typography variant="span" className="mb-2 text-xs italic">
         free

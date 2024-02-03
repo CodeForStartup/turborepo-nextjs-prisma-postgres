@@ -37,8 +37,8 @@ export default async function PublicLayout({ children }: { children: React.React
 
         <TopTag />
       </div>
-      <div className="col-span-10 md:col-span-8">{children}</div>
-      <div className="hide md:col-span-2">
+      <div className="col-span-10 md:col-span-7">{children}</div>
+      <div className="hide md:col-span-3">
         <SquareAdvertisement />
       </div>
     </div>
