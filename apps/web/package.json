@@ -54,6 +54,7 @@
     "negotiator": "^0.6.3",
     "next": "14.1.0",
     "next-auth": "^4.24.5",
+    "next-intl": "^3.5.4",
     "next-themes": "^0.2.1",
     "postcss": "^8.4.28",
     "qs": "^6.11.2",
