@@ -3,7 +3,8 @@ import createIntlMiddleware from "next-intl/middleware"
 import { NextRequest, NextResponse } from "next/server"
 
 const handleI18nRouting = createIntlMiddleware({
-  locales: ["en", "de"],
+  locales: ["en", "fr"],
+  localePrefix: "as-needed",
   defaultLocale: "en",
 })
 
@@ -14,7 +15,7 @@ export async function middleware(req: NextRequest) {
   if (!session?.email && currentPathname.startsWith("/user")) {
     const newUrl = req.nextUrl.clone()
     const currentSearchParam = newUrl.searchParams.toString()
-    newUrl.pathname = "/signIn"
+    newUrl.pathname = "/sign-in"
     newUrl.searchParams.set(
       "callbackUrl",
       encodeURIComponent(`${currentPathname}?${currentSearchParam}`)

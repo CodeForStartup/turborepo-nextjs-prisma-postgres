@@ -17,9 +17,15 @@ export const metadata = {
   },
 }
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  params: { lang },
+  children,
+}: {
+  params: { lang: string }
+  children: React.ReactNode
+}) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang={lang || "en"} suppressHydrationWarning>
       <body>
         <AuthProvider>
           <Providers>
