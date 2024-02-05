@@ -5,8 +5,8 @@ import Link from "next/link"
 
 import { buttonVariants } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
+import LanguageSwitcher from "../language-switcher"
 import Typography from "../typography"
-import ThemeToggle from "./ThemeToggle"
 
 const Footer: React.FC = () => {
   return (
@@ -77,7 +77,7 @@ const Footer: React.FC = () => {
           <Typography variant="p" className="text-gray-500">
             ©{dayjs().year()} <Link href={"https://codeforstartup.com"}>codeforstartup</Link>
           </Typography>
-          <ThemeToggle />
+          <LanguageSwitcher />
         </div>
       </div>
     </footer>
