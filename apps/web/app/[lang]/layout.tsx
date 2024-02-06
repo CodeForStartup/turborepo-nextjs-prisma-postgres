@@ -25,7 +25,10 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang={lang || "en"} suppressHydrationWarning>
+    <html
+      lang={lang || "en"}
+      suppressHydrationWarning
+    >
       <body>
         <AuthProvider>
           <Providers>

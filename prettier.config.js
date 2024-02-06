@@ -11,6 +11,7 @@ module.exports = {
   bracketSpacing: true,
   bracketSameLine: false,
   importOrderSeparation: true,
+  singleAttributePerLine: true,
   importOrderSortSpecifiers: true,
   importOrder: ["^react$", "<THIRD_PARTY_MODULES>", "", "^@/", "^[.][.]/", "^[.]/"],
   pluginSearchDirs: ["."],

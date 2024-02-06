@@ -1,5 +1,6 @@
 "use client"
 
+// import { useTranslations } from "next-intl"
 import { useRouter, useSearchParams } from "next/navigation"
 
 import { Input } from "@/components/ui/input"
@@ -7,6 +8,7 @@ import { Input } from "@/components/ui/input"
 export default function SearchBar() {
   const router = useRouter()
   const searchParams = useSearchParams()
+  // const t = useTranslations("common")
 
   return (
     <div className="w-[300px]">

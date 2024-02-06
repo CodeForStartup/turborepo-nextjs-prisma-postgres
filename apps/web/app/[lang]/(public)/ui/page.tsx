@@ -22,7 +22,10 @@ const Section = ({ children, title }: { children: React.ReactNode; title: string
 export default async function Page() {
   return (
     <div className="mb-16 rounded-md p-8">
-      <PageTitle title="List of UI components" description="Pages components" />
+      <PageTitle
+        title="List of UI components"
+        description="Pages components"
+      />
 
       <Section title="Typography">
         <Typography variant="h1">
@@ -38,7 +41,10 @@ export default async function Page() {
           H4. React is the library for web and native user interfaces
         </Typography>
         <Typography>p. React is the library for web and native user interfaces</Typography>
-        <Typography variant="p" className="text-sm text-muted-foreground">
+        <Typography
+          variant="p"
+          className="text-sm text-muted-foreground"
+        >
           p.sm React is the library for web and native user interfaces
         </Typography>
         <Typography variant="blockquote">
@@ -63,7 +69,10 @@ export default async function Page() {
             slug: "tag",
           }}
         />
-        <Button variant="link" className="h-8 rounded-md p-0 px-2 text-gray-600 hover:bg-slate-300">
+        <Button
+          variant="link"
+          className="h-8 rounded-md p-0 px-2 text-gray-600 hover:bg-slate-300"
+        >
           <LucideHeart className="h-4 w-4 text-red-500" />
           <span className="ml-1 hover:no-underline">999</span>
         </Button>

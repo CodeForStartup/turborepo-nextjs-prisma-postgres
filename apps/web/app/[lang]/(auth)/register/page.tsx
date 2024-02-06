@@ -15,7 +15,10 @@ const RegisterPage: React.FC = () => {
         <div>
           <Typography variant="h1">Register</Typography>
 
-          <Typography variant="span" className="mt-4">
+          <Typography
+            variant="span"
+            className="mt-4"
+          >
             Register to your account to continue.
           </Typography>
         </div>
@@ -51,7 +54,10 @@ const RegisterPage: React.FC = () => {
                       </span>
                     </div>
                   </div>
-                  <Button variant="outline" type="button">
+                  <Button
+                    variant="outline"
+                    type="button"
+                  >
                     <GithubIcon size={16} />
                     <span className="ml-2">GitHub</span>
                   </Button>
@@ -63,9 +69,15 @@ const RegisterPage: React.FC = () => {
 
         <div className="mt-4 text-center">
           <Link href="sign-in">
-            <Typography variant="span" className="mt-4">
+            <Typography
+              variant="span"
+              className="mt-4"
+            >
               Already have an account?{" "}
-              <Typography className="font-bold hover:underline" variant="span">
+              <Typography
+                className="font-bold hover:underline"
+                variant="span"
+              >
                 Sign In
               </Typography>
             </Typography>

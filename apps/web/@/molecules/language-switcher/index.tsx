@@ -12,7 +12,10 @@ const LanguageSwitcher = () => {
   }
 
   return (
-    <select value={locale || "en"} onChange={handleLanguageChange}>
+    <select
+      value={locale || "en"}
+      onChange={handleLanguageChange}
+    >
       <option value="en">English</option>
       <option value="fr">French</option>
     </select>

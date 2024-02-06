@@ -60,6 +60,8 @@
     "phone": "Phone",
     "fax": "Fax",
     "mobile": "Mobile",
-    "website": "Website"
+    "website": "Website",
+    "write": "écrire",
+    "sign_in": "S'identifier"
   }
 }

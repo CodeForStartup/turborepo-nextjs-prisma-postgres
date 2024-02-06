@@ -38,7 +38,12 @@ export default async function Page({ searchParams }) {
             </h1>
           </div>
           <div className="mt-4">
-            {postsJson?.map((post) => <PostItem key={post.id} post={post} />)}
+            {postsJson?.map((post) => (
+              <PostItem
+                key={post.id}
+                post={post}
+              />
+            ))}
           </div>
         </div>
       )}
