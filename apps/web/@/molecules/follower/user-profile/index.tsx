@@ -17,7 +17,10 @@ const UserProfile = ({ author }: UserProfile) => {
           <Link href={`/author/${author.id}`}>
             <div className="m-0 flex h-[80px] w-[80px] items-center justify-center rounded-[100%] border-dashed">
               <Avatar className="h-20 w-20">
-                <AvatarImage src={author?.image || ""} alt={author?.name} />
+                <AvatarImage
+                  src={author?.image || ""}
+                  alt={author?.name}
+                />
                 <AvatarFallback>{(author?.name || "CO").slice(0, 2)}</AvatarFallback>
               </Avatar>
             </div>
@@ -42,7 +45,10 @@ const UserProfile = ({ author }: UserProfile) => {
                 </div>
               </div>
             </div>
-            <Button className="mt-4 w-full" variant="outline">
+            <Button
+              className="mt-4 w-full"
+              variant="outline"
+            >
               Follow
             </Button>
           </div>

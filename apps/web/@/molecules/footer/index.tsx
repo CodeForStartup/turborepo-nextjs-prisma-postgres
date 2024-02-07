@@ -5,8 +5,8 @@ import Link from "next/link"
 
 import { buttonVariants } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
+import LanguageSwitcher from "../language-switcher"
 import Typography from "../typography"
-import ThemeToggle from "./ThemeToggle"
 
 const Footer: React.FC = () => {
   return (
@@ -18,18 +18,27 @@ const Footer: React.FC = () => {
               <Link href="/">
                 <Typography variant="h2">toplist</Typography>
               </Link>
-              <Typography variant="p" className="text-gray-500">
+              <Typography
+                variant="p"
+                className="text-gray-500"
+              >
                 Top list of everything
               </Typography>
             </div>
             <div>
-              <Link href="/" className={cn(buttonVariants({ variant: "ghost" }), "h-4 w-4")}>
+              <Link
+                href="/"
+                className={cn(buttonVariants({ variant: "ghost" }), "h-4 w-4")}
+              >
                 <TwitterIcon size={24} />
               </Link>
             </div>
           </div>
           <div className="col-span-4 md:col-span-2 lg:col-span-1">
-            <Typography variant="h5" className="mb-4">
+            <Typography
+              variant="h5"
+              className="mb-4"
+            >
               TOP
             </Typography>
             <ul>
@@ -51,7 +60,10 @@ const Footer: React.FC = () => {
             </ul>
           </div>
           <div className="col-span-4 md:col-span-2 lg:col-span-1">
-            <Typography variant="h5" className="mb-4">
+            <Typography
+              variant="h5"
+              className="mb-4"
+            >
               About us
             </Typography>
             <ul>
@@ -61,7 +73,10 @@ const Footer: React.FC = () => {
             </ul>
           </div>
           <div className="col-span-4 md:col-span-2 lg:col-span-1">
-            <Typography variant="h5" className="mb-4">
+            <Typography
+              variant="h5"
+              className="mb-4"
+            >
               Our services
             </Typography>
             <ul>
@@ -74,10 +89,13 @@ const Footer: React.FC = () => {
       </div>
       <div className="border py-4">
         <div className="container flex items-center justify-between">
-          <Typography variant="p" className="text-gray-500">
+          <Typography
+            variant="p"
+            className="text-gray-500"
+          >
             ©{dayjs().year()} <Link href={"https://codeforstartup.com"}>codeforstartup</Link>
           </Typography>
-          <ThemeToggle />
+          <LanguageSwitcher />
         </div>
       </div>
     </footer>
