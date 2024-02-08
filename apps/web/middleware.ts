@@ -1,9 +1,10 @@
+import { locales } from "i18n"
 import { getToken } from "next-auth/jwt"
 import createIntlMiddleware from "next-intl/middleware"
 import { NextRequest, NextResponse } from "next/server"
 
 const handleI18nRouting = createIntlMiddleware({
-  locales: ["en", "fr"],
+  locales,
   localePrefix: "as-needed",
   defaultLocale: "en",
 })
