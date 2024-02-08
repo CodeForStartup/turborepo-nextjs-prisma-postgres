@@ -27,7 +27,6 @@ const LanguageSwitcher = () => {
     } else {
       pathnameParts[0] = `/${selectedLocale}`
     }
-    console.log("====>", pathnameParts.join("/"))
 
     startTransition(() => {
       router.replace(`${pathnameParts.join("/")}`)
@@ -47,7 +46,7 @@ const LanguageSwitcher = () => {
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
-          <SelectItem value="en">Englishxxx</SelectItem>
+          <SelectItem value="en">English</SelectItem>
           <SelectItem value="fr">French</SelectItem>
         </SelectGroup>
       </SelectContent>
