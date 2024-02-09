@@ -1,9 +1,10 @@
 "use client"
 
 import React from "react"
+import Link from "next/link"
+
 import dayjs from "dayjs"
 import { LucideHeart, LucideMoreHorizontal } from "lucide-react"
-import Link from "next/link"
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"

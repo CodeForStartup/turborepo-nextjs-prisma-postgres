@@ -1,5 +1,6 @@
-import { LucideHeart } from "lucide-react"
 import { Metadata } from "next"
+
+import { LucideHeart } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"

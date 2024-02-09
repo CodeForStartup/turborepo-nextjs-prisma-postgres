@@ -1,8 +1,9 @@
 "use client"
 
 import React, { useState } from "react"
-import { useSession } from "next-auth/react"
 import Link from "next/link"
+
+import { useSession } from "next-auth/react"
 import { toast } from "react-toastify"
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"

@@ -1,8 +1,9 @@
 "use client"
 
 import { useTransition } from "react"
-import { locales } from "i18n"
 import { useParams } from "next/navigation"
+
+import { locales } from "i18n"
 
 import {
   Select,

@@ -1,5 +1,6 @@
-import prisma, { Prisma } from "database"
 import { NextRequest } from "next/server"
+
+import prisma, { Prisma } from "database"
 
 import { DEFAULT_TAG_PAGE_LIMIT } from "@/constants"
 import { tagListSelect } from "@/types/tags"

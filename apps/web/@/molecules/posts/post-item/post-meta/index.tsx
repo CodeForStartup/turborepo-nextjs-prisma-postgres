@@ -1,6 +1,7 @@
 import React from "react"
-import dayjs from "dayjs"
 import Link from "next/link"
+
+import dayjs from "dayjs"
 
 import APP_ROUTES from "@/constants/routes"
 import { TPostItem } from "@/types/posts"

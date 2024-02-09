@@ -6,6 +6,7 @@ import Typography from "@/molecules/typography"
 import PostMeta from "@/molecules/user/posts/post-meta"
 import { TPostItem } from "@/types/posts"
 import { generatePath } from "@/utils/generatePath"
+
 import EditPostButton from "./edit-post-button"
 import PostContent from "./post-content"
 

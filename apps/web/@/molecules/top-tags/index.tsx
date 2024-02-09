@@ -1,9 +1,11 @@
 import React from "react"
-import { getTranslations } from "next-intl/server"
 import Link from "next/link"
+
+import { getTranslations } from "next-intl/server"
 import querystring from "qs"
 
 import APP_APIS from "@/constants/apis"
+
 import Typography from "../typography"
 
 const TopTag: React.FC = async () => {

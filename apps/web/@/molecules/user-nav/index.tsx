@@ -1,7 +1,8 @@
+import Link from "next/link"
+
 import { authConfigs } from "configs/auth"
 import { getServerSession } from "next-auth"
 import { getTranslations } from "next-intl/server"
-import Link from "next/link"
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
@@ -15,6 +16,7 @@ import {
   DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+
 import Typography from "../typography"
 import { LogoutMenu } from "./LogoutMenu"
 

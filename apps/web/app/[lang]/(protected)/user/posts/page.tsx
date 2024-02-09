@@ -1,7 +1,8 @@
 import React from "react"
+import { redirect } from "next/navigation"
+
 import { authConfigs } from "configs/auth"
 import { getServerSession } from "next-auth/next"
-import { redirect } from "next/navigation"
 
 import { getPosts } from "@/actions/protected/posts"
 import PageTitle from "@/molecules/page-title"

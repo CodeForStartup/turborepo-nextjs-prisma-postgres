@@ -1,7 +1,9 @@
-import reactHtmlParser from "html-react-parser"
 import Link from "next/link"
 
+import reactHtmlParser from "html-react-parser"
+
 import { TPostItem } from "@/types/posts"
+
 import PostMeta from "./post-meta"
 
 export type PostDetailProps = {

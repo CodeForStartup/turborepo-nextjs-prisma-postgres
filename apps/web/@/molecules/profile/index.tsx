@@ -1,6 +1,7 @@
 "use client"
 
 import React from "react"
+
 import { useForm } from "react-hook-form"
 
 import { Button } from "@/components/ui/button"
@@ -10,6 +11,7 @@ import { Textarea } from "@/components/ui/textarea"
 import APP_APIS from "@/constants/apis"
 import { TUserItem } from "@/types/users"
 import { generatePath } from "@/utils/generatePath"
+
 import Typography from "../typography"
 
 type ProfileType = {

@@ -1,6 +1,7 @@
 // generate react component meta data for post with author, date, and tags
-import dayjs from "dayjs"
 import Link from "next/link"
+
+import dayjs from "dayjs"
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { TPostItem } from "@/types/posts"

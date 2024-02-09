@@ -1,4 +1,5 @@
 import { Metadata } from "next"
+
 import querystring from "qs"
 
 import APP_APIS from "@/constants/apis"

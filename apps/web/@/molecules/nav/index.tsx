@@ -1,11 +1,16 @@
-import { Edit } from "lucide-react"
-import { getTranslations } from "next-intl/server"
 import Image from "next/image"
 import Link from "next/link"
 
+import { Edit } from "lucide-react"
+import { getTranslations } from "next-intl/server"
+
+import { buttonVariants } from "@/components/ui/button"
+import { cn } from "@/lib/utils"
 import { getServerSession } from "@/utils/auth"
+
 import { UserNav } from "../user-nav"
 import SearchBar from "./search-bar"
+import ThemeToggle from "./theme-toggle"
 
 export default async function Nav() {
   const session = await getServerSession()
@@ -32,9 +37,15 @@ export default async function Nav() {
           {session?.user ? (
             <div className="flex gap-8">
               <Link href="/user/posts/create">
-                <div className="flex items-center gap-1 pt-1 font-bold text-slate-500">
+                <div
+                  className={cn(
+                    buttonVariants({
+                      variant: "ghost",
+                    })
+                  )}
+                >
                   <Edit
-                    className="ml-2 inline-block"
+                    className="mr-2 inline-block"
                     size={16}
                   />
                   {t("common.write")}
@@ -52,6 +63,7 @@ export default async function Nav() {
               </Link>
             </div>
           )}
+          <ThemeToggle />
         </div>
       </div>
     </div>

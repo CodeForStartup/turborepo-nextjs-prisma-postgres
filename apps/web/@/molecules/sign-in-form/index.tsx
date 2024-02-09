@@ -1,16 +1,18 @@
 "use client"
 
+import Link from "next/link"
+import { useSearchParams } from "next/navigation"
+
 import { Label } from "@radix-ui/react-dropdown-menu"
 import { Tabs } from "@radix-ui/react-tabs"
 import { GithubIcon } from "lucide-react"
 import { signIn } from "next-auth/react"
-import Link from "next/link"
-import { useSearchParams } from "next/navigation"
 
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardFooter } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+
 import Typography from "../typography"
 
 export default function SignInForm() {

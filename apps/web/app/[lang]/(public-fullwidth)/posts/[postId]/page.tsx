@@ -9,6 +9,7 @@ import TableOfContents from "@/molecules/posts/post-detail/table-of-contents"
 import BookmarkButton from "@/molecules/posts/post-item/bookmark-button"
 import { TSearchParams } from "@/types"
 import { generatePath } from "@/utils/generatePath"
+
 // import "tocbot/src/scss/tocbot.css"
 import "./tocbot.css"
 

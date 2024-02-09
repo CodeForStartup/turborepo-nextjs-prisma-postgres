@@ -1,6 +1,7 @@
 import React from "react"
-import { GithubIcon } from "lucide-react"
 import Link from "next/link"
+
+import { GithubIcon } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardFooter } from "@/components/ui/card"

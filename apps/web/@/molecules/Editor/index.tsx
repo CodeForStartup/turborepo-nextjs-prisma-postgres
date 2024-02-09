@@ -3,6 +3,7 @@
 import "./index.css"
 
 import React, { useCallback } from "react"
+
 import Blockquote from "@tiptap/extension-blockquote"
 import Bold from "@tiptap/extension-bold"
 import BulletList from "@tiptap/extension-bullet-list"
