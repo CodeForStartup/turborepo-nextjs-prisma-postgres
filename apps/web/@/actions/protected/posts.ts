@@ -1,8 +1,9 @@
 "use server"
 
-import prisma, { PostStatus } from "database"
 import { revalidatePath } from "next/cache"
 import { redirect } from "next/navigation"
+
+import prisma, { PostStatus } from "database"
 import slugify from "slugify"
 
 import { postSelect, TCreatePostInput, TPostItem } from "@/types/posts"

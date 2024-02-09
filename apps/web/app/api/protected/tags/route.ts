@@ -1,5 +1,6 @@
-import prisma from "database"
 import { NextRequest } from "next/server"
+
+import prisma from "database"
 
 export async function GET(request: NextRequest) {
   const newUrl = request.nextUrl.clone()

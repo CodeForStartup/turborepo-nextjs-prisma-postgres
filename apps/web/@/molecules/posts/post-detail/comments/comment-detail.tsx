@@ -1,9 +1,10 @@
 "use client"
 
 import React from "react"
+import Link from "next/link"
+
 import dayjs from "dayjs"
 import { LucideHeart, LucideMoreHorizontal } from "lucide-react"
-import Link from "next/link"
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
@@ -27,10 +28,7 @@ const CommentItem: React.FC<CommentItemProps> = ({ comment }) => {
             })}
           >
             <Avatar className="h-9 w-9">
-              <AvatarImage
-                src={comment?.author?.image || ""}
-                alt={comment?.author?.name}
-              />
+              <AvatarImage src={comment?.author?.image || ""} alt={comment?.author?.name} />
               <AvatarFallback>{"CO".slice(0, 2)}</AvatarFallback>
             </Avatar>
           </Link>
@@ -50,14 +48,8 @@ const CommentItem: React.FC<CommentItemProps> = ({ comment }) => {
           </time>
         </div>
         <div>
-          <Button
-            variant="link"
-            size="sm"
-          >
-            <LucideMoreHorizontal
-              size={20}
-              className="text-gray-500"
-            />
+          <Button variant="link" size="sm">
+            <LucideMoreHorizontal size={20} className="text-gray-500" />
           </Button>
         </div>
       </div>
@@ -65,15 +57,8 @@ const CommentItem: React.FC<CommentItemProps> = ({ comment }) => {
         <Typography>{comment?.content}</Typography>
       </div>
 
-      <Button
-        variant="link"
-        size="sm"
-        className="mt-2"
-      >
-        <LucideHeart
-          size={20}
-          className="text-gray-500"
-        />
+      <Button variant="link" size="sm" className="mt-2">
+        <LucideHeart size={20} className="text-gray-500" />
         <span className="ml-1">100</span>
       </Button>
     </div>

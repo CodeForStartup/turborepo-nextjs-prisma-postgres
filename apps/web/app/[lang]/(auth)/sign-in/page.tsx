@@ -1,7 +1,8 @@
 import React from "react"
+import { redirect } from "next/navigation"
+
 import { authConfigs } from "configs/auth"
 import { getServerSession } from "next-auth"
-import { redirect } from "next/navigation"
 
 import SignInForm from "@/molecules/sign-in-form"
 

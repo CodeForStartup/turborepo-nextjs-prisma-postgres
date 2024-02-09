@@ -1,4 +1,5 @@
 import { Metadata } from "next"
+
 import querystring from "qs"
 
 import APP_APIS from "@/constants/apis"
@@ -41,12 +42,7 @@ export default async function Page({
     <div className="">
       <Filter />
       <div className="mt-4">
-        {postsJson?.data?.map((post) => (
-          <PostItem
-            key={post.id}
-            post={post}
-          />
-        ))}
+        {postsJson?.data?.map((post) => <PostItem key={post.id} post={post} />)}
       </div>
     </div>
   )

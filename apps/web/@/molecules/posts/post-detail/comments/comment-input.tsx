@@ -1,8 +1,9 @@
 "use client"
 
 import React, { useState } from "react"
-import { useSession } from "next-auth/react"
 import Link from "next/link"
+
+import { useSession } from "next-auth/react"
 import { toast } from "react-toastify"
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
@@ -82,10 +83,7 @@ const CommentInput: React.FC<CommentInputProps> = ({ postId, onAddComment }) => 
           <div className="flex items-center">
             <div>
               <Avatar className="h-9 w-9">
-                <AvatarImage
-                  src={data?.user?.image || ""}
-                  alt={data?.user?.name}
-                />
+                <AvatarImage src={data?.user?.image || ""} alt={data?.user?.name} />
                 <AvatarFallback>{"CO".slice(0, 2)}</AvatarFallback>
               </Avatar>
             </div>
@@ -94,23 +92,13 @@ const CommentInput: React.FC<CommentInputProps> = ({ postId, onAddComment }) => 
         </Link>
       </div>
       <div className="mt-2">
-        <Textarea
-          value={text}
-          onChange={handleTextChange}
-          maxLength={255}
-        />
+        <Textarea value={text} onChange={handleTextChange} maxLength={255} />
       </div>
       <div className="mt-2 flex items-center justify-between">
-        <Typography
-          variant="span"
-          className="text-sm text-gray-500"
-        >
+        <Typography variant="span" className="text-sm text-gray-500">
           <strong>{text?.length || 0}</strong>/255
         </Typography>
-        <Button
-          onClick={handleSubmit}
-          disabled={shouldDisableSubmit}
-        >
+        <Button onClick={handleSubmit} disabled={shouldDisableSubmit}>
           Submit
         </Button>
       </div>

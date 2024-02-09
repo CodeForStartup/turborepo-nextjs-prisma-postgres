@@ -5,6 +5,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation"
 
 import { FilterValues, PeriodValues } from "@/types/filter"
 import { capitalizeFirstLetter } from "@/utils/capitalize"
+
 import { FilterItem } from "./filter-item"
 
 const Filter: React.FC = () => {

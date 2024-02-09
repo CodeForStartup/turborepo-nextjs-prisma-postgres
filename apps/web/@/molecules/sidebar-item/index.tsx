@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation"
 
 import { buttonVariants } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
+
 import Typography from "../typography"
 
 export type SidebarItemProps = {
