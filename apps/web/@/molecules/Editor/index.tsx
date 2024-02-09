@@ -136,17 +136,8 @@ const Editor = ({ content = "", placeholder = "", name, onChange, ...props }: Ed
 
   return (
     <div className="editor h-full w-full p-3">
-      {editor && (
-        <MenuBar
-          editor={editor}
-          setLink={setLink}
-        />
-      )}
-      <EditorContent
-        {...props}
-        name={name}
-        editor={editor}
-      />
+      {editor && <MenuBar editor={editor} setLink={setLink} />}
+      <EditorContent {...props} name={name} editor={editor} />
     </div>
   )
 }

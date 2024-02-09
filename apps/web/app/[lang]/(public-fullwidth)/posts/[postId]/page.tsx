@@ -59,18 +59,12 @@ export default async function Page({
       <div className="col-span-9 flex gap-4">
         <div className="mt-8 flex w-12 flex-col gap-6">
           <LikeButton post={post} />
-          <BookmarkButton
-            post={post}
-            showCount
-          />
+          <BookmarkButton post={post} showCount />
         </div>
 
         <div className="flex-1">
           <PostDetail post={post} />
-          <Comments
-            post={post}
-            searchParams={searchParams}
-          />
+          <Comments post={post} searchParams={searchParams} />
         </div>
       </div>
 

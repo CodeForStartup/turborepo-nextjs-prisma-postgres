@@ -38,12 +38,7 @@ export default async function Page({ params, searchParams }) {
       <UserProfile author={author} />
       <div className="col-span-8 rounded-md">
         {postsJson?.data?.length > 0 ? (
-          postsJson?.data?.map((post) => (
-            <PostItem
-              key={post?.id}
-              post={post}
-            />
-          ))
+          postsJson?.data?.map((post) => <PostItem key={post?.id} post={post} />)
         ) : (
           <NoItemFounded />
         )}

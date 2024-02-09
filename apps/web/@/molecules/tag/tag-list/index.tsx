@@ -25,13 +25,7 @@ const TagList: React.FC<TagListProps> = ({
 }) => {
   return (
     <div className={cn(classes?.container)}>
-      {tags?.length > 0 &&
-        tags?.map(({ tag }) => (
-          <TagBadge
-            key={tag?.id}
-            tag={tag}
-          />
-        ))}
+      {tags?.length > 0 && tags?.map(({ tag }) => <TagBadge key={tag?.id} tag={tag} />)}
     </div>
   )
 }

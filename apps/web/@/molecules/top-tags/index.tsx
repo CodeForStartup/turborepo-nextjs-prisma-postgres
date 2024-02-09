@@ -31,10 +31,7 @@ const TopTag: React.FC = async () => {
       <Typography variant="h3">{t("common.trending")}</Typography>
       <ul>
         {(tagData?.data || []).map((tag, index) => (
-          <li
-            key={tag.id}
-            className="mb-2 flex items-center gap-2"
-          >
+          <li key={tag.id} className="mb-2 flex items-center gap-2">
             <div className="flex items-center justify-center text-2xl font-extrabold text-gray-400">
               {index + 1}.
             </div>

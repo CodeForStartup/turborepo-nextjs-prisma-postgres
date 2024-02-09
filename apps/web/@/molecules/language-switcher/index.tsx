@@ -46,7 +46,7 @@ const LanguageSwitcher = () => {
         className="w-[100px] border-none"
         disabled={isPending}
       >
-        <SelectValue placeholder={t("common.selectLocale")} />
+        <SelectValue placeholder="Select a locale" />
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>

@@ -25,10 +25,7 @@ export default async function Page() {
 
   return (
     <div>
-      <PageTitle
-        title="Profile"
-        description="User detail information"
-      />
+      <PageTitle title="Profile" description="User detail information" />
 
       <Profile user={currentUser} />
     </div>

@@ -22,19 +22,11 @@ const CommentList: React.FC<CommentListProps> = ({ comments = [], postId }) => {
   return (
     <div>
       <div className="p-8">
-        <CommentInput
-          postId={postId}
-          onAddComment={onAddComment}
-        />
+        <CommentInput postId={postId} onAddComment={onAddComment} />
       </div>
 
       {curComments?.length > 0 ? (
-        curComments?.map((comment) => (
-          <CommentItem
-            key={comment?.id}
-            comment={comment}
-          />
-        ))
+        curComments?.map((comment) => <CommentItem key={comment?.id} comment={comment} />)
       ) : (
         <div></div>
       )}

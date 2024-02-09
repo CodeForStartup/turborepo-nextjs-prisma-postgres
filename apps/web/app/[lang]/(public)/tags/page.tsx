@@ -48,32 +48,20 @@ export default async function Page({ searchParams }) {
       ) : (
         <div className="mt-8 grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
           {tags?.data?.map((tag) => (
-            <Link
-              href={`/tags/${tag?.id}`}
-              key={tag?.id}
-            >
+            <Link href={`/tags/${tag?.id}`} key={tag?.id}>
               <Card className="sm:col-span-1">
                 <CardHeader>
-                  <Typography
-                    variant="h2"
-                    className="text-xl hover:underline"
-                  >
+                  <Typography variant="h2" className="text-xl hover:underline">
                     {tag?.name}
                   </Typography>
                 </CardHeader>
                 <CardContent>
                   {tag?.description && (
-                    <Typography
-                      variant="p"
-                      className="text-gray-500"
-                    >
+                    <Typography variant="p" className="text-gray-500">
                       {tag?.description}
                     </Typography>
                   )}
-                  <Typography
-                    variant="p"
-                    className="text-gray-500"
-                  >
+                  <Typography variant="p" className="text-gray-500">
                     {tag?._count?.tagOnPost} posts
                   </Typography>
                 </CardContent>
