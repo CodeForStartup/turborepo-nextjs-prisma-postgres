@@ -1,4 +1,5 @@
 import React from "react"
+import { getTranslations } from "next-intl/server"
 import Link from "next/link"
 import querystring from "qs"
 
@@ -6,6 +7,7 @@ import APP_APIS from "@/constants/apis"
 import Typography from "../typography"
 
 const TopTag: React.FC = async () => {
+  const t = await getTranslations()
   const rawTags = await fetch(
     `${process.env.NEXT_PUBLIC_FRONTEND_URL}${APP_APIS.public.tags.GET}?${querystring.stringify({
       limit: 10,
@@ -24,7 +26,7 @@ const TopTag: React.FC = async () => {
 
   return (
     <div className="mt-4 border-t pt-4">
-      <Typography variant="h3">Trending</Typography>
+      <Typography variant="h3">{t("common.trending")}</Typography>
       <ul>
         {(tagData?.data || []).map((tag, index) => (
           <li
@@ -36,10 +38,12 @@ const TopTag: React.FC = async () => {
             </div>
             <Link href={`/tags/${tag?.slug || tag?.id}`}>
               <div className="hover:underline">
-                <strong className="">{tag.name}</strong>
-                <Typography className="flex text-xs">
-                  <strong className="text-gray-500">{tag._count.tagOnPost}</strong>
-                  <span className="ml-1 text-gray-400">post</span>
+                <strong>{tag.name}</strong>
+                <Typography className="flex gap-1 text-xs">
+                  <strong>{tag?._count.tagOnPost}</strong>
+                  {t("common.post", {
+                    total: tag?._count.tagOnPost || 0,
+                  })}
                 </Typography>
               </div>
             </Link>

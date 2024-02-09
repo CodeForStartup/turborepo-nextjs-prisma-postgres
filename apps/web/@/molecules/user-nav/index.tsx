@@ -1,5 +1,6 @@
 import { authConfigs } from "configs/auth"
 import { getServerSession } from "next-auth"
+import { getTranslations } from "next-intl/server"
 import Link from "next/link"
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
@@ -19,6 +20,7 @@ import { LogoutMenu } from "./LogoutMenu"
 
 export async function UserNav() {
   const session = await getServerSession(authConfigs)
+  const t = await getTranslations()
 
   return (
     <DropdownMenu>
@@ -61,7 +63,7 @@ export async function UserNav() {
               href="/user/profile"
               className="flex flex-1"
             >
-              Profile
+              {t("common.profile")}
             </Link>
             <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
           </DropdownMenuItem>
@@ -70,7 +72,7 @@ export async function UserNav() {
               href="/user/posts"
               className="flex flex-1"
             >
-              Posts
+              {t("common.posts")}
             </Link>
             <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
           </DropdownMenuItem>
@@ -79,7 +81,7 @@ export async function UserNav() {
               href="/user/settings"
               className="flex flex-1"
             >
-              Settings
+              {t("common.setting")}
             </Link>
             <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
           </DropdownMenuItem>
@@ -88,7 +90,7 @@ export async function UserNav() {
               href="/user/password"
               className="flex flex-1"
             >
-              Password
+              {t("common.password")}
             </Link>
             <DropdownMenuShortcut>⌘P</DropdownMenuShortcut>
           </DropdownMenuItem>

@@ -2,7 +2,7 @@
 
 import { useTransition } from "react"
 import { locales } from "i18n"
-import { useParams, usePathname, useRouter } from "next/navigation"
+import { useParams } from "next/navigation"
 
 import {
   Select,
@@ -12,6 +12,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import { usePathname, useRouter } from "@/utils/navigation"
 
 const LanguageSwitcher = () => {
   const router = useRouter()
@@ -29,7 +30,7 @@ const LanguageSwitcher = () => {
     }
 
     startTransition(() => {
-      router.replace(`${pathnameParts.join("/")}`)
+      router.replace(pathname, { locale: selectedLocale })
     })
   }
 

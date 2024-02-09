@@ -1,4 +1,5 @@
 import { Edit } from "lucide-react"
+import { getTranslations } from "next-intl/server"
 import Image from "next/image"
 import Link from "next/link"
 
@@ -8,6 +9,7 @@ import SearchBar from "./search-bar"
 
 export default async function Nav() {
   const session = await getServerSession()
+  const t = await getTranslations()
 
   return (
     <div className="mx-auto flex items-center border-b p-2 sm:px-6 lg:px-8">
@@ -35,7 +37,7 @@ export default async function Nav() {
                     className="ml-2 inline-block"
                     size={16}
                   />
-                  Write
+                  {t("common.write")}
                 </div>
               </Link>
               <UserNav />
@@ -46,7 +48,7 @@ export default async function Nav() {
                 className="inline-flex h-10 w-20 items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground ring-offset-background transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
                 href="/sign-in"
               >
-                Sign in
+                {t("common.signIn")}
               </Link>
             </div>
           )}
