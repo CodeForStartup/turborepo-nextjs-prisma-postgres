@@ -46,12 +46,7 @@ export default async function Page({ searchParams, params }) {
       <TagDetail tag={tagJson} />
       <div className="col-span-8 rounded-md">
         {postsJson?.data?.length > 0 ? (
-          postsJson?.data?.map((post) => (
-            <PostItem
-              key={post?.id}
-              post={post}
-            />
-          ))
+          postsJson?.data?.map((post) => <PostItem key={post?.id} post={post} />)
         ) : (
           <NoItemFounded />
         )}

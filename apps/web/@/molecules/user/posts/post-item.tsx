@@ -1,7 +1,8 @@
 "use client"
 
-import dayjs from "dayjs"
 import Link from "next/link"
+
+import dayjs from "dayjs"
 
 import { deletePost } from "@/actions/protected/posts"
 import { Badge } from "@/components/ui/badge"

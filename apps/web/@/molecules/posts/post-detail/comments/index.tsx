@@ -3,6 +3,7 @@ import React from "react"
 import { GetDataSuccessType, TSearchParams } from "@/types"
 import { TCommentItem } from "@/types/comment"
 import { TPostItem } from "@/types/posts"
+
 import CommentHeader from "./comment-header"
 import CommentList from "./comment-list"
 
@@ -31,14 +32,8 @@ const Comments: React.FC<CommentsProps> = async ({ post, searchParams }) => {
 
   return (
     <div className="mt-8 rounded-md border">
-      <CommentHeader
-        post={post}
-        comments={comments}
-      />
-      <CommentList
-        comments={comments?.data}
-        postId={post?.id}
-      />
+      <CommentHeader post={post} comments={comments} />
+      <CommentList comments={comments?.data} postId={post?.id} />
     </div>
   )
 }

@@ -1,8 +1,9 @@
 "use client"
 
 // import { useTranslations } from "next-intl"
-import { useTranslations } from "next-intl"
 import { useRouter, useSearchParams } from "next/navigation"
+
+import { useTranslations } from "next-intl"
 
 import { Input } from "@/components/ui/input"
 

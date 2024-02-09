@@ -37,19 +37,12 @@ const CommentHeader: React.FC<CommentHeaderProps> = ({ comments }) => {
 
   return (
     <div className="flex items-center justify-between border-b px-8 py-4">
-      <Typography
-        variant="h4"
-        id="comments"
-        className="flex items-center gap-1"
-      >
+      <Typography variant="h4" id="comments" className="flex items-center gap-1">
         {`${comments?.total} comments`}
       </Typography>
       <div className="flex gap-4 text-sm text-slate-500">
         <Typography className="flex items-center">Sort by</Typography>
-        <Select
-          value={sortKey}
-          onValueChange={onChangeSort}
-        >
+        <Select value={sortKey} onValueChange={onChangeSort}>
           <SelectTrigger className="w-[180px]">
             <SelectValue placeholder="Sorted by" />
           </SelectTrigger>

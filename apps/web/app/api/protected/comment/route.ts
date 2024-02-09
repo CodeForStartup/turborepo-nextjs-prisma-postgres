@@ -1,5 +1,6 @@
-import prisma from "database"
 import { NextRequest } from "next/server"
+
+import prisma from "database"
 import { z } from "zod"
 
 import { commentSelect } from "@/types/comment"

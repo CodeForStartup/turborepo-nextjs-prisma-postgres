@@ -1,5 +1,6 @@
-import { Tag } from "lucide-react"
 import Link from "next/link"
+
+import { Tag } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
@@ -37,10 +38,7 @@ const TagDetail = ({ tag }: TagDetailProp) => {
                 </div>
               </div>
             </div>
-            <Button
-              className="mt-4 w-full"
-              variant="outline"
-            >
+            <Button className="mt-4 w-full" variant="outline">
               Follow
             </Button>
           </div>

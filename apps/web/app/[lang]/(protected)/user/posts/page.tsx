@@ -1,7 +1,8 @@
 import React from "react"
+import { redirect } from "next/navigation"
+
 import { authConfigs } from "configs/auth"
 import { getServerSession } from "next-auth/next"
-import { redirect } from "next/navigation"
 
 import { getPosts } from "@/actions/protected/posts"
 import PageTitle from "@/molecules/page-title"
@@ -23,21 +24,13 @@ export default async function Page() {
 
   return (
     <div>
-      <PageTitle
-        title="Posts"
-        description="Your posts"
-      />
+      <PageTitle title="Posts" description="Your posts" />
 
       <div className="mt-12">
         {posts.length === 0 ? (
           <div>You haven’t any post yet.</div>
         ) : (
-          posts.map((post) => (
-            <PostItem
-              key={post.id}
-              {...post}
-            />
-          ))
+          posts.map((post) => <PostItem key={post.id} {...post} />)
         )}
       </div>
     </div>

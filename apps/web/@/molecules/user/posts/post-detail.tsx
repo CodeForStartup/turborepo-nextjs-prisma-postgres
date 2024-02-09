@@ -1,7 +1,9 @@
-import reactHtmlParser from "html-react-parser"
 import Link from "next/link"
 
+import reactHtmlParser from "html-react-parser"
+
 import { TPostItem } from "@/types/posts"
+
 import PostMeta from "./post-meta"
 
 export type PostDetailProps = {
@@ -18,10 +20,7 @@ export default function PostDetail({ post }: PostDetailProps) {
           <Link href={`${post?.id}`}>{post?.title}</Link>
         </h1>
         {shouldShowEditButton && (
-          <div
-            className="ml-4 flex items-center"
-            title="Edit"
-          >
+          <div className="ml-4 flex items-center" title="Edit">
             <Link href={`${post.id}/edit`}>
               <i className="ri-edit-2-line text-xl" />
             </Link>

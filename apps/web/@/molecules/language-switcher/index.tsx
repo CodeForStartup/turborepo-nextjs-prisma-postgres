@@ -1,8 +1,9 @@
 "use client"
 
 import { useTransition } from "react"
-import { locales } from "i18n"
 import { useParams } from "next/navigation"
+
+import { locales } from "i18n"
 
 import {
   Select,
@@ -35,14 +36,8 @@ const LanguageSwitcher = () => {
   }
 
   return (
-    <Select
-      value={lang}
-      onValueChange={handleLanguageChange}
-    >
-      <SelectTrigger
-        className="w-[100px] border-none"
-        disabled={isPending}
-      >
+    <Select value={lang} onValueChange={handleLanguageChange}>
+      <SelectTrigger className="w-[100px] border-none" disabled={isPending}>
         <SelectValue placeholder="Select a locale" />
       </SelectTrigger>
       <SelectContent>

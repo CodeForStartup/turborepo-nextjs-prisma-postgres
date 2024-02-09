@@ -1,6 +1,7 @@
-import prisma from "database"
 import { revalidatePath } from "next/cache"
 import { NextRequest } from "next/server"
+
+import prisma from "database"
 import { z } from "zod"
 
 import APP_APIS from "@/constants/apis"

@@ -1,6 +1,7 @@
 "use client"
 
 import React from "react"
+
 import { useTheme } from "next-themes"
 
 import { Button } from "@/components/ui/button"
@@ -14,25 +15,13 @@ const ThemeToggle: React.FC = () => {
 
   return (
     <div className="flex gap-2">
-      <Button
-        onClick={toggleTheme}
-        variant="link"
-        className="hover:no-underline"
-      >
+      <Button onClick={toggleTheme} variant="link" className="hover:no-underline">
         <i className="ri-mac-line" />
       </Button>
-      <Button
-        onClick={toggleTheme}
-        variant="link"
-        className="hover:no-underline"
-      >
+      <Button onClick={toggleTheme} variant="link" className="hover:no-underline">
         <i className="ri-sun-line" />
       </Button>
-      <Button
-        onClick={toggleTheme}
-        variant="link"
-        className="hover:no-underline"
-      >
+      <Button onClick={toggleTheme} variant="link" className="hover:no-underline">
         <i className="ri-moon-line" />
       </Button>
     </div>

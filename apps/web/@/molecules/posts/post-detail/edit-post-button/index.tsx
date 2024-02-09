@@ -1,6 +1,7 @@
 import React from "react"
-import { LucideEdit } from "lucide-react"
 import Link from "next/link"
+
+import { LucideEdit } from "lucide-react"
 
 import { TPostItem } from "@/types/posts"
 import { getServerSession } from "@/utils/auth"

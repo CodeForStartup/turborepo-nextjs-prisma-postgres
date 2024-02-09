@@ -1,16 +1,18 @@
 "use client"
 
+import Link from "next/link"
+import { useSearchParams } from "next/navigation"
+
 import { Label } from "@radix-ui/react-dropdown-menu"
 import { Tabs } from "@radix-ui/react-tabs"
 import { GithubIcon } from "lucide-react"
 import { signIn } from "next-auth/react"
-import Link from "next/link"
-import { useSearchParams } from "next/navigation"
 
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardFooter } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+
 import Typography from "../typography"
 
 export default function SignInForm() {
@@ -29,10 +31,7 @@ export default function SignInForm() {
       <div>
         <Typography variant="h1">Sign In</Typography>
 
-        <Typography
-          variant="span"
-          className="mt-4"
-        >
+        <Typography variant="span" className="mt-4">
           Sign in to your account to continue.
         </Typography>
       </div>
@@ -105,11 +104,7 @@ export default function SignInForm() {
                     </span>
                   </div>
                 </div>
-                <Button
-                  variant="outline"
-                  type="button"
-                  onClick={onSignIn}
-                >
+                <Button variant="outline" type="button" onClick={onSignIn}>
                   <GithubIcon size={16} />
                   <span className="ml-2">GitHub</span>
                 </Button>
@@ -121,15 +116,9 @@ export default function SignInForm() {
 
       <div className="mt-4 text-center">
         <Link href="register">
-          <Typography
-            variant="span"
-            className="mt-4"
-          >
+          <Typography variant="span" className="mt-4">
             Don&apos;t have an account?{" "}
-            <Typography
-              className="font-bold hover:underline"
-              variant="span"
-            >
+            <Typography className="font-bold hover:underline" variant="span">
               Sign Up
             </Typography>
           </Typography>

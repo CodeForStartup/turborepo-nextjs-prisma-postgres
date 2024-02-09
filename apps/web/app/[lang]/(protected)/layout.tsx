@@ -24,10 +24,7 @@ export default async function ProtectedLayout({ children }: { children: React.Re
     <div className="grid w-full grid-cols-12 gap-8">
       <div className="col-span-2 flex flex-col gap-1">
         {SIDE_BAR.map((item) => (
-          <SidebarItem
-            key={item.label}
-            {...item}
-          />
+          <SidebarItem key={item.label} {...item} />
         ))}
       </div>
       <div className="col-span-9 md:col-span-8">{children}</div>

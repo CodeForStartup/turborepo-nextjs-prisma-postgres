@@ -1,7 +1,9 @@
 import React from "react"
+
 import { LucideDog } from "lucide-react"
 
 import { cn } from "@/lib/utils"
+
 import Typography from "../typography"
 
 type NoItemFoundedProps = {

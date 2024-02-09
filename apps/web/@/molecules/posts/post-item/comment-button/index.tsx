@@ -1,6 +1,7 @@
 import React from "react"
-import { LucideMessageSquare } from "lucide-react"
 import Link from "next/link"
+
+import { LucideMessageSquare } from "lucide-react"
 
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 import APP_ROUTES from "@/constants/routes"
