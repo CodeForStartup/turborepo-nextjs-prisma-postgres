@@ -64,6 +64,11 @@
     "write": "Write",
     "signIn": "Sign In",
     "trending": "Trending",
-    "signOut": "Se déconnecter"
+    "signOut": "Se déconnecter",
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System",
+    "toggleTheme": "Toggle Theme",
+    "selectLocale": "Select Locale"
   }
 }

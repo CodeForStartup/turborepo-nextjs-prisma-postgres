@@ -4,6 +4,7 @@ import { useTransition } from "react"
 import { useParams } from "next/navigation"
 
 import { locales } from "i18n"
+import { useTranslations } from "next-intl"
 
 import {
   Select,
@@ -21,6 +22,7 @@ const LanguageSwitcher = () => {
   const { lang } = params
   const pathname = usePathname()
   const [isPending, startTransition] = useTransition()
+  const t = useTranslations()
 
   const handleLanguageChange = (selectedLocale) => {
     const pathnameParts = pathname.split("/")
@@ -36,8 +38,14 @@ const LanguageSwitcher = () => {
   }
 
   return (
-    <Select value={lang} onValueChange={handleLanguageChange}>
-      <SelectTrigger className="w-[100px] border-none" disabled={isPending}>
+    <Select
+      value={lang}
+      onValueChange={handleLanguageChange}
+    >
+      <SelectTrigger
+        className="w-[100px] border-none"
+        disabled={isPending}
+      >
         <SelectValue placeholder="Select a locale" />
       </SelectTrigger>
       <SelectContent>

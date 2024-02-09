@@ -64,6 +64,11 @@
     "write": "écrire",
     "signIn": "S'identifier",
     "trending": "Tendance",
-    "signOut": "Se déconnecter"
+    "signOut": "Se déconnecter",
+    "light": "Lumière",
+    "dark": "Sombre",
+    "system": "Système",
+    "toggleTheme": "Changer de thème",
+    "selectLocale": "Sélectionnez votre langue"
   }
 }

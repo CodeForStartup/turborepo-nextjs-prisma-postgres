@@ -10,6 +10,7 @@ module.exports = {
   singleQuote: false,
   bracketSpacing: true,
   bracketSameLine: false,
+  singleAttributePerLine: true,
   importOrder: [
     "^(react/(.*)$)|^(react$)",
     "^(next/(.*)$)|^(next$)",
