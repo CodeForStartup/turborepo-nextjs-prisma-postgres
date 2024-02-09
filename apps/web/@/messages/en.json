@@ -6,7 +6,7 @@
     "categories": "Categories",
     "category": "Category",
     "posts": "Posts",
-    "post": "Post",
+    "post": "{total, plural, =0 {post} =1 {post} other {posts}}",
     "pages": "Pages",
     "page": "Page",
     "comments": "Comments",
@@ -27,7 +27,7 @@
     "register": "Register",
     "profile": "Profile",
     "search": "Search",
-    "searchPlaceholder": "Search...",
+    "search_placeholder": "Search...",
     "searchResults": "Search Results",
     "searchNoResults": "No results found",
     "searching": "Searching...",
@@ -62,6 +62,8 @@
     "mobile": "Mobile",
     "website": "Website",
     "write": "Write",
-    "sign_in": "Sign In"
+    "signIn": "Sign In",
+    "trending": "Trending",
+    "signOut": "Se déconnecter"
   }
 }

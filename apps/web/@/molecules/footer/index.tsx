@@ -37,7 +37,7 @@ const Footer: React.FC = () => {
           <div className="col-span-4 md:col-span-2 lg:col-span-1">
             <Typography
               variant="h5"
-              className="mb-4"
+              className="mb-8"
             >
               TOP
             </Typography>
@@ -62,27 +62,45 @@ const Footer: React.FC = () => {
           <div className="col-span-4 md:col-span-2 lg:col-span-1">
             <Typography
               variant="h5"
-              className="mb-4"
+              className="mb-8"
             >
               About us
             </Typography>
             <ul>
-              <li>About us</li>
-              <li>Term and condition</li>
-              <li>Contact</li>
+              <li>
+                <Typography>About us</Typography>
+              </li>
+              <li>
+                <Typography>Term and condition</Typography>
+              </li>
+              <li>
+                <Typography>Contact</Typography>
+              </li>
             </ul>
           </div>
           <div className="col-span-4 md:col-span-2 lg:col-span-1">
             <Typography
               variant="h5"
-              className="mb-4"
+              className="mb-8"
             >
               Our services
             </Typography>
             <ul>
-              <li>Code For Startup</li>
-              <li>SAAS</li>
-              <li>Outsourcing</li>
+              <li>
+                <Typography>
+                  <Link href="https://codeforstartup.com">Services</Link>
+                </Typography>
+              </li>
+              <li>
+                <Typography>
+                  <Link href="https://codeforstartup.com/SAAS">SAAS</Link>
+                </Typography>
+              </li>
+              <li>
+                <Typography>
+                  <Link href="https://codeforstartup.com/outsourcing">Outsourcing</Link>
+                </Typography>
+              </li>
             </ul>
           </div>
         </div>

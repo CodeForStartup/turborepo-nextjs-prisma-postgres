@@ -1,10 +1,12 @@
 "use client"
 
 import { signOut } from "next-auth/react"
+import { useTranslations } from "next-intl"
 
 import { DropdownMenuItem, DropdownMenuShortcut } from "@/components/ui/dropdown-menu"
 
 export const LogoutMenu = () => {
+  const t = useTranslations()
   const onSignOut = () => {
     signOut({
       callbackUrl: "/",
@@ -13,7 +15,7 @@ export const LogoutMenu = () => {
 
   return (
     <DropdownMenuItem onClick={onSignOut}>
-      Log out
+      {t("common.signOut")}
       <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
     </DropdownMenuItem>
   )
