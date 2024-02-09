@@ -68,6 +68,7 @@
     "light": "Light",
     "dark": "Dark",
     "system": "System",
-    "toggleTheme": "Toggle Theme"
+    "toggleTheme": "Toggle Theme",
+    "selectLocale": "Select Locale"
   }
 }

@@ -68,6 +68,7 @@
     "light": "Lumière",
     "dark": "Sombre",
     "system": "Système",
-    "toggleTheme": "Changer de thème"
+    "toggleTheme": "Changer de thème",
+    "selectLocale": "Sélectionnez votre langue"
   }
 }
