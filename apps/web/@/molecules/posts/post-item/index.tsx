@@ -20,7 +20,10 @@ export default function PostItem({ post }: { post: TPostItem }) {
             postId: post?.slug || post?.id,
           })}
         >
-          <Typography variant="h2" className="hover:underline">
+          <Typography
+            variant="h2"
+            className="hover:underline"
+          >
             {post.title}
           </Typography>
         </Link>

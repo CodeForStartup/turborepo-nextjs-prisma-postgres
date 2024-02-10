@@ -30,7 +30,10 @@ const Filter = () => {
           setSearchTerm(e?.target?.value || "")
         }}
       />
-      <Button className="ml-2" onClick={onSearch}>
+      <Button
+        className="ml-2"
+        onClick={onSearch}
+      >
         Filter
       </Button>
     </div>

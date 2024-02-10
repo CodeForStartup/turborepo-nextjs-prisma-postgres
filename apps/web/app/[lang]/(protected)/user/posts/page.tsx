@@ -24,13 +24,21 @@ export default async function Page() {
 
   return (
     <div>
-      <PageTitle title="Posts" description="Your posts" />
+      <PageTitle
+        title="Posts"
+        description="Your posts"
+      />
 
       <div className="mt-12">
         {posts.length === 0 ? (
           <div>You haven’t any post yet.</div>
         ) : (
-          posts.map((post) => <PostItem key={post.id} {...post} />)
+          posts.map((post) => (
+            <PostItem
+              key={post.id}
+              {...post}
+            />
+          ))
         )}
       </div>
     </div>
