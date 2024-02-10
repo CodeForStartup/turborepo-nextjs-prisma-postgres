@@ -29,9 +29,15 @@ export default function RootLayout({
   const messages = useMessages()
 
   return (
-    <html lang={lang || "en"} suppressHydrationWarning>
+    <html
+      lang={lang || "en"}
+      suppressHydrationWarning
+    >
       <body>
-        <NextIntlClientProvider locale={lang} messages={messages}>
+        <NextIntlClientProvider
+          locale={lang}
+          messages={messages}
+        >
           <AuthProvider>
             <Providers>
               <Nav />

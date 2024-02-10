@@ -38,7 +38,10 @@ const TagDetail = ({ tag }: TagDetailProp) => {
                 </div>
               </div>
             </div>
-            <Button className="mt-4 w-full" variant="outline">
+            <Button
+              className="mt-4 w-full"
+              variant="outline"
+            >
               Follow
             </Button>
           </div>

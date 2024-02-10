@@ -95,7 +95,10 @@ const PostForm = ({ post: postData }: { post?: TPostItem }) => {
     <div className="w-full">
       <div className="mb-4 flex justify-between">
         <div className="flex">
-          <Link href="/user/posts" className={cn(buttonVariants({ variant: "ghost" }))}>
+          <Link
+            href="/user/posts"
+            className={cn(buttonVariants({ variant: "ghost" }))}
+          >
             <ArrowLeft />
             <div className="ml-2">back</div>
           </Link>
@@ -111,14 +114,22 @@ const PostForm = ({ post: postData }: { post?: TPostItem }) => {
           )}
         </div>
       </div>
-      <form className="mb-4 w-full max-w-6xl" onSubmit={handleSubmit(handleSubmitPost)}>
+      <form
+        className="mb-4 w-full max-w-6xl"
+        onSubmit={handleSubmit(handleSubmitPost)}
+      >
         <div className="mb-4 w-full rounded-md p-8">
           <div className="w-full max-w-6xl">
             <div>
               <Controller
                 name="title"
                 control={control}
-                render={({ field }) => <InputTitle placeholder="Title..." {...field} />}
+                render={({ field }) => (
+                  <InputTitle
+                    placeholder="Title..."
+                    {...field}
+                  />
+                )}
               />
             </div>
 
@@ -145,7 +156,11 @@ const PostForm = ({ post: postData }: { post?: TPostItem }) => {
                 name="content"
                 control={control}
                 render={({ field }) => (
-                  <Editor content={field?.value} placeholder="Content..." {...field} />
+                  <Editor
+                    content={field?.value}
+                    placeholder="Content..."
+                    {...field}
+                  />
                 )}
               />
             </div>
@@ -159,7 +174,10 @@ const PostForm = ({ post: postData }: { post?: TPostItem }) => {
           >
             Cancel
           </Link>
-          <Button type="submit" disabled={!isValid || pending}>
+          <Button
+            type="submit"
+            disabled={!isValid || pending}
+          >
             Publish
           </Button>
         </div>
