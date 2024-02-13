@@ -1,15 +1,17 @@
 import Link from "next/link"
 
-import { TUserItem } from "@/actions/public/authors"
+import { getUserById } from "@/actions/public/authors"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
 
-export type UserProfile = {
-  author: TUserItem
+export type UserProfileProps = {
+  authorId: string
 }
 
-const UserProfile = ({ author }: UserProfile) => {
+export async function UserProfile({ authorId }: UserProfileProps) {
+  const author = await getUserById(authorId)
+
   return (
     <div className="col-span-4">
       <Card>
