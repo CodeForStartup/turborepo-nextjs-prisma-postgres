@@ -7,11 +7,6 @@ import { getServerSession } from "@/utils/auth"
 export async function GET(request: NextRequest, { params }: { params: { userId: string } }) {
   const { userId } = params
 
-  const session = await getServerSession()
-  if (!session) {
-    return new Response(null, { status: 403 })
-  }
-
   try {
     const user = await prisma.user.findMany({
       where: {
