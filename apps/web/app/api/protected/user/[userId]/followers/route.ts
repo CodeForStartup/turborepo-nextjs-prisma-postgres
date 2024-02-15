@@ -39,7 +39,7 @@ export async function POST(request: NextRequest, { params }: { params: { userId:
 
   try {
     const user = await prisma.user.findUnique({ where: { id: userId } })
-    const targetUser = await prisma.user.findUnique({ where: { id: data?.targetUserId } })
+    const targetUser = await prisma.user.findUnique({ where: { id: data?.followerId } })
 
     if (!user || !targetUser) {
       return Response.json({ message: "User not found" }, { status: 404 })
@@ -53,7 +53,7 @@ export async function POST(request: NextRequest, { params }: { params: { userId:
             connect: {
               followerId_followingId: {
                 followerId: userId,
-                followingId: data?.targetUserId,
+                followingId: data?.followerId,
               },
             },
           },
@@ -67,7 +67,7 @@ export async function POST(request: NextRequest, { params }: { params: { userId:
             disconnect: {
               followerId_followingId: {
                 followerId: userId,
-                followingId: data?.targetUserId,
+                followingId: data?.followerId,
               },
             },
           },
