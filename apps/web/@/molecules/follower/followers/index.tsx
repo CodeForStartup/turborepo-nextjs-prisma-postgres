@@ -28,7 +28,8 @@ export async function Followers({ authorId }: { authorId: string }) {
 
   return (
     <div className="col-span-8 flex flex-col gap-4">
-      {followers?.data?.map((follower) => (
+      <div>{JSON.stringify(followers)}</div>
+      {followers?.map((follower) => (
         <FollowerItem
           key={follower?.id}
           follower={follower}
