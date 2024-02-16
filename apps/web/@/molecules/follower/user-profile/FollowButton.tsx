@@ -13,7 +13,7 @@ const FollowButton: React.FC<{ authorId: string }> = ({ authorId }: { authorId: 
   const [isFollowing, setIsFollowing] = useState(false)
   const t = useTranslations()
   const params = useParams()
-  console.log(">>>>>>>>>userId", params)
+
   const handleFollow = async () => {
     setIsFollowing(true)
 
@@ -42,7 +42,7 @@ const FollowButton: React.FC<{ authorId: string }> = ({ authorId }: { authorId: 
       onClick={handleFollow}
     >
       {params?.userId}
-      {t("common.follow").toUpperCase()}xxxx
+      {t("common.follow").toUpperCase()}
     </Button>
   )
 }

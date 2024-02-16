@@ -4,7 +4,6 @@ import React, { useEffect } from "react"
 
 import * as tocbot from "tocbot"
 
-let a
 const TableOfContents: React.FC = () => {
   // Generate table of contents logic here
   useEffect(() => {

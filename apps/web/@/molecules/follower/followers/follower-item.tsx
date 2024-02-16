@@ -1,7 +1,7 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
 
-const FollowerItem = () => {
+const FollowerItem = ({ follower }) => {
   return (
     <div className="flex flex-1 items-center rounded-md bg-white p-8">
       <div className="flex flex-1 items-center gap-4">

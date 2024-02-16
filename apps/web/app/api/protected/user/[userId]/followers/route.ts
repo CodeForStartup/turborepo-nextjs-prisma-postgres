@@ -46,39 +46,32 @@ export async function POST(request: NextRequest, { params }: { params: { userId:
     }
 
     if (data?.action === "follow") {
-      await prisma.user.update({
-        where: { id: userId },
-        data: {
-          followers: {
-            connect: {
-              followerId_followingId: {
-                followerId: userId,
-                followingId: data?.followerId,
-              },
-            },
+      await prisma.follower.upsert({
+        where: {
+          followerId_followingId: {
+            followerId: userId,
+            followingId: data?.followerId,
           },
+        },
+        update: {},
+        create: {
+          followerId: userId,
+          followingId: data?.followerId,
         },
       })
     } else if (data?.action === "unfollow") {
-      await prisma.user.update({
-        where: { id: userId },
-        data: {
-          followers: {
-            disconnect: {
-              followerId_followingId: {
-                followerId: userId,
-                followingId: data?.followerId,
-              },
-            },
-          },
+      await prisma.follower.deleteMany({
+        where: {
+          followerId: userId,
+          followingId: data?.followerId,
         },
       })
     } else {
       return Response.json({ message: "User not found" }, { status: 404 })
     }
 
-    Response.json({ message: "Success" }, { status: 200 })
+    return Response.json({ message: "Success" }, { status: 200 })
   } catch (error) {
-    Response.json({ message: "Internal server error" }, { status: 500 })
+    return Response.json({ message: "Internal server error" }, { status: 500 })
   }
 }
