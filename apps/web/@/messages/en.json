@@ -69,6 +69,10 @@
     "dark": "Dark",
     "system": "System",
     "toggleTheme": "Toggle Theme",
-    "selectLocale": "Select Locale"
+    "selectLocale": "Select Locale",
+    "follow": "Follow",
+    "unfollow": "Unfollow",
+    "followers": "Followers",
+    "following": "Following"
   }
 }

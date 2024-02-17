@@ -1,5 +1,5 @@
 import { getTagById } from "@/actions/public/tags"
-import FollowerItem from "@/molecules/follower/follower-item"
+import FollowerItem from "@/molecules/follower/followers/follower-item"
 import TagDetail from "@/molecules/tag/tag-detail"
 
 export const metadata = {

@@ -35,7 +35,7 @@ export default async function Page({ params, searchParams }) {
 
   return (
     <div className="grid grid-cols-12 gap-10">
-      <UserProfile author={author} />
+      <UserProfile authorId={author?.id} />
       <div className="col-span-8 rounded-md">
         {postsJson?.data?.length > 0 ? (
           postsJson?.data?.map((post) => (

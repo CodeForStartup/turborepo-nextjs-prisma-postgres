@@ -21,8 +21,8 @@ const APP_APIS = {
     },
     users: {
       GET: "/api/public/users",
-      FOLLOWERS: "/api/public/users/:userIdOrSlug/followers",
-      FOLLOWINGS: "/api/public/users/:userIdOrSlug/followings",
+      FOLLOWERS: "/api/protected/user/:userIdOrSlug/followers",
+      FOLLOWINGS: "/api/protected/user/:userIdOrSlug/followings",
       FOLLOWINGS_TAGS: "/api/public/users/:userIdOrSlug/followings/tags",
     },
   },
@@ -50,7 +50,7 @@ const APP_APIS = {
       GET: "/api/protected/user/:userId",
       UPDATE: "/api/protected/user/:userId",
       DELETE: "/api/protected/user/:userId", // Deactivate account
-      TOGGLE_FOLLOWER: "/api/protected/user/:userId/follow",
+      TOGGLE_FOLLOWER: "/api/protected/user/:userId/followers",
     },
   },
 }

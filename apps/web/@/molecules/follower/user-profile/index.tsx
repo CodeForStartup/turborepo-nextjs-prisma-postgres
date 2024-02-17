@@ -1,15 +1,21 @@
 import Link from "next/link"
 
-import { TUserItem } from "@/actions/public/authors"
+import { getTranslations } from "next-intl/server"
+
+import { getUserById } from "@/actions/public/authors"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
 
-export type UserProfile = {
-  author: TUserItem
+import FollowButton from "./FollowButton"
+
+export type UserProfileProps = {
+  authorId: string
 }
 
-const UserProfile = ({ author }: UserProfile) => {
+export async function UserProfile({ authorId }: UserProfileProps) {
+  const author = await getUserById(authorId)
+  const t = await getTranslations()
+
   return (
     <div className="col-span-4">
       <Card>
@@ -34,23 +40,18 @@ const UserProfile = ({ author }: UserProfile) => {
             <div className="mt-4 flex w-full flex-1 divide-x">
               <div className="flex flex-1 flex-col items-center justify-center">
                 <div className="font-bold">{author?.post?.length}</div>
-                <div className="text-gray-400 hover:underline">
-                  <Link href={`/author/${author?.id}`}>posts</Link>
+                <div className="hover:underline">
+                  <Link href={`/author/${author?.id}`}>{t("common.posts")}</Link>
                 </div>
               </div>
               <div className="flex flex-1 flex-col items-center justify-center">
                 <div className="font-bold">{author?.post?.length}</div>
                 <div className="hover:underline">
-                  <Link href={`/author/${author?.id}/followers`}>followers</Link>
+                  <Link href={`/author/${author?.id}/followers`}>{t("common.followers")}</Link>
                 </div>
               </div>
             </div>
-            <Button
-              className="mt-4 w-full"
-              variant="outline"
-            >
-              Follow
-            </Button>
+            <FollowButton authorId={author?.id} />
           </div>
         </CardContent>
       </Card>
