@@ -45,7 +45,14 @@ export async function POST(request: NextRequest, { params }: { params: { userId:
       return Response.json({ message: "User not found" }, { status: 404 })
     }
 
-    if (data?.action === "follow") {
+    const isFollowing = await prisma.follower.findFirst({
+      where: {
+        followerId: userId,
+        followingId: data?.followerId,
+      },
+    })
+
+    if (!isFollowing) {
       await prisma.follower.upsert({
         where: {
           followerId_followingId: {
@@ -59,15 +66,13 @@ export async function POST(request: NextRequest, { params }: { params: { userId:
           followingId: data?.followerId,
         },
       })
-    } else if (data?.action === "unfollow") {
+    } else {
       await prisma.follower.deleteMany({
         where: {
           followerId: userId,
           followingId: data?.followerId,
         },
       })
-    } else {
-      return Response.json({ message: "User not found" }, { status: 404 })
     }
 
     return Response.json({ message: "Success" }, { status: 200 })

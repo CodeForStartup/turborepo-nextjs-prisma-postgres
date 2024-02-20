@@ -6,7 +6,7 @@ import { getUserById } from "@/actions/public/authors"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
 
-import FollowButton from "./FollowButton"
+import FollowButton from "./follow-button"
 
 export type UserProfileProps = {
   authorId: string
