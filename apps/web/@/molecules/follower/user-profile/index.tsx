@@ -2,9 +2,10 @@ import Link from "next/link"
 
 import { getTranslations } from "next-intl/server"
 
-import { getUserById } from "@/actions/public/authors"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
+import APP_APIS from "@/constants/apis"
+import { generatePath } from "@/utils/generatePath"
 
 import FollowButton from "./follow-button"
 
@@ -13,7 +14,19 @@ export type UserProfileProps = {
 }
 
 export async function UserProfile({ authorId }: UserProfileProps) {
-  const author = await getUserById(authorId)
+  const rawAuthor = await fetch(
+    `${process.env.NEXT_PUBLIC_FRONTEND_URL}${generatePath(APP_APIS.protected.user.GET, {
+      userId: authorId,
+    })}`,
+    {
+      method: "GET",
+      cache: "no-cache",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  )
+  const author = await rawAuthor?.json()
   const t = await getTranslations()
 
   return (
