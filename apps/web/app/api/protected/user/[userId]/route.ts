@@ -3,8 +3,15 @@ import { NextRequest } from "next/server"
 import { userSelect } from "@/types/users"
 
 export async function GET(request: NextRequest, { params }: { params: { userId: string } }) {
+  if (!params.userId) {
+    return Response.json({
+      status: 400,
+      message: "User id is required",
+    })
+  }
+
   try {
-    const post = await prisma.user.findFirst({
+    const user = await prisma.user.findFirst({
       where: {
         OR: [
           {
@@ -18,13 +25,13 @@ export async function GET(request: NextRequest, { params }: { params: { userId: 
       select: userSelect,
     })
 
-    if (!post)
+    if (!user)
       return Response.json({
         status: 404,
         message: "User not found",
       })
 
-    return Response.json(post, { status: 200 })
+    return Response.json(user, { status: 200 })
   } catch (error) {
     return Response.error()
   }

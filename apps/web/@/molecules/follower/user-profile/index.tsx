@@ -5,6 +5,7 @@ import { getTranslations } from "next-intl/server"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import APP_APIS from "@/constants/apis"
+import { TUserItem } from "@/types/users"
 import { generatePath } from "@/utils/generatePath"
 
 import FollowButton from "./follow-button"
@@ -26,7 +27,7 @@ export async function UserProfile({ authorId }: UserProfileProps) {
       },
     }
   )
-  const author = await rawAuthor?.json()
+  const author: TUserItem = await rawAuthor?.json()
   const t = await getTranslations()
 
   return (
@@ -52,13 +53,13 @@ export async function UserProfile({ authorId }: UserProfileProps) {
             </h1>
             <div className="mt-4 flex w-full flex-1 divide-x">
               <div className="flex flex-1 flex-col items-center justify-center">
-                <div className="font-bold">{author?.post?.length}</div>
+                <div className="font-bold">{author?._count?.post}</div>
                 <div className="hover:underline">
                   <Link href={`/author/${author?.id}`}>{t("common.posts")}</Link>
                 </div>
               </div>
               <div className="flex flex-1 flex-col items-center justify-center">
-                <div className="font-bold">{author?.post?.length}</div>
+                <div className="font-bold">{author?._count?.followers}</div>
                 <div className="hover:underline">
                   <Link href={`/author/${author?.id}/followers`}>{t("common.followers")}</Link>
                 </div>

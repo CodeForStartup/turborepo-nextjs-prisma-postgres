@@ -10,14 +10,14 @@ import useFollowUser from "@/hooks/useFollowUser"
 const FollowButton: React.FC<{ authorId: string }> = ({ authorId }: { authorId: string }) => {
   const t = useTranslations()
 
-  const { isLoading, followUser } = useFollowUser()
+  const { isLoading, onFollowUser } = useFollowUser()
 
   return (
     <Button
       className="mt-4 w-full"
       variant="outline"
       disabled={isLoading}
-      onClick={() => followUser(authorId)}
+      onClick={() => onFollowUser(authorId)}
     >
       {t("common.follow").toUpperCase()}
     </Button>

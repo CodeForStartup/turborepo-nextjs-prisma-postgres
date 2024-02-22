@@ -1,3 +1,4 @@
+import { revalidatePath } from "next/cache"
 import { NextRequest } from "next/server"
 
 import prisma from "database"
@@ -74,6 +75,7 @@ export async function POST(request: NextRequest, { params }: { params: { userId:
         },
       })
     }
+    revalidatePath(`/author/${userId}/followers`)
 
     return Response.json({ message: "Success" }, { status: 200 })
   } catch (error) {

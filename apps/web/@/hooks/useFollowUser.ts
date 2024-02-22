@@ -1,5 +1,5 @@
-import { useState } from "react"
-import { useParams } from "next/navigation"
+import { useEffect, useState } from "react"
+import { useParams, useRouter } from "next/navigation"
 
 import { toast } from "react-toastify"
 
@@ -8,9 +8,15 @@ import { generatePath } from "@/utils/generatePath"
 
 const useFollowUser = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [isFollowing, setIsFollowing] = useState<boolean>(false)
   const params = useParams()
+  const router = useRouter()
 
-  const followUser = async (authorId: string) => {
+  useEffect(() => {
+    // TODO: Fetch isFollowing
+  }, [setIsFollowing])
+
+  const onFollowUser = async (authorId: string) => {
     setIsLoading(true)
     try {
       await fetch(
@@ -30,12 +36,15 @@ const useFollowUser = () => {
       toast.error("Failed to follow user")
     } finally {
       setIsLoading(false)
+      setIsFollowing(!isFollowing)
+      router.refresh()
     }
   }
 
   return {
     isLoading,
-    followUser,
+    isFollowing,
+    onFollowUser,
   }
 }
 
