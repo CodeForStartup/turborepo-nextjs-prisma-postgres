@@ -1,3 +1,5 @@
+"use client"
+
 import { useEffect, useState } from "react"
 import { useParams, useRouter } from "next/navigation"
 
@@ -13,8 +15,34 @@ const useFollowUser = () => {
   const router = useRouter()
 
   useEffect(() => {
-    // TODO: Fetch isFollowing
-  }, [setIsFollowing])
+    let isMounted = true
+    const checkIfUserIsFollowed = async () => {
+      const followStatusRaw = await fetch(
+        `${process.env.NEXT_PUBLIC_FRONTEND_URL}/${generatePath(
+          APP_APIS.protected.user.GET_FOLLOWER_STATUS,
+          { userId: params?.authorId }
+        )}`,
+        {
+          method: "GET",
+          cache: "no-cache",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      const followStatus = await followStatusRaw.json()
+
+      if (isMounted) {
+        setIsFollowing(followStatus?.isFollowing)
+      }
+    }
+
+    checkIfUserIsFollowed()
+
+    return () => {
+      isMounted = false
+    }
+  }, [params?.authorId])
 
   const onFollowUser = async (authorId: string) => {
     setIsLoading(true)

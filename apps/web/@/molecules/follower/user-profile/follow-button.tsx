@@ -10,7 +10,7 @@ import useFollowUser from "@/hooks/useFollowUser"
 const FollowButton: React.FC<{ authorId: string }> = ({ authorId }: { authorId: string }) => {
   const t = useTranslations()
 
-  const { isLoading, onFollowUser } = useFollowUser()
+  const { isLoading, isFollowing, onFollowUser } = useFollowUser()
 
   return (
     <Button
@@ -19,7 +19,7 @@ const FollowButton: React.FC<{ authorId: string }> = ({ authorId }: { authorId: 
       disabled={isLoading}
       onClick={() => onFollowUser(authorId)}
     >
-      {t("common.follow").toUpperCase()}
+      {isFollowing ? t("common.unfollow").toUpperCase() : t("common.follow").toUpperCase()}
     </Button>
   )
 }

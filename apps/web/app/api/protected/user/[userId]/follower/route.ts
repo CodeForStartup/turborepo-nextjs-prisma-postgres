@@ -23,7 +23,7 @@ export async function GET(request: NextRequest, { params }: { params: { userId: 
       },
     })
 
-    return Response.json({ isFollowing: Boolean(isFollowing) }, { status: 200 })
+    return Response.json({ isFollowing: !Boolean(isFollowing) }, { status: 200 })
   } catch (error) {
     return Response.json(
       {

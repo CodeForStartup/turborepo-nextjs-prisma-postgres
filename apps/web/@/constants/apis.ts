@@ -51,6 +51,7 @@ const APP_APIS = {
       UPDATE: "/api/protected/user/:userId",
       DELETE: "/api/protected/user/:userId", // Deactivate account
       TOGGLE_FOLLOWER: "/api/protected/user/:userId/followers",
+      GET_FOLLOWER_STATUS: "api/protected/user/:userId/follower",
     },
   },
 }
