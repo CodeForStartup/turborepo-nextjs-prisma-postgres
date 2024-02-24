@@ -5,6 +5,7 @@ import { getTranslations } from "next-intl/server"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import APP_APIS from "@/constants/apis"
+import Typography from "@/molecules/typography"
 import { TUserItem } from "@/types/users"
 import { generatePath } from "@/utils/generatePath"
 
@@ -48,9 +49,15 @@ export async function UserProfile({ authorId }: UserProfileProps) {
         </CardHeader>
         <CardContent>
           <div className="flex flex-col items-center justify-center gap-2">
-            <h1 className="flex-1 text-center text-4xl font-extrabold">
+            <h1 className="mb-1 flex-1 text-center text-4xl font-extrabold">
               <Link href={`/author/${author.id}`}>{author.name}</Link>
             </h1>
+            <Typography
+              className="text-gray-400"
+              variant="span"
+            >
+              {author?.email}
+            </Typography>
             <div className="mt-4 flex w-full flex-1 divide-x">
               <div className="flex flex-1 flex-col items-center justify-center">
                 <div className="font-bold">{author?._count?.post}</div>

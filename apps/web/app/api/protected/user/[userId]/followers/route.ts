@@ -13,7 +13,7 @@ export async function GET(request: NextRequest, { params }: { params: { userId: 
       where: {
         followers: {
           some: {
-            followerId: userId,
+            followingId: userId,
           },
         },
       },
@@ -39,38 +39,24 @@ export async function POST(request: NextRequest, { params }: { params: { userId:
   }
 
   try {
-    const user = await prisma.user.findUnique({ where: { id: userId } })
-    const targetUser = await prisma.user.findUnique({ where: { id: data?.followerId } })
-
-    if (!user || !targetUser) {
-      return Response.json({ message: "User not found" }, { status: 404 })
-    }
-
     const isFollowing = await prisma.follower.findFirst({
       where: {
-        followerId: userId,
+        followerId: session?.user?.id,
         followingId: data?.followerId,
       },
     })
 
     if (!isFollowing) {
-      await prisma.follower.upsert({
-        where: {
-          followerId_followingId: {
-            followerId: userId,
-            followingId: data?.followerId,
-          },
-        },
-        update: {},
-        create: {
-          followerId: userId,
+      await prisma.follower.create({
+        data: {
+          followerId: session?.user?.id,
           followingId: data?.followerId,
         },
       })
     } else {
       await prisma.follower.deleteMany({
         where: {
-          followerId: userId,
+          followerId: session?.user?.id,
           followingId: data?.followerId,
         },
       })

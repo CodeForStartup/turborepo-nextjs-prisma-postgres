@@ -17,13 +17,13 @@ export async function GET(request: NextRequest, { params }: { params: { userId: 
     const isFollowing = await prisma.follower.findUnique({
       where: {
         followerId_followingId: {
-          followerId: userId,
-          followingId: currentUser?.user?.id,
+          followerId: currentUser?.user?.id,
+          followingId: userId,
         },
       },
     })
 
-    return Response.json({ isFollowing: !Boolean(isFollowing) }, { status: 200 })
+    return Response.json({ isFollowing: Boolean(isFollowing) }, { status: 200 })
   } catch (error) {
     return Response.json(
       {
