@@ -73,6 +73,7 @@
     "follow": "Follow",
     "unfollow": "Unfollow",
     "followers": "Followers",
-    "following": "Following"
+    "following": "Following",
+    "update_profile": "Update profile"
   }
 }
