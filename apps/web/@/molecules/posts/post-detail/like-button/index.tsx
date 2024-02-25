@@ -1,6 +1,6 @@
 "use client"
 
-import { LucideHeart } from "lucide-react"
+import { useTranslations } from "next-intl"
 
 import { Button } from "@/components/ui/button"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
@@ -14,6 +14,7 @@ type LikeButtonProps = {
 
 const LikeButton: React.FC<LikeButtonProps> = ({ post }: LikeButtonProps) => {
   const { isLiked, isLoading, totalLike, likePost } = useLike({ post })
+  const t = useTranslations()
 
   return (
     <div className="flex flex-col items-center">
@@ -24,14 +25,18 @@ const LikeButton: React.FC<LikeButtonProps> = ({ post }: LikeButtonProps) => {
               disabled={isLoading}
               onClick={likePost}
               className={cn(
-                "hover:border-stale-300 border-stale-800 flex h-12 w-12 items-center justify-center rounded-full border bg-white p-0 text-lg hover:bg-slate-200",
-                { "text-red-500": isLiked, "": !isLiked }
+                "hover:border-stale-300 border-stale-800 flex h-12 w-12 items-center justify-center rounded-full border bg-white p-0 text-2xl hover:bg-slate-200"
               )}
             >
-              <LucideHeart className="h-6 w-6" />
+              <i
+                className={cn({
+                  "ri-heart-3-fill text-red-500": isLiked,
+                  "ri-heart-3-line": !isLiked,
+                })}
+              />
             </Button>
           </TooltipTrigger>
-          <TooltipContent>{isLiked ? "Unlike" : "Like"}</TooltipContent>
+          <TooltipContent>{t(isLiked ? "unlike" : "like")}</TooltipContent>
         </Tooltip>
       </TooltipProvider>
       <Button

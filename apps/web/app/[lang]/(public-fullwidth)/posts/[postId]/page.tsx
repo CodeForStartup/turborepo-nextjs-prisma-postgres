@@ -8,9 +8,8 @@ import LikeButton from "@/molecules/posts/post-detail/like-button"
 import TableOfContents from "@/molecules/posts/post-detail/table-of-contents"
 import BookmarkButton from "@/molecules/posts/post-item/bookmark-button"
 import { TSearchParams } from "@/types"
-import { generatePath } from "@/utils/generatePath"
+import { generateApi, generatePath } from "@/utils/generatePath"
 
-// import "tocbot/src/scss/tocbot.css"
 import "./tocbot.css"
 
 export async function generateMetadata({ params }): Promise<Metadata> {
@@ -37,12 +36,9 @@ export default async function Page({
   let post = null
   try {
     const postRaw = await fetch(
-      `${process.env.NEXT_PUBLIC_FRONTEND_URL}${generatePath(APP_APIS.public.post.GET, {
+      generateApi(APP_APIS.public.post.GET, {
         postIdOrSlug: params?.postId,
-      })}`,
-      {
-        cache: "no-cache",
-      }
+      })
     )
 
     post = await postRaw.json()

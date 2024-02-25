@@ -74,6 +74,8 @@
     "unfollow": "Unfollow",
     "followers": "Followers",
     "following": "Following",
-    "update_profile": "Update profile"
+    "update_profile": "Update profile",
+    "like": "Like",
+    "unlike": "Unlike"
   }
 }

@@ -125,3 +125,12 @@ export function generatePath<Path extends string>(
 
   return prefix + segments.join("/")
 }
+
+export function generateApi<Path extends string>(
+  originalPath: Path,
+  params: {
+    [key in PathParam<Path>]: string | null
+  } = {} as Record<PathParam<Path>, string | null>
+): string {
+  return `${process.env.NEXT_PUBLIC_FRONTEND_URL}${generatePath<Path>(originalPath, params)}`
+}
