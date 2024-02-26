@@ -1,20 +1,20 @@
 import React from "react"
 
-import querystring from "qs"
-
 import APP_APIS from "@/constants/apis"
-import { generatePath } from "@/utils/generatePath"
+import { generateApi } from "@/utils/generatePath"
 
 import FollowerItem from "./follower-item"
 
 export async function Followers({ authorId }: { authorId: string }) {
   const rawFollowers = await fetch(
-    `${process.env.NEXT_PUBLIC_FRONTEND_URL}${generatePath(APP_APIS.public.users.FOLLOWERS, {
-      userIdOrSlug: authorId,
-    })}?${querystring.stringify({
-      limit: 10,
-      sort: "desc",
-    })}`,
+    generateApi(
+      APP_APIS.public.users.FOLLOWERS,
+      { userIdOrSlug: authorId },
+      {
+        limit: 10,
+        sort: "desc",
+      }
+    ),
     {
       method: "GET",
       cache: "no-cache",

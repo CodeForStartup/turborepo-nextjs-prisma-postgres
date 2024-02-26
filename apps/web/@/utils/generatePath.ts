@@ -1,4 +1,5 @@
 // Original source: https://github.com/remix-run/react-router/blob/7a2e9f65a6b1aa62dc1d6568ada046395128b6a9/packages/router/utils.ts
+import querystring from "qs"
 
 export function warning(cond: boolean, message: string) {
   if (!cond) {
@@ -130,7 +131,10 @@ export function generateApi<Path extends string>(
   originalPath: Path,
   params: {
     [key in PathParam<Path>]: string | null
-  } = {} as Record<PathParam<Path>, string | null>
+  } = {} as Record<PathParam<Path>, string | null>,
+  searchParams: Record<string, string | number | boolean> = {}
 ): string {
-  return `${process.env.NEXT_PUBLIC_FRONTEND_URL}${generatePath<Path>(originalPath, params)}`
+  return `${process.env.NEXT_PUBLIC_FRONTEND_URL}${generatePath<Path>(originalPath, params)}${
+    searchParams ? `?${querystring.stringify(searchParams)}` : ""
+  }`
 }
