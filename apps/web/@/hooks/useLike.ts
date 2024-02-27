@@ -48,8 +48,14 @@ const useLike = ({ post }: UseLikeProps): UseLikeReturn => {
         },
         body: JSON.stringify({
           action: isLiked ? "UNLIKE" : "LIKE",
+          postId: post?.id,
         }),
       })
+        .then((res) => res.json())
+        .catch((error) => {
+          throw new Error(error.message)
+        })
+
       setIsLiked((prev) => !prev)
       setTotalLike((prev) => (isLiked ? prev - 1 : prev + 1))
     } catch (error) {

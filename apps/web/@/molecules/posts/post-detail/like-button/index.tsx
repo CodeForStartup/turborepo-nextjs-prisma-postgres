@@ -36,7 +36,7 @@ const LikeButton: React.FC<LikeButtonProps> = ({ post }: LikeButtonProps) => {
               />
             </Button>
           </TooltipTrigger>
-          <TooltipContent>{t(isLiked ? "unlike" : "like")}</TooltipContent>
+          <TooltipContent>{t(isLiked ? "common.unlike" : "common.like")}</TooltipContent>
         </Tooltip>
       </TooltipProvider>
       <Button
