@@ -5,7 +5,7 @@ import { z } from "zod"
 
 import { getServerSession } from "@/utils/auth"
 
-export async function POST(request: NextRequest, { params }: { params: { postId: string } }) {
+export async function POST(request: NextRequest) {
   const session = await getServerSession()
   if (!session) {
     return new Response(null, { status: 403 })
