@@ -11,7 +11,7 @@ type FollowerItemProps = {
 
 const FollowerItem: React.FC<FollowerItemProps> = ({ follower }: FollowerItemProps) => {
   return (
-    <div className="flex rounded-md border bg-white p-8">
+    <div className="flex rounded-md border p-8">
       <div className="flex-1">
         <Link href={`/author/${follower?.id}`}>
           <div className="flex flex-1 items-center gap-4">

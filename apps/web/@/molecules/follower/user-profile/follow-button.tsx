@@ -39,7 +39,7 @@ const FollowButton: React.FC<{ authorId: string }> = ({ authorId }: { authorId: 
       disabled={isLoading}
       onClick={() => onFollowUser(authorId)}
     >
-      {isFollowing ? t("common.unfollow").toUpperCase() : t("common.follow").toUpperCase()}
+      {t(isFollowing ? "common.unfollow" : "common.follow").toUpperCase()}
     </Button>
   )
 }

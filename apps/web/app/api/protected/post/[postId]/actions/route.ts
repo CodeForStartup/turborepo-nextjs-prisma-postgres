@@ -1,14 +1,11 @@
-import { revalidatePath } from "next/cache"
 import { NextRequest } from "next/server"
 
 import prisma from "database"
 import { z } from "zod"
 
-import APP_APIS from "@/constants/apis"
 import { getServerSession } from "@/utils/auth"
-import { generatePath } from "@/utils/generatePath"
 
-export async function POST(request: NextRequest, { params }: { params: { postId: string } }) {
+export async function POST(request: NextRequest) {
   const session = await getServerSession()
   if (!session) {
     return new Response(null, { status: 403 })
@@ -19,23 +16,23 @@ export async function POST(request: NextRequest, { params }: { params: { postId:
 
   try {
     if (data.action === "LIKE" || data.action === "BOOKMARK") {
-      await prisma.post.update({
+      await prisma.postOnUser.upsert({
         where: {
-          id: params?.postId,
-        },
-        data: {
-          postOnUser: {
-            create: [
-              {
-                type: data.action,
-                user: {
-                  connect: {
-                    id: userId,
-                  },
-                },
-              },
-            ],
+          userId_postId_type: {
+            postId: data?.postId,
+            userId,
+            type: data.action === "LIKE" ? "LIKE" : "BOOKMARK",
           },
+        },
+        update: {
+          type: data.action === "LIKE" ? "LIKE" : "BOOKMARK",
+          postId: data?.postId,
+          userId,
+        },
+        create: {
+          type: data.action === "LIKE" ? "LIKE" : "BOOKMARK",
+          postId: data?.postId,
+          userId,
         },
       })
     }
@@ -50,10 +47,10 @@ export async function POST(request: NextRequest, { params }: { params: { postId:
       })
     }
 
-    revalidatePath(generatePath(APP_APIS.public.posts.GET))
-    revalidatePath(generatePath(APP_APIS.public.post.GET, { postIdOrSlug: params?.postId }))
+    // revalidatePath(generatePath(APP_APIS.public.posts.GET))
+    // revalidatePath(generatePath(APP_APIS.public.post.GET, { postIdOrSlug: params?.postId }))
 
-    return new Response(null, { status: 204 })
+    return Response.json({ success: true })
   } catch (error) {
     if (error instanceof z.ZodError) {
       return new Response(JSON.stringify(error.issues), { status: 422 })
