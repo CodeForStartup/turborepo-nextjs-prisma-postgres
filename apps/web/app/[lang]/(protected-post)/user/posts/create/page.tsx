@@ -1,4 +1,3 @@
-import { Suspense } from "react"
 import { redirect } from "next/navigation"
 
 import PostForm from "@/molecules/post-form"
@@ -16,9 +15,5 @@ export default async function Page() {
     redirect("/signIn")
   }
 
-  return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <PostForm />
-    </Suspense>
-  )
+  return <PostForm />
 }

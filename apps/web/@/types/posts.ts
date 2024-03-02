@@ -26,6 +26,7 @@ export const postSelect = {
   _count: {
     select: {
       comments: true,
+      postOnUser: true,
     },
   },
   tagOnPost: {
