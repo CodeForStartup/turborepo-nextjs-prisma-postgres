@@ -29,7 +29,7 @@ export const createPost = async (data: TCreatePostInput): Promise<TPostItem> => 
   try {
     const session = await getServerSession()
 
-    const slug = slugify(data.title) + "-" + Math.floor(Math.random() * 1000)
+    const slug = slugify(data.title.toLocaleLowerCase()) + "-" + Math.floor(Math.random() * 1000)
 
     newPost = await prisma.post.create({
       data: {
