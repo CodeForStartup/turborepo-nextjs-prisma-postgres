@@ -1,6 +1,7 @@
 import { Metadata } from "next"
 import { notFound } from "next/navigation"
 
+import { getPost } from "@/actions/public/posts"
 import APP_APIS from "@/constants/apis"
 import PostDetail from "@/molecules/posts/post-detail"
 import Comments from "@/molecules/posts/post-detail/comments"
@@ -8,7 +9,7 @@ import LikeButton from "@/molecules/posts/post-detail/like-button"
 import TableOfContents from "@/molecules/posts/post-detail/table-of-contents"
 import BookmarkButton from "@/molecules/posts/post-item/bookmark-button"
 import { TSearchParams } from "@/types"
-import { generateApi, generatePath } from "@/utils/generatePath"
+import { generatePath } from "@/utils/generatePath"
 
 import "./tocbot.css"
 
@@ -33,20 +34,9 @@ export default async function Page({
   params: { postId: string }
   searchParams: TSearchParams
 }) {
-  let post = null
-  try {
-    const postRaw = await fetch(
-      generateApi(APP_APIS.public.post.GET, {
-        postIdOrSlug: params?.postId,
-      })
-    )
+  const post = await getPost({ postIdOrSlug: params?.postId })
 
-    post = await postRaw.json()
-  } catch (error) {
-    //
-  }
-
-  if (!post || post?.status === 404) {
+  if (!post) {
     return notFound()
   }
 

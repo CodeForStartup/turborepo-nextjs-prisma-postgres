@@ -9,24 +9,6 @@ import slugify from "slugify"
 import { postSelect, TCreatePostInput, TPostItem } from "@/types/posts"
 import { getServerSession } from "@/utils/auth"
 
-export const getPosts = async (): Promise<TPostItem[]> => {
-  try {
-    const session = await getServerSession()
-    const posts = await prisma.post.findMany({
-      select: postSelect,
-      where: {
-        author: {
-          id: session?.user?.id,
-        },
-      },
-    })
-
-    return posts
-  } catch (error) {
-    throw error
-  }
-}
-
 export const getPostById = async (postId: string): Promise<TPostItem> => {
   try {
     const post = await prisma.post.findUnique({
