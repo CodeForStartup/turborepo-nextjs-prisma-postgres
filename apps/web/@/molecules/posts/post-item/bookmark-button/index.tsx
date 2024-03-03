@@ -14,7 +14,6 @@ type BookmarkButtonProps = {
 
 const BookmarkButton: React.FC<BookmarkButtonProps> = ({ post, showCount }) => {
   const isBookMarked = false
-  const totalBookMark = 100
 
   const onToggleBookMark = () => {
     // TODO: Implement toggle bookmark
@@ -45,7 +44,7 @@ const BookmarkButton: React.FC<BookmarkButtonProps> = ({ post, showCount }) => {
           <TooltipContent>{isBookMarked ? "Unbookmark" : "Bookmark"}</TooltipContent>
         </Tooltip>
       </TooltipProvider>
-      {showCount && <span className="text-lg font-bold text-gray-600">{totalBookMark}</span>}
+      {showCount && <span className="text-lg font-bold text-gray-600">{post?.totalFollow}</span>}
     </div>
   )
 }

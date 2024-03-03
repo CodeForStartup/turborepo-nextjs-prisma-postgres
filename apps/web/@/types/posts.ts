@@ -8,6 +8,8 @@ export const postSelect = {
   updatedAt: true,
   slug: true,
   postStatus: true,
+  totalLike: true,
+  totalFollow: true,
   author: {
     select: {
       id: true,

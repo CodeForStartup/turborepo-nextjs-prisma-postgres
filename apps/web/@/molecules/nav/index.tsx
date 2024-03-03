@@ -35,7 +35,7 @@ export default async function Nav() {
         <div className="flex items-center gap-8">
           <SearchBar />
           {session?.user ? (
-            <div className="flex gap-8">
+            <div className="flex items-center gap-8">
               <Link href="/user/posts/create">
                 <div
                   className={cn(

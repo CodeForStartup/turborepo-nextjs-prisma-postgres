@@ -38,9 +38,9 @@ const LikeButton: React.FC<LikeButtonProps> = ({ post, isLiked, totalLike }: Lik
               )}
             >
               <i
-                className={cn({
-                  "ri-heart-3-fill text-red-500": isLiked,
-                  "ri-heart-3-line": !isLiked,
+                className={cn("ri-heart-3-fill", {
+                  "text-red-500": isLiked,
+                  "text-gray-300 ": !isLiked,
                 })}
               />
             </Button>
