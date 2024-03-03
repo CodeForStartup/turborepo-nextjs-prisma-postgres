@@ -1,8 +1,9 @@
 "use client"
 
+import { PostOnUserType } from "database"
 import { useTranslations } from "next-intl"
 
-import { likePost, unLikePost } from "@/actions/protected/postAction"
+import { addRelation, removeRelation } from "@/actions/protected/postAction"
 import { Button } from "@/components/ui/button"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 import { cn } from "@/lib/utils"
@@ -18,8 +19,10 @@ const LikeButton: React.FC<LikeButtonProps> = ({ post, isLiked, totalLike }: Lik
   const t = useTranslations()
 
   const toggleLike = () => {
-    ;(isLiked ? unLikePost : likePost)({
-      post,
+    ;(isLiked ? removeRelation : addRelation)({
+      postId: post.id,
+      postSlug: post.slug,
+      action: PostOnUserType.LIKE,
     })
   }
 

@@ -5,17 +5,22 @@ import { revalidatePath } from "next/cache"
 import { PostOnUserType } from "database"
 import { toast } from "react-toastify"
 
-import { TPostItem } from "@/types/posts"
 import { getServerSession } from "@/utils/auth"
 
-export const getTotalLike = async (postId: string) => {
+export const getTotalActions = async ({
+  postId,
+  actionType,
+}: {
+  postId: string
+  actionType: PostOnUserType
+}) => {
   const session = await getServerSession()
 
   try {
     const totalLike = await prisma.postOnUser.count({
       where: {
         postId,
-        type: PostOnUserType.LIKE,
+        type: actionType,
       },
     })
 
@@ -24,7 +29,7 @@ export const getTotalLike = async (postId: string) => {
           where: {
             postId,
             userId: session?.user?.id,
-            type: PostOnUserType.LIKE,
+            type: actionType,
           },
         })
       : false
@@ -35,51 +40,67 @@ export const getTotalLike = async (postId: string) => {
   }
 }
 
-export const likePost = async ({ post }: { post: TPostItem }) => {
+export const addRelation = async ({
+  postId,
+  postSlug,
+  action,
+}: {
+  postId: string
+  postSlug: string
+  action: PostOnUserType
+}) => {
   const session = await getServerSession()
 
   try {
     await prisma.postOnUser.upsert({
       where: {
         userId_postId_type: {
-          postId: post.id,
+          postId: postId,
           userId: session?.user?.id,
-          type: PostOnUserType.LIKE,
+          type: action,
         },
       },
       update: {
-        postId: post.id,
+        postId: postId,
         userId: session?.user?.id,
-        type: PostOnUserType.LIKE,
+        type: action,
       },
       create: {
-        postId: post.id,
+        postId: postId,
         userId: session?.user?.id,
-        type: PostOnUserType.LIKE,
+        type: action,
       },
     })
 
-    revalidatePath(`/post/${post?.slug}`)
+    revalidatePath(`/post/${postSlug}`)
   } catch (error) {
     toast.error("Error liking post")
   }
 }
 
-export const unLikePost = async ({ post }: { post: TPostItem }) => {
+export const removeRelation = async ({
+  postId,
+  postSlug,
+  action,
+}: {
+  postId: string
+  postSlug: string
+  action: PostOnUserType
+}) => {
   const session = await getServerSession()
 
   try {
     await prisma.postOnUser.delete({
       where: {
         userId_postId_type: {
-          postId: post?.id,
+          postId: postId,
           userId: session?.user?.id,
-          type: PostOnUserType.LIKE,
+          type: action,
         },
       },
     })
 
-    revalidatePath(`/post/${post?.slug}`)
+    revalidatePath(`/post/${postSlug}`)
   } catch (error) {
     toast.error("Error unliking post")
   }

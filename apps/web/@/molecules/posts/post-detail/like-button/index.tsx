@@ -1,4 +1,6 @@
-import { getTotalLike } from "@/actions/protected/postAction"
+import { PostOnUserType } from "database"
+
+import { getTotalActions } from "@/actions/protected/postAction"
 import { TPostItem } from "@/types/posts"
 
 import LikeButton from "./LikeButton"
@@ -8,7 +10,10 @@ type LikeButtonProps = {
 }
 
 const LikeButtonContainer: React.FC<LikeButtonProps> = async ({ post }: LikeButtonProps) => {
-  const { totalLike, isLiked } = await getTotalLike(post.id)
+  const { totalLike, isLiked } = await getTotalActions({
+    postId: post.id,
+    actionType: PostOnUserType.LIKE,
+  })
 
   return (
     <LikeButton
