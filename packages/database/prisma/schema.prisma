@@ -64,6 +64,12 @@ model Post {
   author   User   @relation(fields: [authorId], references: [id])
   authorId String
 
+  totalView    Int @default(0)
+  totalLike    Int @default(0)
+  totalShare   Int @default(0)
+  totalComment Int @default(0)
+  totalFollow  Int @default(0)
+
   parentPostId String?
   pinned       Boolean @default(false)
   userPinned   Boolean @default(false)
@@ -145,17 +151,21 @@ model User {
 
   userType UserType @default(AUTHOR)
 
-  username  String? @unique
-  bio       String?
-  website   String?
-  address   String?
-  phone     String?
-  twitter   String?
-  facebook  String?
-  github    String?
-  youtube   String?
-  linkedin  String?
-  instagram String?
+  username       String? @unique
+  bio            String?
+  website        String?
+  address        String?
+  phone          String?
+  twitter        String?
+  facebook       String?
+  github         String?
+  youtube        String?
+  linkedin       String?
+  instagram      String?
+  totalPost      Int     @default(0)
+  totalView      Int     @default(0)
+  totalFollower  Int     @default(0)
+  totalFollowing Int     @default(0)
 
   accounts Account[]
   sessions Session[]
@@ -202,6 +212,11 @@ model Tags {
 
   type  TagType @default(TAG)
   image String?
+
+  totalPost      Int @default(0)
+  totalView      Int @default(0)
+  totalLike      Int @default(0)
+  totalFollowers Int @default(0)
 
   name        String      @unique @db.VarChar(255)
   slug        String      @unique @db.VarChar(255)

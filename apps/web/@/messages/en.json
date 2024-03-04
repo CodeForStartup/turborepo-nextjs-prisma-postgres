@@ -64,7 +64,7 @@
     "write": "Write",
     "signIn": "Sign In",
     "trending": "Trending",
-    "signOut": "Se déconnecter",
+    "signOut": "Logout",
     "light": "Light",
     "dark": "Dark",
     "system": "System",
@@ -76,6 +76,7 @@
     "following": "Following",
     "update_profile": "Update profile",
     "like": "Like",
+    "like_plural": "{count, plural, =0 {# like} =1 {# like} other {# likes}}",
     "unlike": "Unlike"
   }
 }

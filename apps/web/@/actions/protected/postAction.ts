@@ -3,7 +3,6 @@
 import { revalidatePath } from "next/cache"
 
 import { PostOnUserType } from "database"
-import { toast } from "react-toastify"
 
 import { getServerSession } from "@/utils/auth"
 
@@ -36,7 +35,7 @@ export const getTotalActions = async ({
 
     return { totalLike, isLiked }
   } catch (error) {
-    toast.error("Error getting total like")
+    throw error
   }
 }
 
@@ -50,31 +49,41 @@ export const addRelation = async ({
   action: PostOnUserType
 }) => {
   const session = await getServerSession()
-
+  const postField = action === PostOnUserType.LIKE ? "totalLike" : "totalFollower"
   try {
-    await prisma.postOnUser.upsert({
-      where: {
-        userId_postId_type: {
+    await prisma.$transaction([
+      prisma.postOnUser.upsert({
+        where: {
+          userId_postId_type: {
+            postId: postId,
+            userId: session?.user?.id,
+            type: action,
+          },
+        },
+        update: {
           postId: postId,
           userId: session?.user?.id,
           type: action,
         },
-      },
-      update: {
-        postId: postId,
-        userId: session?.user?.id,
-        type: action,
-      },
-      create: {
-        postId: postId,
-        userId: session?.user?.id,
-        type: action,
-      },
-    })
+        create: {
+          postId: postId,
+          userId: session?.user?.id,
+          type: action,
+        },
+      }),
+      prisma.post.update({
+        where: { id: postId },
+        data: {
+          [postField]: {
+            increment: 1,
+          },
+        },
+      }),
+    ])
 
     revalidatePath(`/post/${postSlug}`)
   } catch (error) {
-    toast.error("Error liking post")
+    throw error
   }
 }
 
@@ -88,20 +97,30 @@ export const removeRelation = async ({
   action: PostOnUserType
 }) => {
   const session = await getServerSession()
-
+  const postField = action === PostOnUserType.LIKE ? "totalLike" : "totalFollower"
   try {
-    await prisma.postOnUser.delete({
-      where: {
-        userId_postId_type: {
-          postId: postId,
-          userId: session?.user?.id,
-          type: action,
+    await prisma.$transaction([
+      prisma.postOnUser.delete({
+        where: {
+          userId_postId_type: {
+            postId: postId,
+            userId: session?.user?.id,
+            type: action,
+          },
         },
-      },
-    })
+      }),
+      prisma.post.update({
+        where: { id: postId },
+        data: {
+          [postField]: {
+            decrement: 1,
+          },
+        },
+      }),
+    ])
 
     revalidatePath(`/post/${postSlug}`)
   } catch (error) {
-    toast.error("Error unliking post")
+    throw error
   }
 }

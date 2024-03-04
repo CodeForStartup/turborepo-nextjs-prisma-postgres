@@ -22,11 +22,11 @@ const LikeButton: React.FC<LikeButtonProps> = ({ post }: LikeButtonProps) => {
                 variant="span"
                 className="text-sm text-gray-600"
               >
-                100
+                {post.totalLike}
               </Typography>
             </div>
           </TooltipTrigger>
-          <TooltipContent>{`100 ${t("like")}`}</TooltipContent>
+          <TooltipContent>{`${t("common.like_plural", { count: post.totalLike })}`}</TooltipContent>
         </Tooltip>
       </TooltipProvider>
     </div>
