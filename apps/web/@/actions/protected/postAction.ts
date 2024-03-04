@@ -3,7 +3,6 @@
 import { revalidatePath } from "next/cache"
 
 import { PostOnUserType } from "database"
-import { toast } from "react-toastify"
 
 import { getServerSession } from "@/utils/auth"
 
@@ -36,7 +35,7 @@ export const getTotalActions = async ({
 
     return { totalLike, isLiked }
   } catch (error) {
-    toast.error("Error getting total like")
+    throw error
   }
 }
 
@@ -84,7 +83,7 @@ export const addRelation = async ({
 
     revalidatePath(`/post/${postSlug}`)
   } catch (error) {
-    toast.error("Error liking post")
+    throw error
   }
 }
 
@@ -122,6 +121,6 @@ export const removeRelation = async ({
 
     revalidatePath(`/post/${postSlug}`)
   } catch (error) {
-    toast.error("Error unliking post")
+    throw error
   }
 }
