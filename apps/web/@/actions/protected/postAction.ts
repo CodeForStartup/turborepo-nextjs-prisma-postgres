@@ -16,24 +16,32 @@ export const getTotalActions = async ({
   const session = await getServerSession()
 
   try {
-    const totalLike = await prisma.postOnUser.count({
-      where: {
-        postId,
-        type: actionType,
-      },
-    })
+    const promises = []
 
-    const isLiked = session?.user?.id
-      ? await prisma.postOnUser.findFirst({
+    promises.push(
+      prisma.postOnUser.count({
+        where: {
+          postId,
+          type: actionType,
+        },
+      })
+    )
+
+    if (session?.user?.id) {
+      promises.push(
+        prisma.postOnUser.findFirst({
           where: {
             postId,
             userId: session?.user?.id,
             type: actionType,
           },
         })
-      : false
+      )
+    }
 
-    return { totalLike, isLiked }
+    const [total, haveAction] = await Promise.all(promises)
+
+    return { total, haveAction }
   } catch (error) {
     throw error
   }
@@ -49,7 +57,7 @@ export const addRelation = async ({
   action: PostOnUserType
 }) => {
   const session = await getServerSession()
-  const postField = action === PostOnUserType.LIKE ? "totalLike" : "totalFollower"
+  const postField = action === PostOnUserType.LIKE ? "totalLike" : "totalFollow"
   try {
     await prisma.$transaction([
       prisma.postOnUser.upsert({
@@ -97,7 +105,8 @@ export const removeRelation = async ({
   action: PostOnUserType
 }) => {
   const session = await getServerSession()
-  const postField = action === PostOnUserType.LIKE ? "totalLike" : "totalFollower"
+  const postField = action === PostOnUserType.LIKE ? "totalLike" : "totalFollow"
+
   try {
     await prisma.$transaction([
       prisma.postOnUser.delete({
