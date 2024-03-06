@@ -10,7 +10,7 @@ type LikeButtonProps = {
 }
 
 const LikeButtonContainer: React.FC<LikeButtonProps> = async ({ post }: LikeButtonProps) => {
-  const { totalLike, isLiked } = await getTotalActions({
+  const { total, haveAction } = await getTotalActions({
     postId: post.id,
     actionType: PostOnUserType.LIKE,
   })
@@ -18,8 +18,8 @@ const LikeButtonContainer: React.FC<LikeButtonProps> = async ({ post }: LikeButt
   return (
     <LikeButton
       post={post}
-      totalLike={totalLike}
-      isLiked={Boolean(isLiked)}
+      totalLike={total}
+      isLiked={Boolean(haveAction)}
     />
   )
 }

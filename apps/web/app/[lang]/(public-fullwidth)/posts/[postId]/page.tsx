@@ -39,8 +39,8 @@ export default async function Page({
         <div className="mt-8 flex w-12 flex-col gap-6">
           <LikeButton post={post} />
           <BookmarkButton
-            post={post}
             showCount
+            post={post}
           />
         </div>
 
