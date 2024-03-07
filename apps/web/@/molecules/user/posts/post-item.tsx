@@ -47,10 +47,10 @@ export default function PostItem(post: TPostItem) {
         </DropdownMenuTrigger>
         <DropdownMenuContent>
           <DropdownMenuItem>
-            <Link href={`posts/${post.id}`}>Preview</Link>
+            <Link href={`/posts/${post.id}`}>Preview</Link>
           </DropdownMenuItem>
           <DropdownMenuItem>
-            <Link href={`posts/${post.id}/edit`}>Edit</Link>
+            <Link href={`/user/posts/${post.id}/edit`}>Edit</Link>
           </DropdownMenuItem>
           <DropdownMenuItem onClick={onDeletePost}>Delete</DropdownMenuItem>
         </DropdownMenuContent>
