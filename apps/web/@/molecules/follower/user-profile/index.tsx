@@ -1,15 +1,36 @@
 import Link from "next/link"
 
-import { TUserItem } from "@/actions/public/authors"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader } from "@/components/ui/card"
+import { getTranslations } from "next-intl/server"
 
-export type UserProfile = {
-  author: TUserItem
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Card, CardContent, CardHeader } from "@/components/ui/card"
+import APP_APIS from "@/constants/apis"
+import Typography from "@/molecules/typography"
+import { TUserItem } from "@/types/users"
+import { generatePath } from "@/utils/generatePath"
+
+import FollowButton from "./follow-button"
+
+export type UserProfileProps = {
+  authorId: string
 }
 
-const UserProfile = ({ author }: UserProfile) => {
+export async function UserProfile({ authorId }: UserProfileProps) {
+  const rawAuthor = await fetch(
+    `${process.env.NEXT_PUBLIC_FRONTEND_URL}${generatePath(APP_APIS.protected.user.GET, {
+      userId: authorId,
+    })}`,
+    {
+      method: "GET",
+      cache: "no-cache",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  )
+  const author: TUserItem = await rawAuthor?.json()
+  const t = await getTranslations()
+
   return (
     <div className="col-span-4">
       <Card>
@@ -28,29 +49,30 @@ const UserProfile = ({ author }: UserProfile) => {
         </CardHeader>
         <CardContent>
           <div className="flex flex-col items-center justify-center gap-2">
-            <h1 className="flex-1 text-center text-4xl font-extrabold">
+            <h1 className="mb-1 flex-1 text-center text-4xl font-extrabold">
               <Link href={`/author/${author.id}`}>{author.name}</Link>
             </h1>
+            <Typography
+              className="text-gray-400"
+              variant="span"
+            >
+              {author?.email}
+            </Typography>
             <div className="mt-4 flex w-full flex-1 divide-x">
               <div className="flex flex-1 flex-col items-center justify-center">
-                <div className="font-bold">{author?.post?.length}</div>
-                <div className="text-gray-400 hover:underline">
-                  <Link href={`/author/${author?.id}`}>posts</Link>
+                <div className="font-bold">{author?._count?.post}</div>
+                <div className="hover:underline">
+                  <Link href={`/author/${author?.id}`}>{t("common.posts")}</Link>
                 </div>
               </div>
               <div className="flex flex-1 flex-col items-center justify-center">
-                <div className="font-bold">{author?.post?.length}</div>
+                <div className="font-bold">{author?._count?.followers}</div>
                 <div className="hover:underline">
-                  <Link href={`/author/${author?.id}/followers`}>followers</Link>
+                  <Link href={`/author/${author?.id}/followers`}>{t("common.followers")}</Link>
                 </div>
               </div>
             </div>
-            <Button
-              className="mt-4 w-full"
-              variant="outline"
-            >
-              Follow
-            </Button>
+            <FollowButton authorId={author?.id} />
           </div>
         </CardContent>
       </Card>

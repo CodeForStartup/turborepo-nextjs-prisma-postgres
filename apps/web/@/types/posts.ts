@@ -8,6 +8,8 @@ export const postSelect = {
   updatedAt: true,
   slug: true,
   postStatus: true,
+  totalLike: true,
+  totalFollow: true,
   author: {
     select: {
       id: true,
@@ -26,6 +28,7 @@ export const postSelect = {
   _count: {
     select: {
       comments: true,
+      postOnUser: true,
     },
   },
   tagOnPost: {

@@ -1,6 +1,5 @@
 import querystring from "qs"
 
-import { getUserById } from "@/actions/public/authors"
 import { DEFAULT_PAGE_LIMIT } from "@/constants"
 import UserProfile from "@/molecules/follower/user-profile"
 import NoItemFounded from "@/molecules/no-item-founded"
@@ -15,8 +14,6 @@ export const metadata = {
 }
 
 export default async function Page({ params, searchParams }) {
-  const author = await getUserById(params?.authorId as string)
-
   const posts = await fetch(
     `${process.env.NEXT_PUBLIC_FRONTEND_URL}/api/public/posts?${querystring.stringify({
       authorId: params?.authorId,
@@ -35,7 +32,7 @@ export default async function Page({ params, searchParams }) {
 
   return (
     <div className="grid grid-cols-12 gap-10">
-      <UserProfile author={author} />
+      <UserProfile authorId={params?.authorId} />
       <div className="col-span-8 rounded-md">
         {postsJson?.data?.length > 0 ? (
           postsJson?.data?.map((post) => (

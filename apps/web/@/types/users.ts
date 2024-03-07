@@ -14,6 +14,13 @@ export const userSelect = {
   twitter: true,
   facebook: true,
   github: true,
+  _count: {
+    select: {
+      post: true,
+      followers: true,
+      followings: true,
+    },
+  },
 } satisfies Prisma.UserSelect
 
 const getUser = Prisma.validator<Prisma.UserDefaultArgs>()({

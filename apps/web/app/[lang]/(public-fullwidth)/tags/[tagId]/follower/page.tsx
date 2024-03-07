@@ -1,5 +1,4 @@
 import { getTagById } from "@/actions/public/tags"
-import FollowerItem from "@/molecules/follower/follower-item"
 import TagDetail from "@/molecules/tag/tag-detail"
 
 export const metadata = {
@@ -13,9 +12,6 @@ export default async function Page({ params }: { params: { tagId: string } }) {
   return (
     <div className="grid grid-cols-12 gap-10">
       <TagDetail tag={tag} />
-      <div className="col-span-8 rounded-md">
-        <FollowerItem />
-      </div>
     </div>
   )
 }

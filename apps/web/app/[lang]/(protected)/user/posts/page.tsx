@@ -4,7 +4,7 @@ import { redirect } from "next/navigation"
 import { authConfigs } from "configs/auth"
 import { getServerSession } from "next-auth/next"
 
-import { getPosts } from "@/actions/protected/posts"
+import { getPosts } from "@/actions/public/posts"
 import PageTitle from "@/molecules/page-title"
 import PostItem from "@/molecules/user/posts/post-item"
 
@@ -20,7 +20,11 @@ export default async function Page() {
     redirect("/signIn")
   }
 
-  const posts = await getPosts()
+  const posts = await getPosts({
+    searchParams: {
+      authorId: session?.user?.id,
+    },
+  })
 
   return (
     <div>
@@ -30,10 +34,10 @@ export default async function Page() {
       />
 
       <div className="mt-12">
-        {posts.length === 0 ? (
+        {posts?.data?.length === 0 ? (
           <div>You haven’t any post yet.</div>
         ) : (
-          posts.map((post) => (
+          posts?.data?.map((post) => (
             <PostItem
               key={post.id}
               {...post}

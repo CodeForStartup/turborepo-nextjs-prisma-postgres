@@ -69,6 +69,10 @@
     "dark": "Sombre",
     "system": "Système",
     "toggleTheme": "Changer de thème",
-    "selectLocale": "Sélectionnez votre langue"
+    "selectLocale": "Sélectionnez votre langue",
+    "follow": "Follow",
+    "unfollow": "Unfollow",
+    "followers": "Followers",
+    "following": "Following"
   }
 }
