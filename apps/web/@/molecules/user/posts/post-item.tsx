@@ -4,7 +4,7 @@ import Link from "next/link"
 
 import dayjs from "dayjs"
 
-import { deletePost } from "@/actions/protected/posts"
+import { deletePost } from "@/actions/protect/posts"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import {
@@ -22,7 +22,7 @@ export default function PostItem(post: TPostItem) {
   }
 
   return (
-    <div className="mb-4 flex items-center justify-center rounded-sm border px-8 py-4 hover:bg-muted">
+    <div className="mb-4 flex items-center justify-center">
       <div className="flex-1">
         <Link href={`posts/${post.id}/edit`}>
           <Typography variant="h2">{post.title}</Typography>
