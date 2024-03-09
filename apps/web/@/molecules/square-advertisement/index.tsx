@@ -16,10 +16,10 @@ const SquareAdvertisement: React.FC = () => {
         free
       </Typography>
       <Link href="/">
-        <Typography className="bg-gradient-to-r from-[navy] to-[tomato] bg-clip-text text-xs font-bold text-transparent hover:underline lg:text-base">
+        <Typography className="bg-gradient-to-r from-[tomato] to-[#ff0000] bg-clip-text text-xs font-bold text-transparent hover:underline lg:text-base">
           <GithubIcon
             size={16}
-            className="mr-1 inline-block text-black"
+            className="mr-1 inline-block text-black dark:text-white"
           />
           SAAS TEMPLATE
         </Typography>
