@@ -22,6 +22,7 @@ export type TGetPostsParams = {
     limit?: string
     page?: string
     authorId?: string
+    postStatus?: PostStatus
   }
 }
 

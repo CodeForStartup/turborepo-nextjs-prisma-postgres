@@ -77,6 +77,14 @@
     "update_profile": "Update profile",
     "like": "Like",
     "like_plural": "{count, plural, =0 {# like} =1 {# like} other {# likes}}",
-    "unlike": "Unlike"
+    "unlike": "Unlike",
+    "edit": "Edit",
+    "delete": "Delete",
+    "publish": "Publish",
+    "draft": "Draft",
+    "save": "Save",
+    "cancel": "Cancel",
+    "create": "Create",
+    "preview": "Preview"
   }
 }
