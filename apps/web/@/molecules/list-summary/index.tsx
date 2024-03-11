@@ -1,18 +1,21 @@
 import React from "react"
 
+import { useTranslations } from "next-intl"
+
 import Typography from "../typography"
 
 interface ListSummaryProps {
   total: number
-  currentTotal: number
 }
 
-const ListSummary: React.FC<ListSummaryProps> = ({ total, currentTotal }) => {
+const ListSummary: React.FC<ListSummaryProps> = ({ total }) => {
+  const t = useTranslations()
+
   return (
     <div className="flex items-center">
-      <Typography>
-        {currentTotal} post / {total} total post
-      </Typography>
+      <div className="flex items-center gap-4">
+        <Typography>{t("common.total_post_plural", { total })}</Typography>
+      </div>
       <div></div>
     </div>
   )

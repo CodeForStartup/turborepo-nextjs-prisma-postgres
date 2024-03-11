@@ -31,10 +31,7 @@ export default async function Page() {
     <div>
       <PageTitle title="Posts" />
 
-      <ListSummary
-        total={total}
-        currentTotal={data?.length}
-      />
+      <ListSummary total={total} />
 
       <div className="mt-12">
         {data?.length === 0 ? (
