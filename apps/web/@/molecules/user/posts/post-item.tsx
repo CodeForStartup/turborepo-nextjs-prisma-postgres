@@ -5,6 +5,7 @@ import Link from "next/link"
 import dayjs from "dayjs"
 import { useTranslations } from "next-intl"
 
+import { togglePostStatus } from "@/actions/manage-post"
 import { deletePost } from "@/actions/protect/posts"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -22,6 +23,10 @@ export default function PostItem(post: TPostItem) {
 
   const onDeletePost = async () => {
     await deletePost(post.id)
+  }
+
+  const onTogglePostStatus = async () => {
+    await togglePostStatus(post.id, post.postStatus)
   }
 
   return (
@@ -74,7 +79,12 @@ export default function PostItem(post: TPostItem) {
       </div>
 
       <div className="">
-        <Button variant="link">{t("common.publish")}</Button>
+        <Button
+          variant="link"
+          onClick={onTogglePostStatus}
+        >
+          {t(post?.postStatus === "DRAFT" ? "common.draft" : "common.publish")}
+        </Button>
         <Button variant="link">{t("common.edit")}</Button>
         <DropdownMenu>
           <DropdownMenuTrigger>
