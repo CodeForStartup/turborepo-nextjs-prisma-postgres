@@ -2,6 +2,7 @@
 
 import Link from "next/link"
 
+import { PostStatus } from "database"
 import dayjs from "dayjs"
 import { useTranslations } from "next-intl"
 
@@ -40,7 +41,9 @@ export default function PostItem(post: TPostItem) {
             {post.title}
           </Typography>
           <div className="mt-1 flex items-center gap-4 text-xs">
-            <Badge>{post?.postStatus}</Badge>
+            <Badge variant={post?.postStatus === PostStatus.DRAFT ? "destructive" : "secondary"}>
+              {post?.postStatus}
+            </Badge>
             <Typography variant="span">
               Last edited: <time>{dayjs(post.createdAt).format("MMMM D, YYYY")}</time>
             </Typography>

@@ -86,6 +86,9 @@
     "save": "Save",
     "cancel": "Cancel",
     "create": "Create",
-    "preview": "Preview"
+    "preview": "Preview",
+    "no_items_founded": "There are no items founded.",
+    "english": "English",
+    "french": "French"
   }
 }
