@@ -86,7 +86,7 @@ export default function PostItem(post: TPostItem) {
           variant="link"
           onClick={onTogglePostStatus}
         >
-          {t(post?.postStatus === "DRAFT" ? "common.draft" : "common.publish")}
+          {t(post?.postStatus === "DRAFT" ? "common.publish" : "common.draft")}
         </Button>
         <Button variant="link">{t("common.edit")}</Button>
         <DropdownMenu>

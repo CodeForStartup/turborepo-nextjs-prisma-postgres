@@ -89,6 +89,14 @@
     "preview": "Preview",
     "no_items_founded": "There are no items founded.",
     "english": "English",
-    "french": "French"
+    "french": "French",
+    "created_at_asc": "Recently created",
+    "created_at_desc": "Oldest created",
+    "updated_at_asc": "Recently updated",
+    "updated_at_desc": "Oldest updated",
+    "total_like_asc": "Least liked",
+    "total_like_desc": "Most liked",
+    "total_comment_asc": "Least commented",
+    "total_comment_desc": "Most commented"
   }
 }

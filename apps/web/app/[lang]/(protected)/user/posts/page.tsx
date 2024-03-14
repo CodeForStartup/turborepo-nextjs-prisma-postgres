@@ -2,18 +2,10 @@ import React from "react"
 import { redirect } from "next/navigation"
 import { Metadata } from "next/types"
 
-import { getTranslations } from "next-intl/server"
-
 import { getPosts } from "@/actions/protect/posts"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
 import NoItemFounded from "@/molecules/no-item-founded"
 import PageTitle from "@/molecules/page-title"
+import Filter from "@/molecules/user/posts/filter"
 import PostItem from "@/molecules/user/posts/post-item"
 import { getServerSession } from "@/utils/auth"
 
@@ -27,8 +19,6 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function Page({ searchParams }) {
   const session = await getServerSession()
-  const t = await getTranslations()
-
   if (!session) {
     redirect("/sign-in")
   }
@@ -44,25 +34,7 @@ export default async function Page({ searchParams }) {
     <div>
       <PageTitle title="Posts" />
 
-      <div className="flex items-center justify-between">
-        <div>
-          {t("common.total_post_plural", {
-            total,
-          })}
-        </div>
-        <div>
-          <Select>
-            <SelectTrigger className="w-[180px]">
-              <SelectValue placeholder="Theme" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="light">Light</SelectItem>
-              <SelectItem value="dark">Dark</SelectItem>
-              <SelectItem value="system">System</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
-      </div>
+      <Filter total={total} />
 
       <div className="mt-12">
         {data?.length === 0 ? (
