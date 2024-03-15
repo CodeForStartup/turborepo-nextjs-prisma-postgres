@@ -13,7 +13,7 @@ import AsyncCreatableSelect from "react-select/async-creatable"
 import { toast } from "react-toastify"
 import z from "zod"
 
-import { createPost, updatePost } from "@/actions/protected/posts"
+import { createPost, updatePost } from "@/actions/protect/posts"
 import { Button, buttonVariants } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import Editor from "@/molecules/editor"

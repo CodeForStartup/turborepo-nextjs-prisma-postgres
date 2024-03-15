@@ -11,7 +11,7 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination"
 
-interface TagPaginationProps {
+interface PaginationProps {
   totalPages: number
   baseUrl: string
 }
@@ -21,15 +21,11 @@ const generatePaginationPath = (baseUrl: string, page: number, searchParams: URL
   return `${baseUrl}?${searchParams.toString()}`
 }
 
-const TagPagination: React.FC<TagPaginationProps> = ({ baseUrl, totalPages }) => {
+const CustomPagination: React.FC<PaginationProps> = ({ baseUrl, totalPages }) => {
   const searchParams = useSearchParams()
   const currentSearchParams = new URLSearchParams(Array.from(searchParams.entries()))
 
   const currentPage = Number(searchParams.get("page")) || 1
-
-  if (totalPages <= 1) {
-    return null
-  }
 
   return (
     <Pagination className="mt-8">
@@ -64,4 +60,4 @@ const TagPagination: React.FC<TagPaginationProps> = ({ baseUrl, totalPages }) =>
   )
 }
 
-export default TagPagination
+export default CustomPagination

@@ -1,4 +1,3 @@
-import Image from "next/image"
 import Link from "next/link"
 
 import { Edit } from "lucide-react"
@@ -9,6 +8,7 @@ import { cn } from "@/lib/utils"
 import { getServerSession } from "@/utils/auth"
 
 import { UserNav } from "../user-nav"
+import Logo from "./logo"
 import SearchBar from "./search-bar"
 import ThemeToggle from "./theme-toggle"
 
@@ -17,19 +17,10 @@ export default async function Nav() {
   const t = await getTranslations()
 
   return (
-    <div className="mx-auto flex items-center border-b p-2 sm:px-6 lg:px-8">
+    <header className="mx-auto flex items-center border-b p-2 sm:px-6 lg:px-8">
       <div className="container flex items-center justify-between">
         <div className="flex items-center">
-          <div className="mr-4 text-2xl font-bold">
-            <Link href="/">
-              <Image
-                alt="codeforstartup.com"
-                src="/assets/logo.png"
-                width={40}
-                height={40}
-              />
-            </Link>
-          </div>
+          <Logo />
         </div>
 
         <div className="flex items-center gap-8">
@@ -66,6 +57,6 @@ export default async function Nav() {
           <ThemeToggle />
         </div>
       </div>
-    </div>
+    </header>
   )
 }

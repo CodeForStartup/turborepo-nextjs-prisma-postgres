@@ -5,6 +5,8 @@ import { getTranslations } from "next-intl/server"
 import querystring from "qs"
 
 import APP_APIS from "@/constants/apis"
+import { bebasNeue } from "@/font"
+import { cn } from "@/lib/utils"
 
 import Typography from "../typography"
 
@@ -35,7 +37,15 @@ const TopTag: React.FC = async () => {
             key={tag.id}
             className="mb-2 flex items-center gap-2"
           >
-            <div className="flex items-center justify-center text-2xl font-extrabold text-gray-400">
+            <div
+              className={cn(
+                "flex items-center justify-center text-2xl font-extrabold text-gray-400 text-transparent",
+                bebasNeue.className
+              )}
+              style={{
+                WebkitTextStroke: "0.5px #000",
+              }}
+            >
               {index + 1}.
             </div>
             <Link href={`/tags/${tag?.slug || tag?.id}`}>

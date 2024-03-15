@@ -1,6 +1,6 @@
 import { PostOnUserType } from "database"
 
-import { getTotalActions } from "@/actions/protected/postAction"
+import { getTotalActions } from "@/actions/protect/postAction"
 import { TPostItem } from "@/types/posts"
 
 import LikeButton from "./LikeButton"
