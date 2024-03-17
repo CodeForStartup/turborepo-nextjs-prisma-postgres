@@ -8,6 +8,7 @@ import { buttonVariants } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 
 import LanguageSwitcher from "../language-switcher"
+import Logo from "../nav/logo"
 import Typography from "../typography"
 
 const Footer: React.FC = () => {
@@ -17,9 +18,7 @@ const Footer: React.FC = () => {
         <div className="grid grid-cols-4 gap-4">
           <div className="col-span-4 md:col-span-2 lg:col-span-1">
             <div className="mr-4">
-              <Link href="/">
-                <Typography variant="h2">toplist</Typography>
-              </Link>
+              <Logo />
               <Typography
                 variant="p"
                 className="text-gray-500"

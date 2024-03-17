@@ -50,8 +50,8 @@ const LanguageSwitcher = () => {
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
-          <SelectItem value="en">English</SelectItem>
-          <SelectItem value="fr">French</SelectItem>
+          <SelectItem value="en">{t("common.english")}</SelectItem>
+          <SelectItem value="fr">{t("common.french")}</SelectItem>
         </SelectGroup>
       </SelectContent>
     </Select>

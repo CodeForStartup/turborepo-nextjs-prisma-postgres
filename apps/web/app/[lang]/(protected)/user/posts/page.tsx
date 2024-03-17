@@ -1,43 +1,46 @@
 import React from "react"
 import { redirect } from "next/navigation"
+import { Metadata } from "next/types"
 
-import { authConfigs } from "configs/auth"
-import { getServerSession } from "next-auth/next"
-
-import { getPosts } from "@/actions/public/posts"
+import { getPosts } from "@/actions/protect/posts"
+import NoItemFounded from "@/molecules/no-item-founded"
 import PageTitle from "@/molecules/page-title"
+import Filter from "@/molecules/user/posts/filter"
 import PostItem from "@/molecules/user/posts/post-item"
+import { getServerSession } from "@/utils/auth"
 
-export const metadata = {
-  title: "Posts",
-  description: "Your posts...",
+export async function generateMetadata(): Promise<Metadata> {
+  // TODO: Get user info
+  return {
+    title: "Posts",
+    description: "User posts",
+  }
 }
 
-export default async function Page() {
-  const session = await getServerSession(authConfigs)
-
+export default async function Page({ searchParams }) {
+  const session = await getServerSession()
   if (!session) {
-    redirect("/signIn")
+    redirect("/sign-in")
   }
 
-  const posts = await getPosts({
+  const { total, data } = await getPosts({
     searchParams: {
       authorId: session?.user?.id,
+      ...searchParams,
     },
   })
 
   return (
     <div>
-      <PageTitle
-        title="Posts"
-        description="Your posts"
-      />
+      <PageTitle title="Posts" />
+
+      <Filter total={total} />
 
       <div className="mt-12">
-        {posts?.data?.length === 0 ? (
-          <div>You haven’t any post yet.</div>
+        {data?.length === 0 ? (
+          <NoItemFounded />
         ) : (
-          posts?.data?.map((post) => (
+          data?.map((post) => (
             <PostItem
               key={post.id}
               {...post}

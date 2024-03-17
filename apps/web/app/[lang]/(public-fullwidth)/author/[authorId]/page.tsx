@@ -1,12 +1,10 @@
-import querystring from "qs"
-
+import { getPosts } from "@/actions/public/posts"
 import { DEFAULT_PAGE_LIMIT } from "@/constants"
 import UserProfile from "@/molecules/follower/user-profile"
+import ListSummary from "@/molecules/list-summary"
 import NoItemFounded from "@/molecules/no-item-founded"
+import TagPagination from "@/molecules/pagination"
 import PostItem from "@/molecules/posts/post-item"
-import TagPagination from "@/molecules/tag/pagination"
-import { GetDataSuccessType } from "@/types"
-import { TPostItem } from "@/types/posts"
 
 export const metadata = {
   title: "Tags",
@@ -14,28 +12,21 @@ export const metadata = {
 }
 
 export default async function Page({ params, searchParams }) {
-  const posts = await fetch(
-    `${process.env.NEXT_PUBLIC_FRONTEND_URL}/api/public/posts?${querystring.stringify({
+  const { data, total } = await getPosts({
+    searchParams: {
       authorId: params?.authorId,
-      limit: searchParams?.limit,
-      page: searchParams?.page,
-    })}`,
-    {
-      method: "GET",
-      cache: "no-cache",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }
-  )
-  const postsJson: GetDataSuccessType<TPostItem[]> = await posts.json()
+      ...searchParams,
+    },
+  })
 
   return (
     <div className="grid grid-cols-12 gap-10">
       <UserProfile authorId={params?.authorId} />
       <div className="col-span-8 rounded-md">
-        {postsJson?.data?.length > 0 ? (
-          postsJson?.data?.map((post) => (
+        <ListSummary total={total} />
+
+        {data?.length > 0 ? (
+          data?.map((post) => (
             <PostItem
               key={post?.id}
               post={post}
@@ -44,12 +35,10 @@ export default async function Page({ params, searchParams }) {
         ) : (
           <NoItemFounded />
         )}
-        {postsJson?.data && (
+        {data && (
           <TagPagination
             baseUrl={`/author/${params?.authorId}`}
-            totalPages={Math.ceil(
-              postsJson?.total / (Number(searchParams?.limit) || DEFAULT_PAGE_LIMIT)
-            )}
+            totalPages={Math.ceil(total / (Number(searchParams?.limit) || DEFAULT_PAGE_LIMIT))}
           />
         )}
       </div>

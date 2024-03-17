@@ -4,7 +4,7 @@ import React from "react"
 
 import { PostOnUserType } from "database"
 
-import { addRelation, removeRelation } from "@/actions/protected/postAction"
+import { addRelation, removeRelation } from "@/actions/protect/postAction"
 import { Button } from "@/components/ui/button"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 import { cn } from "@/lib/utils"

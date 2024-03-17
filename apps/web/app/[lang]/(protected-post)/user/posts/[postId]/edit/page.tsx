@@ -1,4 +1,4 @@
-import { getPostById } from "@/actions/protected/posts"
+import { getPostById } from "@/actions/protect/posts"
 import PostForm from "@/molecules/post-form"
 
 export default async function Page({ params }: { params: { postId: string } }) {

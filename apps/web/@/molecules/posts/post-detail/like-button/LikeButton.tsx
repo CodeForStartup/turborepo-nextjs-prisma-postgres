@@ -3,7 +3,7 @@
 import { PostOnUserType } from "database"
 import { useTranslations } from "next-intl"
 
-import { addRelation, removeRelation } from "@/actions/protected/postAction"
+import { addRelation, removeRelation } from "@/actions/protect/postAction"
 import { Button } from "@/components/ui/button"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 import { cn } from "@/lib/utils"

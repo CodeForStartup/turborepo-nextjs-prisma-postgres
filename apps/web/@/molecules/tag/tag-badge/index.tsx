@@ -22,7 +22,12 @@ const TagBadge: React.FC<TagBadgeProps> = ({ tag }) => {
         tagId: tag.slug,
       })}
     >
-      <Badge className="mr-2 rounded-sm text-gray-600 hover:underline">{tag.name}</Badge>
+      <Badge
+        variant="outline"
+        className="mr-2 rounded-sm hover:underline"
+      >
+        {tag.name}
+      </Badge>
     </Link>
   )
 }
