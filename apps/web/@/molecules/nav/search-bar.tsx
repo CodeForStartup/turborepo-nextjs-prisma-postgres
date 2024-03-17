@@ -1,83 +1,67 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useState } from "react"
+import { usePathname, useRouter, useSearchParams } from "next/navigation"
 
 import { useTranslations } from "next-intl"
 
 import { Button } from "@/components/ui/button"
-import {
-  CommandDialog,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-} from "@/components/ui/command"
-import { cn } from "@/lib/utils"
+import { Input } from "@/components/ui/input"
 
 export default function SearchBar() {
   const t = useTranslations()
-  const [open, setOpen] = useState(true)
+  const searchParams = useSearchParams()
+  const [searchTerm, setSearchTerm] = useState(searchParams.get("search") || "")
+  const router = useRouter()
+  const pathname = usePathname()
 
-  useEffect(() => {
-    const down = (e) => {
-      if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
-        e.preventDefault()
-        setOpen((open) => !open)
-      }
-    }
+  const onSearch = () => {
+    const newSearchParams = new URLSearchParams(searchParams)
 
-    document.addEventListener("keydown", down)
-    return () => document.removeEventListener("keydown", down)
-  }, [])
+    newSearchParams.set("search", searchTerm)
+
+    router.push(pathname + "?" + newSearchParams.toString())
+  }
+
+  const onClear = () => {
+    setSearchTerm("")
+
+    const newSearchParams = new URLSearchParams(searchParams)
+    newSearchParams.delete("search")
+    router.push(pathname + "?" + newSearchParams.toString())
+  }
 
   return (
-    <div className="">
-      <Button
-        variant="outline"
-        className={cn(
-          "relative h-8 w-full justify-start rounded-[0.5rem] bg-background text-sm font-normal text-muted-foreground shadow-none sm:pr-12 md:w-40 lg:w-64"
-        )}
-        onClick={() => setOpen(true)}
-      >
-        <span className="inline-flex">{t("common.searchPlaceholder")}</span>
-        <kbd className="pointer-events-none absolute right-[0.3rem] top-[0.3rem] hidden h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium opacity-100 sm:flex">
-          <span className="text-xs">⌘</span>K
-        </kbd>
-      </Button>
-      <CommandDialog
-        open={open}
-        onOpenChange={setOpen}
-      >
-        <CommandInput placeholder={t("common.searchPlaceholder")} />
-        <CommandList>
-          <CommandGroup heading="Suggestions">
-            <CommandItem>
-              <span>Calendar</span>
-            </CommandItem>
-            <CommandItem>
-              <span>Search Emoji</span>
-            </CommandItem>
-            <CommandItem>
-              <span>Launch</span>
-            </CommandItem>
-          </CommandGroup>
-          {/*   <CommandSeparator />
-          <CommandGroup heading="Settings">
-            <CommandItem>
-              <span>Profile</span>
-              <CommandShortcut>⌘P</CommandShortcut>
-            </CommandItem>
-            <CommandItem>
-              <span>Mail</span>
-              <CommandShortcut>⌘B</CommandShortcut>
-            </CommandItem>
-            <CommandItem>
-              <span>Settings</span>
-              <CommandShortcut>⌘S</CommandShortcut>
-            </CommandItem>
-          </CommandGroup> */}
-        </CommandList>
-      </CommandDialog>
+    <div className="relative">
+      <Input
+        className="w-full min-w-[400px]"
+        placeholder={t("common.searchPlaceholder")}
+        value={searchTerm}
+        onChange={(e) => {
+          setSearchTerm(e.target.value)
+        }}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            onSearch()
+          }
+        }}
+      />
+      <div className="absolute right-0.5 top-0.5 flex h-9">
+        <Button
+          className="h-9 w-9 border-none hover:bg-transparent"
+          variant="outline"
+          onClick={onClear}
+        >
+          <i className="ri-close-line text-[20px]" />
+        </Button>
+        <Button
+          variant="default"
+          onClick={onSearch}
+          className="mt-0 h-9 rounded-[4px]"
+        >
+          {t("common.search").toUpperCase()}
+        </Button>
+      </div>
     </div>
   )
 }
