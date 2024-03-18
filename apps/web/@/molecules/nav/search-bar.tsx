@@ -7,6 +7,7 @@ import { useTranslations } from "next-intl"
 
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { cn } from "@/lib/utils"
 
 export default function SearchBar() {
   const t = useTranslations()
@@ -46,22 +47,38 @@ export default function SearchBar() {
           }
         }}
       />
-      <div className="absolute right-0.5 top-0.5 flex h-9">
-        <Button
-          className="h-9 w-9 border-none hover:bg-transparent"
-          variant="outline"
-          onClick={onClear}
-        >
-          <i className="ri-close-line text-[20px]" />
-        </Button>
-        <Button
-          variant="default"
-          onClick={onSearch}
-          className="mt-0 h-9 rounded-[4px]"
-        >
-          {t("common.search").toUpperCase()}
-        </Button>
-      </div>
+      {
+        <div className="absolute right-0.5 top-0.5 flex h-9 items-center">
+          {searchTerm && (
+            <>
+              <Button
+                className="h-9 w-9 border-none hover:bg-transparent"
+                variant="outline"
+                onClick={onClear}
+              >
+                <i className="ri-close-line text-[20px]" />
+              </Button>
+              <Button
+                variant="default"
+                onClick={onSearch}
+                className="mt-0 h-9 rounded-sm"
+              >
+                {t("common.search").toUpperCase()}
+              </Button>
+            </>
+          )}
+          {!searchTerm && (
+            <kbd
+              className={cn(
+                "mr-0.5 flex h-8 items-center gap-1 rounded-sm bg-gray-100 p-2 text-gray-500"
+              )}
+            >
+              <span>⌘</span>
+              <span className="text-xs">K</span>
+            </kbd>
+          )}
+        </div>
+      }
     </div>
   )
 }
