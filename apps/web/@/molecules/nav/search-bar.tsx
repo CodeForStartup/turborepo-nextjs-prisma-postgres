@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useRef, useState } from "react"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
 
 import { useTranslations } from "next-intl"
@@ -15,6 +15,8 @@ export default function SearchBar() {
   const [searchTerm, setSearchTerm] = useState(searchParams.get("search") || "")
   const router = useRouter()
   const pathname = usePathname()
+
+  const inputRef = useRef<HTMLInputElement>(null)
 
   const onSearch = () => {
     const newSearchParams = new URLSearchParams(searchParams)
@@ -35,6 +37,7 @@ export default function SearchBar() {
   return (
     <div className="relative">
       <Input
+        ref={inputRef}
         className="w-full min-w-[400px]"
         placeholder={t("common.searchPlaceholder")}
         value={searchTerm}
@@ -68,14 +71,31 @@ export default function SearchBar() {
             </>
           )}
           {!searchTerm && (
-            <kbd
-              className={cn(
-                "mr-0.5 flex h-8 items-center gap-1 rounded-sm bg-gray-100 p-2 text-gray-500"
-              )}
+            <Button
+              variant="outline"
+              className="h-9 w-9 border-none hover:bg-transparent"
+              onClick={() => {
+                inputRef.current?.focus()
+              }}
             >
-              <span>⌘</span>
-              <span className="text-xs">K</span>
-            </kbd>
+              <kbd
+                title={searchTerm ? t("common.searchShortcut") : undefined}
+                className={cn(
+                  "bg-dark-50 mr-0.5 flex h-6 items-center gap-1 rounded-sm border p-2 text-gray-500 dark:border-gray-50"
+                )}
+              >
+                {navigator?.userAgent?.toLowerCase()?.includes("mac") ? (
+                  <>
+                    <span className="text-xs">⌘</span>
+                    <span className="text-xs">K</span>
+                  </>
+                ) : (
+                  <>
+                    <span>CRL K</span>
+                  </>
+                )}
+              </kbd>
+            </Button>
           )}
         </div>
       }
