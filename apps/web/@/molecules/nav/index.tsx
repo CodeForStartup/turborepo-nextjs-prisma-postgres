@@ -19,9 +19,7 @@ export default async function Nav() {
   return (
     <header className="mx-auto flex items-center border-b p-2 sm:px-6 lg:px-8">
       <div className="container flex items-center justify-between">
-        <div className="flex items-center">
-          <Logo />
-        </div>
+        <Logo />
 
         <div className="flex items-center gap-8">
           <SearchBar />

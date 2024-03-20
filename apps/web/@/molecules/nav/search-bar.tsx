@@ -1,30 +1,104 @@
 "use client"
 
-// import { useTranslations } from "next-intl"
-import { useRouter, useSearchParams } from "next/navigation"
+import { useRef, useState } from "react"
+import { usePathname, useRouter, useSearchParams } from "next/navigation"
 
 import { useTranslations } from "next-intl"
 
+import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { cn } from "@/lib/utils"
 
 export default function SearchBar() {
-  const router = useRouter()
-  const searchParams = useSearchParams()
   const t = useTranslations()
+  const searchParams = useSearchParams()
+  const [searchTerm, setSearchTerm] = useState(searchParams.get("search") || "")
+  const router = useRouter()
+  const pathname = usePathname()
+
+  const inputRef = useRef<HTMLInputElement>(null)
+
+  const onSearch = () => {
+    const newSearchParams = new URLSearchParams(searchParams)
+
+    newSearchParams.set("search", searchTerm)
+
+    router.push(pathname + "?" + newSearchParams.toString())
+  }
+
+  const onClear = () => {
+    setSearchTerm("")
+
+    const newSearchParams = new URLSearchParams(searchParams)
+    newSearchParams.delete("search")
+    router.push(pathname + "?" + newSearchParams.toString())
+  }
 
   return (
-    <div className="w-[300px]">
+    <div className="relative">
       <Input
-        className="w-[300px]"
-        placeholder={t("common.search_placeholder")}
-        defaultValue={searchParams.get("query")}
+        ref={inputRef}
+        className="w-full min-w-[400px]"
+        placeholder={t("common.searchPlaceholder")}
+        value={searchTerm}
+        onChange={(e) => {
+          setSearchTerm(e.target.value)
+        }}
         onKeyDown={(e) => {
           if (e.key === "Enter") {
-            e.preventDefault()
-            router.push(`/search?query=${e.currentTarget.value}`)
+            onSearch()
           }
         }}
       />
+      {
+        <div className="absolute right-0.5 top-0.5 flex h-9 items-center">
+          {searchTerm && (
+            <>
+              <Button
+                className="h-9 w-9 border-none hover:bg-transparent"
+                variant="outline"
+                onClick={onClear}
+              >
+                <i className="ri-close-line text-[20px]" />
+              </Button>
+              <Button
+                variant="default"
+                onClick={onSearch}
+                className="mt-0 h-9 rounded-sm"
+              >
+                {t("common.search").toUpperCase()}
+              </Button>
+            </>
+          )}
+          {!searchTerm && (
+            <Button
+              variant="outline"
+              className="h-9 w-9 border-none hover:bg-transparent"
+              onClick={() => {
+                inputRef.current?.focus()
+              }}
+            >
+              <kbd
+                title={searchTerm ? t("common.searchShortcut") : undefined}
+                className={cn(
+                  "bg-dark-50 mr-0.5 flex h-6 items-center gap-1 rounded-sm border p-2 text-gray-500 dark:border-gray-50"
+                )}
+              >
+                {navigator?.userAgent?.toLowerCase()?.includes("mac") ? (
+                  <>
+                    <span className="text-xs">⌘</span>
+                    <span className="text-xs">K</span>
+                  </>
+                ) : (
+                  <>
+                    <span>CRL K</span>
+                  </>
+                )}
+              </kbd>
+            </Button>
+          )}
+        </div>
+      }
     </div>
   )
 }
