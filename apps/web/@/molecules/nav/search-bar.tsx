@@ -1,7 +1,7 @@
 "use client"
 
 import { useRef, useState } from "react"
-import { usePathname, useRouter, useSearchParams } from "next/navigation"
+import { useRouter, useSearchParams } from "next/navigation"
 
 import { useTranslations } from "next-intl"
 
@@ -14,7 +14,6 @@ export default function SearchBar() {
   const searchParams = useSearchParams()
   const [searchTerm, setSearchTerm] = useState(searchParams.get("search") || "")
   const router = useRouter()
-  const pathname = usePathname()
 
   const inputRef = useRef<HTMLInputElement>(null)
 
@@ -23,7 +22,7 @@ export default function SearchBar() {
 
     newSearchParams.set("search", searchTerm)
 
-    router.push(pathname + "?" + newSearchParams.toString())
+    router.push("/search" + "?" + newSearchParams.toString())
   }
 
   const onClear = () => {
@@ -31,7 +30,7 @@ export default function SearchBar() {
 
     const newSearchParams = new URLSearchParams(searchParams)
     newSearchParams.delete("search")
-    router.push(pathname + "?" + newSearchParams.toString())
+    router.push("/" + "?" + newSearchParams.toString())
   }
 
   return (
