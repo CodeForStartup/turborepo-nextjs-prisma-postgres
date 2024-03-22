@@ -50,11 +50,11 @@ export default function SearchBar() {
         }}
       />
       {
-        <div className="absolute right-0.5 top-0.5 flex h-9 items-center">
+        <div className="absolute right-1 top-1 flex h-8 items-center">
           {searchTerm && (
             <>
               <Button
-                className="h-9 w-9 border-none hover:bg-transparent"
+                className="h-8 w-8 border-none hover:bg-transparent"
                 variant="outline"
                 onClick={onClear}
               >
@@ -63,7 +63,7 @@ export default function SearchBar() {
               <Button
                 variant="default"
                 onClick={onSearch}
-                className="mt-0 h-9 rounded-sm"
+                className="mt-0 h-8 rounded-sm"
               >
                 {t("common.search").toUpperCase()}
               </Button>

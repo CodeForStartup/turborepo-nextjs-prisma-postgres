@@ -1,7 +1,7 @@
 import { Metadata } from "next"
 
 import { getPosts } from "@/actions/public/posts"
-import Filter from "@/molecules/home/filter"
+import SearchBar from "@/molecules/nav/search-bar"
 import NoItemFounded from "@/molecules/no-item-founded"
 import PostItem from "@/molecules/posts/post-item"
 
@@ -17,17 +17,15 @@ export default async function Page({ searchParams }) {
 
   return (
     <div className="">
-      <Filter />
-
+      <SearchBar />
       {posts?.data?.length === 0 ? (
         <NoItemFounded />
       ) : (
         <div className="mt-4">
           <div>
             <h1 className="flex-1 text-xl font-extrabold text-slate-700">
-              Search results for:
-              <span className="text-2xl text-slate-900">{searchParams?.search}</span> (
-              {posts?.data?.length} founded)
+              {`${posts?.total} results for`}
+              <span className="px-2 text-2xl text-slate-900">{`"${searchParams?.search}"`}</span>
             </h1>
           </div>
           <div className="mt-4">
