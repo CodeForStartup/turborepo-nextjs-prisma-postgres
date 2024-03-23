@@ -35,6 +35,25 @@ export default function SearchBar() {
     setSearchTerm(searchTermParams)
   }, [searchTermParams])
 
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
+        e.preventDefault()
+        inputRef.current?.focus()
+      }
+      if (e.key === "Escape") {
+        onClear()
+        inputRef.current?.blur()
+      }
+    }
+
+    window.addEventListener("keydown", handleKeyDown)
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown)
+    }
+  }, [])
+
   return (
     <div className="relative">
       <Input
