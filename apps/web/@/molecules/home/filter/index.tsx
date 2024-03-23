@@ -3,12 +3,17 @@
 import React, { useState } from "react"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
 
+import { cn } from "@/lib/utils"
 import { FilterValues, PeriodValues } from "@/types/filter"
 import { capitalizeFirstLetter } from "@/utils/capitalize"
 
 import { FilterItem } from "./filter-item"
 
-const Filter: React.FC = () => {
+type FilterProps = {
+  className?: string
+}
+
+const Filter: React.FC<FilterProps> = ({ className = "" }) => {
   const searchParams = useSearchParams()
   const router = useRouter()
   const pathname = usePathname()
@@ -37,7 +42,7 @@ const Filter: React.FC = () => {
   }
 
   return (
-    <div className="flex h-10 items-center justify-between">
+    <div className={cn("flex h-10 items-center justify-between", className)}>
       <div className="flex gap-2">
         <FilterItem
           label="New"

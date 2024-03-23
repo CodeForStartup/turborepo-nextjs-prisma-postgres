@@ -1,44 +1,42 @@
 import { Metadata } from "next"
 
+import { getPosts } from "@/actions/public/posts"
 import Filter from "@/molecules/home/filter"
+import SearchBar from "@/molecules/nav/search-bar"
 import NoItemFounded from "@/molecules/no-item-founded"
 import PostItem from "@/molecules/posts/post-item"
 
-export const metadata: Metadata = {
-  title: "Search",
-  description: "Search",
+export async function generateMetadata({ searchParams }): Promise<Metadata> {
+  return {
+    title: `${searchParams?.search} - Search result`,
+    description: `Search result for "${searchParams?.search}`,
+  }
 }
 
+// TODO: Hight light matching
+// TODO: Load more
 export default async function Page({ searchParams }) {
-  const posts = await fetch(
-    `${process.env.NEXT_PUBLIC_FRONTEND_URL}/api/public/posts?query=${searchParams?.query}`,
-    {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }
-  )
-
-  const postsJson = await posts.json()
+  const posts = await getPosts({
+    searchParams,
+  })
 
   return (
     <div className="">
-      <Filter />
+      <h1 className="flex-1 text-xl font-extrabold">
+        {`${posts?.total} results for`}
+        <span className="px-2 text-2xl">{`"${searchParams?.search}"`}</span>
+      </h1>
 
-      {postsJson?.length === 0 ? (
+      <SearchBar />
+
+      <Filter className="mt-3" />
+
+      {posts?.data?.length === 0 ? (
         <NoItemFounded />
       ) : (
         <div className="mt-4">
-          <div>
-            <h1 className="flex-1 text-xl font-extrabold text-slate-700">
-              Search results for:{" "}
-              <span className="text-2xl text-slate-900">{searchParams?.query}</span> (
-              {postsJson.length} founded)
-            </h1>
-          </div>
           <div className="mt-4">
-            {postsJson?.map((post) => (
+            {posts?.data?.map((post) => (
               <PostItem
                 key={post.id}
                 post={post}

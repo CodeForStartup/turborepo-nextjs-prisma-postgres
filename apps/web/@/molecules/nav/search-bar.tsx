@@ -1,7 +1,7 @@
 "use client"
 
-import { useRef, useState } from "react"
-import { usePathname, useRouter, useSearchParams } from "next/navigation"
+import { useEffect, useRef, useState } from "react"
+import { useRouter, useSearchParams } from "next/navigation"
 
 import { useTranslations } from "next-intl"
 
@@ -12,9 +12,9 @@ import { cn } from "@/lib/utils"
 export default function SearchBar() {
   const t = useTranslations()
   const searchParams = useSearchParams()
-  const [searchTerm, setSearchTerm] = useState(searchParams.get("search") || "")
+  const searchTermParams = searchParams?.get("search") || ""
+  const [searchTerm, setSearchTerm] = useState(searchTermParams)
   const router = useRouter()
-  const pathname = usePathname()
 
   const inputRef = useRef<HTMLInputElement>(null)
 
@@ -23,16 +23,36 @@ export default function SearchBar() {
 
     newSearchParams.set("search", searchTerm)
 
-    router.push(pathname + "?" + newSearchParams.toString())
+    router.push("/search" + "?" + newSearchParams.toString())
   }
 
   const onClear = () => {
     setSearchTerm("")
-
-    const newSearchParams = new URLSearchParams(searchParams)
-    newSearchParams.delete("search")
-    router.push(pathname + "?" + newSearchParams.toString())
+    router.push("/")
   }
+
+  useEffect(() => {
+    setSearchTerm(searchTermParams)
+  }, [searchTermParams])
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
+        e.preventDefault()
+        inputRef.current?.focus()
+      }
+      if (e.key === "Escape") {
+        onClear()
+        inputRef.current?.blur()
+      }
+    }
+
+    window.addEventListener("keydown", handleKeyDown)
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown)
+    }
+  }, [])
 
   return (
     <div className="relative">
@@ -51,11 +71,11 @@ export default function SearchBar() {
         }}
       />
       {
-        <div className="absolute right-0.5 top-0.5 flex h-9 items-center">
+        <div className="absolute right-1 top-1 flex h-8 items-center">
           {searchTerm && (
             <>
               <Button
-                className="h-9 w-9 border-none hover:bg-transparent"
+                className="h-8 w-8 border-none hover:bg-transparent"
                 variant="outline"
                 onClick={onClear}
               >
@@ -64,16 +84,14 @@ export default function SearchBar() {
               <Button
                 variant="default"
                 onClick={onSearch}
-                className="mt-0 h-9 rounded-sm"
+                className="mt-0 h-8 rounded-sm"
               >
                 {t("common.search").toUpperCase()}
               </Button>
             </>
           )}
           {!searchTerm && (
-            <Button
-              variant="outline"
-              className="h-9 w-9 border-none hover:bg-transparent"
+            <button
               onClick={() => {
                 inputRef.current?.focus()
               }}
@@ -81,7 +99,7 @@ export default function SearchBar() {
               <kbd
                 title={searchTerm ? t("common.searchShortcut") : undefined}
                 className={cn(
-                  "bg-dark-50 mr-0.5 flex h-6 items-center gap-1 rounded-sm border p-2 text-gray-500 dark:border-gray-50"
+                  "bg-dark-50 flex h-6 items-center gap-1 rounded-sm border p-2 text-gray-500 dark:border-gray-50"
                 )}
               >
                 {navigator?.userAgent?.toLowerCase()?.includes("mac") ? (
@@ -95,7 +113,7 @@ export default function SearchBar() {
                   </>
                 )}
               </kbd>
-            </Button>
+            </button>
           )}
         </div>
       }
