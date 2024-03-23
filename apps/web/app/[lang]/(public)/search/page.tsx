@@ -22,20 +22,19 @@ export default async function Page({ searchParams }) {
 
   return (
     <div className="">
+      <h1 className="flex-1 text-xl font-extrabold">
+        {`${posts?.total} results for`}
+        <span className="px-2 text-2xl">{`"${searchParams?.search}"`}</span>
+      </h1>
+
       <SearchBar />
+
+      <Filter className="mt-3" />
+
       {posts?.data?.length === 0 ? (
         <NoItemFounded />
       ) : (
         <div className="mt-4">
-          <div>
-            <h1 className="flex-1 text-xl font-extrabold text-slate-700">
-              {`${posts?.total} results for`}
-              <span className="px-2 text-2xl text-slate-900">{`"${searchParams?.search}"`}</span>
-            </h1>
-          </div>
-
-          <Filter />
-
           <div className="mt-4">
             {posts?.data?.map((post) => (
               <PostItem

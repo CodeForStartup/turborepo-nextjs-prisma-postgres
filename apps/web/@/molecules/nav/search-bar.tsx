@@ -1,6 +1,6 @@
 "use client"
 
-import { useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
 
 import { useTranslations } from "next-intl"
@@ -12,7 +12,8 @@ import { cn } from "@/lib/utils"
 export default function SearchBar() {
   const t = useTranslations()
   const searchParams = useSearchParams()
-  const [searchTerm, setSearchTerm] = useState(searchParams.get("search") || "")
+  const searchTermParams = searchParams?.get("search") || ""
+  const [searchTerm, setSearchTerm] = useState(searchTermParams)
   const router = useRouter()
 
   const inputRef = useRef<HTMLInputElement>(null)
@@ -27,11 +28,12 @@ export default function SearchBar() {
 
   const onClear = () => {
     setSearchTerm("")
-
-    const newSearchParams = new URLSearchParams(searchParams)
-    newSearchParams.delete("search")
-    router.push("/" + "?" + newSearchParams.toString())
+    router.push("/")
   }
+
+  useEffect(() => {
+    setSearchTerm(searchTermParams)
+  }, [searchTermParams])
 
   return (
     <div className="relative">
@@ -70,9 +72,7 @@ export default function SearchBar() {
             </>
           )}
           {!searchTerm && (
-            <Button
-              variant="outline"
-              className="h-9 w-9 border-none hover:bg-transparent"
+            <button
               onClick={() => {
                 inputRef.current?.focus()
               }}
@@ -80,7 +80,7 @@ export default function SearchBar() {
               <kbd
                 title={searchTerm ? t("common.searchShortcut") : undefined}
                 className={cn(
-                  "bg-dark-50 mr-0.5 flex h-6 items-center gap-1 rounded-sm border p-2 text-gray-500 dark:border-gray-50"
+                  "bg-dark-50 flex h-6 items-center gap-1 rounded-sm border p-2 text-gray-500 dark:border-gray-50"
                 )}
               >
                 {navigator?.userAgent?.toLowerCase()?.includes("mac") ? (
@@ -94,7 +94,7 @@ export default function SearchBar() {
                   </>
                 )}
               </kbd>
-            </Button>
+            </button>
           )}
         </div>
       }

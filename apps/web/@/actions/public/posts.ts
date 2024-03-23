@@ -15,7 +15,7 @@ export type TGetPostsResponse = {
 
 export type TGetPostsParams = {
   searchParams: {
-    query?: string
+    search?: string
     tag?: string
     filter?: string
     period?: string
@@ -53,7 +53,7 @@ export const getPost = async ({ postIdOrSlug }): Promise<TPostItem> => {
 }
 
 export const getPosts = async ({ searchParams }: TGetPostsParams): Promise<TGetPostsResponse> => {
-  const searchTerm = searchParams?.query || ""
+  const searchTerm = searchParams?.search || ""
   const tag = searchParams?.tag || ""
   const filter = searchParams?.filter || FilterValues.LASTED // lasted or hot
   const period = searchParams?.period || PeriodValues.INFINITY // lasted or hot
