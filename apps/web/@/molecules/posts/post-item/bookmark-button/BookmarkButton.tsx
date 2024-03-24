@@ -48,7 +48,7 @@ const BookmarkButton: React.FC<BookmarkButtonProps> = ({
               <i
                 className={cn({
                   "ri-bookmark-3-line text-blue-900": !isBookmarked,
-                  "ri-bookmark-2-line": isBookmarked,
+                  "ri-bookmark-2-line text-gray-500": isBookmarked,
                 })}
               />
             </Button>
