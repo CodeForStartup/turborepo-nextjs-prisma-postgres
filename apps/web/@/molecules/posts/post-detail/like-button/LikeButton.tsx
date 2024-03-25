@@ -5,10 +5,11 @@ import { useTranslations } from "next-intl"
 
 import { addRelation, removeRelation } from "@/actions/protect/postAction"
 import { Button } from "@/components/ui/button"
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 import { cn } from "@/lib/utils"
 import { TPostItem } from "@/types/posts"
+
+import Liker from "./Likers"
 
 type LikeButtonProps = {
   post: TPostItem
@@ -49,19 +50,7 @@ const LikeButton: React.FC<LikeButtonProps> = ({ post, isLiked, totalLike }: Lik
           <TooltipContent>{t(isLiked ? "common.unlike" : "common.like")}</TooltipContent>
         </Tooltip>
       </TooltipProvider>
-      <Dialog>
-        <DialogTrigger asChild>
-          <Button
-            variant="link"
-            className="h-8 text-lg font-bold"
-          >
-            {totalLike}
-          </Button>
-        </DialogTrigger>
-        <DialogContent>
-          <div className="flex flex-col gap-2">Lovers...</div>
-        </DialogContent>
-      </Dialog>
+      <Liker totalLike={totalLike} />
     </div>
   )
 }

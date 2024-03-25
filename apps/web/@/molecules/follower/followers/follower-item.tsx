@@ -3,15 +3,20 @@ import Link from "next/link"
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
+import { cn } from "@/lib/utils"
 import { TUserItem } from "@/types/users"
 
 type FollowerItemProps = {
   follower: TUserItem
+  className?: string
 }
 
-const FollowerItem: React.FC<FollowerItemProps> = ({ follower }: FollowerItemProps) => {
+const FollowerItem: React.FC<FollowerItemProps> = ({
+  follower,
+  className = "",
+}: FollowerItemProps) => {
   return (
-    <div className="flex rounded-md border p-8">
+    <div className={cn("flex rounded-md border p-8", className)}>
       <div className="flex-1">
         <Link href={`/author/${follower?.id}`}>
           <div className="flex flex-1 items-center gap-4">

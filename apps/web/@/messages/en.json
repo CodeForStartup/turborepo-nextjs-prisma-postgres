@@ -97,6 +97,7 @@
     "total_like_asc": "Least liked",
     "total_like_desc": "Most liked",
     "total_comment_asc": "Least commented",
-    "total_comment_desc": "Most commented"
+    "total_comment_desc": "Most commented",
+    "likers": "Likers"
   }
 }
