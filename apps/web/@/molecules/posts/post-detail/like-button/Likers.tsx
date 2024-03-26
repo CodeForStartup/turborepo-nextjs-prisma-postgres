@@ -2,17 +2,24 @@ import React from "react"
 
 import { useTranslations } from "next-intl"
 
+import { getLikers } from "@/actions/protect/postAction"
 import { Button } from "@/components/ui/button"
 import { Dialog, DialogContent, DialogHeader, DialogTrigger } from "@/components/ui/dialog"
 import FollowerItem from "@/molecules/follower/followers/follower-item"
 import Typography from "@/molecules/typography"
+import { TPostItem } from "@/types/posts"
 
 interface LikerProps {
   totalLike: number
+  post: TPostItem
 }
 
-const Liker: React.FC<LikerProps> = ({ totalLike }) => {
+const Liker: React.FC<LikerProps> = async ({ totalLike, post }) => {
   const t = useTranslations()
+
+  const { data: likers } = await getLikers({
+    postId: post.id,
+  })
 
   return (
     <Dialog>
@@ -24,19 +31,19 @@ const Liker: React.FC<LikerProps> = ({ totalLike }) => {
           {totalLike}
         </Button>
       </DialogTrigger>
-      <DialogContent className="w-[200px]">
+      <DialogContent className="fixed top-[200px] w-[320px]">
         <DialogHeader>
           <Typography variant="h3">{t("common.likers")}</Typography>
         </DialogHeader>
 
-        <FollowerItem
-          className="border-none"
-          follower={{ id: "1", name: "John Doe", email: "" }}
-        />
-        <FollowerItem
-          className="border-none"
-          follower={{ id: "1", name: "John Doe", email: "" }}
-        />
+        {likers?.map((liker) => (
+          <FollowerItem
+            key={liker.id}
+            className="border-none p-0"
+            user={liker}
+            showFollowButton={false}
+          />
+        ))}
       </DialogContent>
     </Dialog>
   )

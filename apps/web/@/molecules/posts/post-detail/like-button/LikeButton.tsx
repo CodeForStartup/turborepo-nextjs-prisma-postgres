@@ -9,15 +9,14 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/comp
 import { cn } from "@/lib/utils"
 import { TPostItem } from "@/types/posts"
 
-import Liker from "./Likers"
-
 type LikeButtonProps = {
   post: TPostItem
   totalLike: number
   isLiked: boolean
+  children: React.ReactNode
 }
 
-const LikeButton: React.FC<LikeButtonProps> = ({ post, isLiked, totalLike }: LikeButtonProps) => {
+const LikeButton: React.FC<LikeButtonProps> = ({ children, post, isLiked }: LikeButtonProps) => {
   const t = useTranslations()
 
   const toggleLike = () => {
@@ -50,7 +49,7 @@ const LikeButton: React.FC<LikeButtonProps> = ({ post, isLiked, totalLike }: Lik
           <TooltipContent>{t(isLiked ? "common.unlike" : "common.like")}</TooltipContent>
         </Tooltip>
       </TooltipProvider>
-      <Liker totalLike={totalLike} />
+      {children}
     </div>
   )
 }
