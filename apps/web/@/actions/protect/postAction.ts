@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache"
 
 import { PostOnUserType } from "database"
 
+import { TUserItem, userSelect } from "@/types/users"
 import { getServerSession } from "@/utils/auth"
 
 export const getTotalActions = async ({
@@ -131,5 +132,28 @@ export const removeRelation = async ({
     revalidatePath(`/post/${postSlug}`)
   } catch (error) {
     throw error
+  }
+}
+
+export const getLikers = async ({ postId }: { postId: string }) => {
+  try {
+    const likers: TUserItem[] = await prisma.user.findMany({
+      where: {
+        postOnUser: {
+          some: {
+            postId,
+            type: PostOnUserType.LIKE,
+          },
+        },
+      },
+      select: userSelect,
+    })
+
+    return {
+      data: likers,
+      errorMessage: "",
+    }
+  } catch (error) {
+    return { data: [], errorMessage: "Error fetching likers" }
   }
 }

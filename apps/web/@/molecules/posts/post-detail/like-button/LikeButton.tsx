@@ -13,9 +13,10 @@ type LikeButtonProps = {
   post: TPostItem
   totalLike: number
   isLiked: boolean
+  children: React.ReactNode
 }
 
-const LikeButton: React.FC<LikeButtonProps> = ({ post, isLiked, totalLike }: LikeButtonProps) => {
+const LikeButton: React.FC<LikeButtonProps> = ({ children, post, isLiked }: LikeButtonProps) => {
   const t = useTranslations()
 
   const toggleLike = () => {
@@ -40,7 +41,7 @@ const LikeButton: React.FC<LikeButtonProps> = ({ post, isLiked, totalLike }: Lik
               <i
                 className={cn("ri-heart-3-fill", {
                   "text-red-500": isLiked,
-                  "text-gray-300 ": !isLiked,
+                  "text-gray-500 ": !isLiked,
                 })}
               />
             </Button>
@@ -48,12 +49,7 @@ const LikeButton: React.FC<LikeButtonProps> = ({ post, isLiked, totalLike }: Lik
           <TooltipContent>{t(isLiked ? "common.unlike" : "common.like")}</TooltipContent>
         </Tooltip>
       </TooltipProvider>
-      <Button
-        variant="link"
-        className="h-8 text-lg font-bold"
-      >
-        {totalLike}
-      </Button>
+      {children}
     </div>
   )
 }

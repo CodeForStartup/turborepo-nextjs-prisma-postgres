@@ -31,7 +31,7 @@ export async function Followers({ authorId }: { authorId: string }) {
       {followers?.map((follower) => (
         <FollowerItem
           key={follower?.id}
-          follower={follower}
+          user={follower}
         />
       ))}
     </div>
