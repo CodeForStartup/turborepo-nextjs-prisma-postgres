@@ -7,6 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { Prisma } from "database"
 import dayjs from "dayjs"
 import { ArrowLeft } from "lucide-react"
+import { useTranslations } from "next-intl"
 import { useFormStatus } from "react-dom"
 import { Controller, useForm } from "react-hook-form"
 import AsyncCreatableSelect from "react-select/async-creatable"
@@ -15,6 +16,8 @@ import z from "zod"
 
 import { createPost, updatePost } from "@/actions/protect/posts"
 import { Button, buttonVariants } from "@/components/ui/button"
+import { DD_MMM_YYYY_HH_MM } from "@/constants"
+import APP_ROUTES from "@/constants/routes"
 import { cn } from "@/lib/utils"
 import Editor from "@/molecules/editor"
 import InputTitle from "@/molecules/input-title"
@@ -22,6 +25,7 @@ import { TPostItem } from "@/types/posts"
 
 const PostForm = ({ post: postData }: { post?: TPostItem }) => {
   const { title = "", content = "", tagOnPost = [] } = postData || {}
+  const t = useTranslations()
 
   const { postId } = useParams()
   const { pending } = useFormStatus()
@@ -96,19 +100,19 @@ const PostForm = ({ post: postData }: { post?: TPostItem }) => {
       <div className="mb-4 flex justify-between">
         <div className="flex">
           <Link
-            href="/user/posts"
+            href={APP_ROUTES.USER_POSTS}
             className={cn(buttonVariants({ variant: "ghost" }))}
           >
             <ArrowLeft />
-            <div className="ml-2">back</div>
+            <div className="ml-2">{t("common.back")}</div>
           </Link>
         </div>
         <div className="flex gap-4">
           {postData && (
             <div className="text-bold flex items-center gap-2">
-              <div className="text-sm text-slate-500">Lasted updated at:</div>
-              <div className="font-bold text-slate-900">
-                {dayjs(postData?.updatedAt).format("DD MMM YYYY - HH:mm")}
+              <div className="text-sm">{t("common.last_update_at")}</div>
+              <div className="font-bold">
+                {dayjs(postData?.updatedAt).format(DD_MMM_YYYY_HH_MM)}
               </div>
             </div>
           )}
@@ -120,18 +124,16 @@ const PostForm = ({ post: postData }: { post?: TPostItem }) => {
       >
         <div className="mb-4 w-full rounded-md p-8">
           <div className="w-full max-w-6xl">
-            <div>
-              <Controller
-                name="title"
-                control={control}
-                render={({ field }) => (
-                  <InputTitle
-                    placeholder="Title..."
-                    {...field}
-                  />
-                )}
-              />
-            </div>
+            <Controller
+              name="title"
+              control={control}
+              render={({ field }) => (
+                <InputTitle
+                  placeholder={t("common.title")}
+                  {...field}
+                />
+              )}
+            />
 
             <div className="mt-2">
               <Controller
@@ -139,12 +141,26 @@ const PostForm = ({ post: postData }: { post?: TPostItem }) => {
                 control={control}
                 render={({ field }) => (
                   <AsyncCreatableSelect
-                    isClearable
                     isMulti
+                    isClearable
+                    placeholder={t("common.tags")}
                     name="colors"
-                    className="basic-multi-select"
                     classNamePrefix="select"
                     loadOptions={promiseOptions}
+                    components={{
+                      IndicatorSeparator: () => null,
+                    }}
+                    value="reactjs"
+                    classNames={{
+                      menu: () => "dark:!bg-gray-900",
+                      singleValue: () => "text-gray-900 dark:text-gray-100",
+                      multiValue: () => "bg-transparent",
+                      input: () => "dark:text-white",
+                      multiValueRemove: () => "text-red-500",
+                      control: () => "!bg-transparent !border-none",
+                      option: () => "hover:bg-gray-100 dark:bg-gray-800",
+                      noOptionsMessage: () => "text-gray-500 dark:bg-gray-800",
+                    }}
                     {...field}
                   />
                 )}

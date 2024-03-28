@@ -98,6 +98,10 @@
     "total_like_desc": "Most liked",
     "total_comment_asc": "Least commented",
     "total_comment_desc": "Most commented",
-    "likers": "Likers"
+    "likers": "Likers",
+    "back": "Back",
+    "next": "Next",
+    "last_update_at": "Last update at",
+    "title": "Title"
   }
 }

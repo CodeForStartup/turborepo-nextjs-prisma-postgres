@@ -144,6 +144,7 @@ const Editor = ({ content = "", placeholder = "", name, onChange, ...props }: Ed
       )}
       <EditorContent
         {...props}
+        className="h-full w-full bg-transparent"
         name={name}
         editor={editor}
       />
