@@ -31,7 +31,7 @@ const PostForm = ({ post: postData }: { post?: TPostItem }) => {
   const { pending } = useFormStatus()
 
   const postSchema = z.object({
-    title: z.string(),
+    title: z.string().min(5, "Title must be at least 5 characters"),
     tags: z
       .array(
         z.object({
@@ -47,8 +47,7 @@ const PostForm = ({ post: postData }: { post?: TPostItem }) => {
     content: z
       .string()
       .max(10000, "Content must be at most 10000 characters")
-      .optional()
-      .nullable(),
+      .min(100, "Content must be at least 10 characters"),
   }) satisfies z.ZodType<Partial<Prisma.PostCreateInput>>
 
   const {
@@ -190,6 +189,7 @@ const PostForm = ({ post: postData }: { post?: TPostItem }) => {
           >
             Cancel
           </Link>
+          {isValid ? "valid" : "invalid"}
           <Button
             type="submit"
             disabled={!isValid || pending}
