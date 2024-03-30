@@ -189,7 +189,6 @@ const PostForm = ({ post: postData }: { post?: TPostItem }) => {
           >
             Cancel
           </Link>
-          {isValid ? "valid" : "invalid"}
           <Button
             type="submit"
             disabled={!isValid || pending}
