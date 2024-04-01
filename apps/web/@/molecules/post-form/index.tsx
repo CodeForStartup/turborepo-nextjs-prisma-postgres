@@ -121,7 +121,7 @@ const PostForm = ({ post: postData }: { post?: TPostItem }) => {
         className="mb-4 w-full max-w-6xl"
         onSubmit={handleSubmit(handleSubmitPost)}
       >
-        <div className="mb-4 w-full rounded-md p-8">
+        <div className="mb-4 w-full rounded-md py-8">
           <div className="w-full max-w-6xl">
             <Controller
               name="title"
@@ -157,7 +157,7 @@ const PostForm = ({ post: postData }: { post?: TPostItem }) => {
                       input: () => "dark:text-white",
                       multiValueRemove: () => "text-red-500",
                       control: () => "!bg-transparent !border-none",
-                      option: () => "hover:bg-gray-100 dark:bg-gray-800",
+                      option: () => "hover:bg-gray-100 dark:bg-gray-800 hover:cursor-pointer",
                       noOptionsMessage: () => "text-gray-500 dark:bg-gray-800",
                     }}
                     {...field}
@@ -182,18 +182,18 @@ const PostForm = ({ post: postData }: { post?: TPostItem }) => {
           </div>
         </div>
 
-        <div className="flex justify-end p-2">
+        <div className="flex justify-end gap-4 p-2">
           <Link
-            className="mr-4 flex h-10 items-center justify-center rounded-md text-sm font-medium"
-            href="/user/posts"
+            className={cn(buttonVariants({ variant: "ghost" }))}
+            href={APP_ROUTES.USER_POSTS}
           >
-            Cancel
+            {t("common.cancel")}
           </Link>
           <Button
             type="submit"
             disabled={!isValid || pending}
           >
-            Publish
+            {t("common.publish")}
           </Button>
         </div>
       </form>
