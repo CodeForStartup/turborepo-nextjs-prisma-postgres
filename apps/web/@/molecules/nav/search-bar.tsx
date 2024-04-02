@@ -102,7 +102,7 @@ export default function SearchBar() {
                   "bg-dark-50 flex h-6 items-center gap-1 rounded-sm border p-2 text-gray-500 dark:border-gray-50"
                 )}
               >
-                {navigator?.userAgent?.toLowerCase()?.includes("mac") ? (
+                {/* {navigator?.userAgent?.toLowerCase()?.includes("mac") ? (
                   <>
                     <span className="text-xs">⌘</span>
                     <span className="text-xs">K</span>
@@ -111,7 +111,7 @@ export default function SearchBar() {
                   <>
                     <span>CRL K</span>
                   </>
-                )}
+                )} */}
               </kbd>
             </button>
           )}

@@ -1,4 +1,4 @@
-import { BookCopy, HomeIcon, Smartphone, TagIcon } from "lucide-react"
+import { BookCopy, HomeIcon, StickyNote, TagIcon } from "lucide-react"
 import { useTranslations } from "next-intl"
 
 import SidebarItem, { SidebarItemProps } from "@/molecules/sidebar-item"
@@ -10,25 +10,21 @@ export default function PublicLayout({ children }: { children: React.ReactNode }
 
   const SIDE_BAR = [
     {
-      label: t("home"),
+      label: 'Dashboard',
       link: "/",
       icons: <HomeIcon size={16} />,
+    },
+    {
+      label: 'Posts',
+      link: "/posts",
+      icons: <StickyNote size={16} />,
     },
     {
       label: t("tags"),
       link: "/tags",
       icons: <TagIcon size={16} />,
     },
-    {
-      label: t("contact"),
-      link: "/contact",
-      icons: <Smartphone size={16} />,
-    },
-    {
-      label: t("about"),
-      link: "/about-us",
-      icons: <BookCopy size={16} />,
-    },
+
   ] as Array<SidebarItemProps>
 
   return (
