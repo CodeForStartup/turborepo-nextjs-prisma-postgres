@@ -32,7 +32,7 @@ const TagDetail = ({ tag }: TagDetailProp) => {
                 </div>
               </div>
               <div className="flex flex-1 flex-col items-center justify-center">
-                <div className="font-bold text-slate-800">{tag?.tagOnPost?.length}</div>
+                <div className="font-bold text-slate-800">0</div>
                 <div className="text-gray-400 hover:underline">
                   <Link href={`/tags/${tag.id}/follower`}>follower</Link>
                 </div>
