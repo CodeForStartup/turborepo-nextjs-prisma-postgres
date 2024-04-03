@@ -13,7 +13,7 @@ export default async function Nav() {
   const t = await getTranslations()
 
   return (
-    <header className="mx-auto items-center border-b p-2 sm:px-4 lg:px-4">
+    <header className="mx-auto h-[54px] items-center border-b p-2 sm:px-4 lg:px-4">
       <div className="flex items-center justify-between">
         <Logo />
 
