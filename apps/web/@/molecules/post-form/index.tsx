@@ -4,6 +4,7 @@ import Link from "next/link"
 import { useParams } from "next/navigation"
 
 import { zodResolver } from "@hookform/resolvers/zod"
+import { Label } from "@radix-ui/react-dropdown-menu"
 import { Prisma } from "database"
 import dayjs from "dayjs"
 import { ArrowLeft } from "lucide-react"
@@ -96,7 +97,7 @@ const PostForm = ({ post: postData }: { post?: TPostItem }) => {
 
   return (
     <div className="w-full">
-      <div className="mb-4 flex justify-between">
+      {/* <div className="mb-4 flex justify-between">
         <div className="flex">
           <Link
             href={APP_ROUTES.USER_POSTS}
@@ -116,25 +117,46 @@ const PostForm = ({ post: postData }: { post?: TPostItem }) => {
             </div>
           )}
         </div>
-      </div>
+      </div> */}
       <form
-        className="mb-4 w-full max-w-6xl"
+        className="mb-4 w-full"
         onSubmit={handleSubmit(handleSubmitPost)}
       >
-        <div className="mb-4 w-full rounded-md py-8">
-          <div className="w-full max-w-6xl">
-            <Controller
-              name="title"
-              control={control}
-              render={({ field }) => (
-                <InputTitle
-                  placeholder={t("common.title")}
-                  {...field}
-                />
-              )}
-            />
+        <div className="grid grid-cols-4 gap-8">
+          <div className="col-span-3 mb-4 w-full rounded-md">
+            <div className="w-full">
+              <Controller
+                name="title"
+                control={control}
+                render={({ field }) => (
+                  <InputTitle
+                    placeholder={t("common.title")}
+                    {...field}
+                  />
+                )}
+              />
 
-            <div className="mt-2">
+              <div className="mt-3 rounded">
+                <Controller
+                  name="content"
+                  control={control}
+                  render={({ field }) => (
+                    <Editor
+                      content={field?.value}
+                      placeholder="Content..."
+                      {...field}
+                    />
+                  )}
+                />
+              </div>
+            </div>
+          </div>
+          <div className="col-span-1">
+            <div className="flex h-[150px] items-center justify-center rounded-sm bg-slate-300">
+              Cover Image
+            </div>
+            <div className="mt-4">
+              <Label>Tags</Label>
               <Controller
                 name="tags"
                 control={control}
@@ -151,6 +173,7 @@ const PostForm = ({ post: postData }: { post?: TPostItem }) => {
                     }}
                     value="reactjs"
                     classNames={{
+                      container: () => "w-full border rounded",
                       menu: () => "dark:!bg-gray-900",
                       singleValue: () => "text-gray-900 dark:text-gray-100",
                       multiValue: () => "bg-transparent",
@@ -165,24 +188,9 @@ const PostForm = ({ post: postData }: { post?: TPostItem }) => {
                 )}
               />
             </div>
-
-            <div className="mt-3 rounded">
-              <Controller
-                name="content"
-                control={control}
-                render={({ field }) => (
-                  <Editor
-                    content={field?.value}
-                    placeholder="Content..."
-                    {...field}
-                  />
-                )}
-              />
-            </div>
           </div>
         </div>
-
-        <div className="flex justify-end gap-4 p-2">
+        <div className="flex justify-center gap-4 p-2">
           <Link
             className={cn(buttonVariants({ variant: "ghost" }))}
             href={APP_ROUTES.USER_POSTS}
@@ -192,6 +200,7 @@ const PostForm = ({ post: postData }: { post?: TPostItem }) => {
           <Button
             type="submit"
             disabled={!isValid || pending}
+            className="w-[200px]"
           >
             {t("common.publish")}
           </Button>

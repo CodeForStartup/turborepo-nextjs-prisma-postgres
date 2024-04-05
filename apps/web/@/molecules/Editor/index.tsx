@@ -41,7 +41,7 @@ const Editor = ({ content = "", placeholder = "", name, onChange, ...props }: Ed
         : this.options.levels[0]
 
       const classes = {
-        2: "text-3xl font-bold",
+        2: "text-3xl font-bold dark:text-white",
         3: "text-2xl font-bold",
         4: "text-xl font-bold",
       }
