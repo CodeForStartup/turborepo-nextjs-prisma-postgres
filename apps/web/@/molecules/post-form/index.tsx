@@ -4,7 +4,6 @@ import Link from "next/link"
 import { useParams } from "next/navigation"
 
 import { zodResolver } from "@hookform/resolvers/zod"
-import { Label } from "@radix-ui/react-dropdown-menu"
 import { Prisma } from "database"
 import dayjs from "dayjs"
 import { ArrowLeft } from "lucide-react"
@@ -17,6 +16,7 @@ import z from "zod"
 
 import { createPost, updatePost } from "@/actions/protect/posts"
 import { Button, buttonVariants } from "@/components/ui/button"
+import { Label } from "@/components/ui/label"
 import { DD_MMM_YYYY_HH_MM } from "@/constants"
 import APP_ROUTES from "@/constants/routes"
 import { cn } from "@/lib/utils"
@@ -190,20 +190,20 @@ const PostForm = ({ post: postData }: { post?: TPostItem }) => {
             </div>
           </div>
         </div>
-        <div className="flex justify-center gap-4 p-2">
-          <Link
-            className={cn(buttonVariants({ variant: "ghost" }))}
-            href={APP_ROUTES.USER_POSTS}
-          >
-            {t("common.cancel")}
-          </Link>
+        <div className="flex justify-start gap-4 p-2">
           <Button
             type="submit"
             disabled={!isValid || pending}
-            className="w-[200px]"
+            className="w-[150px] uppercase"
           >
             {t("common.publish")}
           </Button>
+          <Link
+            className={cn(buttonVariants({ variant: "outline" }), "w-[150px] uppercase")}
+            href={APP_ROUTES.USER_POSTS}
+          >
+            {t("common.save_as_draft")}
+          </Link>
         </div>
       </form>
     </div>
