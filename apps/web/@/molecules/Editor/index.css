@@ -14,7 +14,6 @@
 }
 
 .editor {
-  background-color: #fff;
   color: #0d0d0d;
   display: flex;
   flex-direction: column;
@@ -22,7 +21,6 @@
 
   &__header {
     align-items: center;
-    background: #fff;
     border-top-left-radius: 0.25rem;
     border-top-right-radius: 0.25rem;
     display: flex;

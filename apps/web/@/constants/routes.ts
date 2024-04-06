@@ -21,13 +21,13 @@ const APP_ROUTES = {
   AUTHORS: "/authors",
 
   // Authenticated routes
-  PROFILE: "user/profile",
-  SETTINGS: "user/settings",
-  CHANGE_PASSWORD: "user/change-password",
+  PROFILE: "/user/profile",
+  SETTINGS: "/user/settings",
+  CHANGE_PASSWORD: "/user/change-password",
 
-  USER_POSTS: "user/posts",
-  CREATE_POST: "user/posts/create",
-  EDIT_POST: "user/posts/:postId/edit",
+  USER_POSTS: "/user/posts",
+  CREATE_POST: "/user/posts/create",
+  EDIT_POST: "/user/posts/:postId/edit",
 }
 
 export default APP_ROUTES

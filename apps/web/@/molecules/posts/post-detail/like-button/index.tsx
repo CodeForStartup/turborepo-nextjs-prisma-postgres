@@ -10,7 +10,7 @@ type LikeButtonProps = {
   post: TPostItem
 }
 
-const LikeButtonContainer: React.FC<LikeButtonProps> = async ({ post }: LikeButtonProps) => {
+export default async function LikeButtonContainer({ post }: LikeButtonProps) {
   const { total, haveAction } = await getTotalActions({
     postId: post.id,
     actionType: PostOnUserType.LIKE,
@@ -29,5 +29,3 @@ const LikeButtonContainer: React.FC<LikeButtonProps> = async ({ post }: LikeButt
     </LikeButton>
   )
 }
-
-export default LikeButtonContainer

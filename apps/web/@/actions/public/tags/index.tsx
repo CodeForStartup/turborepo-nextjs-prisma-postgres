@@ -6,9 +6,16 @@ import { tagItemSelect, TTagItem } from "@/types/tags"
 
 export const getTagById = async (id: string): Promise<TTagItem> => {
   try {
-    const tag = await prisma.tags.findUnique({
+    const tag = await prisma.tags.findFirst({
       where: {
-        id,
+        OR: [
+          {
+            id,
+          },
+          {
+            slug: id,
+          },
+        ],
       },
       select: tagItemSelect,
     })

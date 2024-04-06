@@ -1,4 +1,4 @@
-import React from "react"
+import React, { use } from "react"
 
 import { useTranslations } from "next-intl"
 
@@ -14,12 +14,14 @@ interface LikerProps {
   post: TPostItem
 }
 
-const Liker: React.FC<LikerProps> = async ({ totalLike, post }) => {
+export default function Liker({ totalLike, post }: LikerProps) {
   const t = useTranslations()
 
-  const { data: likers } = await getLikers({
-    postId: post.id,
-  })
+  const { data: likers } = use(
+    getLikers({
+      postId: post.id,
+    })
+  )
 
   return (
     <Dialog>
@@ -48,5 +50,3 @@ const Liker: React.FC<LikerProps> = async ({ totalLike, post }) => {
     </Dialog>
   )
 }
-
-export default Liker
