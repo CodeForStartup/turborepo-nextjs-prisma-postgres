@@ -1,26 +1,25 @@
 "use client"
 
 import { ColumnDef } from "@tanstack/react-table"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Eye, Trash } from "lucide-react"
-import { cn } from "@/lib/utils"
+
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
-
-
+import { cn } from "@/lib/utils"
 
 export interface TagItemProps {
-  id: number,
-  name: string,
-  image: string,
-  description: string,
-  last_update: string,
-  total_post: string,
-  status: string,
+  id: number
+  name: string
+  image: string
+  description: string
+  last_update: string
+  total_post: string
+  status: string
   _count: {
     select: {
-      tagOnPost: undefined,
-    },
-  },
+      tagOnPost: undefined
+    }
+  }
 }
 
 export const columns: ColumnDef<TagItemProps>[] = [
@@ -39,7 +38,6 @@ export const columns: ColumnDef<TagItemProps>[] = [
           </Avatar>
           <div className="ml-2">{row.getValue("name")}</div>
         </div>
-
       )
     },
   },
@@ -68,33 +66,34 @@ export const columns: ColumnDef<TagItemProps>[] = [
     accessorKey: "status",
     header: "Status",
     cell: ({ row }) => {
-      if (row.getValue("status") === 'active') {
+      if (row.getValue("status") === "active") {
         return <Badge>{row.getValue("status")}</Badge>
-
       }
-      return <Badge variant={'secondary'}>{row.getValue("status")}</Badge>
+      return <Badge variant={"secondary"}>{row.getValue("status")}</Badge>
     },
   },
   {
     accessorKey: "action",
     header: "Action",
     cell: ({ row }) => {
-      return <div className="flex flex-row align-items">
-        <button
-          className={cn("p-1 rounded", {
-            "bg-accent": true,
-          })}
-        >
-          <Eye />
-        </button>
-        <button
-          className={cn("p-1 rounded ml-4", {
-            "bg-accent": true,
-          })}
-        >
-          <Trash className="text-red-500" />
-        </button>
-      </div>
+      return (
+        <div className="align-items flex flex-row">
+          <button
+            className={cn("rounded p-1", {
+              "bg-accent": true,
+            })}
+          >
+            <Eye />
+          </button>
+          <button
+            className={cn("ml-4 rounded p-1", {
+              "bg-accent": true,
+            })}
+          >
+            <Trash className="text-red-500" />
+          </button>
+        </div>
+      )
     },
   },
 ]

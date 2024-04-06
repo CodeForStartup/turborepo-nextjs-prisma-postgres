@@ -4,10 +4,12 @@
 import React, { useState } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
 
+import { LayoutGrid, List } from "lucide-react"
+
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { List, LayoutGrid } from "lucide-react"
 import { cn } from "@/lib/utils"
+
 interface Filter {
   isTable: boolean
   setIsTable: (value: boolean) => void
@@ -49,23 +51,20 @@ const Filter = ({ isTable, setIsTable }: Filter) => {
       <div className="flex flex-row items-center">
         <button
           onClick={() => onSetTable(true)}
-          className={cn("p-2 rounded", {
+          className={cn("rounded p-2", {
             "bg-accent": isTable,
-          },
-          )}
+          })}
         >
           <List />
         </button>
         <button
           onClick={() => onSetTable(false)}
-
-          className={cn("p-2 rounded", {
+          className={cn("rounded p-2", {
             "bg-accent": !isTable,
           })}
         >
           <LayoutGrid />
         </button>
-
       </div>
     </div>
   )

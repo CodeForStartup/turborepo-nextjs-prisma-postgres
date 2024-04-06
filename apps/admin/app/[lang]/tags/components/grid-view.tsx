@@ -1,23 +1,19 @@
-
 "use client"
 
 import React from "react"
 import Link from "next/link"
-import { Card, CardContent, CardHeader } from "@/components/ui/card"
-import { Eye, Trash, Menu } from "lucide-react"
-import { Badge } from "@/components/ui/badge"
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover"
 
-import { TagItemProps } from "./columns"
+import { Eye, Menu, Trash } from "lucide-react"
+
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-
+import { Badge } from "@/components/ui/badge"
+import { Card, CardContent, CardHeader } from "@/components/ui/card"
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import Typography from "@/molecules/typography"
 
-type Props = { tag: TagItemProps };
+import { TagItemProps } from "./columns"
+
+type Props = { tag: TagItemProps }
 
 const GridView = ({ tag }: Props) => {
   return (
@@ -34,11 +30,13 @@ const GridView = ({ tag }: Props) => {
           </Avatar>
           <div className="">
             <Popover>
-              <PopoverTrigger><Menu /></PopoverTrigger>
+              <PopoverTrigger>
+                <Menu />
+              </PopoverTrigger>
               <PopoverContent className="h-50 w-50">
                 <div className="flex flex-col">
                   <div className="flex flex-row items-center">
-                    <Eye className="h-5 w-5 mr-3" />
+                    <Eye className="mr-3 h-5 w-5" />
                     <Link
                       href={`/tags/${tag?.id}`}
                       key={tag?.id}
@@ -46,14 +44,13 @@ const GridView = ({ tag }: Props) => {
                       Show
                     </Link>
                   </div>
-                  <div className="flex flex-row items-center mt-2">
-                    <Trash className="h-5 w-5 text-red-500 mr-3" />
+                  <div className="mt-2 flex flex-row items-center">
+                    <Trash className="mr-3 h-5 w-5 text-red-500" />
                     <div>Delete</div>
                   </div>
                 </div>
               </PopoverContent>
             </Popover>
-
           </div>
         </div>
       </CardHeader>
@@ -80,11 +77,11 @@ const GridView = ({ tag }: Props) => {
         >
           {tag?._count?.select?.tagOnPost}
         </Typography>
-        {tag?.status === 'active' && <Badge>{tag?.status}</Badge>}
-        {tag?.status !== 'active' && <Badge variant='secondary'>{tag?.status}</Badge>}
+        {tag?.status === "active" && <Badge>{tag?.status}</Badge>}
+        {tag?.status !== "active" && <Badge variant="secondary">{tag?.status}</Badge>}
       </CardContent>
     </Card>
   )
 }
 
-export default GridView;
+export default GridView
