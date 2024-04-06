@@ -1,12 +1,20 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 "use client"
 
 import React, { useState } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
 
+import { LayoutGrid, List } from "lucide-react"
+
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { cn } from "@/lib/utils"
 
-const Filter = () => {
+interface Filter {
+  isTable: boolean
+  setIsTable: (value: boolean) => void
+}
+const Filter = ({ isTable, setIsTable }: Filter) => {
   const searchParams = useSearchParams()
 
   const router = useRouter()
@@ -16,8 +24,12 @@ const Filter = () => {
     router.push(`/tags?query=${searchTerm}`)
   }
 
+  const onSetTable = (check) => {
+    setIsTable(check)
+  }
+
   return (
-    <div className="mt-8 flex w-full max-w-sm items-center space-x-2">
+    <div className="flex w-full max-w-sm items-center space-x-2">
       <Input
         placeholder="Filter tags..."
         value={searchTerm}
@@ -36,6 +48,24 @@ const Filter = () => {
       >
         Filter
       </Button>
+      <div className="flex flex-row items-center">
+        <button
+          onClick={() => onSetTable(true)}
+          className={cn("rounded p-2", {
+            "bg-accent": isTable,
+          })}
+        >
+          <List />
+        </button>
+        <button
+          onClick={() => onSetTable(false)}
+          className={cn("rounded p-2", {
+            "bg-accent": !isTable,
+          })}
+        >
+          <LayoutGrid />
+        </button>
+      </div>
     </div>
   )
 }
