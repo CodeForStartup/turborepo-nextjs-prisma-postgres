@@ -11,8 +11,6 @@ import { columns, TagItemProps } from "./columns"
 import { DataTable } from "./data-table"
 import GridView from "./grid-view"
 
-// import { GetDataSuccessType } from "@/types"
-
 interface TagProps {
   tags: {
     data: TagItemProps[]

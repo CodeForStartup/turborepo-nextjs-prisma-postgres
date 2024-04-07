@@ -1,7 +1,6 @@
-// import { DEFAULT_TAG_PAGE_LIMIT } from "@/constants"
-// import APP_APIS from "@/constants/apis"
 import TaskList from "app/[lang]/tags/components/taskList"
 
+import { DEFAULT_TAG_PAGE_LIMIT } from "@/constants"
 import PageTitle from "@/molecules/page-title"
 
 // import { GetDataSuccessType } from "@/types"
@@ -14,20 +13,6 @@ export const metadata = {
 }
 
 export default async function Page({ searchParams }) {
-  // const tagsRaw = await fetch(
-  //   `${process.env.NEXT_PUBLIC_FRONTEND_URL}${APP_APIS.public.tags.GET}?${querystring.stringify({
-  //     query: searchParams?.query,
-  //     limit: searchParams?.limit,
-  //     page: searchParams?.page,
-  //   })}`,
-  //   {
-  //     method: "GET",
-  //     cache: "no-cache",
-  //   }
-  // )
-
-  // const tags: GetDataSuccessType<TTagItem[]> = await tagsRaw.json()
-
   const tags = {
     data: [
       {

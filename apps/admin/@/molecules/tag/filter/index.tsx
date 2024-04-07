@@ -5,6 +5,7 @@ import React, { useState } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
 
 import { LayoutGrid, List } from "lucide-react"
+import { useTranslations } from "next-intl"
 
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -16,6 +17,7 @@ interface Filter {
 }
 const Filter = ({ isTable, setIsTable }: Filter) => {
   const searchParams = useSearchParams()
+  const t = useTranslations()
 
   const router = useRouter()
   const [searchTerm, setSearchTerm] = useState(searchParams.get("query") || "")
@@ -29,9 +31,9 @@ const Filter = ({ isTable, setIsTable }: Filter) => {
   }
 
   return (
-    <div className="flex w-full max-w-sm items-center space-x-2">
+    <div className="flex w-full max-w-sm items-center gap-2 space-x-2">
       <Input
-        placeholder="Filter tags..."
+        placeholder={t("common.filter_tag")}
         value={searchTerm}
         onKeyDown={(e) => {
           if (e.key === "Enter") {
@@ -43,29 +45,29 @@ const Filter = ({ isTable, setIsTable }: Filter) => {
         }}
       />
       <Button
-        className="ml-2"
+        className="uppercase"
         onClick={onSearch}
       >
-        Filter
+        {t("common.filter")}
       </Button>
-      <div className="flex flex-row items-center">
-        <button
+      {/* <div className="flex flex-row items-center gap-2">
+        <Button
           onClick={() => onSetTable(true)}
           className={cn("rounded p-2", {
             "bg-accent": isTable,
           })}
         >
           <List />
-        </button>
-        <button
+        </Button>
+        <Button
           onClick={() => onSetTable(false)}
           className={cn("rounded p-2", {
             "bg-accent": !isTable,
           })}
         >
           <LayoutGrid />
-        </button>
-      </div>
+        </Button>
+      </div> */}
     </div>
   )
 }

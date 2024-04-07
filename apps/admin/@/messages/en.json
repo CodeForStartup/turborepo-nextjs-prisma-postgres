@@ -98,6 +98,8 @@
     "total_like_desc": "Most liked",
     "total_comment_asc": "Least commented",
     "total_comment_desc": "Most commented",
-    "likers": "Likers"
+    "likers": "Likers",
+    "filter": "Filter",
+    "filter_tag": "Filter by tag name..."
   }
 }
