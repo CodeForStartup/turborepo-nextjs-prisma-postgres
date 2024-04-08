@@ -1,5 +1,6 @@
 import TaskList from "app/[lang]/tags/components/taskList"
 
+import { getTags } from "@/actions/tags"
 import { DEFAULT_TAG_PAGE_LIMIT } from "@/constants"
 import PageTitle from "@/molecules/page-title"
 
@@ -13,42 +14,7 @@ export const metadata = {
 }
 
 export default async function Page({ searchParams }) {
-  const tags = {
-    data: [
-      {
-        id: 1,
-        name: "tag data",
-        description: "data explain",
-        image: "https://refine-crm.ams3.cdn.digitaloceanspaces.com/avatars/61.jpg",
-        last_update: "1/1/12024",
-        total_post: "12",
-        status: "active",
-      },
-      {
-        id: 2,
-        name: "tag data 3",
-        description: "data explain",
-        image: "https://refine-crm.ams3.cdn.digitaloceanspaces.com/avatars/61.jpg",
-        last_update: "1/1/12024",
-        total_post: "12",
-        status: "inactive",
-        _count: {
-          select: {
-            tagOnPost: true,
-          },
-        },
-      },
-      {
-        id: 3,
-        name: "tag data 3",
-        description: "data explain",
-        image: "https://refine-crm.ams3.cdn.digitaloceanspaces.com/avatars/61.jpg",
-        last_update: "1/1/12024",
-        total_post: "12",
-        status: "active",
-      },
-    ],
-  }
+  const tags = await getTags({ ...searchParams })
 
   return (
     <div className="w-full p-8">
