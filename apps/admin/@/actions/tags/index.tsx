@@ -1,23 +1,23 @@
 import { Prisma } from "database"
 
-import { tagListSelect, TTagItem } from "@/types/tags"
+import { tagListSelect } from "@/types/tags"
 
 export const getTags = async ({
   page = 1,
   limit = 10,
-  searchTerm = "",
+  query = "",
 }: {
-  searchTerm: string
+  query: string
   page: number
   limit: number
 }) => {
-  const query: Prisma.TagsFindManyArgs = {
+  const tagQuery: Prisma.TagsFindManyArgs = {
     select: tagListSelect,
-    // take: Number(limit) || 10,
+    take: Number(limit) || 10,
     skip: (page === 0 ? 0 : page - 1) * Number(limit),
     where: {
       name: {
-        contains: searchTerm,
+        contains: query,
         mode: "insensitive",
       },
     },
@@ -25,9 +25,9 @@ export const getTags = async ({
 
   try {
     const [data, total] = await Promise.all([
-      prisma.tags.findMany(query),
+      prisma.tags.findMany(tagQuery),
       prisma.tags.count({
-        where: query.where,
+        where: tagQuery.where,
       }),
     ])
 

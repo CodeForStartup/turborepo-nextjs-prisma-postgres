@@ -68,13 +68,6 @@ const getTagItem = Prisma.validator<Prisma.TagsDefaultArgs>()({
 
 const getTagList = Prisma.validator<Prisma.TagsDefaultArgs>()({
   select: tagListSelect,
-  include: {
-    _count: {
-      select: {
-        tagOnPost: true,
-      },
-    },
-  },
 })
 
 export type TTagItem = Prisma.TagsGetPayload<typeof getTagItem>

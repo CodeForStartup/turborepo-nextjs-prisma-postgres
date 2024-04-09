@@ -1,33 +1,26 @@
-/* eslint-disable jsx-a11y/click-events-have-key-events */
 "use client"
 
 import React, { useState } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
 
-import { LayoutGrid, List } from "lucide-react"
 import { useTranslations } from "next-intl"
 
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { cn } from "@/lib/utils"
+import { usePathname } from "@/utils/navigation"
 
-interface Filter {
-  isTable: boolean
-  setIsTable: (value: boolean) => void
-}
-const Filter = ({ isTable, setIsTable }: Filter) => {
+const Filter = () => {
   const searchParams = useSearchParams()
   const t = useTranslations()
-
+  const pathname = usePathname()
   const router = useRouter()
   const [searchTerm, setSearchTerm] = useState(searchParams.get("query") || "")
 
   const onSearch = () => {
-    router.push(`/tags?query=${searchTerm}`)
-  }
+    const urlSearchParam = new URLSearchParams(searchParams)
+    urlSearchParam.set("query", searchTerm)
 
-  const onSetTable = (check) => {
-    setIsTable(check)
+    router.push(`${pathname}?${urlSearchParam.toString()}`)
   }
 
   return (
@@ -50,24 +43,6 @@ const Filter = ({ isTable, setIsTable }: Filter) => {
       >
         {t("common.filter")}
       </Button>
-      {/* <div className="flex flex-row items-center gap-2">
-        <Button
-          onClick={() => onSetTable(true)}
-          className={cn("rounded p-2", {
-            "bg-accent": isTable,
-          })}
-        >
-          <List />
-        </Button>
-        <Button
-          onClick={() => onSetTable(false)}
-          className={cn("rounded p-2", {
-            "bg-accent": !isTable,
-          })}
-        >
-          <LayoutGrid />
-        </Button>
-      </div> */}
     </div>
   )
 }
