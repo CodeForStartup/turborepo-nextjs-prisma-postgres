@@ -7,12 +7,12 @@ import { TTagListItem } from "@/types/tags"
 import { columns } from "./columns"
 import { DataTable } from "./data-table"
 
-interface TagProps {
+interface TagListProps {
   tags: Array<TTagListItem>
   total: number
 }
 
-const TaskList = ({ tags, total }: TagProps) => {
+const TagList = ({ tags }: TagListProps) => {
   return (
     <div className="w-full">
       <div className="align-items mt-4 flex flex-row justify-between pb-8">
@@ -27,4 +27,4 @@ const TaskList = ({ tags, total }: TagProps) => {
   )
 }
 
-export default TaskList
+export default TagList

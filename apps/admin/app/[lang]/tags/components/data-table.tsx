@@ -1,6 +1,7 @@
 "use client"
 
 import { ColumnDef, flexRender, getCoreRowModel, useReactTable } from "@tanstack/react-table"
+import { useTranslations } from "next-intl"
 
 import {
   Table,
@@ -18,7 +19,8 @@ interface DataTableProps<TData, TValue> {
   data: TData[]
 }
 
-export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData, TValue>) {
+export function DataTable<TData, TValue>({ columns, data, total }: DataTableProps<TData, TValue>) {
+  const t = useTranslations()
   const table = useReactTable({
     data,
     columns,
@@ -62,9 +64,9 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
               <TableRow>
                 <TableCell
                   colSpan={columns.length}
-                  className="h-24 text-center"
+                  className="h-96 text-center"
                 >
-                  No results.
+                  {t("common.no_items_founded")}
                 </TableCell>
               </TableRow>
             )}

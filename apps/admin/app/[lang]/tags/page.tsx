@@ -1,4 +1,4 @@
-import TaskList from "app/[lang]/tags/components/task-list"
+import TaskList from "app/[lang]/tags/components/tags-list"
 
 import { getTags } from "@/actions/tags"
 import PageTitle from "@/molecules/page-title"
