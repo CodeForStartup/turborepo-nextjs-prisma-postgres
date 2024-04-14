@@ -14,25 +14,36 @@ import {
 
 import { DataTablePagination } from "./data-table-pagination"
 
-interface DataTableProps<TData, TValue> {
+type DataTableProps<TData, TValue> = {
   columns: ColumnDef<TData, TValue>[]
   data: TData[]
+  total: number
 }
 
 export function DataTable<TData, TValue>({ columns, data, total }: DataTableProps<TData, TValue>) {
   const t = useTranslations()
-  const table = useReactTable({
+
+  const table = useReactTable<TData>({
     data,
     columns,
+    rowCount: total,
+    initialState: {
+      pagination: {
+        pageIndex: 0,
+        pageSize: 10,
+      },
+    },
     getCoreRowModel: getCoreRowModel(),
   })
+
+  return <></>
 
   return (
     <div>
       <div className="rounded-md border">
         <Table>
           <TableHeader>
-            {table.getHeaderGroups().map((headerGroup) => (
+            {table?.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
                   return (

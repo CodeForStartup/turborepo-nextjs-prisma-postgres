@@ -1,7 +1,9 @@
-import TaskList from "app/[lang]/tags/components/tags-list"
-
 import { getTags } from "@/actions/tags"
 import PageTitle from "@/molecules/page-title"
+import { TTagListItem } from "@/types/tags"
+
+import { columns } from "./components/columns"
+import { DataTable } from "./components/data-table"
 
 export const metadata = {
   title: "Tags",
@@ -14,7 +16,8 @@ export default async function Page({ searchParams }) {
   return (
     <div className="w-full p-8">
       <PageTitle title="Tags" />
-      <TaskList
+      <DataTable<TTagListItem, string>
+        columns={columns}
         tags={data}
         total={total}
       />

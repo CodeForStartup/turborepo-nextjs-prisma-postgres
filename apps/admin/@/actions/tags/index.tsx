@@ -7,9 +7,9 @@ export const getTags = async ({
   limit = 10,
   query = "",
 }: {
-  query: string
-  page: number
-  limit: number
+  query?: string
+  page?: number
+  limit?: number
 }) => {
   const tagQuery: Prisma.TagsFindManyArgs = {
     select: tagListSelect,

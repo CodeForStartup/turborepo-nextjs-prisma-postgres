@@ -17,7 +17,15 @@ type DataTablePaginationProps<TData> = {
 export function DataTablePagination<TData>({ table }: DataTablePaginationProps<TData>) {
   return (
     <div className="flex items-center justify-between py-4">
-      <div className="flex-1 text-sm text-muted-foreground"></div>
+      <div className="flex-1 text-sm text-muted-foreground">
+        Showing {table.getState().pagination.pageSize * table.getState().pagination.pageIndex + 1}{" "}
+        to{" "}
+        {Math.min(
+          table.getState().pagination.pageSize * (table.getState().pagination.pageIndex + 1),
+          table.getState().rowCount
+        )}{" "}
+        of {table.getState().rowCount} entries
+      </div>
       <div className="flex items-center space-x-6 lg:space-x-8">
         <div className="flex flex-row items-center space-x-2">
           <Select
