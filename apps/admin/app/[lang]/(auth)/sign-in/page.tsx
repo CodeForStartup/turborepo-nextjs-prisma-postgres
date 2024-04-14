@@ -1,13 +1,11 @@
 import React from "react"
 import { redirect } from "next/navigation"
 
-import { authConfigs } from "configs/auth"
-import { getServerSession } from "next-auth"
-
 import SignInForm from "@/molecules/sign-in-form"
+import { getServerSession } from "@/utils/auth"
 
 export default async function Page() {
-  const session = await getServerSession(authConfigs)
+  const session = await getServerSession()
 
   if (session) {
     redirect("/")
