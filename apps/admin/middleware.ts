@@ -14,8 +14,6 @@ export async function middleware(req: NextRequest) {
   const currentPathname = req.nextUrl.pathname
   const session = await getToken({ req, secret: process.env.NEXTAUTH_SECRET })
 
-  console.log("mdd-session", session)
-
   if (!session?.email && currentPathname !== "/sign-in") {
     const newUrl = req.nextUrl.clone()
     const currentSearchParam = newUrl.searchParams.toString()

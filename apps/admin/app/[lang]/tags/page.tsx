@@ -1,3 +1,7 @@
+import { useState } from "react"
+
+import { PaginationState } from "@tanstack/react-table"
+
 import { getTags } from "@/actions/tags"
 import PageTitle from "@/molecules/page-title"
 import { TTagListItem } from "@/types/tags"
@@ -7,19 +11,28 @@ import { DataTable } from "./components/data-table"
 
 export const metadata = {
   title: "Tags",
-  description: "Tags are used to categorize tasks. You can create, edit, and delete tags here.",
+  description: "Tags are used to categorize posts. You can create, edit, and delete tags here.",
 }
 
 export default async function Page({ searchParams }) {
-  const { data, total } = await getTags({ ...searchParams })
+  console.log(searchParams)
+
+  const { data, total } = await getTags({
+    ...searchParams,
+  })
 
   return (
     <div className="w-full p-8">
-      <PageTitle title="Tags" />
+      <PageTitle
+        title="Tags"
+        description="Tags are used to categorize posts. You can create, edit, and delete tags here."
+      />
       <DataTable<TTagListItem, string>
         columns={columns}
-        tags={data}
+        data={data}
         total={total}
+        // pagination={pagination}
+        // setPagination={setPagination}
       />
     </div>
   )

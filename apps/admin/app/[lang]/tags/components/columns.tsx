@@ -4,9 +4,31 @@ import { ColumnDef } from "@tanstack/react-table"
 import { Eye, Trash } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
+import { Checkbox } from "@/components/ui/checkbox"
 import { TTagListItem } from "@/types/tags"
 
 export const columns: ColumnDef<TTagListItem>[] = [
+  {
+    accessorKey: "id",
+    header: ({ table }) => {
+      return (
+        <Checkbox
+          checked={table.getIsAllPageRowsSelected()}
+          onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+          aria-label="Select all"
+        />
+      )
+    },
+    cell: ({ row }) => {
+      return (
+        <Checkbox
+          checked={row.getIsSelected()}
+          onCheckedChange={(value) => row.toggleSelected(!!value)}
+          aria-label="Select row"
+        />
+      )
+    },
+  },
   {
     accessorKey: "name",
     header: "Name",
@@ -29,10 +51,10 @@ export const columns: ColumnDef<TTagListItem>[] = [
     },
   },
   {
-    accessorKey: "count",
+    accessorKey: "_count",
     header: "Total post",
     cell: ({ row }) => {
-      return <div className="">{row.getValue("_count.tagOnPost")}</div>
+      return <div className="">{JSON.stringify(row.getValue("_count").tagOnPost)}</div>
     },
   },
   {

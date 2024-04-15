@@ -1,6 +1,15 @@
 "use client"
 
-import { ColumnDef, flexRender, getCoreRowModel, useReactTable } from "@tanstack/react-table"
+import { useState } from "react"
+import { usePathname, useRouter, useSearchParams } from "next/navigation"
+
+import {
+  ColumnDef,
+  flexRender,
+  getCoreRowModel,
+  PaginationState,
+  useReactTable,
+} from "@tanstack/react-table"
 import { useTranslations } from "next-intl"
 
 import {
@@ -22,24 +31,39 @@ type DataTableProps<TData, TValue> = {
 
 export function DataTable<TData, TValue>({ columns, data, total }: DataTableProps<TData, TValue>) {
   const t = useTranslations()
+  const searchParams = useSearchParams()
+  const router = useRouter()
+  const pathname = usePathname()
+
+  const [pagination, setPagination] = useState<PaginationState>({
+    pageIndex: 0,
+    pageSize: 10,
+  })
+
+  const onSetPagination = (pagination: PaginationState) => {
+    // setPagination(pagination)
+    const params = new URLSearchParams(searchParams.toString())
+    params.set("page", pagination.pageIndex.toString())
+    params.set("limit", pagination.pageSize.toString())
+    router.push(`${pathname}?${params.toString()}`)
+  }
 
   const table = useReactTable<TData>({
     data,
     columns,
     rowCount: total,
     initialState: {
-      pagination: {
-        pageIndex: 0,
-        pageSize: 10,
-      },
+      pagination,
     },
     getCoreRowModel: getCoreRowModel(),
+    onPaginationChange: (pagination) => {
+      setPagination(pagination)
+    },
   })
-
-  return <></>
 
   return (
     <div>
+      {pagination?.pageSize}
       <div className="rounded-md border">
         <Table>
           <TableHeader>
@@ -84,7 +108,11 @@ export function DataTable<TData, TValue>({ columns, data, total }: DataTableProp
           </TableBody>
         </Table>
       </div>
-      <DataTablePagination table={table} />
+      <DataTablePagination
+        table={table}
+        pagination={pagination}
+        onSetPagination={onSetPagination}
+      />
     </div>
   )
 }
