@@ -14,7 +14,7 @@ export const getTags = async ({
   const tagQuery: Prisma.TagsFindManyArgs = {
     select: tagListSelect,
     take: Number(limit) || 10,
-    skip: (page === 0 ? 0 : page - 1) * Number(limit),
+    skip: (page > 0 ? page - 1 : 0) * Number(limit),
     where: {
       name: {
         contains: query,

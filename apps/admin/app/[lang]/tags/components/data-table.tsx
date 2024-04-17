@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
 
 import {
@@ -35,9 +35,12 @@ export function DataTable<TData, TValue>({ columns, data, total }: DataTableProp
   const router = useRouter()
   const pathname = usePathname()
 
+  const page = searchParams.get("page") ? Number(searchParams.get("page")) - 1 : 0
+  const limit = searchParams.get("limit") ? Number(searchParams.get("limit")) : 10
+
   const [pagination, setPagination] = useState<PaginationState>({
-    pageIndex: 0,
-    pageSize: 10,
+    pageIndex: limit,
+    pageSize: page,
   })
 
   const onSetPagination = (pagination: PaginationState) => {
@@ -61,9 +64,15 @@ export function DataTable<TData, TValue>({ columns, data, total }: DataTableProp
     },
   })
 
+  useEffect(() => {
+    setPagination({
+      pageIndex: page,
+      pageSize: limit,
+    })
+  }, [page, limit])
+
   return (
     <div>
-      {pagination?.pageSize}
       <div className="rounded-md border">
         <Table>
           <TableHeader>

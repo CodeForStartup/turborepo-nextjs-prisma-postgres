@@ -15,8 +15,6 @@ export const metadata = {
 }
 
 export default async function Page({ searchParams }) {
-  console.log(searchParams)
-
   const { data, total } = await getTags({
     ...searchParams,
   })
@@ -31,8 +29,6 @@ export default async function Page({ searchParams }) {
         columns={columns}
         data={data}
         total={total}
-        // pagination={pagination}
-        // setPagination={setPagination}
       />
     </div>
   )
