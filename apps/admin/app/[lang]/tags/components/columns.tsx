@@ -40,7 +40,11 @@ export const columns: ColumnDef<TTagListItem>[] = [
     accessorKey: "slug",
     header: "Slug",
     cell: ({ row }) => {
-      return <div className="">/{row.getValue("slug")}</div>
+      return (
+        <div className="">
+          <code>/{row.getValue("slug")}</code>
+        </div>
+      )
     },
   },
   {

@@ -1,5 +1,3 @@
-import { Dispatch, SetStateAction } from "react"
-
 import type { PaginationState, Table } from "@tanstack/react-table"
 import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from "lucide-react"
 
