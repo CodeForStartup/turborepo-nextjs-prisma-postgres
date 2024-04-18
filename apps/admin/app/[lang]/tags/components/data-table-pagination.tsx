@@ -62,8 +62,13 @@ export function DataTablePagination<TData>({
           <Button
             variant="outline"
             className="hidden h-8 w-8 p-0 lg:flex"
-            onClick={() => table.setPageIndex(0)}
-            disabled={!table.getCanPreviousPage()}
+            onClick={() => {
+              onSetPagination({
+                ...pagination,
+                pageIndex: 0,
+              })
+            }}
+            disabled={pagination.pageIndex < 1}
           >
             <span className="sr-only">Go to first page</span>
             <ChevronsLeft className="h-4 w-4" />
@@ -71,8 +76,13 @@ export function DataTablePagination<TData>({
           <Button
             variant="outline"
             className="h-8 w-8 p-0"
-            onClick={() => table.previousPage()}
-            disabled={!table.getCanPreviousPage()}
+            onClick={() => {
+              onSetPagination({
+                ...pagination,
+                pageIndex: pagination.pageIndex - 1,
+              })
+            }}
+            disabled={pagination.pageIndex < 1}
           >
             <span className="sr-only">Go to previous page</span>
             <ChevronLeft className="h-4 w-4" />
@@ -80,8 +90,13 @@ export function DataTablePagination<TData>({
           <Button
             variant="outline"
             className="h-8 w-8 p-0"
-            onClick={() => table.nextPage()}
-            disabled={!table.getCanNextPage()}
+            onClick={() => {
+              onSetPagination({
+                ...pagination,
+                pageIndex: pagination.pageIndex + 1,
+              })
+            }}
+            disabled={pagination.pageIndex >= table.getPageCount() - 1}
           >
             <span className="sr-only">Go to next page</span>
             <ChevronRight className="h-4 w-4" />
@@ -89,8 +104,13 @@ export function DataTablePagination<TData>({
           <Button
             variant="outline"
             className="hidden h-8 w-8 p-0 lg:flex"
-            onClick={() => table.setPageIndex(table.getPageCount() - 1)}
-            disabled={!table.getCanNextPage()}
+            onClick={() => {
+              onSetPagination({
+                ...pagination,
+                pageIndex: table.getPageCount() - 1,
+              })
+            }}
+            disabled={pagination.pageIndex >= table.getPageCount() - 1}
           >
             <span className="sr-only">Go to last page</span>
             <ChevronsRight className="h-4 w-4" />

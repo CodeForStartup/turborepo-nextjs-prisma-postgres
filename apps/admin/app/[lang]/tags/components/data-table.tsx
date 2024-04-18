@@ -39,14 +39,14 @@ export function DataTable<TData, TValue>({ columns, data, total }: DataTableProp
   const limit = searchParams.get("limit") ? Number(searchParams.get("limit")) : 10
 
   const [pagination, setPagination] = useState<PaginationState>({
-    pageIndex: limit,
-    pageSize: page,
+    pageIndex: page,
+    pageSize: limit,
   })
 
   const onSetPagination = (pagination: PaginationState) => {
     // setPagination(pagination)
     const params = new URLSearchParams(searchParams.toString())
-    params.set("page", pagination.pageIndex.toString())
+    params.set("page", String(pagination.pageIndex + 1))
     params.set("limit", pagination.pageSize.toString())
     router.push(`${pathname}?${params.toString()}`)
   }
@@ -54,7 +54,7 @@ export function DataTable<TData, TValue>({ columns, data, total }: DataTableProp
   const table = useReactTable<TData>({
     data,
     columns,
-    rowCount: total,
+    pageCount: Math.ceil(total / limit),
     initialState: {
       pagination,
     },
