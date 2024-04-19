@@ -1,15 +1,9 @@
-"use client"
-
 import React from "react"
 
 import { Button } from "@/components/ui/button"
 
-const addTag = () => {
-  return (
-    <div className="">
-      <Button className="ml-2">Create new tag</Button>
-    </div>
-  )
+const AddTag = () => {
+  return <Button className="ml-2">Create new tag</Button>
 }
 
-export default addTag
+export default AddTag

@@ -9,8 +9,13 @@ export type PageTitleProps = {
 
 export default function PageTitle({ title, description }: PageTitleProps) {
   return (
-    <div className="flex flex-col space-y-2">
-      <Typography variant="h1">{title}</Typography>
+    <div className="mb-4 flex flex-col">
+      <Typography
+        variant="h1"
+        className="text-2xl"
+      >
+        {title}
+      </Typography>
       {description && <Typography className="text-muted-foreground">{description}</Typography>}
     </div>
   )

@@ -103,6 +103,7 @@
     "back": "Back",
     "next": "Next",
     "last_update_at": "Last update at",
-    "title": "Title"
+    "title": "Title",
+    "filter": "Filter"
   }
 }

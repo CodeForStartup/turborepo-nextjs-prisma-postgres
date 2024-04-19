@@ -10,8 +10,6 @@ import { FilterValues } from "@/types/filter"
 import { postSelect, TCreatePostInput, TPostItem } from "@/types/posts"
 import { getServerSession } from "@/utils/auth"
 
-import { TGetPostsParams, TGetPostsResponse } from "../public/posts"
-
 export const getPosts = async ({ searchParams }: TGetPostsParams): Promise<TGetPostsResponse> => {
   const sessions = await getServerSession()
   if (!sessions) {
