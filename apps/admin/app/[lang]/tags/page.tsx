@@ -1,7 +1,3 @@
-import { useState } from "react"
-
-import { PaginationState } from "@tanstack/react-table"
-
 import { getTags } from "@/actions/tags"
 import PageTitle from "@/molecules/page-title"
 import { TTagListItem } from "@/types/tags"
