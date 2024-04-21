@@ -7,7 +7,9 @@ import {
   ColumnDef,
   flexRender,
   getCoreRowModel,
+  getSortedRowModel,
   PaginationState,
+  SortingState,
   useReactTable,
 } from "@tanstack/react-table"
 import { useTranslations } from "next-intl"
@@ -37,19 +39,25 @@ export function DataTable<TData, TValue>({ columns, data, total }: DataTableProp
 
   const page = searchParams.get("page") ? Number(searchParams.get("page")) - 1 : 0
   const limit = searchParams.get("limit") ? Number(searchParams.get("limit")) : 10
+  const sortingParams = searchParams.get("sorting")
 
   const [pagination, setPagination] = useState<PaginationState>({
     pageIndex: page,
     pageSize: limit,
   })
 
+  const [sorting, setSorting] = useState<SortingState>()
+
   const onSetPagination = (pagination: PaginationState) => {
-    // setPagination(pagination)
     const params = new URLSearchParams(searchParams.toString())
     params.set("page", String(pagination.pageIndex + 1))
     params.set("limit", pagination.pageSize.toString())
     router.push(`${pathname}?${params.toString()}`)
   }
+
+  useEffect(() => {
+    setSorting(sortingParams ? JSON.parse(sortingParams) : undefined)
+  }, [sortingParams])
 
   const table = useReactTable<TData>({
     data,
@@ -57,11 +65,19 @@ export function DataTable<TData, TValue>({ columns, data, total }: DataTableProp
     pageCount: Math.ceil(total / limit),
     initialState: {
       pagination,
+      sorting,
     },
+    state: {
+      pagination,
+      sorting,
+    },
+    manualSorting: true,
+    manualPagination: true,
+    manualFiltering: true,
+    getSortedRowModel: getSortedRowModel(),
     getCoreRowModel: getCoreRowModel(),
-    onPaginationChange: (pagination) => {
-      setPagination(pagination)
-    },
+    onPaginationChange: setPagination,
+    onSortingChange: setSorting,
   })
 
   useEffect(() => {

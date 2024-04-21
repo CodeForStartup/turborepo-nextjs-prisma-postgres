@@ -7,6 +7,8 @@ import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
 import { TTagListItem } from "@/types/tags"
 
+import { DataTableColumnHeader } from "./column-header"
+
 export const columns: ColumnDef<TTagListItem>[] = [
   {
     accessorKey: "id",
@@ -31,14 +33,24 @@ export const columns: ColumnDef<TTagListItem>[] = [
   },
   {
     accessorKey: "name",
-    header: "Name",
+    header: ({ column }) => (
+      <DataTableColumnHeader
+        title="Name"
+        column={column}
+      />
+    ),
     cell: ({ row }) => {
       return <div className="">{row.getValue("name")}</div>
     },
   },
   {
     accessorKey: "slug",
-    header: "Slug",
+    header: ({ column }) => (
+      <DataTableColumnHeader
+        title="Slug"
+        column={column}
+      />
+    ),
     cell: ({ row }) => {
       return (
         <div className="">
@@ -49,14 +61,25 @@ export const columns: ColumnDef<TTagListItem>[] = [
   },
   {
     accessorKey: "description",
-    header: "Description",
+    header: ({ column }) => (
+      <DataTableColumnHeader
+        title="Description"
+        column={column}
+      />
+    ),
     cell: ({ row }) => {
       return <div className="">{row.getValue("description")}</div>
     },
   },
   {
     accessorKey: "_count",
-    header: "Total post",
+    enableSorting: false,
+    header: ({ column }) => (
+      <DataTableColumnHeader
+        title="Total post"
+        column={column}
+      />
+    ),
     cell: ({ row }) => {
       return <div className="">{JSON.stringify(row.getValue("_count").tagOnPost)}</div>
     },

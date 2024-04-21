@@ -1,3 +1,4 @@
+import { ColumnSort } from "@tanstack/react-table"
 import { Prisma } from "database"
 
 import { tagListSelect } from "@/types/tags"
@@ -6,10 +7,12 @@ export const getTags = async ({
   page = 1,
   limit = 10,
   query = "",
+  sorting,
 }: {
   query?: string
   page?: number
   limit?: number
+  sorting?: string
 }) => {
   const tagQuery: Prisma.TagsFindManyArgs = {
     select: tagListSelect,
@@ -21,6 +24,13 @@ export const getTags = async ({
         mode: "insensitive",
       },
     },
+  }
+
+  if (sorting) {
+    const sortArr = JSON.parse(sorting) as ColumnSort[]
+    tagQuery.orderBy = sortArr?.map((sort) => ({
+      [sort.id]: sort.desc ? "desc" : "asc",
+    }))
   }
 
   try {
