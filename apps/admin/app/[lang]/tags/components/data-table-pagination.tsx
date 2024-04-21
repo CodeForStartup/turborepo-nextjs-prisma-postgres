@@ -30,7 +30,7 @@ export function DataTablePagination<TData>({
       <div className="flex items-center space-x-6 lg:space-x-8">
         <div className="flex flex-row items-center space-x-2">
           <Select
-            value={`${pagination.pageSize}`}
+            value={`${pagination?.pageSize}`}
             onValueChange={(value) => {
               onSetPagination({
                 ...pagination,

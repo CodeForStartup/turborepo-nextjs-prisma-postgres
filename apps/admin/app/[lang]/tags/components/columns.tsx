@@ -73,7 +73,13 @@ export const columns: ColumnDef<TTagListItem>[] = [
   },
   {
     accessorKey: "_count",
-    header: "Total post",
+    enableSorting: false,
+    header: ({ column }) => (
+      <DataTableColumnHeader
+        title="Total post"
+        column={column}
+      />
+    ),
     cell: ({ row }) => {
       return <div className="">{JSON.stringify(row.getValue("_count").tagOnPost)}</div>
     },

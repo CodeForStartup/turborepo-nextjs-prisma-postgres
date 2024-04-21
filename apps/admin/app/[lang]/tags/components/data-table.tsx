@@ -39,13 +39,14 @@ export function DataTable<TData, TValue>({ columns, data, total }: DataTableProp
 
   const page = searchParams.get("page") ? Number(searchParams.get("page")) - 1 : 0
   const limit = searchParams.get("limit") ? Number(searchParams.get("limit")) : 10
+  const sortingParams = searchParams.get("sorting")
 
   const [pagination, setPagination] = useState<PaginationState>({
     pageIndex: page,
     pageSize: limit,
   })
 
-  const [sortingState, setSortingState] = useState<SortingState>()
+  const [sorting, setSorting] = useState<SortingState>()
 
   const onSetPagination = (pagination: PaginationState) => {
     const params = new URLSearchParams(searchParams.toString())
@@ -54,12 +55,9 @@ export function DataTable<TData, TValue>({ columns, data, total }: DataTableProp
     router.push(`${pathname}?${params.toString()}`)
   }
 
-  const onSetSortingState = (sortingState: SortingState) => {
-    const params = new URLSearchParams(searchParams.toString())
-    // params.set("sort", sortingState.)
-    // params.set("order", sortingState.sortOrder)
-    // router.push(`${pathname}?${params.toString()}`)
-  }
+  useEffect(() => {
+    setSorting(sortingParams ? JSON.parse(sortingParams) : undefined)
+  }, [sortingParams])
 
   const table = useReactTable<TData>({
     data,
@@ -67,14 +65,19 @@ export function DataTable<TData, TValue>({ columns, data, total }: DataTableProp
     pageCount: Math.ceil(total / limit),
     initialState: {
       pagination,
-      sorting: sortingState,
+      sorting,
     },
+    state: {
+      pagination,
+      sorting,
+    },
+    manualSorting: true,
+    manualPagination: true,
+    manualFiltering: true,
     getSortedRowModel: getSortedRowModel(),
     getCoreRowModel: getCoreRowModel(),
-    onPaginationChange: (pagination) => {
-      setPagination(pagination)
-    },
-    onSortingChange: onSetSortingState,
+    onPaginationChange: setPagination,
+    onSortingChange: setSorting,
   })
 
   useEffect(() => {

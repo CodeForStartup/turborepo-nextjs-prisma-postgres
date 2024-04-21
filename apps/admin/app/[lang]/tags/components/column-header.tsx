@@ -1,3 +1,5 @@
+import { usePathname, useRouter, useSearchParams } from "next/navigation"
+
 import { Column } from "@tanstack/react-table"
 
 import { Button } from "@/components/ui/button"
@@ -13,6 +15,39 @@ export function DataTableColumnHeader<TData, TValue>({
   title,
   className,
 }: DataTableColumnHeaderProps<TData, TValue>) {
+  const searchParams = useSearchParams()
+  const router = useRouter()
+  const pathname = usePathname()
+
+  const onSort = () => {
+    const params = new URLSearchParams(searchParams.toString())
+
+    params.delete("sorting")
+    if (column.getIsSorted() === "desc") {
+      //
+    } else if (column.getIsSorted() === "asc") {
+      const newSort = [
+        {
+          id: column.id,
+          desc: true,
+        },
+      ]
+
+      params.append("sorting", JSON.stringify(newSort))
+    } else {
+      const newSort = [
+        {
+          id: column.id,
+          desc: false,
+        },
+      ]
+
+      params.append("sorting", JSON.stringify(newSort))
+    }
+
+    router.push(`${pathname}?${params.toString()}`)
+  }
+
   return (
     <div className={cn("flex w-full items-center justify-between", className)}>
       <div>{title}</div>
@@ -21,9 +56,7 @@ export function DataTableColumnHeader<TData, TValue>({
           variant="ghost"
           size="sm"
           className="-ml-3 h-8 gap-4 data-[state=open]:bg-accent"
-          onClick={() => {
-            column.toggleSorting()
-          }}
+          onClick={onSort}
         >
           {column.getIsSorted() === "desc" ? (
             <i className="ri-arrow-down-line" />
