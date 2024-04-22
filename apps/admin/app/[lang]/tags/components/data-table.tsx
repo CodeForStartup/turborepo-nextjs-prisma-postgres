@@ -22,6 +22,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
+import AddTag from "@/molecules/tag/addTag"
+import Filter from "@/molecules/tag/filter"
 
 import { DataTablePagination } from "./data-table-pagination"
 
@@ -89,6 +91,10 @@ export function DataTable<TData, TValue>({ columns, data, total }: DataTableProp
 
   return (
     <div>
+      <div className="align-items mt-4 flex flex-row justify-between pb-8">
+        <Filter />
+        <AddTag />
+      </div>
       <div className="rounded-md border">
         <Table>
           <TableHeader>

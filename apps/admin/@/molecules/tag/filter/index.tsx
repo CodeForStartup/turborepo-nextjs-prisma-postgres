@@ -26,7 +26,7 @@ const Filter = () => {
   return (
     <div className="flex w-full max-w-sm items-center gap-2 space-x-2">
       <Input
-        placeholder={t("common.filter_tag")}
+        placeholder={t("common.filter_by_placeholder")}
         value={searchTerm}
         onKeyDown={(e) => {
           if (e.key === "Enter") {
@@ -38,7 +38,7 @@ const Filter = () => {
         }}
       />
       <Button
-        className="uppercase"
+        className="border uppercase"
         onClick={onSearch}
       >
         {t("common.filter")}

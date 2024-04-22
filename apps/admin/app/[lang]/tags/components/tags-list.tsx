@@ -8,20 +8,17 @@ import { columns } from "./columns"
 import { DataTable } from "./data-table"
 
 interface TagListProps {
-  tags: Array<TTagListItem>
+  data: Array<TTagListItem>
   total: number
 }
 
-const TagList = ({ tags }: TagListProps) => {
+const TagList = ({ data, total }: TagListProps) => {
   return (
     <div className="w-full">
-      <div className="align-items mt-4 flex flex-row justify-between pb-8">
-        <Filter />
-        <AddTag />
-      </div>
       <DataTable<TTagListItem, string>
         columns={columns}
-        data={tags}
+        data={data}
+        total={total}
       />
     </div>
   )
