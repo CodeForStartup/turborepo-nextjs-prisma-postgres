@@ -22,8 +22,9 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-import AddTag from "@/molecules/tag/addTag"
+import AddTag from "@/molecules/tag/add-tag"
 import Filter from "@/molecules/tag/filter"
+import { TTagListItem } from "@/types/tags"
 
 import { DataTablePagination } from "./data-table-pagination"
 
@@ -93,7 +94,7 @@ export function DataTable<TData, TValue>({ columns, data, total }: DataTableProp
     <div>
       <div className="align-items mt-4 flex flex-row justify-between pb-8">
         <Filter />
-        <AddTag />
+        <AddTag<TTagListItem> table={table} />
       </div>
       <div className="rounded-md border">
         <Table>
@@ -139,7 +140,7 @@ export function DataTable<TData, TValue>({ columns, data, total }: DataTableProp
           </TableBody>
         </Table>
       </div>
-      <DataTablePagination
+      <DataTablePagination<TTagListItem>
         table={table}
         pagination={pagination}
         onSetPagination={onSetPagination}
