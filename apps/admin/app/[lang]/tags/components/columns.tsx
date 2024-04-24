@@ -12,6 +12,7 @@ import { DataTableColumnHeader } from "./column-header"
 export const columns: ColumnDef<TTagListItem>[] = [
   {
     accessorKey: "id",
+    enableHiding: false,
     header: ({ table }) => {
       return (
         <Checkbox
@@ -87,6 +88,7 @@ export const columns: ColumnDef<TTagListItem>[] = [
   {
     accessorKey: "action",
     header: "Action",
+    enableHiding: false,
     cell: () => {
       return (
         <div className="align-items flex flex-row gap-2">

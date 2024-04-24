@@ -1,9 +1,7 @@
 import { getTags } from "@/actions/tags"
 import PageTitle from "@/molecules/page-title"
-import { TTagListItem } from "@/types/tags"
 
-import { columns } from "./components/columns"
-import { DataTable } from "./components/data-table"
+import TagList from "./components/tags-list"
 
 export const metadata = {
   title: "Tags",
@@ -21,8 +19,7 @@ export default async function Page({ searchParams }) {
         title="Tags"
         description="Tags are used to categorize posts. You can create, edit, and delete tags here."
       />
-      <DataTable<TTagListItem, string>
-        columns={columns}
+      <TagList
         data={data}
         total={total}
       />
