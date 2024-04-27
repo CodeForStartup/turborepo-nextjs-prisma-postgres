@@ -6,7 +6,7 @@ export const metadata = {
   description: "",
 }
 
-export default async function Page({ searchParams }) {
+export default async function Page() {
   return (
     <div className="w-full p-8">
       <PageTitle title="Create Tag" />
