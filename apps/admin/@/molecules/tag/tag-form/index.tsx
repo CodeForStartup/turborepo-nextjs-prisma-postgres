@@ -33,7 +33,30 @@ const TagForm: React.FC<TagFormProps> = ({}) => {
       })
       .min(2, "Tag name must be at least 2 characters")
       .max(50, "Tag name must be at most 50 characters"),
-    description: z.string().optional(),
+    // Method 1:
+    // description: z
+    //   .union([
+    //     z
+    //       .string()
+    //       .min(4, "Description must be at least 4 characters")
+    //       .max(255, "Description must be at most 255 characters"),
+    //     z.string().length(0),
+    //   ])
+    //   .optional()
+    //   .transform((e) => (e === "" ? undefined : e)),
+    // Method 2:
+    // description: z
+    //   .string()
+    //   .min(4, "Description must be at least 4 characters")
+    //   .max(255, "Description must be at most 255 characters")
+    //   .or(z.literal("")),
+    // Method 3:
+    description: z
+      .string()
+      .min(4, "Description must be at least 4 characters")
+      .max(255, "Description must be at most 255 characters")
+      .optional()
+      .or(z.literal("").transform(() => undefined)),
     image: z
       .any()
       .refine((file) => {
