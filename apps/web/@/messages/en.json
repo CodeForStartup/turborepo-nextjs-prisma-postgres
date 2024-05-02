@@ -28,7 +28,7 @@
     "register": "Register",
     "profile": "Profile",
     "search": "Search",
-    "search_placeholder": "Search...",
+    "searchPlaceholder": "Enter your search here...",
     "searchResults": "Search Results",
     "searchNoResults": "No results found",
     "searching": "Searching...",
@@ -86,6 +86,7 @@
     "save": "Save",
     "cancel": "Cancel",
     "create": "Create",
+    "save_as_draft": "Save as draft",
     "preview": "Preview",
     "no_items_founded": "There are no items founded.",
     "english": "English",
@@ -97,6 +98,12 @@
     "total_like_asc": "Least liked",
     "total_like_desc": "Most liked",
     "total_comment_asc": "Least commented",
-    "total_comment_desc": "Most commented"
+    "total_comment_desc": "Most commented",
+    "likers": "Likers",
+    "back": "Back",
+    "next": "Next",
+    "last_update_at": "Last update at",
+    "title": "Title",
+    "filter": "Filter"
   }
 }

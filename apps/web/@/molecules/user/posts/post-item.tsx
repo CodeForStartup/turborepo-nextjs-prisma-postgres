@@ -9,7 +9,7 @@ import { useTranslations } from "next-intl"
 import { togglePostStatus } from "@/actions/manage-post"
 import { deletePost } from "@/actions/protect/posts"
 import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
+import { Button, buttonVariants } from "@/components/ui/button"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -88,7 +88,15 @@ export default function PostItem(post: TPostItem) {
         >
           {t(post?.postStatus === "DRAFT" ? "common.publish" : "common.draft")}
         </Button>
-        <Button variant="link">{t("common.edit")}</Button>
+        <Link
+          className={buttonVariants({
+            variant: "link",
+            className: "ml-2",
+          })}
+          href={`/user/posts/${post.id}/edit`}
+        >
+          {t("common.edit")}
+        </Link>
         <DropdownMenu>
           <DropdownMenuTrigger>
             <i className="ri-more-2-fill" />

@@ -7,6 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { Prisma } from "database"
 import dayjs from "dayjs"
 import { ArrowLeft } from "lucide-react"
+import { useTranslations } from "next-intl"
 import { useFormStatus } from "react-dom"
 import { Controller, useForm } from "react-hook-form"
 import AsyncCreatableSelect from "react-select/async-creatable"
@@ -15,6 +16,9 @@ import z from "zod"
 
 import { createPost, updatePost } from "@/actions/protect/posts"
 import { Button, buttonVariants } from "@/components/ui/button"
+import { Label } from "@/components/ui/label"
+import { DD_MMM_YYYY_HH_MM } from "@/constants"
+import APP_ROUTES from "@/constants/routes"
 import { cn } from "@/lib/utils"
 import Editor from "@/molecules/editor"
 import InputTitle from "@/molecules/input-title"
@@ -22,12 +26,13 @@ import { TPostItem } from "@/types/posts"
 
 const PostForm = ({ post: postData }: { post?: TPostItem }) => {
   const { title = "", content = "", tagOnPost = [] } = postData || {}
+  const t = useTranslations()
 
   const { postId } = useParams()
   const { pending } = useFormStatus()
 
   const postSchema = z.object({
-    title: z.string(),
+    title: z.string().min(5, "Title must be at least 5 characters"),
     tags: z
       .array(
         z.object({
@@ -43,8 +48,7 @@ const PostForm = ({ post: postData }: { post?: TPostItem }) => {
     content: z
       .string()
       .max(10000, "Content must be at most 10000 characters")
-      .optional()
-      .nullable(),
+      .min(100, "Content must be at least 10 characters"),
   }) satisfies z.ZodType<Partial<Prisma.PostCreateInput>>
 
   const {
@@ -93,72 +97,92 @@ const PostForm = ({ post: postData }: { post?: TPostItem }) => {
 
   return (
     <div className="w-full">
-      <div className="mb-4 flex justify-between">
+      {/* <div className="mb-4 flex justify-between">
         <div className="flex">
           <Link
-            href="/user/posts"
+            href={APP_ROUTES.USER_POSTS}
             className={cn(buttonVariants({ variant: "ghost" }))}
           >
             <ArrowLeft />
-            <div className="ml-2">back</div>
+            <div className="ml-2">{t("common.back")}</div>
           </Link>
         </div>
         <div className="flex gap-4">
           {postData && (
             <div className="text-bold flex items-center gap-2">
-              <div className="text-sm text-slate-500">Lasted updated at:</div>
-              <div className="font-bold text-slate-900">
-                {dayjs(postData?.updatedAt).format("DD MMM YYYY - HH:mm")}
+              <div className="text-sm">{t("common.last_update_at")}</div>
+              <div className="font-bold">
+                {dayjs(postData?.updatedAt).format(DD_MMM_YYYY_HH_MM)}
               </div>
             </div>
           )}
         </div>
-      </div>
+      </div> */}
       <form
-        className="mb-4 w-full max-w-6xl"
+        className="mb-4 w-full"
         onSubmit={handleSubmit(handleSubmitPost)}
       >
-        <div className="mb-4 w-full rounded-md p-8">
-          <div className="w-full max-w-6xl">
-            <div>
+        <div className="grid grid-cols-4 gap-8">
+          <div className="col-span-3 mb-4 w-full rounded-md">
+            <div className="w-full">
               <Controller
                 name="title"
                 control={control}
                 render={({ field }) => (
                   <InputTitle
-                    placeholder="Title..."
+                    placeholder={t("common.title")}
                     {...field}
                   />
                 )}
               />
-            </div>
 
-            <div className="mt-2">
+              <div className="mt-3 rounded">
+                <Controller
+                  name="content"
+                  control={control}
+                  render={({ field }) => (
+                    <Editor
+                      content={field?.value}
+                      placeholder="Content..."
+                      {...field}
+                    />
+                  )}
+                />
+              </div>
+            </div>
+          </div>
+          <div className="col-span-1">
+            <div className="flex h-[150px] items-center justify-center rounded-sm bg-slate-300">
+              Cover Image
+            </div>
+            <div className="mt-4">
+              <Label>Tags</Label>
               <Controller
                 name="tags"
                 control={control}
                 render={({ field }) => (
                   <AsyncCreatableSelect
-                    isClearable
                     isMulti
+                    isClearable
+                    placeholder={t("common.tags")}
                     name="colors"
-                    className="basic-multi-select"
                     classNamePrefix="select"
                     loadOptions={promiseOptions}
-                    {...field}
-                  />
-                )}
-              />
-            </div>
-
-            <div className="mt-3 rounded">
-              <Controller
-                name="content"
-                control={control}
-                render={({ field }) => (
-                  <Editor
-                    content={field?.value}
-                    placeholder="Content..."
+                    components={{
+                      IndicatorSeparator: () => null,
+                    }}
+                    value="reactjs"
+                    classNames={{
+                      container: () => "w-full border rounded",
+                      menu: () => "dark:!bg-gray-900",
+                      singleValue: () => "text-gray-900 dark:text-gray-100",
+                      multiValue: () => "bg-transparent",
+                      input: () => "dark:text-white",
+                      multiValueRemove: () => "text-red-500",
+                      control: () => "!bg-transparent !border-none",
+                      option: () => "hover:bg-gray-100 dark:bg-gray-800 hover:cursor-pointer",
+                      noOptionsMessage: () => "text-gray-500 dark:bg-gray-800",
+                    }}
                     {...field}
                   />
                 )}
@@ -166,20 +190,20 @@ const PostForm = ({ post: postData }: { post?: TPostItem }) => {
             </div>
           </div>
         </div>
-
-        <div className="flex justify-end p-2">
-          <Link
-            className="mr-4 flex h-10 items-center justify-center rounded-md text-sm font-medium"
-            href="/user/posts"
-          >
-            Cancel
-          </Link>
+        <div className="flex justify-start gap-4 p-2">
           <Button
             type="submit"
             disabled={!isValid || pending}
+            className="w-[150px] uppercase"
           >
-            Publish
+            {t("common.publish")}
           </Button>
+          <Link
+            className={cn(buttonVariants({ variant: "outline" }), "w-[150px] uppercase")}
+            href={APP_ROUTES.USER_POSTS}
+          >
+            {t("common.save_as_draft")}
+          </Link>
         </div>
       </form>
     </div>
