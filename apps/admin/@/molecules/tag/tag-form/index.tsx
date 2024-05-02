@@ -1,8 +1,9 @@
 "use client"
 
-import React, { useState } from "react"
+import React from "react"
 
 import { zodResolver } from "@hookform/resolvers/zod"
+import { createTag, Prisma } from "database"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 
@@ -10,7 +11,6 @@ import { Button } from "@/components/ui/button"
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -67,12 +67,12 @@ const TagForm: React.FC<TagFormProps> = ({}) => {
       }, "File must be an image"),
   })
 
-  const form = useForm({
+  const form = useForm<Prisma.TagsCreateInput>({
     resolver: zodResolver(formSchema),
   })
 
-  const onSubmit = () => {
-    //
+  const onSubmit = (values) => {
+    createTag(values)
   }
 
   const { handleSubmit } = form

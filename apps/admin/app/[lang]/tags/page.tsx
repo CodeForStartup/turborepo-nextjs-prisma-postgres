@@ -1,4 +1,5 @@
-import { getTags } from "@/actions/tags"
+import { getTags } from "database"
+
 import PageTitle from "@/molecules/page-title"
 
 import TagList from "./components/tags-list"

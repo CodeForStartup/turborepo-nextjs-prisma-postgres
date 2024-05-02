@@ -9,7 +9,8 @@
     "GITHUB_SECRET",
     "JWT_SECRET",
     "NEXT_PUBLIC_FB_APP_ID",
-    "DATABASE_URL"
+    "DATABASE_URL",
+    "NODE_ENV"
   ],
   "pipeline": {
     "build": {
