@@ -218,12 +218,13 @@ model Tags {
   totalLike      Int @default(0)
   totalFollowers Int @default(0)
 
-  name        String      @unique @db.VarChar(255)
-  slug        String      @unique @db.VarChar(255)
+  name        String  @unique @db.VarChar(255)
+  slug        String  @unique @db.VarChar(255)
   description String?
-  parent      String?     @db.VarChar(255)
-  count       Int         @default(0)
-  tagOnPost   TagOnPost[]
+  parent      String? @db.VarChar(255)
+  count       Int     @default(0)
+
+  tagOnPost TagOnPost[]
 }
 
 model Comment {
