@@ -1,4 +1,4 @@
-import tailwindConfig from "tailwind-config/tailwind.config.ts";
+import tailwindConfig from "tailwind-config/tailwind.config.js";
 
 module.exports = {
   semi: false,
