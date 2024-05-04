@@ -1,3 +1,5 @@
+import tailwindConfig from "tailwind-config/tailwind.config.ts";
+
 module.exports = {
   semi: false,
   printWidth: 100,
@@ -22,6 +24,6 @@ module.exports = {
     "^[.][.]/",
     "^[./]",
   ],
-  // tailwindConfig: "./apps/web/tailwind.config.js",
+  tailwindConfig: tailwindConfig,
   plugins: ['@ianvs/prettier-plugin-sort-imports', 'prettier-plugin-tailwindcss'],
 }

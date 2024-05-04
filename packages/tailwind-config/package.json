@@ -2,8 +2,11 @@
   "name": "tailwind-config",
   "version": "0.0.0",
   "private": true,
-  "main": "index.js",
+  "main": "tailwind.config.js",
   "devDependencies": {
     "tailwindcss": "^3.2.4"
+  },
+  "dependencies": {
+    "tailwindcss-animate": "^1.0.7"
   }
 }
