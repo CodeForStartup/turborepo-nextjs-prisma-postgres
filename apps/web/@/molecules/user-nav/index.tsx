@@ -16,9 +16,9 @@ import {
   DropdownMenuSeparator,
   DropdownMenuShortcut,
   DropdownMenuTrigger,
+  Typography,
 } from "ui"
 
-import Typography from "../typography"
 import { LogoutMenu } from "./LogoutMenu"
 
 export async function UserNav() {

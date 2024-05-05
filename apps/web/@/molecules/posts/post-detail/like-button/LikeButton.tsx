@@ -2,13 +2,10 @@
 
 import { PostOnUserType } from "database"
 import { useTranslations } from "next-intl"
+import { Button, cn, Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "ui"
 
 import { addRelation, removeRelation } from "@/actions/protect/postAction"
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 import { TPostItem } from "@/types/posts"
-
-import { cn } from "../../lib/utils"
-import { Button } from "./button"
 
 type LikeButtonProps = {
   post: TPostItem

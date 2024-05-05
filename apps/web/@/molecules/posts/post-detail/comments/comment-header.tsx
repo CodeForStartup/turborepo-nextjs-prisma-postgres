@@ -10,8 +10,9 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
-import Typography from "@/molecules/typography"
+  Typography,
+} from "ui"
+
 import { GetDataSuccessType } from "@/types"
 import { TCommentItem } from "@/types/comment"
 import { TPostItem } from "@/types/posts"

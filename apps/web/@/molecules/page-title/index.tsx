@@ -1,6 +1,6 @@
 import React from "react"
 
-import Typography from "../typography"
+import { Typography } from "ui"
 
 export type PageTitleProps = {
   title: string

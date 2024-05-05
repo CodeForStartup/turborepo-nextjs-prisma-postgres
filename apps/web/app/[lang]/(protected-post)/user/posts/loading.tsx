@@ -1,4 +1,4 @@
-import { Skeleton } from "@/components/ui/skeleton"
+import { Skeleton } from "ui"
 
 export default function UserPostLoading() {
   return (

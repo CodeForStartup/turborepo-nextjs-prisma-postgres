@@ -3,10 +3,9 @@
 import React from "react"
 
 import { useTheme } from "next-themes"
+import { cn } from "ui"
 
 import { bebasNeue } from "@/font"
-
-import { cn } from "../../lib/utils"
 
 interface NumberIndexProps {
   number: number

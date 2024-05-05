@@ -5,25 +5,20 @@ import { useParams } from "next/navigation"
 
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Prisma } from "database"
-import dayjs from "dayjs"
-import { ArrowLeft } from "lucide-react"
 import { useTranslations } from "next-intl"
 import { useFormStatus } from "react-dom"
 import { Controller, useForm } from "react-hook-form"
 import AsyncCreatableSelect from "react-select/async-creatable"
 import { toast } from "react-toastify"
+import { Button, buttonVariants, cn, Label } from "ui"
 import z from "zod"
 
 import { createPost, updatePost } from "@/actions/protect/posts"
-import { Label } from "@/components/ui/label"
 import { DD_MMM_YYYY_HH_MM } from "@/constants"
 import APP_ROUTES from "@/constants/routes"
 import Editor from "@/molecules/editor"
 import InputTitle from "@/molecules/input-title"
 import { TPostItem } from "@/types/posts"
-
-import { cn } from "../../lib/utils"
-import { Button, buttonVariants } from "./button"
 
 const PostForm = ({ post: postData }: { post?: TPostItem }) => {
   const { title = "", content = "", tagOnPost = [] } = postData || {}

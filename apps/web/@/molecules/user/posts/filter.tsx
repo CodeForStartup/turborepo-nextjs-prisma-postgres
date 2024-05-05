@@ -4,14 +4,8 @@ import React from "react"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
 
 import { useTranslations } from "next-intl"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "ui"
 
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
 import { ORDER_BY } from "@/constants/order"
 
 interface FilterProps {

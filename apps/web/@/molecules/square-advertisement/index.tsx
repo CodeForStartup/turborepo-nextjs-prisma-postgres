@@ -2,8 +2,7 @@ import React from "react"
 import Link from "next/link"
 
 import { GithubIcon } from "lucide-react"
-
-import Typography from "../typography"
+import { Typography } from "ui"
 
 const SquareAdvertisement: React.FC = () => {
   return (
