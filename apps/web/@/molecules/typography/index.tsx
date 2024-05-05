@@ -1,6 +1,6 @@
 import React from "react"
 
-import { cn } from "@/lib/utils"
+import { cn } from "../../lib/utils"
 
 const variants: Record<string, string> = {
   h1: "text-4xl font-bold tracking-tight",

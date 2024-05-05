@@ -9,7 +9,6 @@ import { useTranslations } from "next-intl"
 import { togglePostStatus } from "@/actions/manage-post"
 import { deletePost } from "@/actions/protect/posts"
 import { Badge } from "@/components/ui/badge"
-import { Button, buttonVariants } from "@/components/ui/button"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -18,6 +17,8 @@ import {
 } from "@/components/ui/dropdown-menu"
 import Typography from "@/molecules/typography"
 import { TPostItem } from "@/types/posts"
+
+import { Button, buttonVariants } from "./button"
 
 export default function PostItem(post: TPostItem) {
   const t = useTranslations()

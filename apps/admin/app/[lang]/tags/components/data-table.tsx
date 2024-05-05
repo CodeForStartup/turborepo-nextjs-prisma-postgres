@@ -13,15 +13,8 @@ import {
   useReactTable,
 } from "@tanstack/react-table"
 import { useTranslations } from "next-intl"
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "ui"
 
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table"
 import AddTag from "@/molecules/tag/add-tag"
 import Filter from "@/molecules/tag/filter"
 import { TTagListItem } from "@/types/tags"

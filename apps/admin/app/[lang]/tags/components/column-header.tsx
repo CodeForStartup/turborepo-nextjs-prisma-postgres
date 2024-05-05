@@ -1,9 +1,7 @@
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
 
 import { Column } from "@tanstack/react-table"
-
-import { Button } from "@/components/ui/button"
-import { cn } from "@/lib/utils"
+import { Button, cn } from "ui"
 
 interface DataTableColumnHeaderProps<TData, TValue> extends React.HTMLAttributes<HTMLDivElement> {
   column: Column<TData, TValue>

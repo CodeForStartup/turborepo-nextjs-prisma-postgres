@@ -1,7 +1,8 @@
 import React from "react"
 import Link from "next/link"
 
-import { Badge } from "@/components/ui/badge"
+import { Badge } from "ui"
+
 import APP_ROUTES from "@/constants/routes"
 import { TTagItem } from "@/types/tags"
 import { generatePath } from "@/utils/generatePath"

@@ -7,11 +7,12 @@ import dayjs from "dayjs"
 import { LucideHeart, LucideMoreHorizontal } from "lucide-react"
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Button } from "@/components/ui/button"
 import APP_ROUTES from "@/constants/routes"
 import Typography from "@/molecules/typography"
 import { TCommentItem } from "@/types/comment"
 import { generatePath } from "@/utils/generatePath"
+
+import { Button } from "./button"
 
 interface CommentItemProps {
   comment: TCommentItem

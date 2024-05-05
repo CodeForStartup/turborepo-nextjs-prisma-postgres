@@ -4,7 +4,7 @@ import React from "react"
 
 import { useTheme } from "next-themes"
 
-import { Button } from "@/components/ui/button"
+import { Button } from "./button"
 
 const ThemeToggle: React.FC = () => {
   const { theme, setTheme } = useTheme()

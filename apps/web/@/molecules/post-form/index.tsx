@@ -15,14 +15,15 @@ import { toast } from "react-toastify"
 import z from "zod"
 
 import { createPost, updatePost } from "@/actions/protect/posts"
-import { Button, buttonVariants } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
 import { DD_MMM_YYYY_HH_MM } from "@/constants"
 import APP_ROUTES from "@/constants/routes"
-import { cn } from "@/lib/utils"
 import Editor from "@/molecules/editor"
 import InputTitle from "@/molecules/input-title"
 import { TPostItem } from "@/types/posts"
+
+import { cn } from "../../lib/utils"
+import { Button, buttonVariants } from "./button"
 
 const PostForm = ({ post: postData }: { post?: TPostItem }) => {
   const { title = "", content = "", tagOnPost = [] } = postData || {}

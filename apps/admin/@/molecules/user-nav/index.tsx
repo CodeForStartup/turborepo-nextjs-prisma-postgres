@@ -3,10 +3,11 @@ import Link from "next/link"
 import { authConfigs } from "configs/auth"
 import { getServerSession } from "next-auth"
 import { getTranslations } from "next-intl/server"
-
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Button } from "@/components/ui/button"
 import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+  Button,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuGroup,
@@ -15,9 +16,9 @@ import {
   DropdownMenuSeparator,
   DropdownMenuShortcut,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+  Typography,
+} from "ui"
 
-import Typography from "../typography"
 import { LogoutMenu } from "./LogoutMenu"
 
 export async function UserNav() {

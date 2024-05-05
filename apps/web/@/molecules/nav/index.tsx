@@ -3,11 +3,11 @@ import Link from "next/link"
 import { Edit } from "lucide-react"
 import { getTranslations } from "next-intl/server"
 
-import { buttonVariants } from "@/components/ui/button"
-import { cn } from "@/lib/utils"
 import { getServerSession } from "@/utils/auth"
 
+import { cn } from "../../lib/utils"
 import { UserNav } from "../user-nav"
+import { buttonVariants } from "./button"
 import Logo from "./logo"
 import SearchBar from "./search-bar"
 import ThemeToggle from "./theme-toggle"

@@ -7,13 +7,17 @@ import { Label } from "@radix-ui/react-dropdown-menu"
 import { Tabs } from "@radix-ui/react-tabs"
 import { GithubIcon } from "lucide-react"
 import { signIn } from "next-auth/react"
-
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardFooter } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-
-import Typography from "../typography"
+import {
+  Button,
+  Card,
+  CardContent,
+  CardFooter,
+  Input,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+  Typography,
+} from "ui"
 
 export default function SignInForm() {
   const searchParams = useSearchParams()

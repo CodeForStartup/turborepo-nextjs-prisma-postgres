@@ -5,7 +5,8 @@ import React from "react"
 import { useTheme } from "next-themes"
 
 import { bebasNeue } from "@/font"
-import { cn } from "@/lib/utils"
+
+import { cn } from "../../lib/utils"
 
 interface NumberIndexProps {
   number: number
