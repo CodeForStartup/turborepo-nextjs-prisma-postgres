@@ -1,15 +1,14 @@
 import Link from "next/link"
 
 import querystring from "qs"
+import { Card, CardContent, CardHeader, Typography } from "ui"
 
-import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import { DEFAULT_TAG_PAGE_LIMIT } from "@/constants"
 import APP_APIS from "@/constants/apis"
 import NoItemFounded from "@/molecules/no-item-founded"
 import PageTitle from "@/molecules/page-title"
 import TagPagination from "@/molecules/pagination"
 import Filter from "@/molecules/tag/filter"
-import Typography from "@/molecules/typography"
 import { GetDataSuccessType } from "@/types"
 import { TTagItem } from "@/types/tags"
 

@@ -5,20 +5,20 @@ import Link from "next/link"
 import { PostStatus } from "database"
 import dayjs from "dayjs"
 import { useTranslations } from "next-intl"
-
-import { togglePostStatus } from "@/actions/manage-post"
-import { deletePost } from "@/actions/protect/posts"
-import { Badge } from "@/components/ui/badge"
 import {
+  Badge,
+  Button,
+  buttonVariants,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import Typography from "@/molecules/typography"
-import { TPostItem } from "@/types/posts"
+  Typography,
+} from "ui"
 
-import { Button, buttonVariants } from "./button"
+import { togglePostStatus } from "@/actions/manage-post"
+import { deletePost } from "@/actions/protect/posts"
+import { TPostItem } from "@/types/posts"
 
 export default function PostItem(post: TPostItem) {
   const t = useTranslations()

@@ -1,8 +1,9 @@
 import Link from "next/link"
 
+import { Typography } from "ui"
+
 import APP_ROUTES from "@/constants/routes"
 import TagList from "@/molecules/tag/tag-list"
-import Typography from "@/molecules/typography"
 import { TPostItem } from "@/types/posts"
 import { generatePath } from "@/utils/generatePath"
 

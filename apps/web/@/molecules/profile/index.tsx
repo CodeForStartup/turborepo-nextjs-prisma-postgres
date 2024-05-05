@@ -3,16 +3,11 @@
 import React from "react"
 
 import { useForm } from "react-hook-form"
+import { Button, Input, Label, Textarea, Typography } from "ui"
 
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
 import APP_APIS from "@/constants/apis"
 import { TUserItem } from "@/types/users"
 import { generatePath } from "@/utils/generatePath"
-
-import Typography from "../typography"
-import { Button } from "./button"
 
 type ProfileType = {
   user: TUserItem

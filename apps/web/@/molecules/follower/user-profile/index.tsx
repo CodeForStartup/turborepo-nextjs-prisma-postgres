@@ -1,11 +1,9 @@
 import Link from "next/link"
 
 import { getTranslations } from "next-intl/server"
+import { Avatar, AvatarFallback, AvatarImage, Card, CardContent, CardHeader, Typography } from "ui"
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import APP_APIS from "@/constants/apis"
-import Typography from "@/molecules/typography"
 import { TUserItem } from "@/types/users"
 import { generatePath } from "@/utils/generatePath"
 

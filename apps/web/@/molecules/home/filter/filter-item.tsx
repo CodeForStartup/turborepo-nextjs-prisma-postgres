@@ -1,5 +1,4 @@
-import { cn } from "../../lib/utils"
-import { Button } from "./button"
+import { Button, cn } from "ui"
 
 type FilterItemProps = {
   label: string

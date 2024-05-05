@@ -1,7 +1,6 @@
 import { useTranslations } from "next-intl"
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger, Typography } from "ui"
 
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
-import Typography from "@/molecules/typography"
 import { TPostItem } from "@/types/posts"
 
 type LikeButtonProps = {

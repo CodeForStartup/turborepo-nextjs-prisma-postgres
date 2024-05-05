@@ -1,7 +1,8 @@
 import React from "react"
 import Link from "next/link"
 
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "ui"
+
 import APP_ROUTES from "@/constants/routes"
 import { TPostItem } from "@/types/posts"
 import { generatePath } from "@/utils/generatePath"

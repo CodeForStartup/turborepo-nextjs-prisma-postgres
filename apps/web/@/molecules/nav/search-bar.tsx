@@ -4,11 +4,7 @@ import { useEffect, useRef, useState } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
 
 import { useTranslations } from "next-intl"
-
-import { Input } from "@/components/ui/input"
-
-import { cn } from "../../lib/utils"
-import { Button } from "./button"
+import { Button, cn, Input } from "ui"
 
 export default function SearchBar() {
   const t = useTranslations()

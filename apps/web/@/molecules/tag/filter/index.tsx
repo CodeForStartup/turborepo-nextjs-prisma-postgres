@@ -3,9 +3,7 @@
 import React, { useState } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
 
-import { Input } from "@/components/ui/input"
-
-import { Button } from "./button"
+import { Button, Input } from "ui"
 
 const Filter = () => {
   const searchParams = useSearchParams()

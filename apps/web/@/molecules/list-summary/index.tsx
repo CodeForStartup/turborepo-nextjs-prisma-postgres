@@ -1,8 +1,7 @@
 import React from "react"
 
 import { useTranslations } from "next-intl"
-
-import Typography from "../typography"
+import { Typography } from "ui"
 
 interface ListSummaryProps {
   total?: number

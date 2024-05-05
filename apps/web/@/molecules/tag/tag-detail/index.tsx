@@ -1,11 +1,9 @@
 import Link from "next/link"
 
 import { Tag } from "lucide-react"
+import { Button, Card, CardContent, CardHeader } from "ui"
 
-import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import { TTagItem } from "@/types/tags"
-
-import { Button } from "./button"
 
 export type TagDetailProp = {
   tag: TTagItem

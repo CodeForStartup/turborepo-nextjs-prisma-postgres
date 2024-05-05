@@ -1,11 +1,9 @@
 import React from "react"
 import Link from "next/link"
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { TUserItem } from "@/types/users"
+import { Avatar, AvatarFallback, AvatarImage, Button, cn } from "ui"
 
-import { cn } from "../../lib/utils"
-import { Button } from "./button"
+import { TUserItem } from "@/types/users"
 
 type FollowerItemProps = {
   user: TUserItem

@@ -3,9 +3,7 @@
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 
-import { cn } from "../../lib/utils"
-import Typography from "../typography"
-import { buttonVariants } from "./button"
+import { buttonVariants, cn, Typography } from "ui"
 
 export type SidebarItemProps = {
   label: string
