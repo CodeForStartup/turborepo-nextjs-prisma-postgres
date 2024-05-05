@@ -256,7 +256,7 @@ importers:
         specifier: ^18.0.7
         version: 18.2.14
       database:
-        specifier: workspace:^
+        specifier: workspace:*
         version: link:../../packages/database
       eslint-config-custom:
         specifier: workspace:*
