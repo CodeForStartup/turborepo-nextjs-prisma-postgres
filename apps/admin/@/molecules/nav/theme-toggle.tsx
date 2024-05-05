@@ -5,14 +5,13 @@ import React from "react"
 import { MoonIcon, SunIcon } from "lucide-react"
 import { useTranslations } from "next-intl"
 import { useTheme } from "next-themes"
-
-import { Button } from "@/components/ui/button"
 import {
+  Button,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+} from "ui"
 
 const ThemeToggle: React.FC = () => {
   const { setTheme } = useTheme()

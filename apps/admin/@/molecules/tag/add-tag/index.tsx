@@ -3,17 +3,17 @@ import Link from "next/link"
 
 import { Table } from "@tanstack/react-table"
 import { Plus, SlidersHorizontal } from "lucide-react"
-
-import { Button, buttonVariants } from "@/components/ui/button"
 import {
+  Button,
+  buttonVariants,
+  cn,
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import { cn } from "@/lib/utils"
+} from "ui"
 
 type AddTagProps<TData> = {
   table: Table<TData>

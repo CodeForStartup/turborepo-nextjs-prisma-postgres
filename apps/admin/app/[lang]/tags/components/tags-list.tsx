@@ -1,7 +1,5 @@
 import React from "react"
 
-import AddTag from "@/molecules/tag/add-tag"
-import Filter from "@/molecules/tag/filter"
 import { TTagListItem } from "@/types/tags"
 
 import { columns } from "./columns"

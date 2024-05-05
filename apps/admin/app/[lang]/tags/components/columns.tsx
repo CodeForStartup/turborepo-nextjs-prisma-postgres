@@ -2,9 +2,8 @@
 
 import { ColumnDef } from "@tanstack/react-table"
 import { Eye, Trash } from "lucide-react"
+import { Button, Checkbox } from "ui"
 
-import { Button } from "@/components/ui/button"
-import { Checkbox } from "@/components/ui/checkbox"
 import { TTagListItem } from "@/types/tags"
 
 import { DataTableColumnHeader } from "./column-header"

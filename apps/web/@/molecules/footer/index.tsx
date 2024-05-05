@@ -4,12 +4,11 @@ import Link from "next/link"
 import dayjs from "dayjs"
 import { TwitterIcon } from "lucide-react"
 
-import { buttonVariants } from "@/components/ui/button"
-import { cn } from "@/lib/utils"
-
+import { cn } from "../../lib/utils"
 import LanguageSwitcher from "../language-switcher"
 import Logo from "../nav/logo"
 import Typography from "../typography"
+import { buttonVariants } from "./button"
 
 const Footer: React.FC = () => {
   return (

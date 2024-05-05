@@ -2,11 +2,12 @@ import { Metadata } from "next"
 
 import { LucideHeart } from "lucide-react"
 
-import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import PageTitle from "@/molecules/page-title"
 import TagBadge from "@/molecules/tag/tag-badge"
 import Typography from "@/molecules/typography"
+
+import { Button } from "./button"
 
 export const metadata: Metadata = {
   title: "Toplist360 - Page UI",

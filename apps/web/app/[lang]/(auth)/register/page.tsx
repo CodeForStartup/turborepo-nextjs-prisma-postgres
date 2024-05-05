@@ -3,11 +3,12 @@ import Link from "next/link"
 
 import { GithubIcon } from "lucide-react"
 
-import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardFooter } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import Typography from "@/molecules/typography"
+
+import { Button } from "./button"
 
 const RegisterPage: React.FC = () => {
   return (

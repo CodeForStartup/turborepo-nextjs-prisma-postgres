@@ -7,14 +7,15 @@ import { useSession } from "next-auth/react"
 import { toast } from "react-toastify"
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Button, buttonVariants } from "@/components/ui/button"
 import { Textarea } from "@/components/ui/textarea"
 import APP_APIS from "@/constants/apis"
 import APP_ROUTES from "@/constants/routes"
-import { cn } from "@/lib/utils"
 import Typography from "@/molecules/typography"
 import { TCommentItem } from "@/types/comment"
 import { generatePath } from "@/utils/generatePath"
+
+import { cn } from "../../lib/utils"
+import { Button, buttonVariants } from "./button"
 
 interface CommentInputProps {
   postId: string

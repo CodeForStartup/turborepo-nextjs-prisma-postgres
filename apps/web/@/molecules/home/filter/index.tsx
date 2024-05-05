@@ -3,10 +3,10 @@
 import React, { useState } from "react"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
 
-import { cn } from "@/lib/utils"
 import { FilterValues, PeriodValues } from "@/types/filter"
 import { capitalizeFirstLetter } from "@/utils/capitalize"
 
+import { cn } from "../../lib/utils"
 import { FilterItem } from "./filter-item"
 
 type FilterProps = {

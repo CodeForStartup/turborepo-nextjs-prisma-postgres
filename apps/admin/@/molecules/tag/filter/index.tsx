@@ -4,9 +4,8 @@ import React, { useState } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
 
 import { useTranslations } from "next-intl"
+import { Button, Input } from "ui"
 
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
 import { usePathname } from "@/utils/navigation"
 
 const Filter = () => {

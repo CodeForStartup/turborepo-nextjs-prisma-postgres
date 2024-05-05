@@ -5,12 +5,14 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 
 import { ChevronDown, ChevronUp } from "lucide-react"
-
-import { buttonVariants } from "@/components/ui/button"
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
-import { cn } from "@/lib/utils"
-
-import Typography from "../typography"
+import {
+  buttonVariants,
+  cn,
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+  Typography,
+} from "ui"
 
 type SidebarItemChildrenProps = {
   label: string

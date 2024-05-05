@@ -5,19 +5,18 @@ import React from "react"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { createTag, Prisma } from "database"
 import { useForm } from "react-hook-form"
-import { z } from "zod"
-
-import { Button } from "@/components/ui/button"
 import {
+  Button,
   Form,
   FormControl,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
+  Input,
+  Textarea,
+} from "ui"
+import { z } from "zod"
 
 const ACCEPTED_IMAGE_TYPES = ["image/png", "image/jpeg", "image/gif"]
 

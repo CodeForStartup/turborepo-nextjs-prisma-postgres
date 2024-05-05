@@ -2,8 +2,7 @@
 
 import { signOut } from "next-auth/react"
 import { useTranslations } from "next-intl"
-
-import { DropdownMenuItem, DropdownMenuShortcut } from "@/components/ui/dropdown-menu"
+import { DropdownMenuItem, DropdownMenuShortcut } from "ui"
 
 export const LogoutMenu = () => {
   const t = useTranslations()
