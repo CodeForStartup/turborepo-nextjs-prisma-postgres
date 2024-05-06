@@ -63,12 +63,15 @@ const TagForm: React.FC<TagFormProps> = ({}) => {
       }, "Image size must be less than 1MB")
       .refine((file) => {
         return ACCEPTED_IMAGE_TYPES.includes(file?.type)
-      }, "File must be an image"),
+      }, "File must be an image")
+      .optional(),
   })
 
   const form = useForm<Prisma.TagsCreateInput>({
     resolver: zodResolver(formSchema),
   })
+
+  console.log(">>>>", form.formState)
 
   const onSubmit = (values) => {
     createTag(values)
