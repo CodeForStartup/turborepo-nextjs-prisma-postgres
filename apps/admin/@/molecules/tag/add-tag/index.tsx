@@ -55,13 +55,6 @@ const AddTag = <TData,>({ table }: AddTagProps<TData>) => {
             })}
         </DropdownMenuContent>
       </DropdownMenu>
-      {/* <Button
-        className="w-10 border p-0 uppercase"
-        variant="outline"
-      >
-        <SlidersHorizontal size="16" />
-      </Button> */}
-
       <Link
         href="/tags/add"
         className={cn(buttonVariants({ variant: "default", size: "sm" }), "border")}

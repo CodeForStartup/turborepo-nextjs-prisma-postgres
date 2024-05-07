@@ -1,16 +1,16 @@
-import Link from "next/link"
+import Link from "next/link";
 
-import { getTranslations } from "next-intl/server"
+import { getTranslations } from "next-intl/server";
 
-import { getServerSession } from "@/utils/auth"
+import { getServerSession } from "@/utils/auth";
 
-import { UserNav } from "../user-nav"
-import Logo from "./logo"
-import ThemeToggle from "./theme-toggle"
+import { UserNav } from "../user-nav";
+import Logo from "./logo";
+import ThemeToggle from "./theme-toggle";
 
 export default async function Nav() {
-  const session = await getServerSession()
-  const t = await getTranslations()
+  const session = await getServerSession();
+  const t = await getTranslations();
 
   return (
     <header className="mx-auto h-[54px] items-center border-b p-2 sm:px-4 lg:px-4">
@@ -36,5 +36,5 @@ export default async function Nav() {
         </div>
       </div>
     </header>
-  )
+  );
 }

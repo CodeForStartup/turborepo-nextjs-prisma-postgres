@@ -71,8 +71,6 @@ const TagForm: React.FC<TagFormProps> = ({}) => {
     resolver: zodResolver(formSchema),
   })
 
-  console.log(">>>>", form.formState)
-
   const onSubmit = (values) => {
     createTag(values)
   }
