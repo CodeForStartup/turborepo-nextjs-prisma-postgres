@@ -1,43 +1,37 @@
-import "./globals.css"
+import "./globals.css";
 
-import AuthProvider from "providers/authProvider"
-import { ToastContainer } from "react-toastify"
+import AuthProvider from "providers/authProvider";
+import { ToastContainer } from "react-toastify";
 
-import Nav from "@/molecules/nav"
+import Nav from "@/molecules/nav";
 
-import "react-toastify/dist/ReactToastify.css"
-import "remixicon/fonts/remixicon.css"
+import "react-toastify/dist/ReactToastify.css";
+import "remixicon/fonts/remixicon.css";
 
-import { NextIntlClientProvider, useMessages } from "next-intl"
+import { NextIntlClientProvider, useMessages } from "next-intl";
 
-import Footer from "@/molecules/footer"
-import { Providers } from "@/providers"
+import Footer from "@/molecules/footer";
+import { Providers } from "@/providers";
 
 export const metadata = {
   icons: {
     icon: "/assets/logo.png",
   },
-}
+};
 
 export default function RootLayout({
   params: { lang },
   children,
 }: {
-  params: { lang: string }
-  children: React.ReactNode
+  params: { lang: string };
+  children: React.ReactNode;
 }) {
-  const messages = useMessages()
+  const messages = useMessages();
 
   return (
-    <html
-      lang={lang || "en"}
-      suppressHydrationWarning
-    >
+    <html lang={lang || "en"} suppressHydrationWarning>
       <body>
-        <NextIntlClientProvider
-          locale={lang}
-          messages={messages}
-        >
+        <NextIntlClientProvider locale={lang} messages={messages}>
           <AuthProvider>
             <Providers>
               <Nav />
@@ -51,5 +45,5 @@ export default function RootLayout({
         </NextIntlClientProvider>
       </body>
     </html>
-  )
+  );
 }

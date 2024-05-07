@@ -1,7 +1,7 @@
-import { PrismaAdapter } from "@auth/prisma-adapter"
-import prisma from "database"
-import { NextAuthOptions } from "next-auth"
-import GithubProvider from "next-auth/providers/github"
+import { PrismaAdapter } from "@auth/prisma-adapter";
+import prisma from "database";
+import { NextAuthOptions } from "next-auth";
+import GithubProvider from "next-auth/providers/github";
 
 export const authConfigs = {
   adapter: PrismaAdapter(prisma),
@@ -24,23 +24,23 @@ export const authConfigs = {
   },
   callbacks: {
     redirect: async ({ url, baseUrl }) => {
-      if (url.startsWith("/")) return `${baseUrl}${url}`
+      if (url.startsWith("/")) return `${baseUrl}${url}`;
       else if (new URL(url).origin === baseUrl) {
-        return url
+        return url;
       }
-      return baseUrl
+      return baseUrl;
     },
     session: async ({ session, token }) => {
       if (token) {
-        session.user.id = token.uid as string
+        session.user.id = token.uid as string;
       }
-      return session
+      return session;
     },
     jwt: async ({ user, token }) => {
       if (user) {
-        token.uid = user.id
+        token.uid = user.id;
       }
-      return token
+      return token;
     },
   },
-} as NextAuthOptions
+} as NextAuthOptions;

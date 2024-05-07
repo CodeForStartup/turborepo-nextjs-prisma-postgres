@@ -1,6 +1,6 @@
-import { authConfigs } from "configs/auth"
-import { getServerSession as getServerSessionNextAuth } from "next-auth"
+import { authConfigs } from "configs/auth";
+import { getServerSession as getServerSessionNextAuth } from "next-auth";
 
 export const getServerSession = async () => {
-  return await getServerSessionNextAuth(authConfigs)
-}
+  return await getServerSessionNextAuth(authConfigs);
+};

@@ -1,31 +1,31 @@
-"use client"
+"use client";
 
-import Link from "next/link"
-import { useParams } from "next/navigation"
+import Link from "next/link";
+import { useParams } from "next/navigation";
 
-import { zodResolver } from "@hookform/resolvers/zod"
-import { Prisma } from "database"
-import { useTranslations } from "next-intl"
-import { useFormStatus } from "react-dom"
-import { Controller, useForm } from "react-hook-form"
-import AsyncCreatableSelect from "react-select/async-creatable"
-import { toast } from "react-toastify"
-import { Button, buttonVariants, cn, Label } from "ui"
-import z from "zod"
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Prisma } from "database";
+import { useTranslations } from "next-intl";
+import { useFormStatus } from "react-dom";
+import { Controller, useForm } from "react-hook-form";
+import AsyncCreatableSelect from "react-select/async-creatable";
+import { toast } from "react-toastify";
+import { Button, buttonVariants, cn, Label } from "ui";
+import z from "zod";
 
-import { createPost, updatePost } from "@/actions/protect/posts"
-import { DD_MMM_YYYY_HH_MM } from "@/constants"
-import APP_ROUTES from "@/constants/routes"
-import Editor from "@/molecules/editor"
-import InputTitle from "@/molecules/input-title"
-import { TPostItem } from "@/types/posts"
+import { createPost, updatePost } from "@/actions/protect/posts";
+import { DD_MMM_YYYY_HH_MM } from "@/constants";
+import APP_ROUTES from "@/constants/routes";
+import Editor from "@/molecules/editor";
+import InputTitle from "@/molecules/input-title";
+import { TPostItem } from "@/types/posts";
 
 const PostForm = ({ post: postData }: { post?: TPostItem }) => {
-  const { title = "", content = "", tagOnPost = [] } = postData || {}
-  const t = useTranslations()
+  const { title = "", content = "", tagOnPost = [] } = postData || {};
+  const t = useTranslations();
 
-  const { postId } = useParams()
-  const { pending } = useFormStatus()
+  const { postId } = useParams();
+  const { pending } = useFormStatus();
 
   const postSchema = z.object({
     title: z.string().min(5, "Title must be at least 5 characters"),
@@ -36,7 +36,7 @@ const PostForm = ({ post: postData }: { post?: TPostItem }) => {
           value: z.string(),
           id: z.string().optional().nullable(),
           __isNew__: z.boolean().optional().nullable(),
-        })
+        }),
       )
       .max(5, "You can only add up to 5 tags")
       .optional()
@@ -45,7 +45,7 @@ const PostForm = ({ post: postData }: { post?: TPostItem }) => {
       .string()
       .max(10000, "Content must be at most 10000 characters")
       .min(100, "Content must be at least 10 characters"),
-  }) satisfies z.ZodType<Partial<Prisma.PostCreateInput>>
+  }) satisfies z.ZodType<Partial<Prisma.PostCreateInput>>;
 
   const {
     control,
@@ -63,33 +63,33 @@ const PostForm = ({ post: postData }: { post?: TPostItem }) => {
       content,
     },
     resolver: zodResolver(postSchema),
-  })
+  });
 
   const handleSubmitPost = async (data) => {
     try {
       if (postId) {
         await updatePost(postId as string, {
           ...data,
-        })
+        });
       } else {
         await createPost({
           ...data,
-        })
+        });
       }
     } catch (error) {
-      toast.error(error.message)
+      toast.error(error.message);
     }
-  }
+  };
 
   const promiseOptions = async (inputValue: string) => {
-    const rawData = await fetch("/api/protected/tags?search=" + inputValue)
-    const tags = await rawData.json()
+    const rawData = await fetch("/api/protected/tags?search=" + inputValue);
+    const tags = await rawData.json();
 
     return tags.map((tag) => ({
       label: tag.name,
       value: tag.id,
-    }))
-  }
+    }));
+  };
 
   return (
     <div className="w-full">
@@ -114,10 +114,7 @@ const PostForm = ({ post: postData }: { post?: TPostItem }) => {
           )}
         </div>
       </div> */}
-      <form
-        className="mb-4 w-full"
-        onSubmit={handleSubmit(handleSubmitPost)}
-      >
+      <form className="mb-4 w-full" onSubmit={handleSubmit(handleSubmitPost)}>
         <div className="grid grid-cols-4 gap-8">
           <div className="col-span-3 mb-4 w-full rounded-md">
             <div className="w-full">
@@ -125,10 +122,7 @@ const PostForm = ({ post: postData }: { post?: TPostItem }) => {
                 name="title"
                 control={control}
                 render={({ field }) => (
-                  <InputTitle
-                    placeholder={t("common.title")}
-                    {...field}
-                  />
+                  <InputTitle placeholder={t("common.title")} {...field} />
                 )}
               />
 
@@ -176,7 +170,8 @@ const PostForm = ({ post: postData }: { post?: TPostItem }) => {
                       input: () => "dark:text-white",
                       multiValueRemove: () => "text-red-500",
                       control: () => "!bg-transparent !border-none",
-                      option: () => "hover:bg-gray-100 dark:bg-gray-800 hover:cursor-pointer",
+                      option: () =>
+                        "hover:bg-gray-100 dark:bg-gray-800 hover:cursor-pointer",
                       noOptionsMessage: () => "text-gray-500 dark:bg-gray-800",
                     }}
                     {...field}
@@ -195,7 +190,10 @@ const PostForm = ({ post: postData }: { post?: TPostItem }) => {
             {t("common.publish")}
           </Button>
           <Link
-            className={cn(buttonVariants({ variant: "outline" }), "w-[150px] uppercase")}
+            className={cn(
+              buttonVariants({ variant: "outline" }),
+              "w-[150px] uppercase",
+            )}
             href={APP_ROUTES.USER_POSTS}
           >
             {t("common.save_as_draft")}
@@ -203,7 +201,7 @@ const PostForm = ({ post: postData }: { post?: TPostItem }) => {
         </div>
       </form>
     </div>
-  )
-}
+  );
+};
 
-export default PostForm
+export default PostForm;

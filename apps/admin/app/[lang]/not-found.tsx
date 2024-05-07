@@ -1,5 +1,5 @@
-import React from "react"
-import Link from "next/link"
+import React from "react";
+import Link from "next/link";
 
 const NotFound: React.FC = () => {
   return (
@@ -22,7 +22,7 @@ const NotFound: React.FC = () => {
         </ul>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default NotFound
+export default NotFound;

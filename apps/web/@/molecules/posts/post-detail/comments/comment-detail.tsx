@@ -1,18 +1,18 @@
-"use client"
+"use client";
 
-import React from "react"
-import Link from "next/link"
+import React from "react";
+import Link from "next/link";
 
-import dayjs from "dayjs"
-import { LucideHeart, LucideMoreHorizontal } from "lucide-react"
-import { Avatar, AvatarFallback, AvatarImage, Button, Typography } from "ui"
+import dayjs from "dayjs";
+import { LucideHeart, LucideMoreHorizontal } from "lucide-react";
+import { Avatar, AvatarFallback, AvatarImage, Button, Typography } from "ui";
 
-import APP_ROUTES from "@/constants/routes"
-import { TCommentItem } from "@/types/comment"
-import { generatePath } from "@/utils/generatePath"
+import APP_ROUTES from "@/constants/routes";
+import { TCommentItem } from "@/types/comment";
+import { generatePath } from "@/utils/generatePath";
 
 interface CommentItemProps {
-  comment: TCommentItem
+  comment: TCommentItem;
 }
 
 const CommentItem: React.FC<CommentItemProps> = ({ comment }) => {
@@ -49,14 +49,8 @@ const CommentItem: React.FC<CommentItemProps> = ({ comment }) => {
           </time>
         </div>
         <div>
-          <Button
-            variant="link"
-            size="sm"
-          >
-            <LucideMoreHorizontal
-              size={20}
-              className="text-gray-500"
-            />
+          <Button variant="link" size="sm">
+            <LucideMoreHorizontal size={20} className="text-gray-500" />
           </Button>
         </div>
       </div>
@@ -64,19 +58,12 @@ const CommentItem: React.FC<CommentItemProps> = ({ comment }) => {
         <Typography>{comment?.content}</Typography>
       </div>
 
-      <Button
-        variant="link"
-        size="sm"
-        className="mt-2"
-      >
-        <LucideHeart
-          size={20}
-          className="text-gray-500"
-        />
+      <Button variant="link" size="sm" className="mt-2">
+        <LucideHeart size={20} className="text-gray-500" />
         <span className="ml-1">100</span>
       </Button>
     </div>
-  )
-}
+  );
+};
 
-export default CommentItem
+export default CommentItem;

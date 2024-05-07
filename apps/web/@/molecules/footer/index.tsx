@@ -1,12 +1,12 @@
-import React from "react"
-import Link from "next/link"
+import React from "react";
+import Link from "next/link";
 
-import dayjs from "dayjs"
-import { TwitterIcon } from "lucide-react"
-import { buttonVariants, cn, Typography } from "ui"
+import dayjs from "dayjs";
+import { TwitterIcon } from "lucide-react";
+import { buttonVariants, cn, Typography } from "ui";
 
-import LanguageSwitcher from "../language-switcher"
-import Logo from "../nav/logo"
+import LanguageSwitcher from "../language-switcher";
+import Logo from "../nav/logo";
 
 const Footer: React.FC = () => {
   return (
@@ -16,10 +16,7 @@ const Footer: React.FC = () => {
           <div className="col-span-4 md:col-span-2 lg:col-span-1">
             <div className="mr-4">
               <Logo />
-              <Typography
-                variant="p"
-                className="text-gray-500"
-              >
+              <Typography variant="p" className="text-gray-500">
                 Top list of everything
               </Typography>
             </div>
@@ -33,10 +30,7 @@ const Footer: React.FC = () => {
             </div>
           </div>
           <div className="col-span-4 md:col-span-2 lg:col-span-1">
-            <Typography
-              variant="h5"
-              className="mb-8"
-            >
+            <Typography variant="h5" className="mb-8">
               TOP
             </Typography>
             <ul>
@@ -58,10 +52,7 @@ const Footer: React.FC = () => {
             </ul>
           </div>
           <div className="col-span-4 md:col-span-2 lg:col-span-1">
-            <Typography
-              variant="h5"
-              className="mb-8"
-            >
+            <Typography variant="h5" className="mb-8">
               About us
             </Typography>
             <ul>
@@ -77,10 +68,7 @@ const Footer: React.FC = () => {
             </ul>
           </div>
           <div className="col-span-4 md:col-span-2 lg:col-span-1">
-            <Typography
-              variant="h5"
-              className="mb-8"
-            >
+            <Typography variant="h5" className="mb-8">
               Our services
             </Typography>
             <ul>
@@ -96,7 +84,9 @@ const Footer: React.FC = () => {
               </li>
               <li>
                 <Typography>
-                  <Link href="https://codeforstartup.com/outsourcing">Outsourcing</Link>
+                  <Link href="https://codeforstartup.com/outsourcing">
+                    Outsourcing
+                  </Link>
                 </Typography>
               </li>
             </ul>
@@ -105,17 +95,15 @@ const Footer: React.FC = () => {
       </div>
       <div className="border py-4">
         <div className="container flex items-center justify-between">
-          <Typography
-            variant="p"
-            className="text-gray-500"
-          >
-            ©{dayjs().year()} <Link href={"https://codeforstartup.com"}>codeforstartup</Link>
+          <Typography variant="p" className="text-gray-500">
+            ©{dayjs().year()}{" "}
+            <Link href={"https://codeforstartup.com"}>codeforstartup</Link>
           </Typography>
           <LanguageSwitcher />
         </div>
       </div>
     </footer>
-  )
-}
+  );
+};
 
-export default Footer
+export default Footer;

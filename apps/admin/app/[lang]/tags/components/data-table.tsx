@@ -1,7 +1,7 @@
-"use client"
+"use client";
 
-import { useEffect, useState } from "react"
-import { usePathname, useRouter, useSearchParams } from "next/navigation"
+import { useEffect, useState } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 import {
   ColumnDef,
@@ -11,49 +11,64 @@ import {
   PaginationState,
   SortingState,
   useReactTable,
-} from "@tanstack/react-table"
-import { useTranslations } from "next-intl"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "ui"
+} from "@tanstack/react-table";
+import { useTranslations } from "next-intl";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "ui";
 
-import AddTag from "@/molecules/tag/add-tag"
-import Filter from "@/molecules/tag/filter"
-import { TTagListItem } from "@/types/tags"
+import AddTag from "@/molecules/tag/add-tag";
+import Filter from "@/molecules/tag/filter";
+import { TTagListItem } from "@/types/tags";
 
-import { DataTablePagination } from "./data-table-pagination"
+import { DataTablePagination } from "./data-table-pagination";
 
 type DataTableProps<TData, TValue> = {
-  columns: ColumnDef<TData, TValue>[]
-  data: TData[]
-  total: number
-}
+  columns: ColumnDef<TData, TValue>[];
+  data: TData[];
+  total: number;
+};
 
-export function DataTable<TData, TValue>({ columns, data, total }: DataTableProps<TData, TValue>) {
-  const t = useTranslations()
-  const searchParams = useSearchParams()
-  const router = useRouter()
-  const pathname = usePathname()
+export function DataTable<TData, TValue>({
+  columns,
+  data,
+  total,
+}: DataTableProps<TData, TValue>) {
+  const t = useTranslations();
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const pathname = usePathname();
 
-  const page = searchParams.get("page") ? Number(searchParams.get("page")) - 1 : 0
-  const limit = searchParams.get("limit") ? Number(searchParams.get("limit")) : 10
-  const sortingParams = searchParams.get("sorting")
+  const page = searchParams.get("page")
+    ? Number(searchParams.get("page")) - 1
+    : 0;
+  const limit = searchParams.get("limit")
+    ? Number(searchParams.get("limit"))
+    : 10;
+  const sortingParams = searchParams.get("sorting");
 
   const [pagination, setPagination] = useState<PaginationState>({
     pageIndex: page,
     pageSize: limit,
-  })
+  });
 
-  const [sorting, setSorting] = useState<SortingState>()
+  const [sorting, setSorting] = useState<SortingState>();
 
   const onSetPagination = (pagination: PaginationState) => {
-    const params = new URLSearchParams(searchParams.toString())
-    params.set("page", String(pagination.pageIndex + 1))
-    params.set("limit", pagination.pageSize.toString())
-    router.push(`${pathname}?${params.toString()}`)
-  }
+    const params = new URLSearchParams(searchParams.toString());
+    params.set("page", String(pagination.pageIndex + 1));
+    params.set("limit", pagination.pageSize.toString());
+    router.push(`${pathname}?${params.toString()}`);
+  };
 
   useEffect(() => {
-    setSorting(sortingParams ? JSON.parse(sortingParams) : undefined)
-  }, [sortingParams])
+    setSorting(sortingParams ? JSON.parse(sortingParams) : undefined);
+  }, [sortingParams]);
 
   const table = useReactTable<TData>({
     data,
@@ -74,14 +89,14 @@ export function DataTable<TData, TValue>({ columns, data, total }: DataTableProp
     getCoreRowModel: getCoreRowModel(),
     onPaginationChange: setPagination,
     onSortingChange: setSorting,
-  })
+  });
 
   useEffect(() => {
     setPagination({
       pageIndex: page,
       pageSize: limit,
-    })
-  }, [page, limit])
+    });
+  }, [page, limit]);
 
   return (
     <div>
@@ -99,9 +114,12 @@ export function DataTable<TData, TValue>({ columns, data, total }: DataTableProp
                     <TableHead key={header.id}>
                       {header.isPlaceholder
                         ? null
-                        : flexRender(header.column.columnDef.header, header.getContext())}
+                        : flexRender(
+                            header.column.columnDef.header,
+                            header.getContext(),
+                          )}
                     </TableHead>
-                  )
+                  );
                 })}
               </TableRow>
             ))}
@@ -115,7 +133,10 @@ export function DataTable<TData, TValue>({ columns, data, total }: DataTableProp
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
-                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext(),
+                      )}
                     </TableCell>
                   ))}
                 </TableRow>
@@ -139,5 +160,5 @@ export function DataTable<TData, TValue>({ columns, data, total }: DataTableProp
         onSetPagination={onSetPagination}
       />
     </div>
-  )
+  );
 }

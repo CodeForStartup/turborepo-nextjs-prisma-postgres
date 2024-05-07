@@ -1,19 +1,19 @@
-import Link from "next/link"
+import Link from "next/link";
 
-import { Edit } from "lucide-react"
-import { getTranslations } from "next-intl/server"
-import { buttonVariants, cn } from "ui"
+import { Edit } from "lucide-react";
+import { getTranslations } from "next-intl/server";
+import { buttonVariants, cn } from "ui";
 
-import { getServerSession } from "@/utils/auth"
+import { getServerSession } from "@/utils/auth";
 
-import { UserNav } from "../user-nav"
-import Logo from "./logo"
-import SearchBar from "./search-bar"
-import ThemeToggle from "./theme-toggle"
+import { UserNav } from "../user-nav";
+import Logo from "./logo";
+import SearchBar from "./search-bar";
+import ThemeToggle from "./theme-toggle";
 
 export default async function Nav() {
-  const session = await getServerSession()
-  const t = await getTranslations()
+  const session = await getServerSession();
+  const t = await getTranslations();
 
   return (
     <header className="mx-auto flex items-center border-b p-2 sm:px-6 lg:px-8">
@@ -29,13 +29,10 @@ export default async function Nav() {
                   className={cn(
                     buttonVariants({
                       variant: "ghost",
-                    })
+                    }),
                   )}
                 >
-                  <Edit
-                    className="mr-2 inline-block"
-                    size={16}
-                  />
+                  <Edit className="mr-2 inline-block" size={16} />
                   {t("common.write")}
                 </div>
               </Link>
@@ -55,5 +52,5 @@ export default async function Nav() {
         </div>
       </div>
     </header>
-  )
+  );
 }

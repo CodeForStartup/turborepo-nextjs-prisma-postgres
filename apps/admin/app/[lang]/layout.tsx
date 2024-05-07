@@ -1,24 +1,24 @@
-import "./globals.css"
+import "./globals.css";
 
-import AuthProvider from "providers/authProvider"
-import { ToastContainer } from "react-toastify"
+import AuthProvider from "providers/authProvider";
+import { ToastContainer } from "react-toastify";
 
-import Nav from "@/molecules/nav"
+import Nav from "@/molecules/nav";
 
-import "react-toastify/dist/ReactToastify.css"
-import "remixicon/fonts/remixicon.css"
+import "react-toastify/dist/ReactToastify.css";
+import "remixicon/fonts/remixicon.css";
 
-import { HomeIcon, Settings, StickyNote, TagIcon, User } from "lucide-react"
-import { NextIntlClientProvider, useMessages } from "next-intl"
+import { HomeIcon, Settings, StickyNote, TagIcon, User } from "lucide-react";
+import { NextIntlClientProvider, useMessages } from "next-intl";
 
-import SidebarItem, { SidebarItemProps } from "@/molecules/sidebar-item"
-import { Providers } from "@/providers"
+import SidebarItem, { SidebarItemProps } from "@/molecules/sidebar-item";
+import { Providers } from "@/providers";
 
 export const metadata = {
   icons: {
     icon: "/assets/logo.png",
   },
-}
+};
 
 const SIDE_BAR = [
   {
@@ -56,37 +56,28 @@ const SIDE_BAR = [
       },
     ],
   },
-] as Array<SidebarItemProps>
+] as Array<SidebarItemProps>;
 
 export default function RootLayout({
   params: { lang },
   children,
 }: {
-  params: { lang: string }
-  children: React.ReactNode
+  params: { lang: string };
+  children: React.ReactNode;
 }) {
-  const messages = useMessages()
+  const messages = useMessages();
 
   return (
-    <html
-      lang={lang || "en"}
-      suppressHydrationWarning
-    >
+    <html lang={lang || "en"} suppressHydrationWarning>
       <body>
-        <NextIntlClientProvider
-          locale={lang}
-          messages={messages}
-        >
+        <NextIntlClientProvider locale={lang} messages={messages}>
           <AuthProvider>
             <Providers>
               <Nav />
               <main className="flex h-[calc(100vh-54px)]">
                 <div className="w-[250px] border-r p-2">
                   {SIDE_BAR.map((item) => (
-                    <SidebarItem
-                      key={item.label}
-                      {...item}
-                    />
+                    <SidebarItem key={item.label} {...item} />
                   ))}
                 </div>
                 {children}
@@ -97,5 +88,5 @@ export default function RootLayout({
         </NextIntlClientProvider>
       </body>
     </html>
-  )
+  );
 }

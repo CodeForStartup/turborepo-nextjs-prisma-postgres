@@ -1,12 +1,24 @@
-import type { PaginationState, Table } from "@tanstack/react-table"
-import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from "lucide-react"
-import { Button, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "ui"
+import type { PaginationState, Table } from "@tanstack/react-table";
+import {
+  ChevronLeft,
+  ChevronRight,
+  ChevronsLeft,
+  ChevronsRight,
+} from "lucide-react";
+import {
+  Button,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "ui";
 
 type DataTablePaginationProps<TData> = {
-  table: Table<TData>
-  pagination: PaginationState
-  onSetPagination: (pagination: PaginationState) => void
-}
+  table: Table<TData>;
+  pagination: PaginationState;
+  onSetPagination: (pagination: PaginationState) => void;
+};
 
 export function DataTablePagination<TData>({
   table,
@@ -27,7 +39,7 @@ export function DataTablePagination<TData>({
               onSetPagination({
                 ...pagination,
                 pageSize: Number(value),
-              })
+              });
             }}
           >
             <SelectTrigger className="h-8 w-[70px]">
@@ -35,10 +47,7 @@ export function DataTablePagination<TData>({
             </SelectTrigger>
             <SelectContent side="top">
               {[10, 20, 30, 40, 50].map((pageSize) => (
-                <SelectItem
-                  key={pageSize}
-                  value={`${pageSize}`}
-                >
+                <SelectItem key={pageSize} value={`${pageSize}`}>
                   {pageSize}
                 </SelectItem>
               ))}
@@ -56,7 +65,7 @@ export function DataTablePagination<TData>({
               onSetPagination({
                 ...pagination,
                 pageIndex: 0,
-              })
+              });
             }}
             disabled={pagination.pageIndex < 1}
           >
@@ -70,7 +79,7 @@ export function DataTablePagination<TData>({
               onSetPagination({
                 ...pagination,
                 pageIndex: pagination.pageIndex - 1,
-              })
+              });
             }}
             disabled={pagination.pageIndex < 1}
           >
@@ -84,7 +93,7 @@ export function DataTablePagination<TData>({
               onSetPagination({
                 ...pagination,
                 pageIndex: pagination.pageIndex + 1,
-              })
+              });
             }}
             disabled={pagination.pageIndex >= table.getPageCount() - 1}
           >
@@ -98,7 +107,7 @@ export function DataTablePagination<TData>({
               onSetPagination({
                 ...pagination,
                 pageIndex: table.getPageCount() - 1,
-              })
+              });
             }}
             disabled={pagination.pageIndex >= table.getPageCount() - 1}
           >
@@ -108,5 +117,5 @@ export function DataTablePagination<TData>({
         </div>
       </div>
     </div>
-  )
+  );
 }

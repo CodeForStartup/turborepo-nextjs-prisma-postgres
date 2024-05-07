@@ -1,16 +1,16 @@
-import { Metadata } from "next"
+import { Metadata } from "next";
 
-import { getPosts } from "@/actions/public/posts"
-import Filter from "@/molecules/home/filter"
-import SearchBar from "@/molecules/nav/search-bar"
-import NoItemFounded from "@/molecules/no-item-founded"
-import PostItem from "@/molecules/posts/post-item"
+import { getPosts } from "@/actions/public/posts";
+import Filter from "@/molecules/home/filter";
+import SearchBar from "@/molecules/nav/search-bar";
+import NoItemFounded from "@/molecules/no-item-founded";
+import PostItem from "@/molecules/posts/post-item";
 
 export async function generateMetadata({ searchParams }): Promise<Metadata> {
   return {
     title: `${searchParams?.search} - Search result`,
     description: `Search result for "${searchParams?.search}`,
-  }
+  };
 }
 
 // TODO: Hight light matching
@@ -18,7 +18,7 @@ export async function generateMetadata({ searchParams }): Promise<Metadata> {
 export default async function Page({ searchParams }) {
   const posts = await getPosts({
     searchParams,
-  })
+  });
 
   return (
     <div className="">
@@ -36,15 +36,10 @@ export default async function Page({ searchParams }) {
       ) : (
         <div className="mt-4">
           <div className="mt-4">
-            {posts?.data?.map((post) => (
-              <PostItem
-                key={post.id}
-                post={post}
-              />
-            ))}
+            {posts?.data?.map((post) => <PostItem key={post.id} post={post} />)}
           </div>
         </div>
       )}
     </div>
-  )
+  );
 }

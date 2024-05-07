@@ -28,6 +28,6 @@ const APP_ROUTES = {
   USER_POSTS: "/user/posts",
   CREATE_POST: "/user/posts/create",
   EDIT_POST: "/user/posts/:postId/edit",
-}
+};
 
-export default APP_ROUTES
+export default APP_ROUTES;

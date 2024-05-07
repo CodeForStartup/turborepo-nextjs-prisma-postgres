@@ -1,15 +1,15 @@
-import Link from "next/link"
+import Link from "next/link";
 
-import APP_ROUTES from "@/constants/routes"
-import TagList from "@/molecules/tag/tag-list"
-import Typography from "@/molecules/typography"
-import { TPostItem } from "@/types/posts"
-import { generatePath } from "@/utils/generatePath"
+import APP_ROUTES from "@/constants/routes";
+import TagList from "@/molecules/tag/tag-list";
+import Typography from "@/molecules/typography";
+import { TPostItem } from "@/types/posts";
+import { generatePath } from "@/utils/generatePath";
 
-import BookmarkButton from "./bookmark-button"
-import CommentButton from "./comment-button"
-import LikeButton from "./like-button"
-import PostMeta from "./post-meta"
+import BookmarkButton from "./bookmark-button";
+import CommentButton from "./comment-button";
+import LikeButton from "./like-button";
+import PostMeta from "./post-meta";
 
 export default function PostItem({ post }: { post: TPostItem }) {
   return (
@@ -20,10 +20,7 @@ export default function PostItem({ post }: { post: TPostItem }) {
             postId: post?.slug || post?.id,
           })}
         >
-          <Typography
-            variant="h2"
-            className="hover:underline"
-          >
+          <Typography variant="h2" className="hover:underline">
             {post.title}
           </Typography>
         </Link>
@@ -46,5 +43,5 @@ export default function PostItem({ post }: { post: TPostItem }) {
         </div>
       </div>
     </div>
-  )
+  );
 }

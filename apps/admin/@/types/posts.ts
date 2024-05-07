@@ -1,4 +1,4 @@
-import { PostOnUserType, Prisma } from "database"
+import { PostOnUserType, Prisma } from "database";
 
 export const postSelect = {
   id: true,
@@ -42,20 +42,20 @@ export const postSelect = {
       },
     },
   },
-} satisfies Prisma.PostSelect
+} satisfies Prisma.PostSelect;
 
 const getPostItem = Prisma.validator<Prisma.PostDefaultArgs>()({
   select: postSelect,
-})
+});
 
-export type TPostItem = Prisma.PostGetPayload<typeof getPostItem>
+export type TPostItem = Prisma.PostGetPayload<typeof getPostItem>;
 
 export type TCreatePostInput = Prisma.PostCreateInput & {
   tags: {
-    value: string
-    label: string
-    __isNew__: boolean
-  }[]
-}
+    value: string;
+    label: string;
+    __isNew__: boolean;
+  }[];
+};
 
-export type TPostActionType = PostOnUserType | "UNLIKE" | "UNBOOKMARK"
+export type TPostActionType = PostOnUserType | "UNLIKE" | "UNBOOKMARK";

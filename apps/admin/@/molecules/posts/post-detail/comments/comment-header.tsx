@@ -1,7 +1,7 @@
-"use client"
+"use client";
 
-import React from "react"
-import { usePathname, useRouter, useSearchParams } from "next/navigation"
+import React from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 import {
   Select,
@@ -10,30 +10,30 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
-import Typography from "@/molecules/typography"
-import { GetDataSuccessType } from "@/types"
-import { TCommentItem } from "@/types/comment"
-import { TPostItem } from "@/types/posts"
+} from "@/components/ui/select";
+import Typography from "@/molecules/typography";
+import { GetDataSuccessType } from "@/types";
+import { TCommentItem } from "@/types/comment";
+import { TPostItem } from "@/types/posts";
 
 type CommentHeaderProps = {
-  post: TPostItem
-  comments: GetDataSuccessType<TCommentItem[]>
-}
+  post: TPostItem;
+  comments: GetDataSuccessType<TCommentItem[]>;
+};
 
 const CommentHeader: React.FC<CommentHeaderProps> = ({ comments }) => {
-  const searchParams = useSearchParams()
-  const router = useRouter()
-  const pathname = usePathname()
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const pathname = usePathname();
 
   const onChangeSort = (value) => {
-    const urlSearchParam = new URLSearchParams(searchParams)
-    urlSearchParam.set("sort", value)
+    const urlSearchParam = new URLSearchParams(searchParams);
+    urlSearchParam.set("sort", value);
 
-    router.push(`${pathname}?${urlSearchParam.toString()}`)
-  }
+    router.push(`${pathname}?${urlSearchParam.toString()}`);
+  };
 
-  const sortKey = searchParams.get("sort") || "top"
+  const sortKey = searchParams.get("sort") || "top";
 
   return (
     <div className="flex items-center justify-between border-b px-8 py-4">
@@ -46,10 +46,7 @@ const CommentHeader: React.FC<CommentHeaderProps> = ({ comments }) => {
       </Typography>
       <div className="flex gap-4 text-sm text-slate-500">
         <Typography className="flex items-center">Sort by</Typography>
-        <Select
-          value={sortKey}
-          onValueChange={onChangeSort}
-        >
+        <Select value={sortKey} onValueChange={onChangeSort}>
           <SelectTrigger className="w-[180px]">
             <SelectValue placeholder="Sorted by" />
           </SelectTrigger>
@@ -62,7 +59,7 @@ const CommentHeader: React.FC<CommentHeaderProps> = ({ comments }) => {
         </Select>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default CommentHeader
+export default CommentHeader;

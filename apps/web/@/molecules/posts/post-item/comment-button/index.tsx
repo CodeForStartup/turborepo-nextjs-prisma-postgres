@@ -1,15 +1,15 @@
-import React from "react"
-import Link from "next/link"
+import React from "react";
+import Link from "next/link";
 
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "ui"
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "ui";
 
-import APP_ROUTES from "@/constants/routes"
-import { TPostItem } from "@/types/posts"
-import { generatePath } from "@/utils/generatePath"
+import APP_ROUTES from "@/constants/routes";
+import { TPostItem } from "@/types/posts";
+import { generatePath } from "@/utils/generatePath";
 
 type CommentButtonProps = {
-  post: TPostItem
-}
+  post: TPostItem;
+};
 
 const CommentButton: React.FC<CommentButtonProps> = ({ post }) => {
   return (
@@ -28,10 +28,12 @@ const CommentButton: React.FC<CommentButtonProps> = ({ post }) => {
             </div>
           </Link>
         </TooltipTrigger>
-        <TooltipContent>{`${post?._count?.comments || 0} comments`}</TooltipContent>
+        <TooltipContent>{`${
+          post?._count?.comments || 0
+        } comments`}</TooltipContent>
       </Tooltip>
     </TooltipProvider>
-  )
-}
+  );
+};
 
-export default CommentButton
+export default CommentButton;

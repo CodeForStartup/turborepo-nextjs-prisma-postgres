@@ -1,14 +1,14 @@
-"use client"
+"use client";
 
-import TextareaAutosize from "react-textarea-autosize"
+import TextareaAutosize from "react-textarea-autosize";
 
 type InputTitleProps = {
-  title?: string
-  placeholder?: string
-  name: string
-  onChange?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void
-  onBlur?: (e: React.FocusEvent<HTMLTextAreaElement>) => void
-}
+  title?: string;
+  placeholder?: string;
+  name: string;
+  onChange?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  onBlur?: (e: React.FocusEvent<HTMLTextAreaElement>) => void;
+};
 
 const InputTitle: React.FunctionComponent<InputTitleProps> = ({
   placeholder = "",
@@ -28,7 +28,7 @@ const InputTitle: React.FunctionComponent<InputTitleProps> = ({
         className="h-16 w-full rounded-md border border-none bg-transparent px-3 py-2 text-4xl font-bold"
       />
     </div>
-  )
-}
+  );
+};
 
-export default InputTitle
+export default InputTitle;

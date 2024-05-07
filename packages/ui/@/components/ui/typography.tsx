@@ -1,6 +1,6 @@
-import React from "react"
+import React from "react";
 
-import { cn } from "../../lib/utils"
+import { cn } from "../../lib/utils";
 
 const variants: Record<string, string> = {
   h1: "text-4xl font-bold tracking-tight",
@@ -16,10 +16,10 @@ const variants: Record<string, string> = {
   caption: "",
   time: "",
   a: "hover:underline",
-}
+};
 
 type TypographyProps = {
-  id?: string
+  id?: string;
   variant?:
     | "h1"
     | "h2"
@@ -35,20 +35,25 @@ type TypographyProps = {
     | "label"
     | "caption"
     | "time"
-    | "a"
-  children: React.ReactNode
-  className?: string
-}
+    | "a";
+  children: React.ReactNode;
+  className?: string;
+};
 
-const Typography: React.FC<TypographyProps> = ({ id, variant = "p", className = "", children }) => {
+const Typography: React.FC<TypographyProps> = ({
+  id,
+  variant = "p",
+  className = "",
+  children,
+}) => {
   return React.createElement(
     variant,
     {
       id,
       className: cn(variants[variant] || "", className),
     },
-    children
-  )
-}
+    children,
+  );
+};
 
-export { Typography }
+export { Typography };

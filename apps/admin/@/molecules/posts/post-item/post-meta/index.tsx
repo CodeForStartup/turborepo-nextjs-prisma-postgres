@@ -1,15 +1,15 @@
-import React from "react"
-import Link from "next/link"
+import React from "react";
+import Link from "next/link";
 
-import dayjs from "dayjs"
+import dayjs from "dayjs";
 
-import APP_ROUTES from "@/constants/routes"
-import { TPostItem } from "@/types/posts"
-import { generatePath } from "@/utils/generatePath"
+import APP_ROUTES from "@/constants/routes";
+import { TPostItem } from "@/types/posts";
+import { generatePath } from "@/utils/generatePath";
 
 type PostMetaProps = {
-  post: TPostItem
-}
+  post: TPostItem;
+};
 
 const PostMeta: React.FC<PostMetaProps> = ({ post }) => {
   return (
@@ -26,7 +26,7 @@ const PostMeta: React.FC<PostMetaProps> = ({ post }) => {
       <div className="h-1 w-1 rounded bg-gray-400" />
       <time>Last edited: {dayjs(post?.createdAt).format("MMMM D, YYYY")}</time>
     </div>
-  )
-}
+  );
+};
 
-export default PostMeta
+export default PostMeta;

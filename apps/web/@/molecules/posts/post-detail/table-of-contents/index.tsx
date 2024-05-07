@@ -1,8 +1,8 @@
-"use client"
+"use client";
 
-import React, { useEffect } from "react"
+import React, { useEffect } from "react";
 
-import * as tocbot from "tocbot"
+import * as tocbot from "tocbot";
 
 const TableOfContents: React.FC = () => {
   // Generate table of contents logic here
@@ -25,10 +25,14 @@ const TableOfContents: React.FC = () => {
       },
       headingsOffset: 0,
       // scrollSmoothOffset: 0,
-    })
-  }, [])
+    });
+  }, []);
 
-  return <div className="tocbot toc sticky top-[56px]">{/* Render table of contents here */}</div>
-}
+  return (
+    <div className="tocbot toc sticky top-[56px]">
+      {/* Render table of contents here */}
+    </div>
+  );
+};
 
-export default TableOfContents
+export default TableOfContents;

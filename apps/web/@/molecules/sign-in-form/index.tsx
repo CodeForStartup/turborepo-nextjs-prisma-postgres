@@ -1,12 +1,12 @@
-"use client"
+"use client";
 
-import Link from "next/link"
-import { useSearchParams } from "next/navigation"
+import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 
-import { Label } from "@radix-ui/react-dropdown-menu"
-import { Tabs } from "@radix-ui/react-tabs"
-import { GithubIcon } from "lucide-react"
-import { signIn } from "next-auth/react"
+import { Label } from "@radix-ui/react-dropdown-menu";
+import { Tabs } from "@radix-ui/react-tabs";
+import { GithubIcon } from "lucide-react";
+import { signIn } from "next-auth/react";
 import {
   Button,
   Card,
@@ -17,28 +17,25 @@ import {
   TabsList,
   TabsTrigger,
   Typography,
-} from "ui"
+} from "ui";
 
 export default function SignInForm() {
-  const searchParams = useSearchParams()
+  const searchParams = useSearchParams();
 
   const onSignIn = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     await signIn("github", {
       redirect: true,
       callbackUrl: (searchParams.get("callbackUrl") as string) || "/",
-    })
-  }
+    });
+  };
 
   return (
     <div className="mt-16 w-full max-w-md flex-1 rounded-md p-8">
       <div>
         <Typography variant="h1">Sign In</Typography>
 
-        <Typography
-          variant="span"
-          className="mt-4"
-        >
+        <Typography variant="span" className="mt-4">
           Sign in to your account to continue.
         </Typography>
       </div>
@@ -53,7 +50,9 @@ export default function SignInForm() {
                 </div>
                 <TabsList className="grid w-full grid-cols-2">
                   <TabsTrigger value="magic">Magic Link</TabsTrigger>
-                  <TabsTrigger value="username_password">Username/Password</TabsTrigger>
+                  <TabsTrigger value="username_password">
+                    Username/Password
+                  </TabsTrigger>
                 </TabsList>
                 <TabsContent value="username_password">
                   <div className="grid gap-4">
@@ -111,11 +110,7 @@ export default function SignInForm() {
                     </span>
                   </div>
                 </div>
-                <Button
-                  variant="outline"
-                  type="button"
-                  onClick={onSignIn}
-                >
+                <Button variant="outline" type="button" onClick={onSignIn}>
                   <GithubIcon size={16} />
                   <span className="ml-2">GitHub</span>
                 </Button>
@@ -127,20 +122,14 @@ export default function SignInForm() {
 
       <div className="mt-4 text-center">
         <Link href="register">
-          <Typography
-            variant="span"
-            className="mt-4"
-          >
+          <Typography variant="span" className="mt-4">
             Don&apos;t have an account?{" "}
-            <Typography
-              className="font-bold hover:underline"
-              variant="span"
-            >
+            <Typography className="font-bold hover:underline" variant="span">
               Sign Up
             </Typography>
           </Typography>
         </Link>
       </div>
     </div>
-  )
+  );
 }

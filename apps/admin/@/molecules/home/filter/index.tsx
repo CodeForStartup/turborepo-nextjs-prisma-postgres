@@ -1,45 +1,45 @@
-"use client"
+"use client";
 
-import React, { useState } from "react"
-import { usePathname, useRouter, useSearchParams } from "next/navigation"
+import React, { useState } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
-import { FilterValues, PeriodValues } from "@/types/filter"
-import { capitalizeFirstLetter } from "@/utils/capitalize"
+import { FilterValues, PeriodValues } from "@/types/filter";
+import { capitalizeFirstLetter } from "@/utils/capitalize";
 
-import { cn } from "../../lib/utils"
-import { FilterItem } from "./filter-item"
+import { cn } from "../../lib/utils";
+import { FilterItem } from "./filter-item";
 
 type FilterProps = {
-  className?: string
-}
+  className?: string;
+};
 
 const Filter: React.FC<FilterProps> = ({ className = "" }) => {
-  const searchParams = useSearchParams()
-  const router = useRouter()
-  const pathname = usePathname()
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const pathname = usePathname();
 
-  const currentFilterValue = searchParams.get("filter")
-  const periodKey = searchParams.get("period")
+  const currentFilterValue = searchParams.get("filter");
+  const periodKey = searchParams.get("period");
 
   const [filterValue, setFilterValue] = useState<FilterValues>(
-    (currentFilterValue as FilterValues) || FilterValues.LASTED
-  )
+    (currentFilterValue as FilterValues) || FilterValues.LASTED,
+  );
 
   const onChangeFilter = (value: string) => {
-    const urlSearchParam = new URLSearchParams(searchParams)
-    urlSearchParam.set("filter", value)
-    urlSearchParam.delete("period")
+    const urlSearchParam = new URLSearchParams(searchParams);
+    urlSearchParam.set("filter", value);
+    urlSearchParam.delete("period");
 
-    router.push(`${pathname}?${urlSearchParam.toString()}`)
-  }
+    router.push(`${pathname}?${urlSearchParam.toString()}`);
+  };
 
   const onChangePeriod = (value: string) => {
-    const urlSearchParam = new URLSearchParams(searchParams)
-    urlSearchParam.set("period", value)
-    urlSearchParam.set("filter", FilterValues.HOT)
+    const urlSearchParam = new URLSearchParams(searchParams);
+    urlSearchParam.set("period", value);
+    urlSearchParam.set("filter", FilterValues.HOT);
 
-    router.push(`${pathname}?${urlSearchParam.toString()}`)
-  }
+    router.push(`${pathname}?${urlSearchParam.toString()}`);
+  };
 
   return (
     <div className={cn("flex h-10 items-center justify-between", className)}>
@@ -48,15 +48,15 @@ const Filter: React.FC<FilterProps> = ({ className = "" }) => {
           label="New"
           isActive={filterValue === "lasted"}
           onclick={() => {
-            setFilterValue(FilterValues.LASTED)
-            onChangeFilter("lasted")
+            setFilterValue(FilterValues.LASTED);
+            onChangeFilter("lasted");
           }}
         />
         <FilterItem
           label="Hot"
           isActive={filterValue === FilterValues.HOT}
           onclick={() => {
-            setFilterValue(FilterValues.HOT)
+            setFilterValue(FilterValues.HOT);
           }}
         />
       </div>
@@ -73,7 +73,7 @@ const Filter: React.FC<FilterProps> = ({ className = "" }) => {
         </div>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default Filter
+export default Filter;

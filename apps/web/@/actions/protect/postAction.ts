@@ -1,23 +1,23 @@
-"use server"
+"use server";
 
-import { revalidatePath } from "next/cache"
+import { revalidatePath } from "next/cache";
 
-import { PostOnUserType } from "database"
+import { PostOnUserType } from "database";
 
-import { TUserItem, userSelect } from "@/types/users"
-import { getServerSession } from "@/utils/auth"
+import { TUserItem, userSelect } from "@/types/users";
+import { getServerSession } from "@/utils/auth";
 
 export const getTotalActions = async ({
   postId,
   actionType,
 }: {
-  postId: string
-  actionType: PostOnUserType
+  postId: string;
+  actionType: PostOnUserType;
 }) => {
-  const session = await getServerSession()
+  const session = await getServerSession();
 
   try {
-    const promises = []
+    const promises = [];
 
     promises.push(
       prisma.postOnUser.count({
@@ -25,8 +25,8 @@ export const getTotalActions = async ({
           postId,
           type: actionType,
         },
-      })
-    )
+      }),
+    );
 
     if (session?.user?.id) {
       promises.push(
@@ -36,29 +36,30 @@ export const getTotalActions = async ({
             userId: session?.user?.id,
             type: actionType,
           },
-        })
-      )
+        }),
+      );
     }
 
-    const [total, haveAction] = await Promise.all(promises)
+    const [total, haveAction] = await Promise.all(promises);
 
-    return { total, haveAction }
+    return { total, haveAction };
   } catch (error) {
-    throw error
+    throw error;
   }
-}
+};
 
 export const addRelation = async ({
   postId,
   postSlug,
   action,
 }: {
-  postId: string
-  postSlug: string
-  action: PostOnUserType
+  postId: string;
+  postSlug: string;
+  action: PostOnUserType;
 }) => {
-  const session = await getServerSession()
-  const postField = action === PostOnUserType.LIKE ? "totalLike" : "totalFollow"
+  const session = await getServerSession();
+  const postField =
+    action === PostOnUserType.LIKE ? "totalLike" : "totalFollow";
   try {
     await prisma.$transaction([
       prisma.postOnUser.upsert({
@@ -88,25 +89,26 @@ export const addRelation = async ({
           },
         },
       }),
-    ])
+    ]);
 
-    revalidatePath(`/post/${postSlug}`)
+    revalidatePath(`/post/${postSlug}`);
   } catch (error) {
-    throw error
+    throw error;
   }
-}
+};
 
 export const removeRelation = async ({
   postId,
   postSlug,
   action,
 }: {
-  postId: string
-  postSlug: string
-  action: PostOnUserType
+  postId: string;
+  postSlug: string;
+  action: PostOnUserType;
 }) => {
-  const session = await getServerSession()
-  const postField = action === PostOnUserType.LIKE ? "totalLike" : "totalFollow"
+  const session = await getServerSession();
+  const postField =
+    action === PostOnUserType.LIKE ? "totalLike" : "totalFollow";
 
   try {
     await prisma.$transaction([
@@ -127,13 +129,13 @@ export const removeRelation = async ({
           },
         },
       }),
-    ])
+    ]);
 
-    revalidatePath(`/post/${postSlug}`)
+    revalidatePath(`/post/${postSlug}`);
   } catch (error) {
-    throw error
+    throw error;
   }
-}
+};
 
 export const getLikers = async ({ postId }: { postId: string }) => {
   try {
@@ -147,13 +149,13 @@ export const getLikers = async ({ postId }: { postId: string }) => {
         },
       },
       select: userSelect,
-    })
+    });
 
     return {
       data: likers,
       errorMessage: "",
-    }
+    };
   } catch (error) {
-    return { data: [], errorMessage: "Error fetching likers" }
+    return { data: [], errorMessage: "Error fetching likers" };
   }
-}
+};

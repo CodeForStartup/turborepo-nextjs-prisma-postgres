@@ -1,21 +1,25 @@
-"use client"
+"use client";
 
-import React from "react"
-import Link from "next/link"
+import React from "react";
+import Link from "next/link";
 
-import { useSession } from "next-auth/react"
-import { useTranslations } from "next-intl"
+import { useSession } from "next-auth/react";
+import { useTranslations } from "next-intl";
 
-import useFollowUser from "@/hooks/useFollowUser"
+import useFollowUser from "@/hooks/useFollowUser";
 
-import { cn } from "../../lib/utils"
-import { Button, buttonVariants } from "./button"
+import { cn } from "../../lib/utils";
+import { Button, buttonVariants } from "./button";
 
-const FollowButton: React.FC<{ authorId: string }> = ({ authorId }: { authorId: string }) => {
-  const t = useTranslations()
-  const session = useSession()
+const FollowButton: React.FC<{ authorId: string }> = ({
+  authorId,
+}: {
+  authorId: string;
+}) => {
+  const t = useTranslations();
+  const session = useSession();
 
-  const { isLoading, isFollowing, onFollowUser } = useFollowUser()
+  const { isLoading, isFollowing, onFollowUser } = useFollowUser();
 
   if (authorId === session?.data?.user?.id) {
     return (
@@ -24,13 +28,13 @@ const FollowButton: React.FC<{ authorId: string }> = ({ authorId }: { authorId: 
           buttonVariants({
             variant: "outline",
           }),
-          "mt-4 w-full"
+          "mt-4 w-full",
         )}
         href="/user/profile"
       >
         {t("common.update_profile").toUpperCase()}
       </Link>
-    )
+    );
   }
 
   return (
@@ -42,7 +46,7 @@ const FollowButton: React.FC<{ authorId: string }> = ({ authorId }: { authorId: 
     >
       {t(isFollowing ? "common.unfollow" : "common.follow").toUpperCase()}
     </Button>
-  )
-}
+  );
+};
 
-export default FollowButton
+export default FollowButton;

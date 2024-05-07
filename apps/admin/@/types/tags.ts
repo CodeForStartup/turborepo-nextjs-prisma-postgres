@@ -1,4 +1,4 @@
-import { Prisma } from "database"
+import { Prisma } from "database";
 
 export const tagListSelect = {
   id: true,
@@ -10,7 +10,7 @@ export const tagListSelect = {
       tagOnPost: true,
     },
   },
-} satisfies Prisma.TagsSelect
+} satisfies Prisma.TagsSelect;
 
 export const tagItemSelect = {
   id: true,
@@ -60,16 +60,16 @@ export const tagItemSelect = {
       },
     },
   },
-} satisfies Prisma.TagsSelect
+} satisfies Prisma.TagsSelect;
 
 const getTagItem = Prisma.validator<Prisma.TagsDefaultArgs>()({
   select: tagItemSelect,
-})
+});
 
 const getTagList = Prisma.validator<Prisma.TagsDefaultArgs>()({
   select: tagListSelect,
-})
+});
 
-export type TTagItem = Prisma.TagsGetPayload<typeof getTagItem>
+export type TTagItem = Prisma.TagsGetPayload<typeof getTagItem>;
 
-export type TTagListItem = Prisma.TagsGetPayload<typeof getTagList>
+export type TTagListItem = Prisma.TagsGetPayload<typeof getTagList>;

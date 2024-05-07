@@ -1,18 +1,18 @@
-import { NextRequest, NextResponse } from "next/server"
+import { NextRequest, NextResponse } from "next/server";
 
-import { locales } from "i18n"
-import { getToken } from "next-auth/jwt"
-import createIntlMiddleware from "next-intl/middleware"
+import { locales } from "i18n";
+import { getToken } from "next-auth/jwt";
+import createIntlMiddleware from "next-intl/middleware";
 
 const handleI18nRouting = createIntlMiddleware({
   locales,
   localePrefix: "as-needed",
   defaultLocale: "en",
-})
+});
 
 export async function middleware(req: NextRequest) {
-  const currentPathname = req.nextUrl.pathname
-  const session = await getToken({ req, secret: process.env.NEXTAUTH_SECRET })
+  const currentPathname = req.nextUrl.pathname;
+  const session = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
 
   // if (!session?.email && currentPathname !== "/sign-in") {
   //   const newUrl = req.nextUrl.clone()
@@ -26,7 +26,7 @@ export async function middleware(req: NextRequest) {
   //   return NextResponse.redirect(newUrl)
   // }
 
-  return handleI18nRouting(req)
+  return handleI18nRouting(req);
 }
 
 export const config = {
@@ -36,4 +36,4 @@ export const config = {
     // Optional: only run on root (/) URL
     "/((?!api/|_next/|_proxy/|asset|_static|_vercel|[\\w-]+\\.\\w+).*)",
   ],
-}
+};

@@ -1,8 +1,8 @@
-"use server"
+"use server";
 
-import prisma from "database"
+import prisma from "database";
 
-import { tagItemSelect, TTagItem } from "@/types/tags"
+import { tagItemSelect, TTagItem } from "@/types/tags";
 
 export const getTagById = async (id: string): Promise<TTagItem> => {
   try {
@@ -18,10 +18,10 @@ export const getTagById = async (id: string): Promise<TTagItem> => {
         ],
       },
       select: tagItemSelect,
-    })
+    });
 
-    return tag
+    return tag;
   } catch (error) {
-    throw error
+    throw error;
   }
-}
+};

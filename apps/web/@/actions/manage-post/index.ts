@@ -1,10 +1,10 @@
-"use server"
+"use server";
 
-import { revalidatePath } from "next/cache"
+import { revalidatePath } from "next/cache";
 
-import { PostStatus } from "database"
+import { PostStatus } from "database";
 
-import { postSelect, TPostItem } from "@/types/posts"
+import { postSelect, TPostItem } from "@/types/posts";
 
 export const getPostByUserId = async (userId: string): Promise<TPostItem[]> => {
   try {
@@ -13,27 +13,33 @@ export const getPostByUserId = async (userId: string): Promise<TPostItem[]> => {
         authorId: userId,
       },
       select: postSelect,
-    })
+    });
 
-    return posts
+    return posts;
   } catch (error) {
-    throw error
+    throw error;
   }
-}
+};
 
-export const togglePostStatus = async (postId: string, postStatus: PostStatus): Promise<void> => {
+export const togglePostStatus = async (
+  postId: string,
+  postStatus: PostStatus,
+): Promise<void> => {
   try {
     await prisma.post.update({
       where: {
         id: postId,
       },
       data: {
-        postStatus: postStatus === PostStatus.DRAFT ? PostStatus.PUBLISHED : PostStatus.DRAFT,
+        postStatus:
+          postStatus === PostStatus.DRAFT
+            ? PostStatus.PUBLISHED
+            : PostStatus.DRAFT,
       },
-    })
+    });
 
-    revalidatePath("/user/posts")
+    revalidatePath("/user/posts");
   } catch (error) {
-    throw error
+    throw error;
   }
-}
+};

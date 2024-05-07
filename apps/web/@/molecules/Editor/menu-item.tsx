@@ -1,11 +1,11 @@
-import React from "react"
+import React from "react";
 
 type MenuItemProps = {
-  icon?: string
-  title?: string
-  isActive?: () => boolean
-  action?: () => void
-}
+  icon?: string;
+  title?: string;
+  isActive?: () => boolean;
+  action?: () => void;
+};
 
 const MenuItem = ({ icon, title, action, isActive = null }: MenuItemProps) => (
   <button
@@ -18,6 +18,6 @@ const MenuItem = ({ icon, title, action, isActive = null }: MenuItemProps) => (
   >
     <i className={`ri-${icon}`}></i>
   </button>
-)
+);
 
-export default MenuItem
+export default MenuItem;

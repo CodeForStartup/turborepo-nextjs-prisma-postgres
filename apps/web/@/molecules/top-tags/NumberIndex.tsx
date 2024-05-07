@@ -1,24 +1,24 @@
-"use client"
+"use client";
 
-import React from "react"
+import React from "react";
 
-import { useTheme } from "next-themes"
-import { cn } from "ui"
+import { useTheme } from "next-themes";
+import { cn } from "ui";
 
-import { bebasNeue } from "@/font"
+import { bebasNeue } from "@/font";
 
 interface NumberIndexProps {
-  number: number
+  number: number;
 }
 
 const NumberIndex: React.FC<NumberIndexProps> = ({ number }) => {
-  const { theme } = useTheme()
+  const { theme } = useTheme();
 
   return (
     <div
       className={cn(
         "flex items-center justify-center text-2xl font-extrabold text-transparent",
-        bebasNeue.className
+        bebasNeue.className,
       )}
       style={{
         WebkitTextStroke: theme === "light" ? "0.5px #000" : "0.5px #fff",
@@ -26,7 +26,7 @@ const NumberIndex: React.FC<NumberIndexProps> = ({ number }) => {
     >
       {number}.
     </div>
-  )
-}
+  );
+};
 
-export default NumberIndex
+export default NumberIndex;
