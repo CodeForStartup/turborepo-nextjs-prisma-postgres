@@ -1,9 +1,9 @@
-import React from "react";
+import React from "react"
 
-import APP_APIS from "@/constants/apis";
-import { generateApi } from "@/utils/generatePath";
+import APP_APIS from "@/constants/apis"
+import { generateApi } from "@/utils/generatePath"
 
-import FollowerItem from "./follower-item";
+import FollowerItem from "./follower-item"
 
 export async function Followers({ authorId }: { authorId: string }) {
   const rawFollowers = await fetch(
@@ -13,7 +13,7 @@ export async function Followers({ authorId }: { authorId: string }) {
       {
         limit: 10,
         sort: "desc",
-      },
+      }
     ),
     {
       method: "GET",
@@ -21,18 +21,21 @@ export async function Followers({ authorId }: { authorId: string }) {
       headers: {
         "Content-Type": "application/json",
       },
-    },
-  );
+    }
+  )
 
-  const followers = await rawFollowers?.json();
+  const followers = await rawFollowers?.json()
 
   return (
     <div className="col-span-8 flex flex-col gap-4">
       {followers?.map((follower) => (
-        <FollowerItem key={follower?.id} user={follower} />
+        <FollowerItem
+          key={follower?.id}
+          user={follower}
+        />
       ))}
     </div>
-  );
+  )
 }
 
-export default Followers;
+export default Followers

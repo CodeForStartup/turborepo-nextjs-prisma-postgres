@@ -1,31 +1,31 @@
-"use client";
+"use client"
 
-import Link from "next/link";
-import { useParams } from "next/navigation";
+import Link from "next/link"
+import { useParams } from "next/navigation"
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Prisma } from "database";
-import dayjs from "dayjs";
-import { ArrowLeft } from "lucide-react";
-import { useFormStatus } from "react-dom";
-import { Controller, useForm } from "react-hook-form";
-import AsyncCreatableSelect from "react-select/async-creatable";
-import { toast } from "react-toastify";
-import z from "zod";
+import { zodResolver } from "@hookform/resolvers/zod"
+import { Prisma } from "database"
+import dayjs from "dayjs"
+import { ArrowLeft } from "lucide-react"
+import { useFormStatus } from "react-dom"
+import { Controller, useForm } from "react-hook-form"
+import AsyncCreatableSelect from "react-select/async-creatable"
+import { toast } from "react-toastify"
+import z from "zod"
 
-import { createPost, updatePost } from "@/actions/protect/posts";
-import Editor from "@/molecules/editor";
-import InputTitle from "@/molecules/input-title";
-import { TPostItem } from "@/types/posts";
+import { createPost, updatePost } from "@/actions/protect/posts"
+import Editor from "@/molecules/editor"
+import InputTitle from "@/molecules/input-title"
+import { TPostItem } from "@/types/posts"
 
-import { cn } from "../../lib/utils";
-import { Button, buttonVariants } from "./button";
+import { cn } from "../../lib/utils"
+import { Button, buttonVariants } from "./button"
 
 const PostForm = ({ post: postData }: { post?: TPostItem }) => {
-  const { title = "", content = "", tagOnPost = [] } = postData || {};
+  const { title = "", content = "", tagOnPost = [] } = postData || {}
 
-  const { postId } = useParams();
-  const { pending } = useFormStatus();
+  const { postId } = useParams()
+  const { pending } = useFormStatus()
 
   const postSchema = z.object({
     title: z.string(),
@@ -36,7 +36,7 @@ const PostForm = ({ post: postData }: { post?: TPostItem }) => {
           value: z.string(),
           id: z.string().optional().nullable(),
           __isNew__: z.boolean().optional().nullable(),
-        }),
+        })
       )
       .max(5, "You can only add up to 5 tags")
       .optional()
@@ -46,7 +46,7 @@ const PostForm = ({ post: postData }: { post?: TPostItem }) => {
       .max(10000, "Content must be at most 10000 characters")
       .optional()
       .nullable(),
-  }) satisfies z.ZodType<Partial<Prisma.PostCreateInput>>;
+  }) satisfies z.ZodType<Partial<Prisma.PostCreateInput>>
 
   const {
     control,
@@ -64,33 +64,33 @@ const PostForm = ({ post: postData }: { post?: TPostItem }) => {
       content,
     },
     resolver: zodResolver(postSchema),
-  });
+  })
 
   const handleSubmitPost = async (data) => {
     try {
       if (postId) {
         await updatePost(postId as string, {
           ...data,
-        });
+        })
       } else {
         await createPost({
           ...data,
-        });
+        })
       }
     } catch (error) {
-      toast.error(error.message);
+      toast.error(error.message)
     }
-  };
+  }
 
   const promiseOptions = async (inputValue: string) => {
-    const rawData = await fetch("/api/protected/tags?search=" + inputValue);
-    const tags = await rawData.json();
+    const rawData = await fetch("/api/protected/tags?search=" + inputValue)
+    const tags = await rawData.json()
 
     return tags.map((tag) => ({
       label: tag.name,
       value: tag.id,
-    }));
-  };
+    }))
+  }
 
   return (
     <div className="w-full">
@@ -126,7 +126,10 @@ const PostForm = ({ post: postData }: { post?: TPostItem }) => {
                 name="title"
                 control={control}
                 render={({ field }) => (
-                  <InputTitle placeholder="Title..." {...field} />
+                  <InputTitle
+                    placeholder="Title..."
+                    {...field}
+                  />
                 )}
               />
             </div>
@@ -172,13 +175,16 @@ const PostForm = ({ post: postData }: { post?: TPostItem }) => {
           >
             Cancel
           </Link>
-          <Button type="submit" disabled={!isValid || pending}>
+          <Button
+            type="submit"
+            disabled={!isValid || pending}
+          >
             Publish
           </Button>
         </div>
       </form>
     </div>
-  );
-};
+  )
+}
 
-export default PostForm;
+export default PostForm

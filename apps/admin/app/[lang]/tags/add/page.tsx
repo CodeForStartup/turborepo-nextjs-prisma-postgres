@@ -1,10 +1,10 @@
-import PageTitle from "@/molecules/page-title";
-import TagForm from "@/molecules/tag/tag-form";
+import PageTitle from "@/molecules/page-title"
+import TagForm from "@/molecules/tag/tag-form"
 
 export const metadata = {
   title: "Create new tag",
   description: "",
-};
+}
 
 export default async function Page() {
   return (
@@ -13,5 +13,5 @@ export default async function Page() {
 
       <TagForm />
     </div>
-  );
+  )
 }

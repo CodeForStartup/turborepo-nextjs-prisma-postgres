@@ -1,11 +1,11 @@
-import { cn } from "../../lib/utils";
-import { Button } from "./button";
+import { cn } from "../../lib/utils"
+import { Button } from "./button"
 
 type FilterItemProps = {
-  label: string;
-  isActive: boolean;
-  onclick: () => void;
-};
+  label: string
+  isActive: boolean
+  onclick: () => void
+}
 
 export const FilterItem: React.FC<FilterItemProps> = ({
   label,
@@ -23,5 +23,5 @@ export const FilterItem: React.FC<FilterItemProps> = ({
     >
       {label}
     </Button>
-  );
-};
+  )
+}

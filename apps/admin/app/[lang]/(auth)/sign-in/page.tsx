@@ -1,19 +1,19 @@
-import React from "react";
-import { redirect } from "next/navigation";
+import React from "react"
+import { redirect } from "next/navigation"
 
-import SignInForm from "@/molecules/sign-in-form";
-import { getServerSession } from "@/utils/auth";
+import SignInForm from "@/molecules/sign-in-form"
+import { getServerSession } from "@/utils/auth"
 
 export default async function Page() {
-  const session = await getServerSession();
+  const session = await getServerSession()
 
   if (session) {
-    redirect("/");
+    redirect("/")
   }
 
   return (
     <div className="flex justify-center">
       <SignInForm />
     </div>
-  );
+  )
 }

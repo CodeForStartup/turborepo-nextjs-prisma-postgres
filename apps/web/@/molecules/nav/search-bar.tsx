@@ -1,55 +1,55 @@
-"use client";
+"use client"
 
-import { useEffect, useRef, useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useRef, useState } from "react"
+import { useRouter, useSearchParams } from "next/navigation"
 
-import { useTranslations } from "next-intl";
-import { Button, cn, Input } from "ui";
+import { useTranslations } from "next-intl"
+import { Button, cn, Input } from "ui"
 
 export default function SearchBar() {
-  const t = useTranslations();
-  const searchParams = useSearchParams();
-  const searchTermParams = searchParams?.get("search") || "";
-  const [searchTerm, setSearchTerm] = useState(searchTermParams);
-  const router = useRouter();
+  const t = useTranslations()
+  const searchParams = useSearchParams()
+  const searchTermParams = searchParams?.get("search") || ""
+  const [searchTerm, setSearchTerm] = useState(searchTermParams)
+  const router = useRouter()
 
-  const inputRef = useRef<HTMLInputElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null)
 
   const onSearch = () => {
-    const newSearchParams = new URLSearchParams(searchParams);
+    const newSearchParams = new URLSearchParams(searchParams)
 
-    newSearchParams.set("search", searchTerm);
+    newSearchParams.set("search", searchTerm)
 
-    router.push("/search" + "?" + newSearchParams.toString());
-  };
+    router.push("/search" + "?" + newSearchParams.toString())
+  }
 
   const onClear = () => {
-    setSearchTerm("");
-    router.push("/");
-  };
+    setSearchTerm("")
+    router.push("/")
+  }
 
   useEffect(() => {
-    setSearchTerm(searchTermParams);
-  }, [searchTermParams]);
+    setSearchTerm(searchTermParams)
+  }, [searchTermParams])
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
-        e.preventDefault();
-        inputRef.current?.focus();
+        e.preventDefault()
+        inputRef.current?.focus()
       }
       if (e.key === "Escape") {
-        onClear();
-        inputRef.current?.blur();
+        onClear()
+        inputRef.current?.blur()
       }
-    };
+    }
 
-    window.addEventListener("keydown", handleKeyDown);
+    window.addEventListener("keydown", handleKeyDown)
 
     return () => {
-      window.removeEventListener("keydown", handleKeyDown);
-    };
-  }, []);
+      window.removeEventListener("keydown", handleKeyDown)
+    }
+  }, [])
 
   return (
     <div className="relative">
@@ -59,11 +59,11 @@ export default function SearchBar() {
         placeholder={t("common.searchPlaceholder")}
         value={searchTerm}
         onChange={(e) => {
-          setSearchTerm(e.target.value);
+          setSearchTerm(e.target.value)
         }}
         onKeyDown={(e) => {
           if (e.key === "Enter") {
-            onSearch();
+            onSearch()
           }
         }}
       />
@@ -90,13 +90,13 @@ export default function SearchBar() {
           {!searchTerm && (
             <button
               onClick={() => {
-                inputRef.current?.focus();
+                inputRef.current?.focus()
               }}
             >
               <kbd
                 title={searchTerm ? t("common.searchShortcut") : undefined}
                 className={cn(
-                  "bg-dark-50 flex h-6 items-center gap-1 rounded-sm border p-2 text-gray-500 dark:border-gray-50",
+                  "bg-dark-50 flex h-6 items-center gap-1 rounded-sm border p-2 text-gray-500 dark:border-gray-50"
                 )}
               >
                 {navigator?.userAgent?.toLowerCase()?.includes("mac") ? (
@@ -115,5 +115,5 @@ export default function SearchBar() {
         </div>
       }
     </div>
-  );
+  )
 }

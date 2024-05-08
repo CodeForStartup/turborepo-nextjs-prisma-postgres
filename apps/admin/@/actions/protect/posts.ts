@@ -1,48 +1,46 @@
-"use server";
+"use server"
 
-import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
+import { revalidatePath } from "next/cache"
+import { redirect } from "next/navigation"
 
-import prisma, { PostStatus, Prisma } from "database";
-import slugify from "slugify";
+import prisma, { PostStatus, Prisma } from "database"
+import slugify from "slugify"
 
-import { FilterValues } from "@/types/filter";
-import { postSelect, TCreatePostInput, TPostItem } from "@/types/posts";
-import { getServerSession } from "@/utils/auth";
+import { FilterValues } from "@/types/filter"
+import { postSelect, TCreatePostInput, TPostItem } from "@/types/posts"
+import { getServerSession } from "@/utils/auth"
 
-export const getPosts = async ({
-  searchParams,
-}: TGetPostsParams): Promise<TGetPostsResponse> => {
-  const sessions = await getServerSession();
+export const getPosts = async ({ searchParams }: TGetPostsParams): Promise<TGetPostsResponse> => {
+  const sessions = await getServerSession()
   if (!sessions) {
-    redirect("/sign-in");
+    redirect("/sign-in")
   }
 
-  const searchTerm = searchParams?.query || "";
-  const filter = searchParams?.filter || FilterValues.LASTED; // lasted or hot
-  const limit = searchParams?.limit || 20;
-  const page = searchParams?.page || 1;
-  const authorId = searchParams?.authorId || "";
-  const postStatus = searchParams?.postStatus || "";
+  const searchTerm = searchParams?.query || ""
+  const filter = searchParams?.filter || FilterValues.LASTED // lasted or hot
+  const limit = searchParams?.limit || 20
+  const page = searchParams?.page || 1
+  const authorId = searchParams?.authorId || ""
+  const postStatus = searchParams?.postStatus || ""
 
   let where: Prisma.PostWhereInput = {
     authorId: sessions?.user?.id,
-  };
+  }
 
-  let orderBy = {};
+  let orderBy = {}
 
   if (postStatus) {
     where = {
       ...where,
       postStatus,
-    };
+    }
   }
 
   if (authorId) {
     where = {
       ...where,
       authorId,
-    };
+    }
   }
 
   if (filter === FilterValues.HOT) {
@@ -51,14 +49,14 @@ export const getPosts = async ({
       comments: {
         _count: "desc",
       },
-    };
+    }
   }
 
   if (filter === FilterValues.LASTED) {
     orderBy = {
       ...orderBy,
       updatedAt: "desc",
-    };
+    }
   }
 
   if (searchTerm) {
@@ -78,7 +76,7 @@ export const getPosts = async ({
           },
         },
       ],
-    };
+    }
   }
 
   try {
@@ -91,23 +89,23 @@ export const getPosts = async ({
         skip: (Number(page) - 1) * Number(limit),
         orderBy,
       }),
-    ]);
+    ])
 
     return {
       data: posts,
       total: total,
       page: Number(page),
       limit: Number(limit),
-    };
+    }
   } catch (error) {
     return {
       data: [],
       total: 0,
       page: Number(page),
       limit: Number(limit),
-    };
+    }
   }
-};
+}
 
 export const getPostById = async (postId: string): Promise<TPostItem> => {
   try {
@@ -116,22 +114,20 @@ export const getPostById = async (postId: string): Promise<TPostItem> => {
         id: postId,
       },
       select: postSelect,
-    });
+    })
 
-    return post;
+    return post
   } catch (error) {
-    throw error;
+    throw error
   }
-};
+}
 
-export const createPost = async (
-  data: TCreatePostInput,
-): Promise<TPostItem> => {
-  let newPost: TPostItem;
+export const createPost = async (data: TCreatePostInput): Promise<TPostItem> => {
+  let newPost: TPostItem
   try {
-    const session = await getServerSession();
+    const session = await getServerSession()
 
-    const slug = slugify(data.title.toLocaleLowerCase()) + "-" + Date.now();
+    const slug = slugify(data.title.toLocaleLowerCase()) + "-" + Date.now()
 
     newPost = await prisma.post.create({
       data: {
@@ -149,7 +145,7 @@ export const createPost = async (
                     id: tag.value,
                   },
                 },
-              };
+              }
             }
             return {
               tag: {
@@ -158,27 +154,24 @@ export const createPost = async (
                   slug: tag.label.toLowerCase().replace(/\s/g, "-"),
                 },
               },
-            };
+            }
           }),
         },
       },
       select: postSelect,
-    });
+    })
   } catch (error) {
-    throw error;
+    throw error
   } finally {
-    revalidatePath("posts");
-    redirect(`/posts/${newPost?.id}`);
+    revalidatePath("posts")
+    redirect(`/posts/${newPost?.id}`)
   }
-};
+}
 
-export const updatePost = async (
-  id: string,
-  data: TCreatePostInput,
-): Promise<TPostItem> => {
+export const updatePost = async (id: string, data: TCreatePostInput): Promise<TPostItem> => {
   try {
-    const session = await getServerSession();
-    const { tags, ...postData } = data;
+    const session = await getServerSession()
+    const { tags, ...postData } = data
 
     await prisma.post.update({
       where: {
@@ -197,7 +190,7 @@ export const updatePost = async (
                     id: tag.value,
                   },
                 },
-              };
+              }
             }
             return {
               tag: {
@@ -206,24 +199,24 @@ export const updatePost = async (
                   slug: tag.label.toLowerCase().replace(/\s/g, "-"),
                 },
               },
-            };
+            }
           }),
         },
       },
       select: postSelect,
-    });
-    revalidatePath("posts");
-    revalidatePath(`posts/${id}`);
+    })
+    revalidatePath("posts")
+    revalidatePath(`posts/${id}`)
   } catch (error) {
-    throw error;
+    throw error
   } finally {
-    redirect(`../../../posts/${id}`);
+    redirect(`../../../posts/${id}`)
   }
-};
+}
 
 export const deletePost = async (id: string): Promise<void> => {
   try {
-    const session = await getServerSession();
+    const session = await getServerSession()
 
     await prisma.post.delete({
       where: {
@@ -231,11 +224,11 @@ export const deletePost = async (id: string): Promise<void> => {
         authorId: session?.user?.id,
       },
       select: postSelect,
-    });
+    })
   } catch (error) {
-    throw error;
+    throw error
   } finally {
-    revalidatePath("posts");
-    revalidatePath(`../../posts/${id}`);
+    revalidatePath("posts")
+    revalidatePath(`../../posts/${id}`)
   }
-};
+}

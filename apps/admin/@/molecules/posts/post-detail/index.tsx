@@ -1,25 +1,28 @@
-import Link from "next/link";
+import Link from "next/link"
 
-import APP_ROUTES from "@/constants/routes";
-import TagList from "@/molecules/tag/tag-list";
-import Typography from "@/molecules/typography";
-import PostMeta from "@/molecules/user/posts/post-meta";
-import { TPostItem } from "@/types/posts";
-import { generatePath } from "@/utils/generatePath";
+import APP_ROUTES from "@/constants/routes"
+import TagList from "@/molecules/tag/tag-list"
+import Typography from "@/molecules/typography"
+import PostMeta from "@/molecules/user/posts/post-meta"
+import { TPostItem } from "@/types/posts"
+import { generatePath } from "@/utils/generatePath"
 
-import EditPostButton from "./edit-post-button";
-import PostContent from "./post-content";
+import EditPostButton from "./edit-post-button"
+import PostContent from "./post-content"
 
 export type PostDetailProps = {
-  post: TPostItem;
-};
+  post: TPostItem
+}
 
 export default function PostDetail({ post }: PostDetailProps) {
   return (
     <div className="w-full">
       <article className="mb-8 w-full rounded-md border p-8">
         <div className="flex w-full">
-          <Typography variant="h1" className="flex flex-1">
+          <Typography
+            variant="h1"
+            className="flex flex-1"
+          >
             <Link
               href={generatePath(APP_ROUTES.POST, {
                 postId: post?.slug || post?.id,
@@ -43,5 +46,5 @@ export default function PostDetail({ post }: PostDetailProps) {
         <PostContent post={post} />
       </article>
     </div>
-  );
+  )
 }

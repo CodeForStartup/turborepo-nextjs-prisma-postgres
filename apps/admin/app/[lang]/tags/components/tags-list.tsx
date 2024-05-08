@@ -1,13 +1,13 @@
-import React from "react";
+import React from "react"
 
-import { TTagListItem } from "@/types/tags";
+import { TTagListItem } from "@/types/tags"
 
-import { columns } from "./columns";
-import { DataTable } from "./data-table";
+import { columns } from "./columns"
+import { DataTable } from "./data-table"
 
 interface TagListProps {
-  data: Array<TTagListItem>;
-  total: number;
+  data: Array<TTagListItem>
+  total: number
 }
 
 const TagList = ({ data, total }: TagListProps) => {
@@ -19,7 +19,7 @@ const TagList = ({ data, total }: TagListProps) => {
         total={total}
       />
     </div>
-  );
-};
+  )
+}
 
-export default TagList;
+export default TagList

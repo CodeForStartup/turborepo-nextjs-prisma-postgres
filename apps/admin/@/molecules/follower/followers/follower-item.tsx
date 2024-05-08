@@ -1,17 +1,17 @@
-import React from "react";
-import Link from "next/link";
+import React from "react"
+import Link from "next/link"
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { TUserItem } from "@/types/users";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { TUserItem } from "@/types/users"
 
-import { cn } from "../../lib/utils";
-import { Button } from "./button";
+import { cn } from "../../lib/utils"
+import { Button } from "./button"
 
 type FollowerItemProps = {
-  user: TUserItem;
-  className?: string;
-  showFollowButton?: boolean;
-};
+  user: TUserItem
+  className?: string
+  showFollowButton?: boolean
+}
 
 const FollowerItem: React.FC<FollowerItemProps> = ({
   user,
@@ -25,7 +25,10 @@ const FollowerItem: React.FC<FollowerItemProps> = ({
           <div className="flex flex-1 items-center gap-4">
             <div className="m-0 flex items-center justify-center rounded-[100%] border-dashed border-stone-900 bg-slate-200">
               <Avatar className="h-12 w-12">
-                <AvatarImage src={user?.image || ""} alt={""} />
+                <AvatarImage
+                  src={user?.image || ""}
+                  alt={""}
+                />
                 <AvatarFallback>{"CO".slice(0, 2)}</AvatarFallback>
               </Avatar>
             </div>
@@ -38,7 +41,7 @@ const FollowerItem: React.FC<FollowerItemProps> = ({
       </div>
       {showFollowButton && <Button variant="outline">Follow</Button>}
     </div>
-  );
-};
+  )
+}
 
-export default FollowerItem;
+export default FollowerItem

@@ -1,16 +1,16 @@
-"use client";
+"use client"
 
-import React from "react";
+import React from "react"
 
-import { useTheme } from "next-themes";
-import { Button } from "ui";
+import { useTheme } from "next-themes"
+import { Button } from "ui"
 
 const ThemeToggle: React.FC = () => {
-  const { theme, setTheme } = useTheme();
+  const { theme, setTheme } = useTheme()
 
   const toggleTheme = () => {
-    setTheme(theme === "dark" ? "light" : "dark");
-  };
+    setTheme(theme === "dark" ? "light" : "dark")
+  }
 
   return (
     <div className="flex gap-2">
@@ -36,7 +36,7 @@ const ThemeToggle: React.FC = () => {
         <i className="ri-moon-line" />
       </Button>
     </div>
-  );
-};
+  )
+}
 
-export default ThemeToggle;
+export default ThemeToggle

@@ -1,10 +1,10 @@
-import { NextRequest } from "next/server";
+import { NextRequest } from "next/server"
 
-import prisma from "database";
+import prisma from "database"
 
 export async function GET(request: NextRequest) {
-  const newUrl = request.nextUrl.clone();
-  const search = newUrl.searchParams.get("search") || "";
+  const newUrl = request.nextUrl.clone()
+  const search = newUrl.searchParams.get("search") || ""
 
   try {
     const posts = await prisma.tags.findMany({
@@ -14,10 +14,10 @@ export async function GET(request: NextRequest) {
           mode: "insensitive",
         },
       },
-    });
+    })
 
-    return Response.json(posts);
+    return Response.json(posts)
   } catch (error) {
-    throw error;
+    throw error
   }
 }

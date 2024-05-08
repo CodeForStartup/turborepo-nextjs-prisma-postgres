@@ -1,41 +1,32 @@
-"use client";
+"use client"
 
-import { PostOnUserType } from "database";
-import { useTranslations } from "next-intl";
+import { PostOnUserType } from "database"
+import { useTranslations } from "next-intl"
 
-import { addRelation, removeRelation } from "@/actions/protect/postAction";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
-import { TPostItem } from "@/types/posts";
+import { addRelation, removeRelation } from "@/actions/protect/postAction"
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
+import { TPostItem } from "@/types/posts"
 
-import { cn } from "../../lib/utils";
-import { Button } from "./button";
+import { cn } from "../../lib/utils"
+import { Button } from "./button"
 
 type LikeButtonProps = {
-  post: TPostItem;
-  totalLike: number;
-  isLiked: boolean;
-  children: React.ReactNode;
-};
+  post: TPostItem
+  totalLike: number
+  isLiked: boolean
+  children: React.ReactNode
+}
 
-const LikeButton: React.FC<LikeButtonProps> = ({
-  children,
-  post,
-  isLiked,
-}: LikeButtonProps) => {
-  const t = useTranslations();
+const LikeButton: React.FC<LikeButtonProps> = ({ children, post, isLiked }: LikeButtonProps) => {
+  const t = useTranslations()
 
   const toggleLike = () => {
-    (isLiked ? removeRelation : addRelation)({
+    ;(isLiked ? removeRelation : addRelation)({
       postId: post.id,
       postSlug: post.slug,
       action: PostOnUserType.LIKE,
-    });
-  };
+    })
+  }
 
   return (
     <div className="flex flex-col items-center">
@@ -45,7 +36,7 @@ const LikeButton: React.FC<LikeButtonProps> = ({
             <Button
               onClick={toggleLike}
               className={cn(
-                "hover:border-stale-300 border-stale-800 flex h-12 w-12 items-center justify-center rounded-full border bg-white p-0 text-2xl hover:bg-slate-200",
+                "hover:border-stale-300 border-stale-800 flex h-12 w-12 items-center justify-center rounded-full border bg-white p-0 text-2xl hover:bg-slate-200"
               )}
             >
               <i
@@ -56,14 +47,12 @@ const LikeButton: React.FC<LikeButtonProps> = ({
               />
             </Button>
           </TooltipTrigger>
-          <TooltipContent>
-            {t(isLiked ? "common.unlike" : "common.like")}
-          </TooltipContent>
+          <TooltipContent>{t(isLiked ? "common.unlike" : "common.like")}</TooltipContent>
         </Tooltip>
       </TooltipProvider>
       {children}
     </div>
-  );
-};
+  )
+}
 
-export default LikeButton;
+export default LikeButton

@@ -1,16 +1,16 @@
-import React from "react";
-import Link from "next/link";
+import React from "react"
+import Link from "next/link"
 
-import { getTranslations } from "next-intl/server";
-import querystring from "qs";
-import { Typography } from "ui";
+import { getTranslations } from "next-intl/server"
+import querystring from "qs"
+import { Typography } from "ui"
 
-import APP_APIS from "@/constants/apis";
+import APP_APIS from "@/constants/apis"
 
-import NumberIndex from "./NumberIndex";
+import NumberIndex from "./NumberIndex"
 
 const TopTag: React.FC = async () => {
-  const t = await getTranslations();
+  const t = await getTranslations()
 
   // const rawTags = await fetch(
   //   `${process.env.NEXT_PUBLIC_FRONTEND_URL}${APP_APIS.public.tags.GET}?${querystring.stringify({
@@ -31,14 +31,17 @@ const TopTag: React.FC = async () => {
   const tagData = {
     data: [],
     total: 0,
-  };
+  }
 
   return (
     <div className="mt-4 border-t pt-4">
       <Typography variant="h3">{t("common.trending")}</Typography>
       <ul>
         {(tagData?.data || []).map((tag, index) => (
-          <li key={tag.id} className="mb-2 flex items-center gap-2">
+          <li
+            key={tag.id}
+            className="mb-2 flex items-center gap-2"
+          >
             <NumberIndex number={index + 1} />
             <Link href={`/tags/${tag?.slug || tag?.id}`}>
               <div className="hover:underline">
@@ -55,7 +58,7 @@ const TopTag: React.FC = async () => {
         ))}
       </ul>
     </div>
-  );
-};
+  )
+}
 
-export default TopTag;
+export default TopTag

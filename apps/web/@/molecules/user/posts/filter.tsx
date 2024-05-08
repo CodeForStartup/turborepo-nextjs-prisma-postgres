@@ -1,37 +1,31 @@
-"use client";
+"use client"
 
-import React from "react";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import React from "react"
+import { usePathname, useRouter, useSearchParams } from "next/navigation"
 
-import { useTranslations } from "next-intl";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "ui";
+import { useTranslations } from "next-intl"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "ui"
 
-import { ORDER_BY } from "@/constants/order";
+import { ORDER_BY } from "@/constants/order"
 
 interface FilterProps {
-  total: number;
+  total: number
 }
 
 const Filter: React.FC<FilterProps> = ({ total }) => {
-  const t = useTranslations();
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  const pathname = usePathname();
+  const t = useTranslations()
+  const router = useRouter()
+  const searchParams = useSearchParams()
+  const pathname = usePathname()
 
-  const orderBy = searchParams.get("order_by") || ORDER_BY.updated_at_desc;
+  const orderBy = searchParams.get("order_by") || ORDER_BY.updated_at_desc
 
   const onChangeFilter = (newValue) => {
-    const urlSearchParam = new URLSearchParams(searchParams);
-    urlSearchParam.set("order_by", newValue);
+    const urlSearchParam = new URLSearchParams(searchParams)
+    urlSearchParam.set("order_by", newValue)
 
-    router.push(`${pathname}?${urlSearchParam.toString()}`);
-  };
+    router.push(`${pathname}?${urlSearchParam.toString()}`)
+  }
 
   return (
     <div className="flex items-center justify-between">
@@ -47,7 +41,10 @@ const Filter: React.FC<FilterProps> = ({ total }) => {
           </SelectTrigger>
           <SelectContent>
             {Object.values(ORDER_BY).map((item) => (
-              <SelectItem key={item} value={item}>
+              <SelectItem
+                key={item}
+                value={item}
+              >
                 {t(`common.${item}`)}
               </SelectItem>
             ))}
@@ -55,7 +52,7 @@ const Filter: React.FC<FilterProps> = ({ total }) => {
         </Select>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Filter;
+export default Filter

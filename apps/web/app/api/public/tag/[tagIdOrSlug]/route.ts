@@ -1,11 +1,8 @@
-import { NextRequest } from "next/server";
+import { NextRequest } from "next/server"
 
-import { tagItemSelect } from "@/types/tags";
+import { tagItemSelect } from "@/types/tags"
 
-export async function GET(
-  request: NextRequest,
-  { params }: { params: { tagIdOrSlug: string } },
-) {
+export async function GET(request: NextRequest, { params }: { params: { tagIdOrSlug: string } }) {
   try {
     const tag = await prisma.tags.findFirst({
       where: {
@@ -19,16 +16,16 @@ export async function GET(
         ],
       },
       select: tagItemSelect,
-    });
+    })
 
     if (!tag)
       return Response.json({
         status: 404,
         message: "Post not found",
-      });
+      })
 
-    return Response.json(tag, { status: 200 });
+    return Response.json(tag, { status: 200 })
   } catch (error) {
-    return Response.error();
+    return Response.error()
   }
 }

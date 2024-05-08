@@ -1,20 +1,15 @@
-import { useTranslations } from "next-intl";
+import { useTranslations } from "next-intl"
 
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
-import Typography from "@/molecules/typography";
-import { TPostItem } from "@/types/posts";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
+import Typography from "@/molecules/typography"
+import { TPostItem } from "@/types/posts"
 
 type LikeButtonProps = {
-  post: TPostItem;
-};
+  post: TPostItem
+}
 
 const LikeButton: React.FC<LikeButtonProps> = ({ post }: LikeButtonProps) => {
-  const t = useTranslations();
+  const t = useTranslations()
 
   return (
     <div className="flex h-8 items-center gap-1">
@@ -23,7 +18,10 @@ const LikeButton: React.FC<LikeButtonProps> = ({ post }: LikeButtonProps) => {
           <TooltipTrigger asChild>
             <div className="flex items-center gap-1">
               <i className="ri-heart-3-fill text-red-500" />
-              <Typography variant="span" className="text-sm text-gray-600">
+              <Typography
+                variant="span"
+                className="text-sm text-gray-600"
+              >
                 {post.totalLike}
               </Typography>
             </div>
@@ -34,7 +32,7 @@ const LikeButton: React.FC<LikeButtonProps> = ({ post }: LikeButtonProps) => {
         </Tooltip>
       </TooltipProvider>
     </div>
-  );
-};
+  )
+}
 
-export default LikeButton;
+export default LikeButton

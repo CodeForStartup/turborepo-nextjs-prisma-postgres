@@ -1,21 +1,21 @@
-"use client";
+"use client"
 
-import React from "react";
-import Link from "next/link";
+import React from "react"
+import Link from "next/link"
 
-import dayjs from "dayjs";
-import { LucideHeart, LucideMoreHorizontal } from "lucide-react";
+import dayjs from "dayjs"
+import { LucideHeart, LucideMoreHorizontal } from "lucide-react"
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import APP_ROUTES from "@/constants/routes";
-import Typography from "@/molecules/typography";
-import { TCommentItem } from "@/types/comment";
-import { generatePath } from "@/utils/generatePath";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import APP_ROUTES from "@/constants/routes"
+import Typography from "@/molecules/typography"
+import { TCommentItem } from "@/types/comment"
+import { generatePath } from "@/utils/generatePath"
 
-import { Button } from "./button";
+import { Button } from "./button"
 
 interface CommentItemProps {
-  comment: TCommentItem;
+  comment: TCommentItem
 }
 
 const CommentItem: React.FC<CommentItemProps> = ({ comment }) => {
@@ -52,8 +52,14 @@ const CommentItem: React.FC<CommentItemProps> = ({ comment }) => {
           </time>
         </div>
         <div>
-          <Button variant="link" size="sm">
-            <LucideMoreHorizontal size={20} className="text-gray-500" />
+          <Button
+            variant="link"
+            size="sm"
+          >
+            <LucideMoreHorizontal
+              size={20}
+              className="text-gray-500"
+            />
           </Button>
         </div>
       </div>
@@ -61,12 +67,19 @@ const CommentItem: React.FC<CommentItemProps> = ({ comment }) => {
         <Typography>{comment?.content}</Typography>
       </div>
 
-      <Button variant="link" size="sm" className="mt-2">
-        <LucideHeart size={20} className="text-gray-500" />
+      <Button
+        variant="link"
+        size="sm"
+        className="mt-2"
+      >
+        <LucideHeart
+          size={20}
+          className="text-gray-500"
+        />
         <span className="ml-1">100</span>
       </Button>
     </div>
-  );
-};
+  )
+}
 
-export default CommentItem;
+export default CommentItem

@@ -1,24 +1,24 @@
-import { NextRequest } from "next/server";
+import { NextRequest } from "next/server"
 
-import prisma from "database";
-import { z } from "zod";
+import prisma from "database"
+import { z } from "zod"
 
-import { commentSelect } from "@/types/comment";
-import { getServerSession } from "@/utils/auth";
+import { commentSelect } from "@/types/comment"
+import { getServerSession } from "@/utils/auth"
 
 export async function POST(request: NextRequest) {
-  const session = await getServerSession();
+  const session = await getServerSession()
 
-  if (!session?.user?.id) return Response.error();
+  if (!session?.user?.id) return Response.error()
 
-  const data = await request.json();
+  const data = await request.json()
 
   const { comment, postId } = z
     .object({
       comment: z.string().min(1).max(255),
       postId: z.string().min(1).max(255),
     })
-    .parse(data);
+    .parse(data)
 
   const result = await prisma.comment.create({
     data: {
@@ -36,7 +36,7 @@ export async function POST(request: NextRequest) {
       },
     },
     select: commentSelect,
-  });
+  })
 
-  return Response.json({ message: "Success", data: result });
+  return Response.json({ message: "Success", data: result })
 }

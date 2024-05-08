@@ -1,26 +1,23 @@
-import { NextRequest } from "next/server";
+import { NextRequest } from "next/server"
 
-import prisma, { Prisma } from "database";
+import prisma, { Prisma } from "database"
 
-import { commentSelect } from "@/types/comment";
+import { commentSelect } from "@/types/comment"
 
-export async function GET(
-  request: NextRequest,
-  { params }: { params: { postIdOrSlug: string } },
-) {
-  const newUrl = request.nextUrl.clone();
-  const searchTerm = newUrl.searchParams.get("query") || "";
-  const limit = newUrl.searchParams.get("limit") || 10;
-  const page = newUrl.searchParams.get("page") || 1;
-  const sort = newUrl.searchParams.get("sort") || "new";
+export async function GET(request: NextRequest, { params }: { params: { postIdOrSlug: string } }) {
+  const newUrl = request.nextUrl.clone()
+  const searchTerm = newUrl.searchParams.get("query") || ""
+  const limit = newUrl.searchParams.get("limit") || 10
+  const page = newUrl.searchParams.get("page") || 1
+  const sort = newUrl.searchParams.get("sort") || "new"
 
   let where: Prisma.CommentWhereInput = {
     commentOnPostId: params.postIdOrSlug,
-  };
+  }
 
   const orderBy: Prisma.CommentOrderByWithRelationAndSearchRelevanceInput = {
     updatedAt: sort === "new" ? "desc" : "asc",
-  };
+  }
 
   if (searchTerm) {
     where = {
@@ -29,7 +26,7 @@ export async function GET(
         contains: searchTerm,
         mode: "insensitive",
       },
-    };
+    }
   }
 
   try {
@@ -44,15 +41,15 @@ export async function GET(
           ...orderBy,
         },
       }),
-    ]);
+    ])
 
     return Response.json({
       data: comments,
       total,
       page: Number(page),
       limit: Number(limit),
-    });
+    })
   } catch (error) {
-    throw error;
+    throw error
   }
 }

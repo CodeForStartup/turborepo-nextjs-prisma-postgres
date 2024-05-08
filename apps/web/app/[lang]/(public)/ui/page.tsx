@@ -1,35 +1,30 @@
-import { Metadata } from "next";
+import { Metadata } from "next"
 
-import { LucideHeart } from "lucide-react";
-import { Button, Input, Typography } from "ui";
+import { LucideHeart } from "lucide-react"
+import { Button, Input, Typography } from "ui"
 
-import PageTitle from "@/molecules/page-title";
-import TagBadge from "@/molecules/tag/tag-badge";
+import PageTitle from "@/molecules/page-title"
+import TagBadge from "@/molecules/tag/tag-badge"
 
 export const metadata: Metadata = {
   title: "Toplist360 - Page UI",
   description: "UI components for pages",
-};
+}
 
-const Section = ({
-  children,
-  title,
-}: {
-  children: React.ReactNode;
-  title: string;
-}) => (
+const Section = ({ children, title }: { children: React.ReactNode; title: string }) => (
   <div className="my-16">
-    <h1 className="mb-10 scroll-m-20 text-4xl font-bold tracking-tight text-slate-800">
-      {title}
-    </h1>
+    <h1 className="mb-10 scroll-m-20 text-4xl font-bold tracking-tight text-slate-800">{title}</h1>
     {children}
   </div>
-);
+)
 
 export default async function Page() {
   return (
     <div className="mb-16 rounded-md p-8">
-      <PageTitle title="List of UI components" description="Pages components" />
+      <PageTitle
+        title="List of UI components"
+        description="Pages components"
+      />
 
       <Section title="Typography">
         <Typography variant="h1">
@@ -44,10 +39,11 @@ export default async function Page() {
         <Typography variant="h4">
           H4. React is the library for web and native user interfaces
         </Typography>
-        <Typography>
-          p. React is the library for web and native user interfaces
-        </Typography>
-        <Typography variant="p" className="text-sm text-muted-foreground">
+        <Typography>p. React is the library for web and native user interfaces</Typography>
+        <Typography
+          variant="p"
+          className="text-muted-foreground text-sm"
+        >
           p.sm React is the library for web and native user interfaces
         </Typography>
         <Typography variant="blockquote">
@@ -85,5 +81,5 @@ export default async function Page() {
         <Input placeholder="Input" />
       </Section>
     </div>
-  );
+  )
 }

@@ -1,25 +1,18 @@
-"use client";
+"use client"
 
-import React from "react";
+import React from "react"
 
-import { PostOnUserType } from "database";
-import {
-  Button,
-  cn,
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "ui";
+import { PostOnUserType } from "database"
+import { Button, cn, Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "ui"
 
-import { addRelation, removeRelation } from "@/actions/protect/postAction";
-import { TPostItem } from "@/types/posts";
+import { addRelation, removeRelation } from "@/actions/protect/postAction"
+import { TPostItem } from "@/types/posts"
 
 interface BookmarkButtonProps {
-  totalBookmark: number;
-  isBookmarked: boolean;
-  showCount?: boolean;
-  post: TPostItem;
+  totalBookmark: number
+  isBookmarked: boolean
+  showCount?: boolean
+  post: TPostItem
 }
 
 const BookmarkButton: React.FC<BookmarkButtonProps> = ({
@@ -29,12 +22,12 @@ const BookmarkButton: React.FC<BookmarkButtonProps> = ({
   post,
 }) => {
   const handleBookmark = () => {
-    (isBookmarked ? removeRelation : addRelation)({
+    ;(isBookmarked ? removeRelation : addRelation)({
       postId: post?.id,
       postSlug: post?.slug,
       action: PostOnUserType.BOOKMARK,
-    });
-  };
+    })
+  }
 
   return (
     <div className="flex flex-col items-center gap-1">
@@ -44,8 +37,7 @@ const BookmarkButton: React.FC<BookmarkButtonProps> = ({
             <Button
               variant="link"
               className={cn("no-underline hover:no-underline", {
-                "h-8 w-8 rounded p-0 text-blue-900 hover:bg-slate-300":
-                  !showCount,
+                "h-8 w-8 rounded p-0 text-blue-900 hover:bg-slate-300": !showCount,
                 "hover:border-stale-300 border-stale-800 flex h-12 w-12 items-center justify-center rounded-full border bg-white p-0 text-lg hover:bg-slate-200":
                   showCount,
               })}
@@ -59,16 +51,12 @@ const BookmarkButton: React.FC<BookmarkButtonProps> = ({
               />
             </Button>
           </TooltipTrigger>
-          <TooltipContent>
-            {isBookmarked ? "Un-Bookmark" : "Bookmark"}
-          </TooltipContent>
+          <TooltipContent>{isBookmarked ? "Un-Bookmark" : "Bookmark"}</TooltipContent>
         </Tooltip>
       </TooltipProvider>
-      {showCount && (
-        <span className="text-lg font-bold text-gray-600">{totalBookmark}</span>
-      )}
+      {showCount && <span className="text-lg font-bold text-gray-600">{totalBookmark}</span>}
     </div>
-  );
-};
+  )
+}
 
-export default BookmarkButton;
+export default BookmarkButton

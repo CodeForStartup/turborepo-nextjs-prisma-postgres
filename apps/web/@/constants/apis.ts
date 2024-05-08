@@ -54,6 +54,6 @@ const APP_APIS = {
       GET_FOLLOWER_STATUS: "api/protected/user/:userId/follower",
     },
   },
-};
+}
 
-export default APP_APIS;
+export default APP_APIS

@@ -1,16 +1,16 @@
-import React from "react";
+import React from "react"
 
-import { PostOnUserType } from "database";
+import { PostOnUserType } from "database"
 
-import { getTotalActions } from "@/actions/protect/postAction";
-import { TPostItem } from "@/types/posts";
+import { getTotalActions } from "@/actions/protect/postAction"
+import { TPostItem } from "@/types/posts"
 
-import BookmarkButton from "./BookmarkButton";
+import BookmarkButton from "./BookmarkButton"
 
 type BookmarkButtonContainerProps = {
-  post: TPostItem;
-  showCount?: boolean;
-};
+  post: TPostItem
+  showCount?: boolean
+}
 
 const BookmarkButtonContainer: React.FC<BookmarkButtonContainerProps> = async ({
   post,
@@ -19,7 +19,7 @@ const BookmarkButtonContainer: React.FC<BookmarkButtonContainerProps> = async ({
   const { total, haveAction } = await getTotalActions({
     postId: post.id,
     actionType: PostOnUserType.BOOKMARK,
-  });
+  })
 
   return (
     <BookmarkButton
@@ -28,7 +28,7 @@ const BookmarkButtonContainer: React.FC<BookmarkButtonContainerProps> = async ({
       isBookmarked={Boolean(haveAction)}
       showCount={showCount}
     />
-  );
-};
+  )
+}
 
-export default BookmarkButtonContainer;
+export default BookmarkButtonContainer

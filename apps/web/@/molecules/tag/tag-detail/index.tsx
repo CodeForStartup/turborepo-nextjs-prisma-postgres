@@ -1,13 +1,13 @@
-import Link from "next/link";
+import Link from "next/link"
 
-import { Tag } from "lucide-react";
-import { Button, Card, CardContent, CardHeader } from "ui";
+import { Tag } from "lucide-react"
+import { Button, Card, CardContent, CardHeader } from "ui"
 
-import { TTagItem } from "@/types/tags";
+import { TTagItem } from "@/types/tags"
 
 export type TagDetailProp = {
-  tag: TTagItem;
-};
+  tag: TTagItem
+}
 
 const TagDetail = ({ tag }: TagDetailProp) => {
   return (
@@ -25,9 +25,7 @@ const TagDetail = ({ tag }: TagDetailProp) => {
             </h1>
             <div className="mt-4 flex w-full flex-1 divide-x">
               <div className="flex flex-1 flex-col items-center justify-center">
-                <div className="font-bold text-slate-800">
-                  {tag?.tagOnPost?.length}
-                </div>
+                <div className="font-bold text-slate-800">{tag?.tagOnPost?.length}</div>
                 <div className="text-gray-400 hover:underline">
                   <Link href={`/tags/${tag.id}`}>posts</Link>
                 </div>
@@ -39,14 +37,17 @@ const TagDetail = ({ tag }: TagDetailProp) => {
                 </div>
               </div>
             </div>
-            <Button className="mt-4 w-full" variant="outline">
+            <Button
+              className="mt-4 w-full"
+              variant="outline"
+            >
               Follow
             </Button>
           </div>
         </CardContent>
       </Card>
     </div>
-  );
-};
+  )
+}
 
-export default TagDetail;
+export default TagDetail

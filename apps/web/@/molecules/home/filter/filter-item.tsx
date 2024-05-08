@@ -1,10 +1,10 @@
-import { Button, cn } from "ui";
+import { Button, cn } from "ui"
 
 type FilterItemProps = {
-  label: string;
-  isActive: boolean;
-  onclick: () => void;
-};
+  label: string
+  isActive: boolean
+  onclick: () => void
+}
 
 export const FilterItem: React.FC<FilterItemProps> = ({
   label,
@@ -22,5 +22,5 @@ export const FilterItem: React.FC<FilterItemProps> = ({
     >
       {label}
     </Button>
-  );
-};
+  )
+}

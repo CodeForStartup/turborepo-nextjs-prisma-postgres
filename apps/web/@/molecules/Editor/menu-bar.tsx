@@ -1,13 +1,13 @@
-import React, { Fragment } from "react";
+import React, { Fragment } from "react"
 
-import { Editor } from "@tiptap/react";
+import { Editor } from "@tiptap/react"
 
-import MenuItem from "./menu-item";
+import MenuItem from "./menu-item"
 
 type MenuBarProps = {
-  editor: Editor;
-  setLink: () => void;
-};
+  editor: Editor
+  setLink: () => void
+}
 
 const MenuBar = ({ editor, setLink }: MenuBarProps) => {
   const items = [
@@ -138,21 +138,17 @@ const MenuBar = ({ editor, setLink }: MenuBarProps) => {
       title: "Redo",
       action: () => editor.chain().focus().redo().run(),
     },
-  ];
+  ]
 
   return (
     <div className="editor__header mb-4">
       {items.map((item, index) => (
         <Fragment key={index}>
-          {item.type === "divider" ? (
-            <div className="divider" />
-          ) : (
-            <MenuItem {...item} />
-          )}
+          {item.type === "divider" ? <div className="divider" /> : <MenuItem {...item} />}
         </Fragment>
       ))}
     </div>
-  );
-};
+  )
+}
 
-export default MenuBar;
+export default MenuBar

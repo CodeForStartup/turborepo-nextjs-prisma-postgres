@@ -1,36 +1,34 @@
-import React from "react";
+import React from "react"
 
-import { useTranslations } from "next-intl";
+import { useTranslations } from "next-intl"
 
-import { getLikers } from "@/actions/protect/postAction";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import FollowerItem from "@/molecules/follower/followers/follower-item";
-import Typography from "@/molecules/typography";
-import { TPostItem } from "@/types/posts";
+import { getLikers } from "@/actions/protect/postAction"
+import { Dialog, DialogContent, DialogHeader, DialogTrigger } from "@/components/ui/dialog"
+import FollowerItem from "@/molecules/follower/followers/follower-item"
+import Typography from "@/molecules/typography"
+import { TPostItem } from "@/types/posts"
 
-import { Button } from "./button";
+import { Button } from "./button"
 
 interface LikerProps {
-  totalLike: number;
-  post: TPostItem;
+  totalLike: number
+  post: TPostItem
 }
 
 const Liker: React.FC<LikerProps> = async ({ totalLike, post }) => {
-  const t = useTranslations();
+  const t = useTranslations()
 
   const { data: likers } = await getLikers({
     postId: post.id,
-  });
+  })
 
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="link" className="h-8 text-lg font-bold">
+        <Button
+          variant="link"
+          className="h-8 text-lg font-bold"
+        >
           {totalLike}
         </Button>
       </DialogTrigger>
@@ -49,7 +47,7 @@ const Liker: React.FC<LikerProps> = async ({ totalLike, post }) => {
         ))}
       </DialogContent>
     </Dialog>
-  );
-};
+  )
+}
 
-export default Liker;
+export default Liker

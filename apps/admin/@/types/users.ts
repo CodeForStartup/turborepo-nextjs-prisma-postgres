@@ -1,4 +1,4 @@
-import { Prisma } from "database";
+import { Prisma } from "database"
 
 export const userSelect = {
   id: true,
@@ -21,12 +21,12 @@ export const userSelect = {
       followings: true,
     },
   },
-} satisfies Prisma.UserSelect;
+} satisfies Prisma.UserSelect
 
 const getUser = Prisma.validator<Prisma.UserDefaultArgs>()({
   select: userSelect,
-});
+})
 
-export type TUserItem = Prisma.UserGetPayload<typeof getUser>;
+export type TUserItem = Prisma.UserGetPayload<typeof getUser>
 
-export type TUpdateUserInput = Prisma.UserCreateInput;
+export type TUpdateUserInput = Prisma.UserCreateInput

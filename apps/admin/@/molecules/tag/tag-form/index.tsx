@@ -1,10 +1,10 @@
-"use client";
+"use client"
 
-import React from "react";
+import React from "react"
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { createTag, Prisma } from "database";
-import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod"
+import { createTag, Prisma } from "database"
+import { useForm } from "react-hook-form"
 import {
   Button,
   Form,
@@ -15,14 +15,14 @@ import {
   FormMessage,
   Input,
   Textarea,
-} from "ui";
-import { z } from "zod";
+} from "ui"
+import { z } from "zod"
 
-const ACCEPTED_IMAGE_TYPES = ["image/png", "image/jpeg", "image/gif"];
+const ACCEPTED_IMAGE_TYPES = ["image/png", "image/jpeg", "image/gif"]
 
 type TagFormProps = {
   //
-};
+}
 
 const TagForm: React.FC<TagFormProps> = ({}) => {
   const formSchema = z.object({
@@ -59,28 +59,31 @@ const TagForm: React.FC<TagFormProps> = ({}) => {
     image: z
       .any()
       .refine((file) => {
-        return file?.size < 1000000;
+        return file?.size < 1000000
       }, "Image size must be less than 1MB")
       .refine((file) => {
-        return ACCEPTED_IMAGE_TYPES.includes(file?.type);
+        return ACCEPTED_IMAGE_TYPES.includes(file?.type)
       }, "File must be an image")
       .optional(),
-  });
+  })
 
   const form = useForm<Prisma.TagsCreateInput>({
     resolver: zodResolver(formSchema),
-  });
+  })
 
   const onSubmit = (values) => {
-    createTag(values);
-  };
+    createTag(values)
+  }
 
-  const { handleSubmit } = form;
+  const { handleSubmit } = form
 
   return (
     <div className="max-w-[800px]">
       <Form {...form}>
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="space-y-8"
+        >
           <FormField
             control={form.control}
             name="name"
@@ -88,7 +91,10 @@ const TagForm: React.FC<TagFormProps> = ({}) => {
               <FormItem>
                 <FormLabel>Name</FormLabel>
                 <FormControl>
-                  <Input placeholder="reactjs" {...field} />
+                  <Input
+                    placeholder="reactjs"
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -112,7 +118,10 @@ const TagForm: React.FC<TagFormProps> = ({}) => {
           />
 
           <div className="flex space-x-4">
-            <Button type="button" variant="outline">
+            <Button
+              type="button"
+              variant="outline"
+            >
               Cancel
             </Button>
             <Button>Submit</Button>
@@ -120,7 +129,7 @@ const TagForm: React.FC<TagFormProps> = ({}) => {
         </form>
       </Form>
     </div>
-  );
-};
+  )
+}
 
-export default TagForm;
+export default TagForm

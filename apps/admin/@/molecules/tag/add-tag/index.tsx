@@ -1,8 +1,8 @@
-import React from "react";
-import Link from "next/link";
+import React from "react"
+import Link from "next/link"
 
-import { Table } from "@tanstack/react-table";
-import { Plus, SlidersHorizontal } from "lucide-react";
+import { Table } from "@tanstack/react-table"
+import { Plus, SlidersHorizontal } from "lucide-react"
 import {
   Button,
   buttonVariants,
@@ -13,11 +13,11 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "ui";
+} from "ui"
 
 type AddTagProps<TData> = {
-  table: Table<TData>;
-};
+  table: Table<TData>
+}
 
 const AddTag = <TData,>({ table }: AddTagProps<TData>) => {
   return (
@@ -32,15 +32,15 @@ const AddTag = <TData,>({ table }: AddTagProps<TData>) => {
             <SlidersHorizontal size="16" />
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="end" className="w-[150px]">
+        <DropdownMenuContent
+          align="end"
+          className="w-[150px]"
+        >
           <DropdownMenuLabel>Toggle columns</DropdownMenuLabel>
           <DropdownMenuSeparator />
           {table
             .getAllColumns()
-            .filter(
-              (column) =>
-                typeof column.accessorFn !== "undefined" && column.getCanHide(),
-            )
+            .filter((column) => typeof column.accessorFn !== "undefined" && column.getCanHide())
             .map((column) => {
               return (
                 <DropdownMenuCheckboxItem
@@ -51,21 +51,18 @@ const AddTag = <TData,>({ table }: AddTagProps<TData>) => {
                 >
                   {column.id}
                 </DropdownMenuCheckboxItem>
-              );
+              )
             })}
         </DropdownMenuContent>
       </DropdownMenu>
       <Link
         href="/tags/add"
-        className={cn(
-          buttonVariants({ variant: "default", size: "sm" }),
-          "border",
-        )}
+        className={cn(buttonVariants({ variant: "default", size: "sm" }), "border")}
       >
         <Plus size={16} /> Add tag
       </Link>
     </div>
-  );
-};
+  )
+}
 
-export default AddTag;
+export default AddTag

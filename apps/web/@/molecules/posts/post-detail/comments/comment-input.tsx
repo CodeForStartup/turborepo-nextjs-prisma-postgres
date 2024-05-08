@@ -1,10 +1,10 @@
-"use client";
+"use client"
 
-import React, { useState } from "react";
-import Link from "next/link";
+import React, { useState } from "react"
+import Link from "next/link"
 
-import { useSession } from "next-auth/react";
-import { toast } from "react-toastify";
+import { useSession } from "next-auth/react"
+import { toast } from "react-toastify"
 import {
   Avatar,
   AvatarFallback,
@@ -14,34 +14,31 @@ import {
   cn,
   Textarea,
   Typography,
-} from "ui";
+} from "ui"
 
-import APP_APIS from "@/constants/apis";
-import APP_ROUTES from "@/constants/routes";
-import { TCommentItem } from "@/types/comment";
-import { generatePath } from "@/utils/generatePath";
+import APP_APIS from "@/constants/apis"
+import APP_ROUTES from "@/constants/routes"
+import { TCommentItem } from "@/types/comment"
+import { generatePath } from "@/utils/generatePath"
 
 interface CommentInputProps {
-  postId: string;
-  onAddComment: (comment: TCommentItem) => void;
+  postId: string
+  onAddComment: (comment: TCommentItem) => void
 }
 
-const CommentInput: React.FC<CommentInputProps> = ({
-  postId,
-  onAddComment,
-}) => {
-  const [text, setText] = useState("");
-  const { data } = useSession();
+const CommentInput: React.FC<CommentInputProps> = ({ postId, onAddComment }) => {
+  const [text, setText] = useState("")
+  const { data } = useSession()
 
   const handleTextChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const newText = event.target.value;
-    setText(newText);
-  };
+    const newText = event.target.value
+    setText(newText)
+  }
 
-  const shouldDisableSubmit = text.length === 0 || text.length > 255;
+  const shouldDisableSubmit = text.length === 0 || text.length > 255
 
   const handleSubmit = async () => {
-    if (shouldDisableSubmit) return;
+    if (shouldDisableSubmit) return
 
     try {
       const newComment = await fetch(APP_APIS.protected.comment.CREATE, {
@@ -53,15 +50,15 @@ const CommentInput: React.FC<CommentInputProps> = ({
         headers: {
           "Content-Type": "application/json",
         },
-      });
-      const newCommentJson = await newComment.json();
-      onAddComment(newCommentJson?.data);
+      })
+      const newCommentJson = await newComment.json()
+      onAddComment(newCommentJson?.data)
     } catch (error) {
-      toast.error(error.message);
+      toast.error(error.message)
     } finally {
-      setText("");
+      setText("")
     }
-  };
+  }
 
   if (!data?.user?.id) {
     return (
@@ -71,13 +68,13 @@ const CommentInput: React.FC<CommentInputProps> = ({
           className={cn(
             buttonVariants({
               variant: "default",
-            }),
+            })
           )}
         >
           Sign in to comment
         </Link>
       </div>
-    );
+    )
   }
 
   return (
@@ -98,25 +95,33 @@ const CommentInput: React.FC<CommentInputProps> = ({
                 <AvatarFallback>{"CO".slice(0, 2)}</AvatarFallback>
               </Avatar>
             </div>
-            <div className="ml-2 text-sm font-bold text-gray-500">
-              @{data?.user?.name}
-            </div>
+            <div className="ml-2 text-sm font-bold text-gray-500">@{data?.user?.name}</div>
           </div>
         </Link>
       </div>
       <div className="mt-2">
-        <Textarea value={text} onChange={handleTextChange} maxLength={255} />
+        <Textarea
+          value={text}
+          onChange={handleTextChange}
+          maxLength={255}
+        />
       </div>
       <div className="mt-2 flex items-center justify-between">
-        <Typography variant="span" className="text-sm text-gray-500">
+        <Typography
+          variant="span"
+          className="text-sm text-gray-500"
+        >
           <strong>{text?.length || 0}</strong>/255
         </Typography>
-        <Button onClick={handleSubmit} disabled={shouldDisableSubmit}>
+        <Button
+          onClick={handleSubmit}
+          disabled={shouldDisableSubmit}
+        >
           Submit
         </Button>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default CommentInput;
+export default CommentInput

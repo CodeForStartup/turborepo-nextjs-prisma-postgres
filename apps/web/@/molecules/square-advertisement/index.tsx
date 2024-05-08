@@ -1,14 +1,17 @@
-import React from "react";
-import Link from "next/link";
+import React from "react"
+import Link from "next/link"
 
-import { GithubIcon } from "lucide-react";
-import { Typography } from "ui";
+import { GithubIcon } from "lucide-react"
+import { Typography } from "ui"
 
 const SquareAdvertisement: React.FC = () => {
   return (
     <div className="flex w-full flex-col justify-end border-4 border-double p-4">
       <Typography className="hidden font-bold lg:block">faster with</Typography>
-      <Typography variant="span" className="mb-2 text-xs italic">
+      <Typography
+        variant="span"
+        className="mb-2 text-xs italic"
+      >
         free
       </Typography>
       <Link href="/">
@@ -21,7 +24,7 @@ const SquareAdvertisement: React.FC = () => {
         </Typography>
       </Link>
     </div>
-  );
-};
+  )
+}
 
-export default SquareAdvertisement;
+export default SquareAdvertisement
