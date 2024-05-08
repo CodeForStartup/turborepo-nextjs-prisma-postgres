@@ -1,4 +1,4 @@
-import { Prisma } from "database";
+import { Prisma } from "database"
 
 export const commentSelect = {
   id: true,
@@ -14,10 +14,10 @@ export const commentSelect = {
       image: true,
     },
   },
-} satisfies Prisma.CommentSelect;
+} satisfies Prisma.CommentSelect
 
 const getCommentItem = Prisma.validator<Prisma.CommentDefaultArgs>()({
   select: commentSelect,
-});
+})
 
-export type TCommentItem = Prisma.PostGetPayload<typeof getCommentItem>;
+export type TCommentItem = Prisma.PostGetPayload<typeof getCommentItem>

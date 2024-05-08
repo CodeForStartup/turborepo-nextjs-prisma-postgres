@@ -68,6 +68,6 @@ const APP_ROUTES = {
   SERVER_ERROR: "/500",
   UNAUTHORIZED: "/401",
   FORBIDDEN: "/403",
-};
+}
 
-export default APP_ROUTES;
+export default APP_ROUTES
