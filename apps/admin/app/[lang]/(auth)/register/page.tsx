@@ -2,7 +2,8 @@ import React from "react"
 import Link from "next/link"
 
 import { GithubIcon } from "lucide-react"
-import { Button, Card, CardContent, CardFooter, Input, Label, Typography } from "ui"
+import { Button, Card, 
+  CardContent, CardFooter, Input, Label, Typography } from "ui"
 
 const RegisterPage: React.FC = () => {
   return (

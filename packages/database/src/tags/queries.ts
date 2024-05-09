@@ -1,3 +1,5 @@
+"use server"
+
 import { Prisma } from "@prisma/client"
 import { ColumnSort } from "@tanstack/react-table"
 
@@ -107,7 +109,10 @@ export const getTag = async ({ tagIdOrSlug }: GetTagProps): Promise<GetTagRespon
 
 export const createTag = async (tag: Prisma.TagsCreateArgs["data"]): Promise<TTagItem> => {
   return prisma.tags.create({
-    data: tag,
+    data: {
+      ...tag,
+      slug: slugify(tag.name.toLocaleLowerCase()) + "-" + Date.now(),
+    },
     select: tagItemSelect,
   })
 }

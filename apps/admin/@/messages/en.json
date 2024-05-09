@@ -100,7 +100,7 @@
     "total_comment_desc": "Most commented",
     "likers": "Likers",
     "filter": "Filter",
-    "filter_by_placeholder": "Find ....",
+    "filter_by_placeholder": "Type your filter here...",
     "filter_tag": "Filter by tag name..."
   }
 }

@@ -32,6 +32,9 @@ importers:
       prettier-plugin-tailwindcss:
         specifier: ^0.5.1
         version: 0.5.6(@ianvs/prettier-plugin-sort-imports@4.1.1)(prettier@3.0.3)
+      tailwind-config:
+        specifier: workspace:*
+        version: link:packages/tailwind-config
       turbo:
         specifier: latest
         version: 1.10.16
@@ -270,6 +273,9 @@ importers:
       postcss-nesting:
         specifier: ^12.0.1
         version: 12.0.1(postcss@8.4.31)
+      prettier-config-custom:
+        specifier: workspace:*
+        version: link:../../packages/prettier-config-custom
       tailwind-config:
         specifier: workspace:*
         version: link:../../packages/tailwind-config
@@ -542,6 +548,9 @@ importers:
       '@prisma/client':
         specifier: ^5.10.2
         version: 5.10.2(prisma@5.10.2)
+      slugify:
+        specifier: ^1.6.6
+        version: 1.6.6
     devDependencies:
       '@types/node':
         specifier: ^17.0.12
