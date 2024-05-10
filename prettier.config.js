@@ -22,6 +22,6 @@ module.exports = {
     "^[.][.]/",
     "^[./]",
   ],
-  // tailwindConfig: "./packages/tailwind-config/tailwind.config.js",
+  tailwindConfig: "./apps/web/tailwind.config.js",
   plugins: ['@ianvs/prettier-plugin-sort-imports', 'prettier-plugin-tailwindcss'],
 }
