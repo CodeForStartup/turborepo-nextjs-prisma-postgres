@@ -44,7 +44,7 @@ export default function SidebarItem({ label, link, icons, children }: SidebarIte
           <div
             className={cn(
               buttonVariants({ variant: "ghost", size: "sm" }),
-              "dark:hover:bg-muted flex-1 cursor-pointer items-center justify-between dark:text-white dark:hover:text-white",
+              "flex-1 cursor-pointer items-center justify-between dark:text-white dark:hover:bg-muted dark:hover:text-white",
               {
                 "bg-accent": isActive,
               }
@@ -89,7 +89,7 @@ export default function SidebarItem({ label, link, icons, children }: SidebarIte
               key={key}
               className={cn(
                 buttonVariants({ variant: "ghost", size: "sm" }),
-                "dark:hover:bg-muted ml-5 dark:text-white dark:hover:text-white",
+                "ml-5 dark:text-white dark:hover:bg-muted dark:hover:text-white",
                 {
                   "bg-accent": isActive,
                 }
@@ -115,7 +115,7 @@ export default function SidebarItem({ label, link, icons, children }: SidebarIte
       href={link}
       className={cn(
         buttonVariants({ variant: "ghost", size: "sm" }),
-        "dark:hover:bg-muted flex items-center justify-start dark:text-white dark:hover:text-white",
+        "flex items-center justify-start dark:text-white dark:hover:bg-muted dark:hover:text-white",
         {
           "bg-accent": isActive,
         }

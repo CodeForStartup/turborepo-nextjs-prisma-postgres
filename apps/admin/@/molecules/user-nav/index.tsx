@@ -48,11 +48,11 @@ export async function UserNav() {
       >
         <DropdownMenuLabel className="font-normal">
           <Link href={`/author/${session?.user?.id}`}>
-            <div className="hover:bg-muted flex flex-col justify-center rounded-sm p-2 hover:underline">
+            <div className="flex flex-col justify-center rounded-sm p-2 hover:bg-muted hover:underline">
               <Typography className="font-bold leading-none">@{session?.user?.name}</Typography>
               <Typography
                 variant="span"
-                className="text-muted-foreground text-xs leading-none"
+                className="text-xs leading-none text-muted-foreground"
               >
                 {session?.user?.email}
               </Typography>

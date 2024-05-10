@@ -42,7 +42,7 @@ export default async function Page() {
         <Typography>p. React is the library for web and native user interfaces</Typography>
         <Typography
           variant="p"
-          className="text-muted-foreground text-sm"
+          className="text-sm text-muted-foreground"
         >
           p.sm React is the library for web and native user interfaces
         </Typography>

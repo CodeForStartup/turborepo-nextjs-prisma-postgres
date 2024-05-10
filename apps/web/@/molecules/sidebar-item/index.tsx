@@ -22,7 +22,7 @@ export default function SidebarItem({ label, link, icons }: SidebarItemProps) {
       href={link}
       className={cn(
         buttonVariants({ variant: "ghost", size: "sm" }),
-        "dark:hover:bg-muted flex items-center justify-start dark:text-white dark:hover:text-white",
+        "flex items-center justify-start dark:text-white dark:hover:bg-muted dark:hover:text-white",
         {
           "bg-accent": isActive,
         }
