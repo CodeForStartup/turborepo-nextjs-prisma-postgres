@@ -1,5 +1,7 @@
+"use server"
+
 import { Prisma } from "@prisma/client"
-import { ColumnSort } from "@tanstack/react-table"
+import slugify from "slugify"
 
 import { LIMIT_PER_PAGE } from "../constant"
 import prisma from "../prisma"
@@ -9,7 +11,7 @@ type GetTagsProps = {
   page?: number
   limit?: number
   query?: string
-  sorting?: ColumnSort[]
+  sorting?: any[]
 }
 
 type GetTagsResponse = {
@@ -107,7 +109,10 @@ export const getTag = async ({ tagIdOrSlug }: GetTagProps): Promise<GetTagRespon
 
 export const createTag = async (tag: Prisma.TagsCreateArgs["data"]): Promise<TTagItem> => {
   return prisma.tags.create({
-    data: tag,
+    data: {
+      ...tag,
+      slug: tag.slug || slugify(tag.name.toLocaleLowerCase()) + "-" + Date.now(),
+    },
     select: tagItemSelect,
   })
 }

@@ -58,10 +58,17 @@ const TagForm: React.FC<TagFormProps> = ({}) => {
       .or(z.literal("").transform(() => undefined)),
     image: z
       .any()
+      .optional()
       .refine((file) => {
+        if (!file) {
+          return true
+        }
         return file?.size < 1000000
       }, "Image size must be less than 1MB")
       .refine((file) => {
+        if (!file) {
+          return true
+        }
         return ACCEPTED_IMAGE_TYPES.includes(file?.type)
       }, "File must be an image"),
   })
@@ -70,11 +77,17 @@ const TagForm: React.FC<TagFormProps> = ({}) => {
     resolver: zodResolver(formSchema),
   })
 
+  const {
+    formState: { isValid, errors },
+  } = form
+
   const onSubmit = (values) => {
     createTag(values)
   }
 
   const { handleSubmit } = form
+
+  console.log(errors, isValid, form.getValues())
 
   return (
     <div className="max-w-[800px]">
@@ -123,7 +136,7 @@ const TagForm: React.FC<TagFormProps> = ({}) => {
             >
               Cancel
             </Button>
-            <Button>Submit</Button>
+            <Button type="submit">Submit</Button>
           </div>
         </form>
       </Form>
