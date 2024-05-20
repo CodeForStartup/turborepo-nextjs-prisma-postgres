@@ -4,7 +4,6 @@ import Link from "next/link"
 import { useSearchParams } from "next/navigation"
 
 import { Label } from "@radix-ui/react-dropdown-menu"
-import { Tabs } from "@radix-ui/react-tabs"
 import { GithubIcon } from "lucide-react"
 import { signIn } from "next-auth/react"
 import {
@@ -13,6 +12,7 @@ import {
   CardContent,
   CardFooter,
   Input,
+  Tabs,
   TabsContent,
   TabsList,
   TabsTrigger,

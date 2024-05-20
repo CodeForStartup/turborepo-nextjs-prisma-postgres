@@ -14,10 +14,14 @@
         "@/*",
         "assets/*"
       ],
-      "ui": [
-        "../../packages/ui/*",
-        "../../packages/ui/@/*"
-      ],
+      // "ui": [
+      //   "../../packages/ui/*",
+      //   "../../packages/ui/@/*"
+      // ],
+      // "database": [
+      //   "../../packages/database/*",
+      //   "../../packages/database/@/*"
+      // ],
     }
   },
   "include": [

@@ -77,17 +77,11 @@ const TagForm: React.FC<TagFormProps> = ({}) => {
     resolver: zodResolver(formSchema),
   })
 
-  const {
-    formState: { isValid, errors },
-  } = form
-
   const onSubmit = (values) => {
     createTag(values)
   }
 
   const { handleSubmit } = form
-
-  console.log(errors, isValid, form.getValues())
 
   return (
     <div className="max-w-[800px]">

@@ -10,5 +10,8 @@
   "compilerOptions": {
     "jsx": "preserve",
     "baseUrl": ".",
+    "lib": [
+      "esnext",
+    ],
   },
 }
