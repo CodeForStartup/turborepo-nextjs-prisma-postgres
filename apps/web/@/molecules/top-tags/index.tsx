@@ -1,16 +1,16 @@
 import React from "react"
 import Link from "next/link"
 
+import { getTopTags } from "database"
 import { getTranslations } from "next-intl/server"
-import querystring from "qs"
 import { Typography } from "ui"
-
-import APP_APIS from "@/constants/apis"
 
 import NumberIndex from "./NumberIndex"
 
 const TopTag: React.FC = async () => {
   const t = await getTranslations()
+
+  const tagData = await getTopTags({})
 
   // const rawTags = await fetch(
   //   `${process.env.NEXT_PUBLIC_FRONTEND_URL}${APP_APIS.public.tags.GET}?${querystring.stringify({
@@ -28,10 +28,10 @@ const TopTag: React.FC = async () => {
 
   // const tagData = await rawTags.json()
 
-  const tagData = {
-    data: [],
-    total: 0,
-  }
+  // const tagData = {
+  //   data: [],
+  //   total: 0,
+  // }
 
   return (
     <div className="mt-4 border-t pt-4">

@@ -558,6 +558,9 @@ importers:
       prisma:
         specifier: ^5.10.2
         version: 5.10.2
+      tsconfig:
+        specifier: workspace:*
+        version: link:../tsconfig
 
   packages/eslint-config-custom:
     dependencies:
@@ -594,12 +597,6 @@ importers:
       prettier:
         specifier: ^3.0.3
         version: 3.0.3
-
-  packages/prettier-config-custom:
-    devDependencies:
-      tailwind-config:
-        specifier: workspace:*
-        version: link:../tailwind-config
 
   packages/tailwind-config:
     dependencies:

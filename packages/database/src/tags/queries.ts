@@ -1,7 +1,7 @@
 "use server"
 
 import { Prisma } from "@prisma/client"
-import { ColumnSort } from "@tanstack/react-table"
+import slugify from "slugify"
 
 import { LIMIT_PER_PAGE } from "../constant"
 import prisma from "../prisma"
@@ -11,7 +11,7 @@ type GetTagsProps = {
   page?: number
   limit?: number
   query?: string
-  sorting?: ColumnSort[]
+  sorting?: any[]
 }
 
 type GetTagsResponse = {
@@ -111,7 +111,7 @@ export const createTag = async (tag: Prisma.TagsCreateArgs["data"]): Promise<TTa
   return prisma.tags.create({
     data: {
       ...tag,
-      slug: slugify(tag.name.toLocaleLowerCase()) + "-" + Date.now(),
+      slug: tag.slug || slugify(tag.name.toLocaleLowerCase()) + "-" + Date.now(),
     },
     select: tagItemSelect,
   })
@@ -140,4 +140,41 @@ export const deleteTag = async (tagId: string): Promise<TTagItem> => {
     },
     select: tagItemSelect,
   })
+}
+
+export const getTopTags = async ({ searchTerm = "", page = 0, limit = 10 }) => {
+  let query = {
+    select: tagListSelect,
+    take: Number(limit),
+    skip: (page === 0 ? 0 : page - 1) * Number(limit),
+  } as Prisma.TagsFindManyArgs
+
+  if (searchTerm) {
+    query = {
+      ...query,
+      where: {
+        name: {
+          contains: searchTerm,
+          mode: "insensitive",
+        },
+      },
+    }
+  }
+
+  try {
+    const [data, total] = await Promise.all([
+      prisma.tags.findMany(query),
+      prisma.tags.count({
+        where: query.where,
+      }),
+    ])
+
+    return { data, total }
+  } catch (error) {
+    throw {
+      data: [],
+      total: 0,
+      error,
+    }
+  }
 }
