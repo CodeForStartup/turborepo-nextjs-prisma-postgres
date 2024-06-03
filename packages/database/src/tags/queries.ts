@@ -141,3 +141,40 @@ export const deleteTag = async (tagId: string): Promise<TTagItem> => {
     select: tagItemSelect,
   })
 }
+
+export const getTopTags = async ({ searchTerm = "", page = 0, limit = 10 }) => {
+  let query = {
+    select: tagListSelect,
+    take: Number(limit),
+    skip: (page === 0 ? 0 : page - 1) * Number(limit),
+  } as Prisma.TagsFindManyArgs
+
+  if (searchTerm) {
+    query = {
+      ...query,
+      where: {
+        name: {
+          contains: searchTerm,
+          mode: "insensitive",
+        },
+      },
+    }
+  }
+
+  try {
+    const [data, total] = await Promise.all([
+      prisma.tags.findMany(query),
+      prisma.tags.count({
+        where: query.where,
+      }),
+    ])
+
+    return { data, total }
+  } catch (error) {
+    throw {
+      data: [],
+      total: 0,
+      error,
+    }
+  }
+}
