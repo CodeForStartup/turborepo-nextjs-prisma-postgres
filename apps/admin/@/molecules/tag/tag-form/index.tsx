@@ -70,7 +70,8 @@ const TagForm: React.FC<TagFormProps> = ({}) => {
           return true
         }
         return ACCEPTED_IMAGE_TYPES.includes(file?.type)
-      }, "File must be an image"),
+      }, "File must be an image")
+      .optional(),
   })
 
   const form = useForm<Prisma.TagsCreateInput>({

@@ -2,9 +2,9 @@ import React from "react"
 import Link from "next/link"
 
 import dayjs from "dayjs"
+import { Typography } from "ui"
 
 import LanguageSwitcher from "../language-switcher"
-import Typography from "../typography"
 
 const Footer: React.FC = () => {
   return (

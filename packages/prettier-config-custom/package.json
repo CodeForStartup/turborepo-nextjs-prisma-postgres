@@ -1,0 +1,16 @@
+{
+  "name": "prettier-config-custom",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "types": "./index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "tailwind-config": "workspace:*"
+  }
+}
