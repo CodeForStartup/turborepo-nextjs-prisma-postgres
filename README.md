@@ -82,8 +82,8 @@ turbo dev
 - [ ] CRUD tags
 - [ ] CRUD users
 - [ ] Manage posts
-- [ ] Manage categories
-- [ ] Settings: Header/Menu...
+- [ ] Manage images
+- [ ] Settings: Header/Menu
 
 # DEV NOTES
 
