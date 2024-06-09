@@ -1,4 +1,5 @@
 import "./globals.css"
+import "ui/dist/index.css"
 
 import AuthProvider from "providers/authProvider"
 import { ToastContainer } from "react-toastify"

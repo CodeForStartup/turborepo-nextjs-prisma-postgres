@@ -12,27 +12,6 @@ const TopTag: React.FC = async () => {
 
   const tagData = await getTopTags({})
 
-  // const rawTags = await fetch(
-  //   `${process.env.NEXT_PUBLIC_FRONTEND_URL}${APP_APIS.public.tags.GET}?${querystring.stringify({
-  //     limit: 10,
-  //     sort: "desc",
-  //   })}`,
-  //   {
-  //     method: "GET",
-  //     cache: "no-cache",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //   }
-  // )
-
-  // const tagData = await rawTags.json()
-
-  // const tagData = {
-  //   data: [],
-  //   total: 0,
-  // }
-
   return (
     <div className="mt-4 border-t pt-4">
       <Typography variant="h3">{t("common.trending")}</Typography>

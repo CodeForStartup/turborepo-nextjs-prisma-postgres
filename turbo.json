@@ -12,7 +12,7 @@
     "DATABASE_URL",
     "NODE_ENV"
   ],
-  "pipeline": {
+  "tasks": {
     "build": {
       "dependsOn": ["^db:generate", "^build"],
       "outputs": [".next/**", "!.next/cache/**"]

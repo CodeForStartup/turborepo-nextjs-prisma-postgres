@@ -87,7 +87,7 @@ export default function SearchBar() {
               </Button>
             </>
           )}
-          {!searchTerm && (
+          {/* {!searchTerm && (
             <button
               onClick={() => {
                 inputRef.current?.focus()
@@ -109,9 +109,10 @@ export default function SearchBar() {
                     <span>CRL K</span>
                   </>
                 )}
+                <span>CRL K</span>
               </kbd>
             </button>
-          )}
+          )} */}
         </div>
       }
     </div>
