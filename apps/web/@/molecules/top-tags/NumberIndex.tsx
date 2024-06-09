@@ -21,7 +21,7 @@ const NumberIndex: React.FC<NumberIndexProps> = ({ number }) => {
         bebasNeue.className
       )}
       style={{
-        WebkitTextStroke: theme === "light" ? "0.5px #000" : "0.5px #fff",
+        WebkitTextStroke: theme === "dark" ? "0.5px #000" : "0.5px #fff",
       }}
     >
       {number}.

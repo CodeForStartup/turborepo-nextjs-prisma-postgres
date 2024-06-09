@@ -36,24 +36,27 @@ turbo dev
 🤖 ReactJS  
 🎯 TypeScript  
 💫 NextJS 14 - App router and server actions  
-🤗 Prisma  
-🎰 React Form Hook  
-🎭 Postgres  
-🖋 Zod validation  
-🎯 TailwindCSS  
-🚀 Turborepo  
-💒 Tiptap  
-🍾 react-textarea-autosize  
-👽 Prettier
-💥 Husky  
-🔥 shadcn  
-💌 next-themes  
-🐠 lucide-react icon  
 🐧 next-auth  
-🐴 dayjs  
+🤗 Prisma ORM  
+🎭 Postgres  
+🚀 Turborepo
+🎯 TailwindCSS  
+🔥 shadcn  
+💌 next-themes
+🖋 Zod validation
+🎰 React Form Hook  
+💒 Tiptap  
 🐢 react-toastify
+🍾 react-textarea-autosize  
+🐠 lucide-react icon  
+🐴 dayjs  
+🤗 Eslint
+💥 Husky  
+👽 Prettier
 
 # Functions
+
+## Front side functions
 
 - [x] Register by email or github
 - [x] Login by email, github or magic link
@@ -72,6 +75,15 @@ turbo dev
 - [ ] Follow tag
 - [ ] Manage user profile
 - [ ] Multiple type: post/question
+
+## Admin functions
+
+- [ ] Dashboard
+- [ ] CRUD tags
+- [ ] CRUD users
+- [ ] Manage posts
+- [ ] Manage images
+- [ ] Settings: Header/Menu
 
 # DEV NOTES
 

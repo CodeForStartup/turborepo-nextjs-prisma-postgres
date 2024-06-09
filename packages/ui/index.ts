@@ -1,3 +1,5 @@
+import "./app/globals.css"
+
 export { Typography } from "./@/components/ui/typography"
 
 export { Input } from "./@/components/ui/input"

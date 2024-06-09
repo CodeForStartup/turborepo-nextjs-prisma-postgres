@@ -35,7 +35,7 @@ export async function UserProfile({ authorId }: UserProfileProps) {
         <CardHeader className="items-center justify-center">
           <Link href={`/author/${author.id}`}>
             <div className="m-0 flex h-[80px] w-[80px] items-center justify-center rounded-[100%] border-dashed">
-              <Avatar className="h-20 w-20">
+              <Avatar className="h-20 w-20 rounded-[100%] bg-red-200">
                 <AvatarImage
                   src={author?.image || ""}
                   alt={author?.name}

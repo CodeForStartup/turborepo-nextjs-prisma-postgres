@@ -3,6 +3,22 @@
   "include": [
     "."
   ],
+  "compilerOptions": {
+    "jsx": "preserve",
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "baseUrl": ".",
+    "paths": {
+      "@/*": [
+        "src/*",
+        "@/*",
+        "assets/*"
+      ]
+    }
+  },
   "exclude": [
     "dist",
     "build",
