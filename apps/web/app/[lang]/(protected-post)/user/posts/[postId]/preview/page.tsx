@@ -1,15 +1,20 @@
+import { notFound } from "next/navigation"
+
 import { useTranslations } from "next-intl"
 
-const PreviewPostPage: React.FC = () => {
-  const t = useTranslations()
+import { getPost } from "@/actions/public/posts"
+
+export default async function Page({ params }: { params: { postId: string } }) {
+  // const t = useTranslations()
+  const post = await getPost({ postIdOrSlug: params.postId })
+
+  // if (!post) {
+  //   return notFound()
+  // }
+
+  console.log(post)
 
   // Fetch the post content based on the lang and postId
 
-  return (
-    <div>
-      <h1>{t("common.preview")}</h1>
-    </div>
-  )
+  return <div>{JSON.stringify(post)}</div>
 }
-
-export default PreviewPostPage
