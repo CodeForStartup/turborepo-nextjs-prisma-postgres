@@ -1,12 +1,13 @@
 import { Metadata } from "next"
 
-import { getPosts } from "@/actions/public/posts"
+import { getPosts } from "database"
+
 import Filter from "@/molecules/home/filter"
 import PostItem from "@/molecules/posts/post-item"
 
 export const metadata: Metadata = {
   title: "Toplist360 - Share the best things",
-  description: "Top of the best things in the world",
+  description: "Share the best things in the world",
 }
 
 export default async function Page({

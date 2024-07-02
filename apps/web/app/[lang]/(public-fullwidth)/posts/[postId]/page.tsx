@@ -1,7 +1,6 @@
 import { Metadata } from "next"
 import { notFound } from "next/navigation"
 
-import { getPost } from "@/actions/public/posts"
 import PostDetail from "@/molecules/posts/post-detail"
 import Comments from "@/molecules/posts/post-detail/comments"
 import LikeButton from "@/molecules/posts/post-detail/like-button"
@@ -11,7 +10,7 @@ import { TSearchParams } from "@/types"
 
 import "./tocbot.css"
 
-import { PostStatus } from "database"
+import { getPost, PostStatus } from "database"
 
 import { getServerSession } from "@/utils/auth"
 

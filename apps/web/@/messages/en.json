@@ -104,6 +104,8 @@
     "next": "Next",
     "last_update_at": "Last update at",
     "title": "Title",
-    "filter": "Filter"
+    "filter": "Filter",
+    "turn_draft": "Turn draft",
+    "turn_publish": "Turn publish"
   }
 }

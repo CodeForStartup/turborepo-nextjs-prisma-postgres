@@ -12,17 +12,13 @@ interface NumberIndexProps {
 }
 
 const NumberIndex: React.FC<NumberIndexProps> = ({ number }) => {
-  const { theme } = useTheme()
+  // const { theme } = useTheme()
 
   return (
     <div
       className={cn(
-        "flex items-center justify-center text-2xl font-extrabold text-transparent",
-        bebasNeue.className
+        "flex items-center justify-center stroke-black stroke-1 text-2xl font-extrabold"
       )}
-      style={{
-        WebkitTextStroke: theme === "dark" ? "0.5px #000" : "0.5px #fff",
-      }}
     >
       {number}.
     </div>

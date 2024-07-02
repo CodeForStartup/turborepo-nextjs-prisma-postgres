@@ -6,6 +6,7 @@ import { LucideEdit } from "lucide-react"
 import { getTranslations } from "next-intl/server"
 import { Button, buttonVariants, cn } from "ui"
 
+import APP_ROUTES from "@/constants/routes"
 import { TPostItem } from "@/types/posts"
 import { getServerSession } from "@/utils/auth"
 
@@ -23,11 +24,15 @@ const EditPostButton: React.FC<EditPostButtonProps> = async ({ post }) => {
 
   return (
     <div className="flex items-center justify-center gap-2">
-      <Button variant="secondary">
-        {t(post.postStatus === PostStatus.DRAFT ? t("common.publish") : t("common.draft"))}
+      <Button variant="destructive">
+        {t(
+          post.postStatus === PostStatus.DRAFT
+            ? t("common.turn_publish").toUpperCase()
+            : t("common.turn_draft").toLocaleUpperCase()
+        )}
       </Button>
       <Link
-        href={`/user/posts/${post?.id}/edit`}
+        href={APP_ROUTES.EDIT_POST.replace(":postId", post.id)}
         className={cn(
           buttonVariants({
             variant: "outline",

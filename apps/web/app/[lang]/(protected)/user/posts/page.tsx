@@ -2,7 +2,8 @@ import React from "react"
 import { redirect } from "next/navigation"
 import { Metadata } from "next/types"
 
-import { getPosts } from "@/actions/protect/posts"
+import { getPost, getPosts } from "database"
+
 import NoItemFounded from "@/molecules/no-item-founded"
 import PageTitle from "@/molecules/page-title"
 import Filter from "@/molecules/user/posts/filter"
@@ -19,10 +20,6 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function Page({ searchParams }) {
   const session = await getServerSession()
-  if (!session) {
-    redirect("/sign-in")
-  }
-
   const { total, data } = await getPosts({
     searchParams: {
       authorId: session?.user?.id,

@@ -66,7 +66,7 @@ export const getTags = async ({
       total: 0,
       limit,
       page,
-      errorMessage: error.message,
+      errorMessage: error?.message,
     }
   }
 }
