@@ -10,3 +10,8 @@ export enum FilterValues {
   HOT = "hot",
   // TRENDING = "trending",
 }
+
+export type ActionReturnType<T> = {
+  data: T
+  error: null | string
+}

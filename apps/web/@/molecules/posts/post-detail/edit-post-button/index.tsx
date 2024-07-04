@@ -2,13 +2,17 @@ import React from "react"
 import Link from "next/link"
 
 import { PostStatus } from "database"
+import { updatePostStatus } from "database/src/posts/queries"
 import { LucideEdit } from "lucide-react"
 import { getTranslations } from "next-intl/server"
-import { Button, buttonVariants, cn } from "ui"
+import { Button, buttonVariants, cn, toast } from "ui"
 
+import { onTogglePost } from "@/actions/protect/postAction"
 import APP_ROUTES from "@/constants/routes"
 import { TPostItem } from "@/types/posts"
 import { getServerSession } from "@/utils/auth"
+
+import TogglePost from "./toggle-post"
 
 interface EditPostButtonProps {
   post: TPostItem
@@ -24,13 +28,7 @@ const EditPostButton: React.FC<EditPostButtonProps> = async ({ post }) => {
 
   return (
     <div className="flex items-center justify-center gap-2">
-      <Button variant="destructive">
-        {t(
-          post.postStatus === PostStatus.DRAFT
-            ? t("common.turn_publish").toUpperCase()
-            : t("common.turn_draft").toLocaleUpperCase()
-        )}
-      </Button>
+      <TogglePost post={post} />
       <Link
         href={APP_ROUTES.EDIT_POST.replace(":postId", post.id)}
         className={cn(

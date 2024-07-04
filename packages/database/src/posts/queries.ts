@@ -2,8 +2,8 @@ import { PostStatus, Prisma } from "@prisma/client"
 import dayjs from "dayjs"
 
 import prisma from "../prisma"
-import { FilterValues, PeriodValues } from "../shared/type"
-import { postSelect, TPostItem } from "./selects"
+import { ActionReturnType, FilterValues, PeriodValues } from "../shared/type"
+import { postSelect, TCreatePostInput, TPostItem } from "./selects"
 import { TGetPostsRequest, TGetPostsResponse } from "./type"
 
 export const getPost = async ({
@@ -150,6 +150,88 @@ export const getPosts = async ({ searchParams }: TGetPostsRequest): Promise<TGet
       total: 0,
       page: Number(page),
       limit: Number(limit),
+    }
+  }
+}
+
+export const updatePost = async (
+  id: string,
+  data: TCreatePostInput,
+  userId: string
+): Promise<ActionReturnType<TPostItem>> => {
+  try {
+    const { tags, ...postData } = data
+
+    const post = await prisma.post.update({
+      where: {
+        id,
+        authorId: userId,
+      },
+      data: {
+        ...postData,
+        tagOnPost: {
+          deleteMany: {},
+          create: tags?.map((tag) => {
+            if (!tag.__isNew__) {
+              return {
+                tag: {
+                  connect: {
+                    id: tag.value,
+                  },
+                },
+              }
+            }
+            return {
+              tag: {
+                create: {
+                  name: tag.label,
+                  slug: tag.label.toLowerCase().replace(/\s/g, "-"),
+                },
+              },
+            }
+          }),
+        },
+      },
+      select: postSelect,
+    })
+
+    return {
+      data: post,
+      error: null,
+    }
+  } catch (error) {
+    throw {
+      data: null,
+      error: error,
+    }
+  }
+}
+
+export const updatePostStatus = async (
+  id: string,
+  postStatus: PostStatus,
+  userId: string
+): Promise<ActionReturnType<TPostItem>> => {
+  try {
+    const post = await prisma.post.update({
+      where: {
+        id,
+        authorId: userId,
+      },
+      data: {
+        postStatus,
+      },
+      select: postSelect,
+    })
+
+    return {
+      data: post,
+      error: null,
+    }
+  } catch (error) {
+    throw {
+      data: null,
+      error: error,
     }
   }
 }

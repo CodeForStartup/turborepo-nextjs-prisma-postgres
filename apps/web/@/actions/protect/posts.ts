@@ -168,52 +168,6 @@ export const createPost = async (data: TCreatePostInput): Promise<TPostItem> => 
   }
 }
 
-export const updatePost = async (id: string, data: TCreatePostInput): Promise<TPostItem> => {
-  try {
-    const session = await getServerSession()
-    const { tags, ...postData } = data
-
-    await prisma.post.update({
-      where: {
-        id,
-        authorId: session?.user?.id,
-      },
-      data: {
-        ...postData,
-        tagOnPost: {
-          deleteMany: {},
-          create: tags.map((tag) => {
-            if (!tag.__isNew__) {
-              return {
-                tag: {
-                  connect: {
-                    id: tag.value,
-                  },
-                },
-              }
-            }
-            return {
-              tag: {
-                create: {
-                  name: tag.label,
-                  slug: tag.label.toLowerCase().replace(/\s/g, "-"),
-                },
-              },
-            }
-          }),
-        },
-      },
-      select: postSelect,
-    })
-    revalidatePath("posts")
-    revalidatePath(`posts/${id}`)
-  } catch (error) {
-    throw error
-  } finally {
-    redirect(`../../../posts/${id}`)
-  }
-}
-
 export const deletePost = async (id: string): Promise<void> => {
   try {
     const session = await getServerSession()
