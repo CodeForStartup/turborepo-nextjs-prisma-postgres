@@ -41,12 +41,12 @@ type _PathParam<Path extends string> =
   Path extends `${infer L}/${infer R}`
     ? _PathParam<L> | _PathParam<R>
     : // find params after `:`
-    Path extends `:${infer Param}`
-    ? Param extends `${infer Optional}?`
-      ? Optional
-      : Param
-    : // otherwise, there aren't any params present
-      never
+      Path extends `:${infer Param}`
+      ? Param extends `${infer Optional}?`
+        ? Optional
+        : Param
+      : // otherwise, there aren't any params present
+        never
 
 export function invariant(value: boolean, message?: string): asserts value
 export function invariant<T>(value: T | null | undefined, message?: string): asserts value is T
@@ -70,10 +70,10 @@ export type PathParam<Path extends string> =
   Path extends "*" | "/*"
     ? "*"
     : // look for wildcard at the end of the path
-    Path extends `${infer Rest}/*`
-    ? "*" | _PathParam<Rest>
-    : // look for params in the absence of wildcards
-      _PathParam<Path>
+      Path extends `${infer Rest}/*`
+      ? "*" | _PathParam<Rest>
+      : // look for params in the absence of wildcards
+        _PathParam<Path>
 
 export function generatePath<Path extends string>(
   originalPath: Path,

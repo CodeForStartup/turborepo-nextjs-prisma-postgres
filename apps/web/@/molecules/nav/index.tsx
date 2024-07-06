@@ -28,7 +28,7 @@ export default async function Nav() {
                 <div
                   className={cn(
                     buttonVariants({
-                      variant: "ghost",
+                      variant: "default",
                     })
                   )}
                 >

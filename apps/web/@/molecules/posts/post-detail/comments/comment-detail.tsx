@@ -4,7 +4,6 @@ import React from "react"
 import Link from "next/link"
 
 import dayjs from "dayjs"
-import { LucideHeart, LucideMoreHorizontal } from "lucide-react"
 import { Avatar, AvatarFallback, AvatarImage, Button, Typography } from "ui"
 
 import APP_ROUTES from "@/constants/routes"
@@ -48,7 +47,7 @@ const CommentItem: React.FC<CommentItemProps> = ({ comment }) => {
             {dayjs(comment?.updatedAt).format("MMMM D, YYYY")}
           </time>
         </div>
-        <div>
+        {/* <div>
           <Button
             variant="link"
             size="sm"
@@ -58,13 +57,13 @@ const CommentItem: React.FC<CommentItemProps> = ({ comment }) => {
               className="text-gray-500"
             />
           </Button>
-        </div>
+        </div> */}
       </div>
       <div className="mt-4">
         <Typography>{comment?.content}</Typography>
       </div>
 
-      <Button
+      {/* <Button
         variant="link"
         size="sm"
         className="mt-2"
@@ -74,7 +73,7 @@ const CommentItem: React.FC<CommentItemProps> = ({ comment }) => {
           className="text-gray-500"
         />
         <span className="ml-1">100</span>
-      </Button>
+      </Button> */}
     </div>
   )
 }

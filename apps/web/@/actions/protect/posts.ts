@@ -10,104 +10,102 @@ import { FilterValues } from "@/types/filter"
 import { postSelect, TCreatePostInput, TPostItem } from "@/types/posts"
 import { getServerSession } from "@/utils/auth"
 
-import { TGetPostsParams, TGetPostsResponse } from "../public/posts"
+// export const getPosts = async ({ searchParams }: TGetPostsParams): Promise<TGetPostsResponse> => {
+//   const sessions = await getServerSession()
+//   if (!sessions) {
+//     redirect("/sign-in")
+//   }
 
-export const getPosts = async ({ searchParams }: TGetPostsParams): Promise<TGetPostsResponse> => {
-  const sessions = await getServerSession()
-  if (!sessions) {
-    redirect("/sign-in")
-  }
+//   const searchTerm = searchParams?.query || ""
+//   const filter = searchParams?.filter || FilterValues.LASTED // lasted or hot
+//   const limit = searchParams?.limit || 20
+//   const page = searchParams?.page || 1
+//   const authorId = searchParams?.authorId || ""
+//   const postStatus = searchParams?.postStatus || ""
 
-  const searchTerm = searchParams?.query || ""
-  const filter = searchParams?.filter || FilterValues.LASTED // lasted or hot
-  const limit = searchParams?.limit || 20
-  const page = searchParams?.page || 1
-  const authorId = searchParams?.authorId || ""
-  const postStatus = searchParams?.postStatus || ""
+//   let where: Prisma.PostWhereInput = {
+//     authorId: sessions?.user?.id,
+//   }
 
-  let where: Prisma.PostWhereInput = {
-    authorId: sessions?.user?.id,
-  }
+//   let orderBy = {}
 
-  let orderBy = {}
+//   if (postStatus) {
+//     where = {
+//       ...where,
+//       postStatus,
+//     }
+//   }
 
-  if (postStatus) {
-    where = {
-      ...where,
-      postStatus,
-    }
-  }
+//   if (authorId) {
+//     where = {
+//       ...where,
+//       authorId,
+//     }
+//   }
 
-  if (authorId) {
-    where = {
-      ...where,
-      authorId,
-    }
-  }
+//   if (filter === FilterValues.HOT) {
+//     orderBy = {
+//       ...orderBy,
+//       comments: {
+//         _count: "desc",
+//       },
+//     }
+//   }
 
-  if (filter === FilterValues.HOT) {
-    orderBy = {
-      ...orderBy,
-      comments: {
-        _count: "desc",
-      },
-    }
-  }
+//   if (filter === FilterValues.LASTED) {
+//     orderBy = {
+//       ...orderBy,
+//       updatedAt: "desc",
+//     }
+//   }
 
-  if (filter === FilterValues.LASTED) {
-    orderBy = {
-      ...orderBy,
-      updatedAt: "desc",
-    }
-  }
+//   if (searchTerm) {
+//     where = {
+//       ...where,
+//       OR: [
+//         {
+//           title: {
+//             contains: searchTerm,
+//             mode: "insensitive",
+//           },
+//         },
+//         {
+//           content: {
+//             contains: searchTerm,
+//             mode: "insensitive",
+//           },
+//         },
+//       ],
+//     }
+//   }
 
-  if (searchTerm) {
-    where = {
-      ...where,
-      OR: [
-        {
-          title: {
-            contains: searchTerm,
-            mode: "insensitive",
-          },
-        },
-        {
-          content: {
-            contains: searchTerm,
-            mode: "insensitive",
-          },
-        },
-      ],
-    }
-  }
+//   try {
+//     const [total, posts] = await Promise.all([
+//       prisma.post.count({ where }),
+//       prisma.post.findMany({
+//         where,
+//         select: postSelect,
+//         take: Number(limit),
+//         skip: (Number(page) - 1) * Number(limit),
+//         orderBy,
+//       }),
+//     ])
 
-  try {
-    const [total, posts] = await Promise.all([
-      prisma.post.count({ where }),
-      prisma.post.findMany({
-        where,
-        select: postSelect,
-        take: Number(limit),
-        skip: (Number(page) - 1) * Number(limit),
-        orderBy,
-      }),
-    ])
-
-    return {
-      data: posts,
-      total: total,
-      page: Number(page),
-      limit: Number(limit),
-    }
-  } catch (error) {
-    return {
-      data: [],
-      total: 0,
-      page: Number(page),
-      limit: Number(limit),
-    }
-  }
-}
+//     return {
+//       data: posts,
+//       total: total,
+//       page: Number(page),
+//       limit: Number(limit),
+//     }
+//   } catch (error) {
+//     return {
+//       data: [],
+//       total: 0,
+//       page: Number(page),
+//       limit: Number(limit),
+//     }
+//   }
+// }
 
 export const getPostById = async (postId: string): Promise<TPostItem> => {
   try {
@@ -167,52 +165,6 @@ export const createPost = async (data: TCreatePostInput): Promise<TPostItem> => 
   } finally {
     revalidatePath("posts")
     redirect(`/posts/${newPost?.id}`)
-  }
-}
-
-export const updatePost = async (id: string, data: TCreatePostInput): Promise<TPostItem> => {
-  try {
-    const session = await getServerSession()
-    const { tags, ...postData } = data
-
-    await prisma.post.update({
-      where: {
-        id,
-        authorId: session?.user?.id,
-      },
-      data: {
-        ...postData,
-        tagOnPost: {
-          deleteMany: {},
-          create: tags.map((tag) => {
-            if (!tag.__isNew__) {
-              return {
-                tag: {
-                  connect: {
-                    id: tag.value,
-                  },
-                },
-              }
-            }
-            return {
-              tag: {
-                create: {
-                  name: tag.label,
-                  slug: tag.label.toLowerCase().replace(/\s/g, "-"),
-                },
-              },
-            }
-          }),
-        },
-      },
-      select: postSelect,
-    })
-    revalidatePath("posts")
-    revalidatePath(`posts/${id}`)
-  } catch (error) {
-    throw error
-  } finally {
-    redirect(`../../../posts/${id}`)
   }
 }
 

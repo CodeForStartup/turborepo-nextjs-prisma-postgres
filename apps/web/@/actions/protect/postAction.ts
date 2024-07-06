@@ -2,7 +2,9 @@
 
 import { revalidatePath } from "next/cache"
 
-import { PostOnUserType } from "database"
+import { PostOnUserType, PostStatus, TPostItem } from "database"
+import { updatePostStatus } from "database/src/posts/queries"
+import { toast } from "react-toastify"
 
 import { TUserItem, userSelect } from "@/types/users"
 import { getServerSession } from "@/utils/auth"
@@ -155,5 +157,19 @@ export const getLikers = async ({ postId }: { postId: string }) => {
     }
   } catch (error) {
     return { data: [], errorMessage: "Error fetching likers" }
+  }
+}
+
+export const onTogglePost = async ({ post }: { post: TPostItem }) => {
+  try {
+    await updatePostStatus(
+      post.id,
+      post.postStatus === PostStatus.DRAFT ? PostStatus.PUBLISHED : PostStatus.DRAFT,
+      post?.author?.id
+    )
+  } catch (error) {
+    toast.error(error)
+  } finally {
+    revalidatePath(`/post/${post.slug}`)
   }
 }

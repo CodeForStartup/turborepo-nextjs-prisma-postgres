@@ -548,6 +548,9 @@ importers:
       '@prisma/client':
         specifier: ^5.10.2
         version: 5.15.0(prisma@5.15.0)
+      dayjs:
+        specifier: ^1.11.9
+        version: 1.11.11
       slugify:
         specifier: ^1.6.6
         version: 1.6.6
@@ -2639,6 +2642,7 @@ packages:
   /@humanwhocodes/config-array@0.11.14:
     resolution: {integrity: sha512-3T8LkOmg45BV5FICb15QQMsyUSWrQ8AygVfC7ZG32zOalnqrilm018ZVCw0eapXux8FtA33q8PSRSstjee3jSg==}
     engines: {node: '>=10.10.0'}
+    deprecated: Use @eslint/config-array instead
     dependencies:
       '@humanwhocodes/object-schema': 2.0.3
       debug: 4.3.5
@@ -2669,6 +2673,7 @@ packages:
 
   /@humanwhocodes/object-schema@2.0.3:
     resolution: {integrity: sha512-93zYdMES/c1D69yZiKDBj0V24vqNzB/koF26KPaagAfd3P/4gUlh3Dys5ogAK+Exi9QyzlD8x/08Zt7wIKcDcA==}
+    deprecated: Use @eslint/object-schema instead
     dev: false
 
   /@ianvs/prettier-plugin-sort-imports@4.2.1(prettier@3.3.1):
