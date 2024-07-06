@@ -1,6 +1,6 @@
 import { Metadata } from "next"
 
-import { getPosts } from "database"
+import { getPosts, PostStatus } from "database"
 
 import Filter from "@/molecules/home/filter"
 import PostItem from "@/molecules/posts/post-item"
@@ -16,7 +16,10 @@ export default async function Page({
   searchParams: { [key: string]: string | string[] | undefined }
 }) {
   const posts = await getPosts({
-    searchParams,
+    searchParams: {
+      ...searchParams,
+      postStatus: PostStatus.PUBLISHED,
+    },
   })
 
   return (

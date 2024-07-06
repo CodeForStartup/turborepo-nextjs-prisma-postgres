@@ -44,10 +44,14 @@ export const getPosts = async ({ searchParams }: TGetPostsRequest): Promise<TGet
   const limit = searchParams?.limit || 10
   const page = searchParams?.page || 1
   const authorId = searchParams?.authorId || ""
-  const status = searchParams?.postStatus || PostStatus.PUBLISHED
 
-  let where: Prisma.PostWhereInput = {
-    postStatus: status,
+  let where: Prisma.PostWhereInput = {}
+
+  if (searchParams?.postStatus) {
+    where = {
+      ...where,
+      postStatus: PostStatus.PUBLISHED,
+    }
   }
 
   let orderBy = {}

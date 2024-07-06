@@ -1,5 +1,6 @@
 import React from "react"
 
+import { Rabbit } from "lucide-react"
 import { useTranslations } from "next-intl"
 import { cn, Typography } from "ui"
 
@@ -13,7 +14,7 @@ const NoItemFounded: React.FC<NoItemFoundedProps> = ({ className = "" }) => {
   return (
     <div className={cn("flex flex-col items-center justify-center rounded-md p-20", className)}>
       <div className="mx-auto mb-4 h-16 w-16 text-[40px]">
-        <i className="ri-filter-off-line" />
+        <Rabbit className="h-full w-full" />
       </div>
 
       <Typography>{t("common.no_items_founded")}</Typography>

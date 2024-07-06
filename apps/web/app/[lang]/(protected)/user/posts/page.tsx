@@ -1,8 +1,7 @@
 import React from "react"
-import { redirect } from "next/navigation"
 import { Metadata } from "next/types"
 
-import { getPost, getPosts } from "database"
+import { getPosts } from "database"
 
 import NoItemFounded from "@/molecules/no-item-founded"
 import PageTitle from "@/molecules/page-title"
@@ -11,7 +10,6 @@ import PostItem from "@/molecules/user/posts/post-item"
 import { getServerSession } from "@/utils/auth"
 
 export async function generateMetadata(): Promise<Metadata> {
-  // TODO: Get user info
   return {
     title: "Posts",
     description: "User posts",

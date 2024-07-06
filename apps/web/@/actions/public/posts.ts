@@ -1,9 +1,7 @@
 "use server"
 
-import prisma, { PostStatus, Prisma } from "database"
-import dayjs from "dayjs"
+import prisma from "database"
 
-import { FilterValues, PeriodValues } from "@/types/filter"
 import { postSelect, TPostItem } from "@/types/posts"
 
 export const getPost = async ({ postIdOrSlug }): Promise<TPostItem> => {

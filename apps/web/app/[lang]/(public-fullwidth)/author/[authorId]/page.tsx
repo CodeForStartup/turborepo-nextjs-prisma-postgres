@@ -1,4 +1,5 @@
-import { getPosts } from "@/actions/public/posts"
+import { getPosts } from "database"
+
 import { DEFAULT_PAGE_LIMIT } from "@/constants"
 import UserProfile from "@/molecules/follower/user-profile"
 import ListSummary from "@/molecules/list-summary"
