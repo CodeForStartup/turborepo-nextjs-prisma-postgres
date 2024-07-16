@@ -1,6 +1,7 @@
 import { Metadata } from "next"
 
-import { getPosts } from "@/actions/public/posts"
+import { getPosts } from "database"
+
 import Filter from "@/molecules/home/filter"
 import SearchBar from "@/molecules/nav/search-bar"
 import NoItemFounded from "@/molecules/no-item-founded"

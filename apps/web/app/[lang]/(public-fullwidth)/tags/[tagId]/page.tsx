@@ -1,4 +1,5 @@
-import { getPosts } from "@/actions/public/posts"
+import { getPosts } from "database"
+
 import { getTagById } from "@/actions/public/tags"
 import { DEFAULT_PAGE_LIMIT } from "@/constants"
 import NoItemFounded from "@/molecules/no-item-founded"
