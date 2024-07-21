@@ -16,9 +16,10 @@ import z from "zod"
 import { createPost, updatePost } from "@/actions/protect/posts"
 import { DD_MMM_YYYY_HH_MM } from "@/constants"
 import APP_ROUTES from "@/constants/routes"
-import Editor from "@/molecules/editor"
 import InputTitle from "@/molecules/input-title"
 import { TPostItem } from "@/types/posts"
+
+import { PlateEditor } from "../editor"
 
 const PostForm = ({ post: postData }: { post?: TPostItem }) => {
   const { title = "", content = "", tagOnPost = [] } = postData || {}
@@ -126,7 +127,7 @@ const PostForm = ({ post: postData }: { post?: TPostItem }) => {
                 control={control}
                 render={({ field }) => (
                   <InputTitle
-                    placeholder={t("common.title")}
+                    placeholder={t("common.untitled")}
                     {...field}
                   />
                 )}
@@ -136,13 +137,7 @@ const PostForm = ({ post: postData }: { post?: TPostItem }) => {
                 <Controller
                   name="content"
                   control={control}
-                  render={({ field }) => (
-                    <Editor
-                      content={field?.value}
-                      placeholder="Content..."
-                      {...field}
-                    />
-                  )}
+                  render={({ field }) => <PlateEditor />}
                 />
               </div>
             </div>
