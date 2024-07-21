@@ -1,24 +1,23 @@
-'use client';
+"use client"
 
-import React, { type HTMLAttributes, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, type HTMLAttributes } from "react"
 
-import type { Upload, UploadProgress } from '@udecode/plate-cloud';
-
-import { cn } from '@udecode/cn';
+import { cn } from "@udecode/cn"
+import type { Upload, UploadProgress } from "@udecode/plate-cloud"
 
 export function ProgressBar({
   className,
   upload,
   ...props
 }: {
-  upload: UploadProgress;
+  upload: UploadProgress
 } & HTMLAttributes<HTMLDivElement>) {
-  const [width, setWidth] = useState<null | number>(null);
-  const ref = useRef<HTMLDivElement>(null);
+  const [width, setWidth] = useState<null | number>(null)
+  const ref = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    if (ref.current) setWidth(ref.current.offsetWidth);
-  }, []);
+    if (ref.current) setWidth(ref.current.offsetWidth)
+  }, [])
 
   /**
    * This formula looks a little funny because we want the `0` value of the
@@ -33,13 +32,11 @@ export function ProgressBar({
    *    when it is technically at the halfway point.
    */
   const progressWidth =
-    width == null
-      ? 0
-      : (upload.sentBytes / upload.totalBytes) * (width - 16) + 16;
+    width == null ? 0 : (upload.sentBytes / upload.totalBytes) * (width - 16) + 16
 
   return (
     <div
-      className={cn('h-4 rounded-lg bg-gray-100 shadow-md', className)}
+      className={cn("h-4 rounded-lg bg-gray-100 shadow-md", className)}
       ref={ref}
       {...props}
     >
@@ -50,45 +47,39 @@ export function ProgressBar({
         }}
       />
     </div>
-  );
+  )
 }
 
-export function FailBar({
-  className,
-  ...props
-}: HTMLAttributes<HTMLDivElement>) {
+export function FailBar({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
   return (
     <div
       className={cn(
-        'h-4 rounded-lg border bg-red-700 text-center text-xs font-bold uppercase leading-tight text-white shadow-md',
+        "h-4 rounded-lg border bg-red-700 text-center text-xs font-bold uppercase leading-tight text-white shadow-md",
         className
       )}
       {...props}
     />
-  );
+  )
 }
 
-export function StatusBar(props: {
-  children?: React.ReactNode;
-  upload: Upload;
-}) {
-  const { children, upload } = props;
+export function StatusBar(props: { children?: React.ReactNode; upload: Upload }) {
+  const { children, upload } = props
 
   switch (upload.status) {
-    case 'progress': {
-      return <ProgressBar upload={upload} />;
+    case "progress": {
+      return <ProgressBar upload={upload} />
     }
-    case 'error': {
-      return <FailBar>Upload Failed</FailBar>;
+    case "error": {
+      return <FailBar>Upload Failed</FailBar>
     }
-    case 'not-found': {
-      return <FailBar>Uploading...</FailBar>;
+    case "not-found": {
+      return <FailBar>Uploading...</FailBar>
     }
-    case 'success': {
-      return children || null;
+    case "success": {
+      return children || null
     }
     default: {
-      throw new Error(`Should be unreachable`);
+      throw new Error(`Should be unreachable`)
     }
   }
 }
