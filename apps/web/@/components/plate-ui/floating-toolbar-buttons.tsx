@@ -61,7 +61,7 @@ export function FloatingToolbarButtons() {
         </>
       )}
 
-      <CommentToolbarButton />
+      {/* <CommentToolbarButton /> */}
 
       <MoreDropdownMenu />
     </>

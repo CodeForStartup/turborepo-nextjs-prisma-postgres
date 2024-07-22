@@ -15,7 +15,6 @@ import { ELEMENT_IMAGE } from "@udecode/plate-media"
 import { Icons, iconVariants } from "@/components/icons"
 import { AlignDropdownMenu } from "@/components/plate-ui/align-dropdown-menu"
 import { ColorDropdownMenu } from "@/components/plate-ui/color-dropdown-menu"
-import { CommentToolbarButton } from "@/components/plate-ui/comment-toolbar-button"
 import { EmojiDropdownMenu } from "@/components/plate-ui/emoji-dropdown-menu"
 import { IndentListToolbarButton } from "@/components/plate-ui/indent-list-toolbar-button"
 import { IndentToolbarButton } from "@/components/plate-ui/indent-toolbar-button"
@@ -128,7 +127,7 @@ export function FixedToolbarButtons() {
         <div className="grow" />
 
         <ToolbarGroup noSeparator>
-          <CommentToolbarButton />
+          {/* <CommentToolbarButton /> */}
           <ModeDropdownMenu />
         </ToolbarGroup>
       </div>

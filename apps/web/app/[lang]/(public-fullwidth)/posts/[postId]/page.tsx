@@ -19,7 +19,7 @@ export async function generateMetadata({ params }): Promise<Metadata> {
 
   return {
     title: post?.title,
-    description: post?.content.slice(0, 160),
+    description: "", //post?.content.slice(0, 160),
   }
 }
 

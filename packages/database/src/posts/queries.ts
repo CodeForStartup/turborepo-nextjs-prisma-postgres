@@ -1,5 +1,8 @@
+"use server"
+
 import { PostStatus, Prisma } from "@prisma/client"
 import dayjs from "dayjs"
+import slugify from "slugify"
 
 import prisma from "../prisma"
 import { ActionReturnType, FilterValues, PeriodValues } from "../shared/type"
@@ -154,6 +157,60 @@ export const getPosts = async ({ searchParams }: TGetPostsRequest): Promise<TGet
       total: 0,
       page: Number(page),
       limit: Number(limit),
+    }
+  }
+}
+
+export const createPost = async (
+  data: TCreatePostInput,
+  userId: string
+): Promise<ActionReturnType<TPostItem>> => {
+  console.log("data", data)
+
+  let newPost: TPostItem
+  try {
+    const slug = slugify(data.title.toLocaleLowerCase()) + "-" + Date.now()
+
+    newPost = await prisma.post.create({
+      data: {
+        slug: slug,
+        title: data.title,
+        content: data.content,
+        authorId: userId,
+        postStatus: PostStatus.PUBLISHED,
+        tagOnPost: {
+          create: data.tags?.map((tag) => {
+            if (!tag.__isNew__) {
+              return {
+                tag: {
+                  connect: {
+                    id: tag.value,
+                  },
+                },
+              }
+            }
+            return {
+              tag: {
+                create: {
+                  name: tag.label,
+                  slug: tag.label.toLowerCase().replace(/\s/g, "-"),
+                },
+              },
+            }
+          }),
+        },
+      },
+      select: postSelect,
+    })
+
+    return {
+      data: newPost,
+      error: null,
+    }
+  } catch (error) {
+    throw {
+      data: null,
+      error: error,
     }
   }
 }

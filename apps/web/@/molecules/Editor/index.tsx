@@ -42,6 +42,7 @@ import {
   PlateStoreState,
   RenderAfterEditable,
   someNode,
+  TElement,
 } from "@udecode/plate-common"
 import { createDndPlugin } from "@udecode/plate-dnd"
 import { createEmojiPlugin } from "@udecode/plate-emoji"
@@ -175,8 +176,8 @@ const plugins = createPlugins(
     }),
     createMentionPlugin(),
     createTablePlugin(),
-    createTodoListPlugin(),
-    createExcalidrawPlugin(),
+    // createTodoListPlugin(),
+    // createExcalidrawPlugin(),
 
     // Marks
     createBoldPlugin(),
@@ -351,13 +352,13 @@ const plugins = createPlugins(
         },
       ],
     }),
-    createTrailingBlockPlugin({
-      options: { type: ELEMENT_PARAGRAPH },
-    }),
+    // createTrailingBlockPlugin({
+    //   options: { type: ELEMENT_PARAGRAPH },
+    // }),
     dragOverCursorPlugin,
 
     // Collaboration
-    createCommentsPlugin(),
+    // createCommentsPlugin(),
 
     // Deserialization
     createDeserializeDocxPlugin(),
@@ -417,19 +418,20 @@ const initialValue = [
 ]
 
 export type PlateEditorProps = {
-  initialValue: PlateStoreState<V>["value"]
-  onChange: (value: PlateStoreState<V>["value"]) => void
+  initialValue: TElement[]
+  onChange: (value: string) => void
 }
 
-export function PlateEditor() {
+export function PlateEditor({ initialValue, onChange }: PlateEditorProps) {
   return (
     <TooltipProvider>
       <DndProvider backend={HTML5Backend}>
         <Plate
           plugins={plugins}
-          // initialValue={initialValue}
+          initialValue={initialValue}
           onChange={(value) => {
-            console.log("onChange", value)
+            console.log("plate.data", value)
+            onChange(JSON.stringify(value))
           }}
         >
           <FixedToolbar>
