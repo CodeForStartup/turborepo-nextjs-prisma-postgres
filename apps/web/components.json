@@ -11,6 +11,7 @@
   },
   "aliases": {
     "ui": "@/components/ui",
+    "plate-ui": "@/components/plate-ui",
     "components": "@/components",
     "utils": "../../lib/utils",
     "molecules": "@/components/molecules"

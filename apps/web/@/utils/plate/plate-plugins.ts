@@ -1,5 +1,3 @@
-"use client"
-
 import { withProps } from "@udecode/cn"
 import { createAlignPlugin } from "@udecode/plate-alignment"
 import { createAutoformatPlugin } from "@udecode/plate-autoformat"
@@ -31,15 +29,14 @@ import {
   isSelectionAtCodeBlockStart,
   unwrapCodeBlock,
 } from "@udecode/plate-code-block"
-import { CommentsProvider, createCommentsPlugin, MARK_COMMENT } from "@udecode/plate-comments"
+// import { createComboboxPlugin } from "@udecode/plate-combobox"
+import { createCommentsPlugin, MARK_COMMENT } from "@udecode/plate-comments"
 import {
   createPlugins,
   isBlockAboveEmpty,
   isSelectionAtBlockStart,
-  Plate,
   PlateElement,
   PlateLeaf,
-  PlateStoreState,
   RenderAfterEditable,
   someNode,
 } from "@udecode/plate-common"
@@ -67,7 +64,6 @@ import { createIndentPlugin } from "@udecode/plate-indent"
 import { createIndentListPlugin, KEY_LIST_STYLE_TYPE } from "@udecode/plate-indent-list"
 import { createJuicePlugin } from "@udecode/plate-juice"
 import { createKbdPlugin, MARK_KBD } from "@udecode/plate-kbd"
-import { createColumnPlugin, ELEMENT_COLUMN, ELEMENT_COLUMN_GROUP } from "@udecode/plate-layout"
 import { createLineHeightPlugin } from "@udecode/plate-line-height"
 import { createLinkPlugin, ELEMENT_LINK } from "@udecode/plate-link"
 import {
@@ -87,9 +83,8 @@ import { createMentionPlugin, ELEMENT_MENTION, ELEMENT_MENTION_INPUT } from "@ud
 import { createNodeIdPlugin } from "@udecode/plate-node-id"
 import { createParagraphPlugin, ELEMENT_PARAGRAPH } from "@udecode/plate-paragraph"
 import { createResetNodePlugin } from "@udecode/plate-reset-node"
-import { createDeletePlugin, createSelectOnBackspacePlugin } from "@udecode/plate-select"
+import { createSelectOnBackspacePlugin } from "@udecode/plate-select"
 import { createBlockSelectionPlugin } from "@udecode/plate-selection"
-import { createDeserializeCsvPlugin } from "@udecode/plate-serializer-csv"
 import { createDeserializeDocxPlugin } from "@udecode/plate-serializer-docx"
 import { createDeserializeMdPlugin } from "@udecode/plate-serializer-md"
 import { createTabbablePlugin } from "@udecode/plate-tabbable"
@@ -100,28 +95,16 @@ import {
   ELEMENT_TH,
   ELEMENT_TR,
 } from "@udecode/plate-table"
-import { createTogglePlugin, ELEMENT_TOGGLE } from "@udecode/plate-toggle"
 import { createTrailingBlockPlugin } from "@udecode/plate-trailing-block"
-import { DndProvider } from "react-dnd"
-import { HTML5Backend } from "react-dnd-html5-backend"
 
 import { BlockquoteElement } from "@/components/plate-ui/blockquote-element"
 import { CodeBlockElement } from "@/components/plate-ui/code-block-element"
 import { CodeLeaf } from "@/components/plate-ui/code-leaf"
 import { CodeLineElement } from "@/components/plate-ui/code-line-element"
 import { CodeSyntaxLeaf } from "@/components/plate-ui/code-syntax-leaf"
-import { ColumnElement } from "@/components/plate-ui/column-element"
-import { ColumnGroupElement } from "@/components/plate-ui/column-group-element"
 import { CommentLeaf } from "@/components/plate-ui/comment-leaf"
-import { CommentsPopover } from "@/components/plate-ui/comments-popover"
-import { Editor } from "@/components/plate-ui/editor"
 import { EmojiCombobox } from "@/components/plate-ui/emoji-combobox"
-import { EmojiInputElement } from "@/components/plate-ui/emoji-input-element"
 import { ExcalidrawElement } from "@/components/plate-ui/excalidraw-element"
-import { FixedToolbar } from "@/components/plate-ui/fixed-toolbar"
-import { FixedToolbarButtons } from "@/components/plate-ui/fixed-toolbar-buttons"
-import { FloatingToolbar } from "@/components/plate-ui/floating-toolbar"
-import { FloatingToolbarButtons } from "@/components/plate-ui/floating-toolbar-buttons"
 import { HeadingElement } from "@/components/plate-ui/heading-element"
 import { HighlightLeaf } from "@/components/plate-ui/highlight-leaf"
 import { HrElement } from "@/components/plate-ui/hr-element"
@@ -135,16 +118,15 @@ import { MentionElement } from "@/components/plate-ui/mention-element"
 import { MentionInputElement } from "@/components/plate-ui/mention-input-element"
 import { ParagraphElement } from "@/components/plate-ui/paragraph-element"
 import { withPlaceholders } from "@/components/plate-ui/placeholder"
-import { TabbableElement } from "@/components/plate-ui/tabbable-element"
 import { TableCellElement, TableCellHeaderElement } from "@/components/plate-ui/table-cell-element"
 import { TableElement } from "@/components/plate-ui/table-element"
 import { TableRowElement } from "@/components/plate-ui/table-row-element"
 import { TodoListElement } from "@/components/plate-ui/todo-list-element"
-import { ToggleElement } from "@/components/plate-ui/toggle-element"
-import { TooltipProvider } from "@/components/plate-ui/tooltip"
 import { withDraggables } from "@/components/plate-ui/with-draggables"
-import { autoformatPlugin } from "@/utils/plate/autoformatPlugin"
-import { dragOverCursorPlugin } from "@/utils/plate/dragOverCursorPlugin"
+
+// import { TabbableElement } from "@/components/tabbable-element"
+// import { autoformatPlugin } from "@/lib/plate/autoformatPlugin"
+// import { dragOverCursorPlugin } from "@/lib/plate/dragOverCursorPlugin"
 
 const resetBlockTypesCommonRule = {
   types: [ELEMENT_BLOCKQUOTE, ELEMENT_TODO_LI],
@@ -157,9 +139,8 @@ const resetBlockTypesCodeBlockRule = {
   onReset: unwrapCodeBlock,
 }
 
-const plugins = createPlugins(
+export const plugins = createPlugins(
   [
-    // Nodes
     createParagraphPlugin(),
     createHeadingPlugin(),
     createBlockquotePlugin(),
@@ -169,16 +150,20 @@ const plugins = createPlugins(
       renderAfterEditable: LinkFloatingToolbar as RenderAfterEditable,
     }),
     createImagePlugin(),
+    createExcalidrawPlugin(),
+    // createTogglePlugin(),
+    // createColumnPlugin(),
     createMediaEmbedPlugin(),
     createCaptionPlugin({
-      options: { pluginKeys: [ELEMENT_IMAGE, ELEMENT_MEDIA_EMBED] },
+      options: {
+        pluginKeys: [
+          // ELEMENT_IMAGE, ELEMENT_MEDIA_EMBED
+        ],
+      },
     }),
     createMentionPlugin(),
     createTablePlugin(),
     createTodoListPlugin(),
-    createExcalidrawPlugin(),
-
-    // Marks
     createBoldPlugin(),
     createItalicPlugin(),
     createUnderlinePlugin(),
@@ -191,12 +176,13 @@ const plugins = createPlugins(
     createFontSizePlugin(),
     createHighlightPlugin(),
     createKbdPlugin(),
-
-    // Block Style
     createAlignPlugin({
       inject: {
         props: {
-          validTypes: [ELEMENT_PARAGRAPH, ELEMENT_H1, ELEMENT_H2, ELEMENT_H3],
+          validTypes: [
+            ELEMENT_PARAGRAPH,
+            // ELEMENT_H1, ELEMENT_H2, ELEMENT_H3
+          ],
         },
       },
     }),
@@ -205,11 +191,7 @@ const plugins = createPlugins(
         props: {
           validTypes: [
             ELEMENT_PARAGRAPH,
-            ELEMENT_H1,
-            ELEMENT_H2,
-            ELEMENT_H3,
-            ELEMENT_BLOCKQUOTE,
-            ELEMENT_CODE_BLOCK,
+            // ELEMENT_H1, ELEMENT_H2, ELEMENT_H3, ELEMENT_BLOCKQUOTE, ELEMENT_CODE_BLOCK
           ],
         },
       },
@@ -219,11 +201,7 @@ const plugins = createPlugins(
         props: {
           validTypes: [
             ELEMENT_PARAGRAPH,
-            ELEMENT_H1,
-            ELEMENT_H2,
-            ELEMENT_H3,
-            ELEMENT_BLOCKQUOTE,
-            ELEMENT_CODE_BLOCK,
+            // ELEMENT_H1, ELEMENT_H2, ELEMENT_H3, ELEMENT_BLOCKQUOTE, ELEMENT_CODE_BLOCK
           ],
         },
       },
@@ -233,13 +211,21 @@ const plugins = createPlugins(
         props: {
           defaultNodeValue: 1.5,
           validNodeValues: [1, 1.2, 1.5, 2, 3],
-          validTypes: [ELEMENT_PARAGRAPH, ELEMENT_H1, ELEMENT_H2, ELEMENT_H3],
+          validTypes: [
+            ELEMENT_PARAGRAPH,
+            // ELEMENT_H1, ELEMENT_H2, ELEMENT_H3
+          ],
         },
       },
     }),
-
-    // Functionality
-    createAutoformatPlugin(autoformatPlugin),
+    createAutoformatPlugin({
+      options: {
+        rules: [
+          // Usage: https://platejs.org/docs/autoformat
+        ],
+        enableUndoOnDelete: true,
+      },
+    }),
     createBlockSelectionPlugin({
       options: {
         sizes: {
@@ -248,13 +234,10 @@ const plugins = createPlugins(
         },
       },
     }),
-    createCodePlugin(),
     createDndPlugin({
       options: { enableScroller: true },
     }),
-    // createEmojiPlugin({
-    //   renderAfterEditable: EmojiCombobox as RenderAfterEditable,
-    // }),
+    createEmojiPlugin(),
     createExitBreakPlugin({
       options: {
         rules: [
@@ -270,7 +253,7 @@ const plugins = createPlugins(
             query: {
               start: true,
               end: true,
-              allow: KEYS_HEADING,
+              // allow: KEYS_HEADING,
             },
             relative: true,
             level: 1,
@@ -282,37 +265,11 @@ const plugins = createPlugins(
     createResetNodePlugin({
       options: {
         rules: [
-          {
-            ...resetBlockTypesCommonRule,
-            hotkey: "Enter",
-            predicate: isBlockAboveEmpty,
-          },
-          {
-            ...resetBlockTypesCommonRule,
-            hotkey: "Backspace",
-            predicate: isSelectionAtBlockStart,
-          },
-          {
-            ...resetBlockTypesCodeBlockRule,
-            hotkey: "Enter",
-            predicate: isCodeBlockEmpty,
-          },
-          {
-            ...resetBlockTypesCodeBlockRule,
-            hotkey: "Backspace",
-            predicate: isSelectionAtCodeBlockStart,
-          },
+          // Usage: https://platejs.org/docs/reset-node
         ],
       },
     }),
-    createSelectOnBackspacePlugin({
-      options: {
-        query: {
-          allow: [ELEMENT_IMAGE, ELEMENT_HR],
-        },
-      },
-    }),
-
+    // createDeletePlugin(),
     createSoftBreakPlugin({
       options: {
         rules: [
@@ -320,47 +277,21 @@ const plugins = createPlugins(
           {
             hotkey: "enter",
             query: {
-              allow: [ELEMENT_CODE_BLOCK, ELEMENT_BLOCKQUOTE, ELEMENT_TD],
+              allow: [
+                // ELEMENT_CODE_BLOCK, ELEMENT_BLOCKQUOTE, ELEMENT_TD
+              ],
             },
           },
         ],
       },
     }),
-    createTabbablePlugin({
-      options: {
-        query: (editor) => {
-          if (isSelectionAtBlockStart(editor)) return false
-
-          return !someNode(editor, {
-            match: (n) => {
-              return !!(
-                n.type &&
-                ([ELEMENT_TABLE, ELEMENT_LI, ELEMENT_CODE_BLOCK].includes(n.type as string) ||
-                  n[KEY_LIST_STYLE_TYPE])
-              )
-            },
-          })
-        },
-      },
-      plugins: [
-        {
-          key: "tabbable_element",
-          isElement: true,
-          isVoid: true,
-          component: TabbableElement,
-        },
-      ],
-    }),
+    createTabbablePlugin(),
     createTrailingBlockPlugin({
       options: { type: ELEMENT_PARAGRAPH },
     }),
-    dragOverCursorPlugin,
-
-    // Collaboration
     createCommentsPlugin(),
-
-    // Deserialization
     createDeserializeDocxPlugin(),
+    // createDeserializeCsvPlugin(),
     createDeserializeMdPlugin(),
     createJuicePlugin(),
   ],
@@ -407,47 +338,3 @@ const plugins = createPlugins(
     ),
   }
 )
-
-const initialValue = [
-  {
-    id: "1",
-    type: "p",
-    children: [{ text: "Hello, World!" }],
-  },
-]
-
-export type PlateEditorProps = {
-  initialValue: PlateStoreState<V>["value"]
-  onChange: (value: PlateStoreState<V>["value"]) => void
-}
-
-export function PlateEditor() {
-  return (
-    <TooltipProvider>
-      <DndProvider backend={HTML5Backend}>
-        <Plate
-          plugins={plugins}
-          // initialValue={initialValue}
-          onChange={(value) => {
-            console.log("onChange", value)
-          }}
-        >
-          <FixedToolbar>
-            <FixedToolbarButtons />
-          </FixedToolbar>
-
-          <Editor
-            autoFocus
-            size="md"
-            variant="ghost"
-            focusRing={false}
-          />
-
-          <FloatingToolbar>
-            <FloatingToolbarButtons />
-          </FloatingToolbar>
-        </Plate>
-      </DndProvider>
-    </TooltipProvider>
-  )
-}

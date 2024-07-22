@@ -7,7 +7,7 @@ declare global {
 const prisma =
   global.prisma ||
   new PrismaClient({
-    log: ["warn", "error"],
+    log: ["info", "warn", "error", "query"],
   })
 
 if (process.env.NODE_ENV === "development") global.prisma = prisma
