@@ -1,17 +1,16 @@
-import React from "react"
-
-import { cn } from "@udecode/cn"
-import { createZustandStore } from "@udecode/plate-common"
+import React from 'react';
+import { cn } from '@udecode/cn';
+import { createZustandStore } from '@udecode/plate-common';
 import {
   CursorData,
   CursorOverlay as CursorOverlayPrimitive,
   CursorOverlayProps,
   CursorProps,
-} from "@udecode/plate-cursor"
+} from '@udecode/plate-cursor';
 
-export const cursorStore = createZustandStore("cursor")({
+export const cursorStore = createZustandStore('cursor')({
   cursors: {},
-})
+});
 
 export function Cursor({
   data,
@@ -22,10 +21,10 @@ export function Cursor({
   classNames,
 }: CursorProps<CursorData>) {
   if (!data) {
-    return null
+    return null;
   }
 
-  const { style, selectionStyle = style } = data
+  const { style, selectionStyle = style } = data;
 
   return (
     <>
@@ -34,7 +33,7 @@ export function Cursor({
           <div
             key={i}
             className={cn(
-              "pointer-events-none absolute z-10 opacity-[0.3]",
+              'pointer-events-none absolute z-10 opacity-[0.3]',
               classNames?.selectionRect
             )}
             style={{
@@ -45,18 +44,21 @@ export function Cursor({
         ))}
       {!disableCaret && caretPosition && (
         <div
-          className={cn("pointer-events-none absolute z-10 w-0.5", classNames?.caret)}
+          className={cn(
+            'pointer-events-none absolute z-10 w-0.5',
+            classNames?.caret
+          )}
           style={{ ...caretPosition, ...style }}
         />
       )}
     </>
-  )
+  );
 }
 
 export function CursorOverlay({ cursors, ...props }: CursorOverlayProps) {
-  const dynamicCursors = cursorStore.use.cursors()
+  const dynamicCursors = cursorStore.use.cursors();
 
-  const allCursors = { ...cursors, ...dynamicCursors }
+  const allCursors = { ...cursors, ...dynamicCursors };
 
   return (
     <CursorOverlayPrimitive
@@ -64,5 +66,5 @@ export function CursorOverlay({ cursors, ...props }: CursorOverlayProps) {
       cursors={allCursors}
       onRenderCursor={Cursor}
     />
-  )
+  );
 }

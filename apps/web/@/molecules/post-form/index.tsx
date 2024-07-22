@@ -4,7 +4,8 @@ import Link from "next/link"
 import { useParams } from "next/navigation"
 
 import { zodResolver } from "@hookform/resolvers/zod"
-import { Prisma } from "database"
+import { createPost, Prisma, updatePost } from "database"
+import { useSession } from "next-auth/react"
 import { useTranslations } from "next-intl"
 import { useFormStatus } from "react-dom"
 import { Controller, useForm } from "react-hook-form"
@@ -13,8 +14,6 @@ import { toast } from "react-toastify"
 import { Button, buttonVariants, cn, Label } from "ui"
 import z from "zod"
 
-import { createPost, updatePost } from "@/actions/protect/posts"
-import { DD_MMM_YYYY_HH_MM } from "@/constants"
 import APP_ROUTES from "@/constants/routes"
 import InputTitle from "@/molecules/input-title"
 import { TPostItem } from "@/types/posts"
@@ -24,6 +23,9 @@ import { PlateEditor } from "../editor"
 const PostForm = ({ post: postData }: { post?: TPostItem }) => {
   const { title = "", content = "", tagOnPost = [] } = postData || {}
   const t = useTranslations()
+  const session = useSession()
+
+  const userId = session?.data?.user?.id
 
   const { postId } = useParams()
   const { pending } = useFormStatus()
@@ -42,10 +44,9 @@ const PostForm = ({ post: postData }: { post?: TPostItem }) => {
       .max(5, "You can only add up to 5 tags")
       .optional()
       .nullable(),
-    content: z
-      .string()
-      .max(10000, "Content must be at most 10000 characters")
-      .min(100, "Content must be at least 10 characters"),
+    content: z.string(),
+    //   .max(10000, "Content must be at most 10000 characters")
+    //   .min(100, "Content must be at least 10 characters"),
   }) satisfies z.ZodType<Partial<Prisma.PostCreateInput>>
 
   const {
@@ -68,14 +69,12 @@ const PostForm = ({ post: postData }: { post?: TPostItem }) => {
 
   const handleSubmitPost = async (data) => {
     try {
+      console.log("data", data)
+
       if (postId) {
-        await updatePost(postId as string, {
-          ...data,
-        })
+        await updatePost(postId as string, data, userId)
       } else {
-        await createPost({
-          ...data,
-        })
+        await createPost(data, userId)
       }
     } catch (error) {
       toast.error(error.message)
@@ -137,7 +136,16 @@ const PostForm = ({ post: postData }: { post?: TPostItem }) => {
                 <Controller
                   name="content"
                   control={control}
-                  render={({ field }) => <PlateEditor />}
+                  render={({ field }) => (
+                    <PlateEditor
+                      {...field}
+                      initialValue={field?.value ? JSON.parse(field?.value) : []}
+                      onChange={(value) => {
+                        console.log("value", value)
+                        field?.onChange(value)
+                      }}
+                    />
+                  )}
                 />
               </div>
             </div>
@@ -184,7 +192,7 @@ const PostForm = ({ post: postData }: { post?: TPostItem }) => {
         <div className="flex justify-start gap-4 p-2">
           <Button
             type="submit"
-            disabled={!isValid || pending}
+            // disabled={!isValid || pending}
             className="w-[150px] uppercase"
           >
             {t("common.publish")}

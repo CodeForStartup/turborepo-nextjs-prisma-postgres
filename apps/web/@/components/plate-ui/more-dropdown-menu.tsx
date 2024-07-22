@@ -1,10 +1,9 @@
-import React from "react"
+import React from 'react';
+import { DropdownMenuProps } from '@radix-ui/react-dropdown-menu';
+import { MARK_SUBSCRIPT, MARK_SUPERSCRIPT } from '@udecode/plate-basic-marks';
+import { focusEditor, toggleMark, useEditorRef } from '@udecode/plate-common';
 
-import { DropdownMenuProps } from "@radix-ui/react-dropdown-menu"
-import { MARK_SUBSCRIPT, MARK_SUPERSCRIPT } from "@udecode/plate-basic-marks"
-import { focusEditor, toggleMark, useEditorRef } from "@udecode/plate-common"
-
-import { Icons } from "@/components/icons"
+import { Icons } from '@/components/icons';
 
 import {
   DropdownMenu,
@@ -12,24 +11,17 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
   useOpenState,
-} from "./dropdown-menu"
-import { ToolbarButton } from "./toolbar"
+} from './dropdown-menu';
+import { ToolbarButton } from './toolbar';
 
 export function MoreDropdownMenu(props: DropdownMenuProps) {
-  const editor = useEditorRef()
-  const openState = useOpenState()
+  const editor = useEditorRef();
+  const openState = useOpenState();
 
   return (
-    <DropdownMenu
-      modal={false}
-      {...openState}
-      {...props}
-    >
+    <DropdownMenu modal={false} {...openState} {...props}>
       <DropdownMenuTrigger asChild>
-        <ToolbarButton
-          pressed={openState.open}
-          tooltip="Insert"
-        >
+        <ToolbarButton pressed={openState.open} tooltip="Insert">
           <Icons.more />
         </ToolbarButton>
       </DropdownMenuTrigger>
@@ -43,8 +35,8 @@ export function MoreDropdownMenu(props: DropdownMenuProps) {
             toggleMark(editor, {
               key: MARK_SUBSCRIPT,
               clear: MARK_SUPERSCRIPT,
-            })
-            focusEditor(editor)
+            });
+            focusEditor(editor);
           }}
         >
           <Icons.superscript className="mr-2 size-5" />
@@ -56,8 +48,8 @@ export function MoreDropdownMenu(props: DropdownMenuProps) {
             toggleMark(editor, {
               key: MARK_SUPERSCRIPT,
               clear: MARK_SUBSCRIPT,
-            })
-            focusEditor(editor)
+            });
+            focusEditor(editor);
           }}
         >
           <Icons.subscript className="mr-2 size-5" />
@@ -66,5 +58,5 @@ export function MoreDropdownMenu(props: DropdownMenuProps) {
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
-  )
+  );
 }
