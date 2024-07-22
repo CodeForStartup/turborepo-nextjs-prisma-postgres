@@ -1,31 +1,26 @@
-'use client';
+"use client"
 
-import React from 'react';
+import React from "react"
+
 import {
   CommentProvider,
   useCommentById,
   useCommentItemContentState,
-} from '@udecode/plate-comments';
-import { formatDistance } from 'date-fns';
+} from "@udecode/plate-comments"
+import { formatDistance } from "date-fns"
 
-import { CommentAvatar } from './comment-avatar';
-import { CommentMoreDropdown } from './comment-more-dropdown';
-import { CommentResolveButton } from './comment-resolve-button';
-import { CommentValue } from './comment-value';
+import { CommentAvatar } from "./comment-avatar"
+import { CommentMoreDropdown } from "./comment-more-dropdown"
+import { CommentResolveButton } from "./comment-resolve-button"
+import { CommentValue } from "./comment-value"
 
 type PlateCommentProps = {
-  commentId: string;
-};
+  commentId: string
+}
 
 function CommentItemContent() {
-  const {
-    comment,
-    isMyComment,
-    isReplyComment,
-    user,
-    editingValue,
-    commentText,
-  } = useCommentItemContentState();
+  const { comment, isMyComment, isReplyComment, user, editingValue, commentText } =
+    useCommentItemContentState()
 
   return (
     <div>
@@ -55,16 +50,19 @@ function CommentItemContent() {
         )}
       </div>
     </div>
-  );
+  )
 }
 
 export function CommentItem({ commentId }: PlateCommentProps) {
-  const comment = useCommentById(commentId);
-  if (!comment) return null;
+  const comment = useCommentById(commentId)
+  if (!comment) return null
 
   return (
-    <CommentProvider key={commentId} id={commentId}>
+    <CommentProvider
+      key={commentId}
+      id={commentId}
+    >
       <CommentItemContent />
     </CommentProvider>
-  );
+  )
 }

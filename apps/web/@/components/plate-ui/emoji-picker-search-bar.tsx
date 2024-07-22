@@ -1,9 +1,10 @@
-import React, { ReactNode } from 'react';
-import { UseEmojiPickerType } from '@udecode/plate-emoji';
+import React, { ReactNode } from "react"
+
+import { UseEmojiPickerType } from "@udecode/plate-emoji"
 
 export type EmojiPickerSearchBarProps = {
-  children: ReactNode;
-} & Pick<UseEmojiPickerType, 'i18n' | 'searchValue' | 'setSearch'>;
+  children: ReactNode
+} & Pick<UseEmojiPickerType, "i18n" | "searchValue" | "setSearch">
 
 export function EmojiPickerSearchBar({
   i18n,
@@ -26,5 +27,5 @@ export function EmojiPickerSearchBar({
         {children}
       </div>
     </div>
-  );
+  )
 }
