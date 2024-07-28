@@ -202,200 +202,204 @@ export const platePlugins = createPlugins(
     // Nodes
     createParagraphPlugin(),
     createHeadingPlugin(),
-    // createBlockquotePlugin(),
-    // createCodeBlockPlugin(),
-    // createHorizontalRulePlugin(),
-    // createLinkPlugin({
-    //   renderAfterEditable: LinkFloatingToolbar as RenderAfterEditable,
-    // }),
-    // createImagePlugin(),
-    // createMediaEmbedPlugin(),
-    // createCaptionPlugin({
-    //   options: { pluginKeys: [ELEMENT_IMAGE, ELEMENT_MEDIA_EMBED] },
-    // }),
-    // createMentionPlugin(),
-    // createTablePlugin(),
-    // createTodoListPlugin(),
-    // createExcalidrawPlugin(),
-    // // Marks
-    // createBoldPlugin(),
-    // createItalicPlugin(),
-    // createUnderlinePlugin(),
-    // createStrikethroughPlugin(),
-    // createCodePlugin(),
-    // createSubscriptPlugin(),
-    // createSuperscriptPlugin(),
-    // createFontColorPlugin(),
-    // createFontBackgroundColorPlugin(),
-    // createFontSizePlugin(),
-    // createHighlightPlugin(),
-    // createKbdPlugin(),
-    // // Block Style
-    // createAlignPlugin({
-    //   inject: {
-    //     props: {
-    //       validTypes: [ELEMENT_PARAGRAPH, ELEMENT_H1, ELEMENT_H2, ELEMENT_H3],
-    //     },
-    //   },
-    // }),
-    // createIndentPlugin({
-    //   inject: {
-    //     props: {
-    //       validTypes: [
-    //         ELEMENT_PARAGRAPH,
-    //         ELEMENT_H1,
-    //         ELEMENT_H2,
-    //         ELEMENT_H3,
-    //         ELEMENT_BLOCKQUOTE,
-    //         ELEMENT_CODE_BLOCK,
-    //       ],
-    //     },
-    //   },
-    // }),
-    // createIndentListPlugin({
-    //   inject: {
-    //     props: {
-    //       validTypes: [
-    //         ELEMENT_PARAGRAPH,
-    //         ELEMENT_H1,
-    //         ELEMENT_H2,
-    //         ELEMENT_H3,
-    //         ELEMENT_BLOCKQUOTE,
-    //         ELEMENT_CODE_BLOCK,
-    //       ],
-    //     },
-    //   },
-    // }),
-    // createLineHeightPlugin({
-    //   inject: {
-    //     props: {
-    //       defaultNodeValue: 1.5,
-    //       validNodeValues: [1, 1.2, 1.5, 2, 3],
-    //       validTypes: [ELEMENT_PARAGRAPH, ELEMENT_H1, ELEMENT_H2, ELEMENT_H3],
-    //     },
-    //   },
-    // }),
-    // // Functionality
-    // createAutoformatPlugin(autoformatPlugin),
-    // createBlockSelectionPlugin({
-    //   options: {
-    //     sizes: {
-    //       top: 0,
-    //       bottom: 0,
-    //     },
-    //   },
-    // }),
-    // createCodePlugin(),
-    // createDndPlugin({
-    //   options: { enableScroller: true },
-    // }),
-    // createEmojiPlugin({
-    //   renderAfterEditable: EmojiCombobox as RenderAfterEditable,
-    // }),
-    // createExitBreakPlugin({
-    //   options: {
-    //     rules: [
-    //       {
-    //         hotkey: "mod+enter",
-    //       },
-    //       {
-    //         hotkey: "mod+shift+enter",
-    //         before: true,
-    //       },
-    //       {
-    //         hotkey: "enter",
-    //         query: {
-    //           start: true,
-    //           end: true,
-    //           allow: KEYS_HEADING,
-    //         },
-    //         relative: true,
-    //         level: 1,
-    //       },
-    //     ],
-    //   },
-    // }),
-    // createNodeIdPlugin(),
-    // createResetNodePlugin({
-    //   options: {
-    //     rules: [
-    //       {
-    //         ...resetBlockTypesCommonRule,
-    //         hotkey: "Enter",
-    //         predicate: isBlockAboveEmpty,
-    //       },
-    //       {
-    //         ...resetBlockTypesCommonRule,
-    //         hotkey: "Backspace",
-    //         predicate: isSelectionAtBlockStart,
-    //       },
-    //       {
-    //         ...resetBlockTypesCodeBlockRule,
-    //         hotkey: "Enter",
-    //         predicate: isCodeBlockEmpty,
-    //       },
-    //       {
-    //         ...resetBlockTypesCodeBlockRule,
-    //         hotkey: "Backspace",
-    //         predicate: isSelectionAtCodeBlockStart,
-    //       },
-    //     ],
-    //   },
-    // }),
-    // createSelectOnBackspacePlugin({
-    //   options: {
-    //     query: {
-    //       allow: [ELEMENT_IMAGE, ELEMENT_HR],
-    //     },
-    //   },
-    // }),
-    // createSoftBreakPlugin({
-    //   options: {
-    //     rules: [
-    //       { hotkey: "shift+enter" },
-    //       {
-    //         hotkey: "enter",
-    //         query: {
-    //           allow: [ELEMENT_CODE_BLOCK, ELEMENT_BLOCKQUOTE, ELEMENT_TD],
-    //         },
-    //       },
-    //     ],
-    //   },
-    // }),
-    // createTabbablePlugin({
-    //   options: {
-    //     query: (editor) => {
-    //       if (isSelectionAtBlockStart(editor)) return false
-    //       return !someNode(editor, {
-    //         match: (n) => {
-    //           return !!(
-    //             n.type &&
-    //             ([ELEMENT_TABLE, ELEMENT_LI, ELEMENT_CODE_BLOCK].includes(n.type as string) ||
-    //               n[KEY_LIST_STYLE_TYPE])
-    //           )
-    //         },
-    //       })
-    //     },
-    //   },
-    //   plugins: [
-    //     {
-    //       key: "tabbable_element",
-    //       isElement: true,
-    //       isVoid: true,
-    //       component: TabbableElement,
-    //     },
-    //   ],
-    // }),
-    // createTrailingBlockPlugin({
-    //   options: { type: ELEMENT_PARAGRAPH },
-    // }),
-    // dragOverCursorPlugin,
+    createBlockquotePlugin(),
+    createCodeBlockPlugin(),
+    createHorizontalRulePlugin(),
+    createLinkPlugin({
+      renderAfterEditable: LinkFloatingToolbar as RenderAfterEditable,
+    }),
+    createImagePlugin(),
+    createMediaEmbedPlugin(),
+    createCaptionPlugin({
+      options: { pluginKeys: [ELEMENT_IMAGE, ELEMENT_MEDIA_EMBED] },
+    }),
+    createMentionPlugin(),
+    createTablePlugin(),
+    createTodoListPlugin(),
+    createExcalidrawPlugin(),
+
+    // Marks
+    createBoldPlugin(),
+    createItalicPlugin(),
+    createUnderlinePlugin(),
+    createStrikethroughPlugin(),
+    createCodePlugin(),
+    createSubscriptPlugin(),
+    createSuperscriptPlugin(),
+    createFontColorPlugin(),
+    createFontBackgroundColorPlugin(),
+    createFontSizePlugin(),
+    createHighlightPlugin(),
+    createKbdPlugin(),
+
+    // Block Style
+    createAlignPlugin({
+      inject: {
+        props: {
+          validTypes: [ELEMENT_PARAGRAPH, ELEMENT_H1, ELEMENT_H2, ELEMENT_H3],
+        },
+      },
+    }),
+    createIndentPlugin({
+      inject: {
+        props: {
+          validTypes: [
+            ELEMENT_PARAGRAPH,
+            ELEMENT_H1,
+            ELEMENT_H2,
+            ELEMENT_H3,
+            ELEMENT_BLOCKQUOTE,
+            ELEMENT_CODE_BLOCK,
+          ],
+        },
+      },
+    }),
+    createIndentListPlugin({
+      inject: {
+        props: {
+          validTypes: [
+            ELEMENT_PARAGRAPH,
+            ELEMENT_H1,
+            ELEMENT_H2,
+            ELEMENT_H3,
+            ELEMENT_BLOCKQUOTE,
+            ELEMENT_CODE_BLOCK,
+          ],
+        },
+      },
+    }),
+    createLineHeightPlugin({
+      inject: {
+        props: {
+          defaultNodeValue: 1.5,
+          validNodeValues: [1, 1.2, 1.5, 2, 3],
+          validTypes: [ELEMENT_PARAGRAPH, ELEMENT_H1, ELEMENT_H2, ELEMENT_H3],
+        },
+      },
+    }),
+
+    // Functionality
+    createAutoformatPlugin(autoformatPlugin),
+    createBlockSelectionPlugin({
+      options: {
+        sizes: {
+          top: 0,
+          bottom: 0,
+        },
+      },
+    }),
+    createCodePlugin(),
+    createDndPlugin({
+      options: { enableScroller: true },
+    }),
+    createEmojiPlugin({
+      renderAfterEditable: EmojiCombobox as RenderAfterEditable,
+    }),
+    createExitBreakPlugin({
+      options: {
+        rules: [
+          {
+            hotkey: "mod+enter",
+          },
+          {
+            hotkey: "mod+shift+enter",
+            before: true,
+          },
+          {
+            hotkey: "enter",
+            query: {
+              start: true,
+              end: true,
+              allow: KEYS_HEADING,
+            },
+            relative: true,
+            level: 1,
+          },
+        ],
+      },
+    }),
+    createNodeIdPlugin(),
+    createResetNodePlugin({
+      options: {
+        rules: [
+          {
+            ...resetBlockTypesCommonRule,
+            hotkey: "Enter",
+            predicate: isBlockAboveEmpty,
+          },
+          {
+            ...resetBlockTypesCommonRule,
+            hotkey: "Backspace",
+            predicate: isSelectionAtBlockStart,
+          },
+          {
+            ...resetBlockTypesCodeBlockRule,
+            hotkey: "Enter",
+            predicate: isCodeBlockEmpty,
+          },
+          {
+            ...resetBlockTypesCodeBlockRule,
+            hotkey: "Backspace",
+            predicate: isSelectionAtCodeBlockStart,
+          },
+        ],
+      },
+    }),
+    createSelectOnBackspacePlugin({
+      options: {
+        query: {
+          allow: [ELEMENT_IMAGE, ELEMENT_HR],
+        },
+      },
+    }),
+    createSoftBreakPlugin({
+      options: {
+        rules: [
+          { hotkey: "shift+enter" },
+          {
+            hotkey: "enter",
+            query: {
+              allow: [ELEMENT_CODE_BLOCK, ELEMENT_BLOCKQUOTE, ELEMENT_TD],
+            },
+          },
+        ],
+      },
+    }),
+    createTabbablePlugin({
+      options: {
+        query: (editor) => {
+          if (isSelectionAtBlockStart(editor)) return false
+          return !someNode(editor, {
+            match: (n) => {
+              return !!(
+                n.type &&
+                ([ELEMENT_TABLE, ELEMENT_LI, ELEMENT_CODE_BLOCK].includes(n.type as string) ||
+                  n[KEY_LIST_STYLE_TYPE])
+              )
+            },
+          })
+        },
+      },
+      plugins: [
+        {
+          key: "tabbable_element",
+          isElement: true,
+          isVoid: true,
+          component: TabbableElement,
+        },
+      ],
+    }),
+    createTrailingBlockPlugin({
+      options: { type: ELEMENT_PARAGRAPH },
+    }),
+    dragOverCursorPlugin,
+
     // Collaboration
-    // createCommentsPlugin(),
+    createCommentsPlugin(),
     // Deserialization
-    // createDeserializeDocxPlugin(),
-    // createDeserializeMdPlugin(),
-    // createJuicePlugin(),
+    createDeserializeDocxPlugin(),
+    createDeserializeMdPlugin(),
+    createJuicePlugin(),
   ],
   {
     components,

@@ -1,5 +1,6 @@
 "use client"
 
+import { useState } from "react"
 import Link from "next/link"
 import { useParams } from "next/navigation"
 
@@ -11,7 +12,7 @@ import { useFormStatus } from "react-dom"
 import { Controller, useForm } from "react-hook-form"
 import AsyncCreatableSelect from "react-select/async-creatable"
 import { toast } from "react-toastify"
-import { Button, buttonVariants, cn, Label } from "ui"
+import { Button, buttonVariants, cn, Label, LoadingButton } from "ui"
 import z from "zod"
 
 import APP_ROUTES from "@/constants/routes"
@@ -24,11 +25,11 @@ const PostForm = ({ post: postData }: { post?: TPostItem }) => {
   const { title = "", content = "", tagOnPost = [] } = postData || {}
   const t = useTranslations()
   const session = useSession()
+  const [pending, setPending] = useState(false)
 
   const userId = session?.data?.user?.id
 
   const { postId } = useParams()
-  const { pending } = useFormStatus()
 
   const postSchema = z.object({
     title: z.string().min(5, "Title must be at least 5 characters"),
@@ -69,15 +70,18 @@ const PostForm = ({ post: postData }: { post?: TPostItem }) => {
 
   const handleSubmitPost = async (data) => {
     try {
-      console.log("data", data)
-
+      setPending(true)
       if (postId) {
         await updatePost(postId as string, data, userId)
+        toast.success(t("common.post_created"))
       } else {
         await createPost(data, userId)
+        toast.success(t("common.post_updated"))
       }
     } catch (error) {
       toast.error(error.message)
+    } finally {
+      setPending(false)
     }
   }
 
@@ -190,18 +194,18 @@ const PostForm = ({ post: postData }: { post?: TPostItem }) => {
           </div>
         </div>
         <div className="flex justify-start gap-4 p-2">
-          <Button
+          <LoadingButton
             type="submit"
-            // disabled={!isValid || pending}
+            loading={pending}
             className="w-[150px] uppercase"
           >
             {t("common.publish")}
-          </Button>
+          </LoadingButton>
           <Link
             className={cn(buttonVariants({ variant: "outline" }), "w-[150px] uppercase")}
             href={APP_ROUTES.USER_POSTS}
           >
-            {t("common.save_as_draft")}
+            {t("common.cancel")}
           </Link>
         </div>
       </form>

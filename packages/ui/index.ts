@@ -228,3 +228,5 @@ export {
 } from "./@/components/ui/accordion"
 
 export { cn } from "././@/lib/utils"
+
+export { LoadingButton } from "./@/components/ui/loading-button"

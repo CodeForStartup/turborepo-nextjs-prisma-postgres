@@ -107,6 +107,8 @@
     "untitled": "Untitled",
     "filter": "Filter",
     "turn_draft": "Turn draft",
-    "turn_publish": "Turn publish"
+    "turn_publish": "Turn publish",
+    "post_created": "Post created successfully",
+    "post_updated": "Post updated successfully"
   }
 }
