@@ -158,264 +158,249 @@ const resetBlockTypesCodeBlockRule = {
   onReset: unwrapCodeBlock,
 }
 
-const plugins = createPlugins(
+export const components = {
+  [ELEMENT_BLOCKQUOTE]: BlockquoteElement,
+  [ELEMENT_CODE_BLOCK]: CodeBlockElement,
+  [ELEMENT_CODE_LINE]: CodeLineElement,
+  [ELEMENT_CODE_SYNTAX]: CodeSyntaxLeaf,
+  [ELEMENT_HR]: HrElement,
+  [ELEMENT_H1]: withProps(HeadingElement, { variant: "h1" }),
+  [ELEMENT_H2]: withProps(HeadingElement, { variant: "h2" }),
+  [ELEMENT_H3]: withProps(HeadingElement, { variant: "h3" }),
+  [ELEMENT_H4]: withProps(HeadingElement, { variant: "h4" }),
+  [ELEMENT_H5]: withProps(HeadingElement, { variant: "h5" }),
+  [ELEMENT_H6]: withProps(HeadingElement, { variant: "h6" }),
+  [ELEMENT_IMAGE]: ImageElement,
+  [ELEMENT_LI]: withProps(PlateElement, { as: "li" }),
+  [ELEMENT_LINK]: LinkElement,
+  [ELEMENT_MEDIA_EMBED]: MediaEmbedElement,
+  [ELEMENT_MENTION]: MentionElement,
+  [ELEMENT_MENTION_INPUT]: MentionInputElement,
+  [ELEMENT_UL]: withProps(ListElement, { variant: "ul" }),
+  [ELEMENT_OL]: withProps(ListElement, { variant: "ol" }),
+  [ELEMENT_PARAGRAPH]: ParagraphElement,
+  [ELEMENT_TABLE]: TableElement,
+  [ELEMENT_TD]: TableCellElement,
+  [ELEMENT_TH]: TableCellHeaderElement,
+  [ELEMENT_TODO_LI]: TodoListElement,
+  [ELEMENT_TR]: TableRowElement,
+  [ELEMENT_EXCALIDRAW]: ExcalidrawElement,
+  [MARK_BOLD]: withProps(PlateLeaf, { as: "strong" }),
+  [MARK_CODE]: CodeLeaf,
+  [MARK_HIGHLIGHT]: HighlightLeaf,
+  [MARK_ITALIC]: withProps(PlateLeaf, { as: "em" }),
+  [MARK_KBD]: KbdLeaf,
+  [MARK_STRIKETHROUGH]: withProps(PlateLeaf, { as: "s" }),
+  [MARK_SUBSCRIPT]: withProps(PlateLeaf, { as: "sub" }),
+  [MARK_SUPERSCRIPT]: withProps(PlateLeaf, { as: "sup" }),
+  [MARK_UNDERLINE]: withProps(PlateLeaf, { as: "u" }),
+  [MARK_COMMENT]: CommentLeaf,
+}
+
+export const platePlugins = createPlugins(
   [
     // Nodes
     createParagraphPlugin(),
     createHeadingPlugin(),
-    createBlockquotePlugin(),
-    createCodeBlockPlugin(),
-    createHorizontalRulePlugin(),
-    createLinkPlugin({
-      renderAfterEditable: LinkFloatingToolbar as RenderAfterEditable,
-    }),
-    createImagePlugin(),
-    createMediaEmbedPlugin(),
-    createCaptionPlugin({
-      options: { pluginKeys: [ELEMENT_IMAGE, ELEMENT_MEDIA_EMBED] },
-    }),
-    createMentionPlugin(),
-    createTablePlugin(),
+    // createBlockquotePlugin(),
+    // createCodeBlockPlugin(),
+    // createHorizontalRulePlugin(),
+    // createLinkPlugin({
+    //   renderAfterEditable: LinkFloatingToolbar as RenderAfterEditable,
+    // }),
+    // createImagePlugin(),
+    // createMediaEmbedPlugin(),
+    // createCaptionPlugin({
+    //   options: { pluginKeys: [ELEMENT_IMAGE, ELEMENT_MEDIA_EMBED] },
+    // }),
+    // createMentionPlugin(),
+    // createTablePlugin(),
     // createTodoListPlugin(),
     // createExcalidrawPlugin(),
-
-    // Marks
-    createBoldPlugin(),
-    createItalicPlugin(),
-    createUnderlinePlugin(),
-    createStrikethroughPlugin(),
-    createCodePlugin(),
-    createSubscriptPlugin(),
-    createSuperscriptPlugin(),
-    createFontColorPlugin(),
-    createFontBackgroundColorPlugin(),
-    createFontSizePlugin(),
-    createHighlightPlugin(),
-    createKbdPlugin(),
-
-    // Block Style
-    createAlignPlugin({
-      inject: {
-        props: {
-          validTypes: [ELEMENT_PARAGRAPH, ELEMENT_H1, ELEMENT_H2, ELEMENT_H3],
-        },
-      },
-    }),
-    createIndentPlugin({
-      inject: {
-        props: {
-          validTypes: [
-            ELEMENT_PARAGRAPH,
-            ELEMENT_H1,
-            ELEMENT_H2,
-            ELEMENT_H3,
-            ELEMENT_BLOCKQUOTE,
-            ELEMENT_CODE_BLOCK,
-          ],
-        },
-      },
-    }),
-    createIndentListPlugin({
-      inject: {
-        props: {
-          validTypes: [
-            ELEMENT_PARAGRAPH,
-            ELEMENT_H1,
-            ELEMENT_H2,
-            ELEMENT_H3,
-            ELEMENT_BLOCKQUOTE,
-            ELEMENT_CODE_BLOCK,
-          ],
-        },
-      },
-    }),
-    createLineHeightPlugin({
-      inject: {
-        props: {
-          defaultNodeValue: 1.5,
-          validNodeValues: [1, 1.2, 1.5, 2, 3],
-          validTypes: [ELEMENT_PARAGRAPH, ELEMENT_H1, ELEMENT_H2, ELEMENT_H3],
-        },
-      },
-    }),
-
-    // Functionality
-    createAutoformatPlugin(autoformatPlugin),
-    createBlockSelectionPlugin({
-      options: {
-        sizes: {
-          top: 0,
-          bottom: 0,
-        },
-      },
-    }),
-    createCodePlugin(),
-    createDndPlugin({
-      options: { enableScroller: true },
-    }),
+    // // Marks
+    // createBoldPlugin(),
+    // createItalicPlugin(),
+    // createUnderlinePlugin(),
+    // createStrikethroughPlugin(),
+    // createCodePlugin(),
+    // createSubscriptPlugin(),
+    // createSuperscriptPlugin(),
+    // createFontColorPlugin(),
+    // createFontBackgroundColorPlugin(),
+    // createFontSizePlugin(),
+    // createHighlightPlugin(),
+    // createKbdPlugin(),
+    // // Block Style
+    // createAlignPlugin({
+    //   inject: {
+    //     props: {
+    //       validTypes: [ELEMENT_PARAGRAPH, ELEMENT_H1, ELEMENT_H2, ELEMENT_H3],
+    //     },
+    //   },
+    // }),
+    // createIndentPlugin({
+    //   inject: {
+    //     props: {
+    //       validTypes: [
+    //         ELEMENT_PARAGRAPH,
+    //         ELEMENT_H1,
+    //         ELEMENT_H2,
+    //         ELEMENT_H3,
+    //         ELEMENT_BLOCKQUOTE,
+    //         ELEMENT_CODE_BLOCK,
+    //       ],
+    //     },
+    //   },
+    // }),
+    // createIndentListPlugin({
+    //   inject: {
+    //     props: {
+    //       validTypes: [
+    //         ELEMENT_PARAGRAPH,
+    //         ELEMENT_H1,
+    //         ELEMENT_H2,
+    //         ELEMENT_H3,
+    //         ELEMENT_BLOCKQUOTE,
+    //         ELEMENT_CODE_BLOCK,
+    //       ],
+    //     },
+    //   },
+    // }),
+    // createLineHeightPlugin({
+    //   inject: {
+    //     props: {
+    //       defaultNodeValue: 1.5,
+    //       validNodeValues: [1, 1.2, 1.5, 2, 3],
+    //       validTypes: [ELEMENT_PARAGRAPH, ELEMENT_H1, ELEMENT_H2, ELEMENT_H3],
+    //     },
+    //   },
+    // }),
+    // // Functionality
+    // createAutoformatPlugin(autoformatPlugin),
+    // createBlockSelectionPlugin({
+    //   options: {
+    //     sizes: {
+    //       top: 0,
+    //       bottom: 0,
+    //     },
+    //   },
+    // }),
+    // createCodePlugin(),
+    // createDndPlugin({
+    //   options: { enableScroller: true },
+    // }),
     // createEmojiPlugin({
     //   renderAfterEditable: EmojiCombobox as RenderAfterEditable,
     // }),
-    createExitBreakPlugin({
-      options: {
-        rules: [
-          {
-            hotkey: "mod+enter",
-          },
-          {
-            hotkey: "mod+shift+enter",
-            before: true,
-          },
-          {
-            hotkey: "enter",
-            query: {
-              start: true,
-              end: true,
-              allow: KEYS_HEADING,
-            },
-            relative: true,
-            level: 1,
-          },
-        ],
-      },
-    }),
-    createNodeIdPlugin(),
-    createResetNodePlugin({
-      options: {
-        rules: [
-          {
-            ...resetBlockTypesCommonRule,
-            hotkey: "Enter",
-            predicate: isBlockAboveEmpty,
-          },
-          {
-            ...resetBlockTypesCommonRule,
-            hotkey: "Backspace",
-            predicate: isSelectionAtBlockStart,
-          },
-          {
-            ...resetBlockTypesCodeBlockRule,
-            hotkey: "Enter",
-            predicate: isCodeBlockEmpty,
-          },
-          {
-            ...resetBlockTypesCodeBlockRule,
-            hotkey: "Backspace",
-            predicate: isSelectionAtCodeBlockStart,
-          },
-        ],
-      },
-    }),
-    createSelectOnBackspacePlugin({
-      options: {
-        query: {
-          allow: [ELEMENT_IMAGE, ELEMENT_HR],
-        },
-      },
-    }),
-
-    createSoftBreakPlugin({
-      options: {
-        rules: [
-          { hotkey: "shift+enter" },
-          {
-            hotkey: "enter",
-            query: {
-              allow: [ELEMENT_CODE_BLOCK, ELEMENT_BLOCKQUOTE, ELEMENT_TD],
-            },
-          },
-        ],
-      },
-    }),
-    createTabbablePlugin({
-      options: {
-        query: (editor) => {
-          if (isSelectionAtBlockStart(editor)) return false
-
-          return !someNode(editor, {
-            match: (n) => {
-              return !!(
-                n.type &&
-                ([ELEMENT_TABLE, ELEMENT_LI, ELEMENT_CODE_BLOCK].includes(n.type as string) ||
-                  n[KEY_LIST_STYLE_TYPE])
-              )
-            },
-          })
-        },
-      },
-      plugins: [
-        {
-          key: "tabbable_element",
-          isElement: true,
-          isVoid: true,
-          component: TabbableElement,
-        },
-      ],
-    }),
+    // createExitBreakPlugin({
+    //   options: {
+    //     rules: [
+    //       {
+    //         hotkey: "mod+enter",
+    //       },
+    //       {
+    //         hotkey: "mod+shift+enter",
+    //         before: true,
+    //       },
+    //       {
+    //         hotkey: "enter",
+    //         query: {
+    //           start: true,
+    //           end: true,
+    //           allow: KEYS_HEADING,
+    //         },
+    //         relative: true,
+    //         level: 1,
+    //       },
+    //     ],
+    //   },
+    // }),
+    // createNodeIdPlugin(),
+    // createResetNodePlugin({
+    //   options: {
+    //     rules: [
+    //       {
+    //         ...resetBlockTypesCommonRule,
+    //         hotkey: "Enter",
+    //         predicate: isBlockAboveEmpty,
+    //       },
+    //       {
+    //         ...resetBlockTypesCommonRule,
+    //         hotkey: "Backspace",
+    //         predicate: isSelectionAtBlockStart,
+    //       },
+    //       {
+    //         ...resetBlockTypesCodeBlockRule,
+    //         hotkey: "Enter",
+    //         predicate: isCodeBlockEmpty,
+    //       },
+    //       {
+    //         ...resetBlockTypesCodeBlockRule,
+    //         hotkey: "Backspace",
+    //         predicate: isSelectionAtCodeBlockStart,
+    //       },
+    //     ],
+    //   },
+    // }),
+    // createSelectOnBackspacePlugin({
+    //   options: {
+    //     query: {
+    //       allow: [ELEMENT_IMAGE, ELEMENT_HR],
+    //     },
+    //   },
+    // }),
+    // createSoftBreakPlugin({
+    //   options: {
+    //     rules: [
+    //       { hotkey: "shift+enter" },
+    //       {
+    //         hotkey: "enter",
+    //         query: {
+    //           allow: [ELEMENT_CODE_BLOCK, ELEMENT_BLOCKQUOTE, ELEMENT_TD],
+    //         },
+    //       },
+    //     ],
+    //   },
+    // }),
+    // createTabbablePlugin({
+    //   options: {
+    //     query: (editor) => {
+    //       if (isSelectionAtBlockStart(editor)) return false
+    //       return !someNode(editor, {
+    //         match: (n) => {
+    //           return !!(
+    //             n.type &&
+    //             ([ELEMENT_TABLE, ELEMENT_LI, ELEMENT_CODE_BLOCK].includes(n.type as string) ||
+    //               n[KEY_LIST_STYLE_TYPE])
+    //           )
+    //         },
+    //       })
+    //     },
+    //   },
+    //   plugins: [
+    //     {
+    //       key: "tabbable_element",
+    //       isElement: true,
+    //       isVoid: true,
+    //       component: TabbableElement,
+    //     },
+    //   ],
+    // }),
     // createTrailingBlockPlugin({
     //   options: { type: ELEMENT_PARAGRAPH },
     // }),
-    dragOverCursorPlugin,
-
+    // dragOverCursorPlugin,
     // Collaboration
     // createCommentsPlugin(),
-
     // Deserialization
-    createDeserializeDocxPlugin(),
-    createDeserializeMdPlugin(),
-    createJuicePlugin(),
+    // createDeserializeDocxPlugin(),
+    // createDeserializeMdPlugin(),
+    // createJuicePlugin(),
   ],
   {
-    components: withDraggables(
-      withPlaceholders({
-        [ELEMENT_BLOCKQUOTE]: BlockquoteElement,
-        [ELEMENT_CODE_BLOCK]: CodeBlockElement,
-        [ELEMENT_CODE_LINE]: CodeLineElement,
-        [ELEMENT_CODE_SYNTAX]: CodeSyntaxLeaf,
-        [ELEMENT_HR]: HrElement,
-        [ELEMENT_H1]: withProps(HeadingElement, { variant: "h1" }),
-        [ELEMENT_H2]: withProps(HeadingElement, { variant: "h2" }),
-        [ELEMENT_H3]: withProps(HeadingElement, { variant: "h3" }),
-        [ELEMENT_H4]: withProps(HeadingElement, { variant: "h4" }),
-        [ELEMENT_H5]: withProps(HeadingElement, { variant: "h5" }),
-        [ELEMENT_H6]: withProps(HeadingElement, { variant: "h6" }),
-        [ELEMENT_IMAGE]: ImageElement,
-        [ELEMENT_LI]: withProps(PlateElement, { as: "li" }),
-        [ELEMENT_LINK]: LinkElement,
-        [ELEMENT_MEDIA_EMBED]: MediaEmbedElement,
-        [ELEMENT_MENTION]: MentionElement,
-        [ELEMENT_MENTION_INPUT]: MentionInputElement,
-        [ELEMENT_UL]: withProps(ListElement, { variant: "ul" }),
-        [ELEMENT_OL]: withProps(ListElement, { variant: "ol" }),
-        [ELEMENT_PARAGRAPH]: ParagraphElement,
-        [ELEMENT_TABLE]: TableElement,
-        [ELEMENT_TD]: TableCellElement,
-        [ELEMENT_TH]: TableCellHeaderElement,
-        [ELEMENT_TODO_LI]: TodoListElement,
-        [ELEMENT_TR]: TableRowElement,
-        [ELEMENT_EXCALIDRAW]: ExcalidrawElement,
-        [MARK_BOLD]: withProps(PlateLeaf, { as: "strong" }),
-        [MARK_CODE]: CodeLeaf,
-        [MARK_HIGHLIGHT]: HighlightLeaf,
-        [MARK_ITALIC]: withProps(PlateLeaf, { as: "em" }),
-        [MARK_KBD]: KbdLeaf,
-        [MARK_STRIKETHROUGH]: withProps(PlateLeaf, { as: "s" }),
-        [MARK_SUBSCRIPT]: withProps(PlateLeaf, { as: "sub" }),
-        [MARK_SUPERSCRIPT]: withProps(PlateLeaf, { as: "sup" }),
-        [MARK_UNDERLINE]: withProps(PlateLeaf, { as: "u" }),
-        [MARK_COMMENT]: CommentLeaf,
-      })
-    ),
+    components,
   }
 )
-
-const initialValue = [
-  {
-    id: "1",
-    type: "p",
-    children: [{ text: "Hello, World!" }],
-  },
-]
 
 export type PlateEditorProps = {
   initialValue: TElement[]
@@ -427,10 +412,9 @@ export function PlateEditor({ initialValue, onChange }: PlateEditorProps) {
     <TooltipProvider>
       <DndProvider backend={HTML5Backend}>
         <Plate
-          plugins={plugins}
+          plugins={platePlugins}
           initialValue={initialValue}
           onChange={(value) => {
-            console.log("plate.data", value)
             onChange(JSON.stringify(value))
           }}
         >

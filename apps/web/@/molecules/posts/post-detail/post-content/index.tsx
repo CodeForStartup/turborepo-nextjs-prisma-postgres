@@ -1,8 +1,13 @@
+"use client"
+
 import React from "react"
 
+import { createPlateEditor, createPlugins, Plate } from "@udecode/plate-common"
+import { serializeHtml } from "@udecode/plate-serializer-html"
 import htmlReactParser, { attributesToProps, domToReact } from "html-react-parser"
 import slugify from "slugify"
 
+import { components, platePlugins } from "@/molecules/editor"
 import { TPostItem } from "@/types/posts"
 
 interface PostContentProps {
@@ -21,7 +26,17 @@ const extractDataFromDomNode = (domNode) => {
     .join("")
 }
 
-const PostContent: React.FC<PostContentProps> = ({ post }) => {
+const HTMLParser: React.FC<PostContentProps> = ({ post }) => {
+  const editor = createPlateEditor({
+    plugins: platePlugins,
+  })
+
+  const html = serializeHtml(editor, {
+    nodes: post.content ? JSON.parse(post.content) : [],
+  })
+
+  console.log(">>>>html", html)
+
   const options = {
     replace: (domNode) => {
       if (domNode.name === "h1") {
@@ -71,7 +86,15 @@ const PostContent: React.FC<PostContentProps> = ({ post }) => {
     },
   }
 
-  return <div className="post-content mt-8">{htmlReactParser(post?.content, options)}</div>
+  return <div className="post-content mt-8">{htmlReactParser(html, options)}</div>
+}
+
+const PostContent: React.FC<PostContentProps> = ({ post }) => {
+  return (
+    <Plate plugins={platePlugins}>
+      <HTMLParser post={post} />
+    </Plate>
+  )
 }
 
 export default PostContent
