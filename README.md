@@ -44,8 +44,9 @@ turbo dev
 🔥 shadcn  
 💌 next-themes
 🖋 Zod validation
-🎰 React Form Hook  
-💒 Tiptap  
+🎰 React Form Hook
+️🥇 Tsup  
+💒 Platejs  
 🐢 react-toastify
 🍾 react-textarea-autosize  
 🐠 lucide-react icon  
@@ -61,25 +62,23 @@ turbo dev
 - [x] Register by email or github
 - [x] Login by email, github or magic link
 - [x] User logout
-- [ ] Verify email
-- [ ] Forgot password
 - [x] CRUD post
 - [x] List post: Search & filter by top or hot week, month, year, infinity
 - [x] Like post
 - [x] Comment on post
-- [ ] Share post
+- [x] Share post
 - [x] Manage tag
-- [ ] Follow user
-- [ ] Multiple theme & dark mode or light mode
-- [ ] Multiple language
-- [ ] Follow tag
-- [ ] Manage user profile
+- [x] Follow user
+- [x] Multiple theme & dark mode or light mode
+- [x] Multiple language
+- [x] Follow tag
+- [x] Manage user profile
 - [ ] Multiple type: post/question
 
 ## Admin functions
 
-- [ ] Dashboard
-- [ ] CRUD tags
+- [x] Dashboard
+- [x] CRUD tags
 - [ ] CRUD users
 - [ ] Manage posts
 - [ ] Manage images
