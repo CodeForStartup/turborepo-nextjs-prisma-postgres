@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import React, { useState } from "react"
 import Link from "next/link"
 import { useParams } from "next/navigation"
 
@@ -8,7 +8,6 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { createPost, Prisma, updatePost } from "database"
 import { useSession } from "next-auth/react"
 import { useTranslations } from "next-intl"
-import { useFormStatus } from "react-dom"
 import { Controller, useForm } from "react-hook-form"
 import AsyncCreatableSelect from "react-select/async-creatable"
 import { toast } from "react-toastify"
@@ -19,7 +18,7 @@ import APP_ROUTES from "@/constants/routes"
 import InputTitle from "@/molecules/input-title"
 import { TPostItem } from "@/types/posts"
 
-import { PlateEditor } from "../editor"
+import Editor from "../editor-js"
 
 const PostForm = ({ post: postData }: { post?: TPostItem }) => {
   const { title = "", content = "", tagOnPost = [] } = postData || {}
@@ -53,7 +52,7 @@ const PostForm = ({ post: postData }: { post?: TPostItem }) => {
   const {
     control,
     handleSubmit,
-    formState: { isValid },
+    formState: { isValid, errors },
   } = useForm({
     defaultValues: {
       title,
@@ -118,6 +117,7 @@ const PostForm = ({ post: postData }: { post?: TPostItem }) => {
           )}
         </div>
       </div> */}
+      {JSON.stringify(errors)}
       <form
         className="mb-4 w-full"
         onSubmit={handleSubmit(handleSubmitPost)}
@@ -141,12 +141,10 @@ const PostForm = ({ post: postData }: { post?: TPostItem }) => {
                   name="content"
                   control={control}
                   render={({ field }) => (
-                    <PlateEditor
-                      {...field}
-                      initialValue={field?.value ? JSON.parse(field?.value) : []}
-                      onChange={(value) => {
-                        console.log("value", value)
-                        field?.onChange(value)
+                    <Editor
+                      data={field.value ? JSON.parse(field.value) : {}}
+                      onChange={(data) => {
+                        field.onChange(JSON.stringify(data))
                       }}
                     />
                   )}
