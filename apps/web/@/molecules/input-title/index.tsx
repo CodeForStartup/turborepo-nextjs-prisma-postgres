@@ -25,7 +25,7 @@ const InputTitle: React.FunctionComponent<InputTitleProps> = ({
         placeholder={placeholder}
         onChange={onChange}
         onBlur={onBlur}
-        className="h-16 w-full rounded-md border border-none bg-transparent px-3 py-2 text-4xl font-bold focus-visible:ring-ring focus-visible:ring-offset-2 focus:focus-visible:outline-none"
+        className="h-16 w-full scroll-m-20 rounded-md border border-none bg-transparent px-3 py-2 text-4xl font-extrabold tracking-tight focus-visible:ring-ring focus-visible:ring-offset-2 focus:focus-visible:outline-none lg:text-5xl"
       />
     </div>
   )

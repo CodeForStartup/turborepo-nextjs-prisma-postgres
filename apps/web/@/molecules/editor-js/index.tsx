@@ -23,6 +23,7 @@ const Editor: React.FC<EditorJSProps> = ({ onChange, data }) => {
           list: List,
         },
         data: data,
+        placeholder: "Write your post here...",
         onChange: async () => {
           const content = await editorRef.current?.save()
           onChange(content)

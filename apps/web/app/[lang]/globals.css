@@ -71,11 +71,16 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground min-h-screen font-sans antialiased;
+    @apply min-h-screen bg-background font-sans text-foreground antialiased;
   }
 
-  h1, h2, h3, h4, h5, h6 {
-    @apply font-bold mb-4;
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply mb-4 font-bold;
   }
 
   p {
@@ -90,7 +95,7 @@
     font-size: 0.9rem;
     padding: 0.25em;
   }
-  
+
   pre {
     background: #0f111a;
     border-radius: 0.5rem;
@@ -157,4 +162,36 @@
       font-weight: 700;
     }
   }
+}
+
+/* editorjs */
+.ce-block__content,
+.ce-toolbar__content {
+  max-width: unset;
+  margin-left: 70px;
+  margin-right: 70px;
+}
+
+h1.ce-header {
+  @apply scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl;
+}
+
+h2.ce-header {
+  @apply scroll-m-20 text-3xl font-semibold tracking-tight first:mt-0;
+}
+
+h3.ce-header {
+  @apply scroll-m-20 text-2xl font-semibold tracking-tight;
+}
+
+h4.ce-header {
+  @apply scroll-m-20 text-xl font-semibold tracking-tight;
+}
+
+h5.ce-header {
+  @apply scroll-m-20 text-lg font-semibold tracking-tight;
+}
+
+h6.ce-header {
+  @apply scroll-m-20 text-base font-semibold tracking-tight;
 }
