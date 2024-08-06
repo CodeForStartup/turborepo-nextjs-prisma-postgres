@@ -1,11 +1,13 @@
-"use client"
+import React, { useMemo } from "react"
 
-import React from "react"
-
+import edjsHTML from "editorjs-html"
 import htmlReactParser, { attributesToProps, domToReact } from "html-react-parser"
+import DOMPurify from "isomorphic-dompurify"
 import slugify from "slugify"
 
 import { TPostItem } from "@/types/posts"
+
+const edjsParser = edjsHTML()
 
 interface PostContentProps {
   post: TPostItem
@@ -78,7 +80,30 @@ const HTMLParser: React.FC<PostContentProps> = ({ post }) => {
 }
 
 const PostContent: React.FC<PostContentProps> = ({ post }) => {
-  return <div />
+  const contentHtml = useMemo(() => {
+    if (!post.content) return ""
+
+    console.log(">>>>>>", post.content)
+
+    try {
+      const content = JSON.parse(post.content)
+      const htmlArray = edjsParser.parse(content)
+      console.log(">>>>>>", htmlArray)
+      const html = htmlArray.join("")
+      return DOMPurify.sanitize(html)
+    } catch (error) {
+      console.log(">>>>>>", error)
+
+      return ""
+    }
+  }, [post.content])
+
+  return (
+    <div
+      className="post-content mt-8"
+      dangerouslySetInnerHTML={{ __html: contentHtml }}
+    />
+  )
 }
 
 export default PostContent

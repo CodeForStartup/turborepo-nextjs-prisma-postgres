@@ -26,6 +26,7 @@ const Editor: React.FC<EditorJSProps> = ({ onChange, data }) => {
         placeholder: "Write your post here...",
         onChange: async () => {
           const content = await editorRef.current?.save()
+
           onChange(content)
         },
       })
