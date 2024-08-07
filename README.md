@@ -46,7 +46,7 @@ turbo dev
 🖋 Zod validation
 🎰 React Form Hook
 ️🥇 Tsup  
-💒 Platejs  
+💒 EditorJs  
 🐢 react-toastify
 🍾 react-textarea-autosize  
 🐠 lucide-react icon  

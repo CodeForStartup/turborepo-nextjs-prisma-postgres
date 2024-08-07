@@ -1,31 +1,32 @@
 "use client"
 
-import { useState } from "react"
+import React, { useState } from "react"
+import dynamic from "next/dynamic"
 import Link from "next/link"
-import { useParams } from "next/navigation"
+import { useParams, useRouter } from "next/navigation"
 
 import { zodResolver } from "@hookform/resolvers/zod"
 import { createPost, Prisma, updatePost } from "database"
 import { useSession } from "next-auth/react"
 import { useTranslations } from "next-intl"
-import { useFormStatus } from "react-dom"
 import { Controller, useForm } from "react-hook-form"
 import AsyncCreatableSelect from "react-select/async-creatable"
 import { toast } from "react-toastify"
-import { Button, buttonVariants, cn, Label, LoadingButton } from "ui"
+import { buttonVariants, cn, Label, LoadingButton } from "ui"
 import z from "zod"
 
 import APP_ROUTES from "@/constants/routes"
 import InputTitle from "@/molecules/input-title"
 import { TPostItem } from "@/types/posts"
 
-import { PlateEditor } from "../editor"
+const Editor = dynamic(() => import("../editor-js"), { ssr: false })
 
 const PostForm = ({ post: postData }: { post?: TPostItem }) => {
   const { title = "", content = "", tagOnPost = [] } = postData || {}
   const t = useTranslations()
   const session = useSession()
   const [pending, setPending] = useState(false)
+  const router = useRouter()
 
   const userId = session?.data?.user?.id
 
@@ -53,7 +54,7 @@ const PostForm = ({ post: postData }: { post?: TPostItem }) => {
   const {
     control,
     handleSubmit,
-    formState: { isValid },
+    formState: { isValid, errors },
   } = useForm({
     defaultValues: {
       title,
@@ -69,24 +70,27 @@ const PostForm = ({ post: postData }: { post?: TPostItem }) => {
   })
 
   const handleSubmitPost = async (data) => {
+    let newPostId = postId as string
     try {
       setPending(true)
       if (postId) {
         await updatePost(postId as string, data, userId)
         toast.success(t("common.post_created"))
       } else {
-        await createPost(data, userId)
+        const post = await createPost(data, userId)
+        newPostId = post.data.id
         toast.success(t("common.post_updated"))
       }
     } catch (error) {
       toast.error(error.message)
     } finally {
+      router.push(APP_ROUTES.POST.replace(":postId", newPostId))
       setPending(false)
     }
   }
 
   const promiseOptions = async (inputValue: string) => {
-    const rawData = await fetch("/api/protected/tags?search=" + inputValue)
+    const rawData = await fetch(`/api/protected/tags?search=${inputValue}`)
     const tags = await rawData.json()
 
     return tags.map((tag) => ({
@@ -125,28 +129,28 @@ const PostForm = ({ post: postData }: { post?: TPostItem }) => {
         <div className="grid grid-cols-4 gap-8">
           <div className="col-span-3 mb-4 w-full rounded-md">
             <div className="w-full">
-              <Controller
-                name="title"
-                control={control}
-                render={({ field }) => (
-                  <InputTitle
-                    placeholder={t("common.untitled")}
-                    {...field}
-                  />
-                )}
-              />
+              <div className="px-[58px]">
+                <Controller
+                  name="title"
+                  control={control}
+                  render={({ field }) => (
+                    <InputTitle
+                      placeholder={t("common.untitled")}
+                      {...field}
+                    />
+                  )}
+                />
+              </div>
 
-              <div className="mt-3 rounded">
+              <div className="mt-3">
                 <Controller
                   name="content"
                   control={control}
                   render={({ field }) => (
-                    <PlateEditor
-                      {...field}
-                      initialValue={field?.value ? JSON.parse(field?.value) : []}
-                      onChange={(value) => {
-                        console.log("value", value)
-                        field?.onChange(value)
+                    <Editor
+                      data={field.value ? JSON.parse(field.value) : {}}
+                      onChange={(data) => {
+                        field.onChange(JSON.stringify(data))
                       }}
                     />
                   )}
