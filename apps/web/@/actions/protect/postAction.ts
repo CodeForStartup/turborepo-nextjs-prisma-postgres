@@ -1,11 +1,20 @@
 "use server"
 
 import { revalidatePath } from "next/cache"
+import { redirect } from "next/navigation"
 
-import { PostOnUserType, PostStatus, TPostItem } from "database"
-import { updatePostStatus } from "database/src/posts/queries"
+import {
+  createPost,
+  PostOnUserType,
+  PostStatus,
+  TCreatePostInput,
+  TPostItem,
+  updatePost,
+  updatePostStatus,
+} from "database"
 import { toast } from "react-toastify"
 
+import APP_ROUTES from "@/constants/routes"
 import { TUserItem, userSelect } from "@/types/users"
 import { getServerSession } from "@/utils/auth"
 
@@ -171,5 +180,30 @@ export const onTogglePost = async ({ post }: { post: TPostItem }) => {
     toast.error(error)
   } finally {
     revalidatePath(`/post/${post.slug}`)
+  }
+}
+
+export const handleCreateUpdatePost = async ({
+  postId,
+  data,
+  userId,
+}: {
+  postId: string
+  data: TCreatePostInput
+  userId: string
+}) => {
+  let newPostId = postId
+  try {
+    if (postId) {
+      await updatePost(postId, data, userId)
+    } else {
+      const post = await createPost(data, userId)
+      newPostId = post?.data?.slug
+    }
+  } catch (error) {
+    toast.error(error)
+  } finally {
+    revalidatePath(APP_ROUTES.POST.replace(":postId", newPostId))
+    redirect(APP_ROUTES.POST.replace(":postId", newPostId))
   }
 }

@@ -1,4 +1,4 @@
-import { createPost, getPost, getPosts, updatePost } from "./posts/queries"
+import { createPost, getPost, getPosts, updatePost, updatePostStatus } from "./posts/queries"
 import { TCreatePostInput, TPostActionType, TPostItem } from "./posts/selects"
 import { TGetPostsRequest, TGetPostsResponse } from "./posts/type"
 import prisma from "./prisma"
@@ -20,6 +20,7 @@ export {
   getPosts,
   createPost,
   updatePost,
+  updatePostStatus,
 }
 
 export type {

@@ -15,6 +15,7 @@ import { toast } from "react-toastify"
 import { buttonVariants, cn, Label, LoadingButton } from "ui"
 import z from "zod"
 
+import { handleCreateUpdatePost } from "@/actions/protect/postAction"
 import APP_ROUTES from "@/constants/routes"
 import InputTitle from "@/molecules/input-title"
 import { TPostItem } from "@/types/posts"
@@ -69,26 +70,6 @@ const PostForm = ({ post: postData }: { post?: TPostItem }) => {
     resolver: zodResolver(postSchema),
   })
 
-  const handleSubmitPost = async (data) => {
-    let newPostId = postId as string
-    try {
-      setPending(true)
-      if (postId) {
-        await updatePost(postId as string, data, userId)
-        toast.success(t("common.post_created"))
-      } else {
-        const post = await createPost(data, userId)
-        newPostId = post.data.id
-        toast.success(t("common.post_updated"))
-      }
-    } catch (error) {
-      toast.error(error.message)
-    } finally {
-      router.push(APP_ROUTES.POST.replace(":postId", newPostId))
-      setPending(false)
-    }
-  }
-
   const promiseOptions = async (inputValue: string) => {
     const rawData = await fetch(`/api/protected/tags?search=${inputValue}`)
     const tags = await rawData.json()
@@ -99,37 +80,19 @@ const PostForm = ({ post: postData }: { post?: TPostItem }) => {
     }))
   }
 
+  const onSubmit = async (data) =>
+    await handleCreateUpdatePost({ postId: postId as string, data, userId })
+
   return (
     <div className="w-full">
-      {/* <div className="mb-4 flex justify-between">
-        <div className="flex">
-          <Link
-            href={APP_ROUTES.USER_POSTS}
-            className={cn(buttonVariants({ variant: "ghost" }))}
-          >
-            <ArrowLeft />
-            <div className="ml-2">{t("common.back")}</div>
-          </Link>
-        </div>
-        <div className="flex gap-4">
-          {postData && (
-            <div className="text-bold flex items-center gap-2">
-              <div className="text-sm">{t("common.last_update_at")}</div>
-              <div className="font-bold">
-                {dayjs(postData?.updatedAt).format(DD_MMM_YYYY_HH_MM)}
-              </div>
-            </div>
-          )}
-        </div>
-      </div> */}
       <form
         className="mb-4 w-full"
-        onSubmit={handleSubmit(handleSubmitPost)}
+        onSubmit={handleSubmit(onSubmit)}
       >
         <div className="grid grid-cols-4 gap-8">
           <div className="col-span-3 mb-4 w-full rounded-md">
             <div className="w-full">
-              <div className="px-[58px]">
+              <div className="">
                 <Controller
                   name="title"
                   control={control}
@@ -148,10 +111,8 @@ const PostForm = ({ post: postData }: { post?: TPostItem }) => {
                   control={control}
                   render={({ field }) => (
                     <Editor
-                      data={field.value ? JSON.parse(field.value) : {}}
-                      onChange={(data) => {
-                        field.onChange(JSON.stringify(data))
-                      }}
+                      content={field?.value}
+                      {...field}
                     />
                   )}
                 />
@@ -197,13 +158,13 @@ const PostForm = ({ post: postData }: { post?: TPostItem }) => {
             </div>
           </div>
         </div>
-        <div className="flex justify-start gap-4 p-2">
+        <div className="flex justify-start gap-4">
           <LoadingButton
             type="submit"
             loading={pending}
             className="w-[150px] uppercase"
           >
-            {t("common.publish")}
+            {postId ? t("common.update") : t("common.publish")}
           </LoadingButton>
           <Link
             className={cn(buttonVariants({ variant: "outline" }), "w-[150px] uppercase")}
