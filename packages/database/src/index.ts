@@ -2,6 +2,7 @@ import { createPost, getPost, getPosts, updatePost, updatePostStatus } from "./p
 import { TCreatePostInput, TPostActionType, TPostItem } from "./posts/selects"
 import { TGetPostsRequest, TGetPostsResponse } from "./posts/type"
 import prisma from "./prisma"
+import { ActionReturnType } from "./shared/type"
 import { createTag, getTag, getTags, getTopTags } from "./tags/queries"
 import type { TTagItem, TTagListItem } from "./tags/selects"
 
@@ -34,4 +35,7 @@ export type {
   TPostItem,
   TGetPostsRequest,
   TGetPostsResponse,
+
+  // Shared
+  ActionReturnType,
 }

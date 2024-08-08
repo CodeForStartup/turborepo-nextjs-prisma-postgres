@@ -13,5 +13,5 @@ export enum FilterValues {
 
 export type ActionReturnType<T> = {
   data: T
-  error: null | string
+  error?: string
 }

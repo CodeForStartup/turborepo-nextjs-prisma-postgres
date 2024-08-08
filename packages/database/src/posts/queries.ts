@@ -165,8 +165,6 @@ export const createPost = async (
   data: TCreatePostInput,
   userId: string
 ): Promise<ActionReturnType<TPostItem>> => {
-  console.log("data", data)
-
   let newPost: TPostItem
   try {
     const slug = slugify(data.title.toLocaleLowerCase()) + "-" + Date.now()
