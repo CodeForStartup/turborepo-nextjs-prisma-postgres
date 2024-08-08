@@ -1,6 +1,6 @@
 <p align="center">
     <a href="https://codeforstartup.com/">
-        <img style="width: 180px" src="./apps/web/public/assets/logo.svg">
+        <img src="./images/home-screen.png">
         <h1 align="center" style="color: red">TOPLIST</h1>
     </a>
 </p>
