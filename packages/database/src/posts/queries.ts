@@ -13,7 +13,7 @@ export const getPost = async ({
   postIdOrSlug,
 }: {
   postIdOrSlug: string
-}): Promise<TPostItem | null> => {
+}): Promise<ActionReturnType<TPostItem>> => {
   try {
     const post = await prisma.post.findFirst({
       where: {
@@ -30,12 +30,18 @@ export const getPost = async ({
     })
 
     if (!post) {
-      return null
+      return {
+        error: "NOT_FOUND",
+      }
     }
 
-    return post
+    return {
+      data: post,
+    }
   } catch (error) {
-    return null
+    return {
+      error,
+    }
   }
 }
 
@@ -146,17 +152,22 @@ export const getPosts = async ({ searchParams }: TGetPostsRequest): Promise<TGet
     ])
 
     return {
-      data: posts,
-      total: total,
-      page: Number(page),
-      limit: Number(limit),
+      data: {
+        data: posts,
+        total: total,
+        page: Number(page),
+        limit: Number(limit),
+      },
     }
   } catch (error) {
     return {
-      data: [],
-      total: 0,
-      page: Number(page),
-      limit: Number(limit),
+      data: {
+        data: [],
+        total: 0,
+        page: Number(page),
+        limit: Number(limit),
+      },
+      error,
     }
   }
 }
@@ -203,7 +214,6 @@ export const createPost = async (
 
     return {
       data: newPost,
-      error: null,
     }
   } catch (error) {
     throw {
@@ -256,7 +266,6 @@ export const updatePost = async (
 
     return {
       data: post,
-      error: null,
     }
   } catch (error) {
     throw {
@@ -285,7 +294,6 @@ export const updatePostStatus = async (
 
     return {
       data: post,
-      error: null,
     }
   } catch (error) {
     throw {

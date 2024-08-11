@@ -1,3 +1,6 @@
+export const DEFAULT_LIMIT = 10
+export const DEFAULT_PAGE = 1
+
 export enum PeriodValues {
   THIS_WEEK = "week",
   THIS_MONTH = "month",
@@ -12,6 +15,15 @@ export enum FilterValues {
 }
 
 export type ActionReturnType<T> = {
-  data: T
-  error?: string
+  data?: T
+  error?: any
+}
+
+export type OrderBy = "asc" | "desc"
+
+export type TGetListResponse<T> = {
+  data: T[]
+  total: number
+  page: number
+  limit: number
 }

@@ -1,3 +1,4 @@
+import { createImage, deleteImage, getImage, getImages, updateImage } from "./images/queries"
 import { createPost, getPost, getPosts, updatePost, updatePostStatus } from "./posts/queries"
 import { TCreatePostInput, TPostActionType, TPostItem } from "./posts/selects"
 import { TGetPostsRequest, TGetPostsResponse } from "./posts/type"
@@ -22,6 +23,13 @@ export {
   createPost,
   updatePost,
   updatePostStatus,
+
+  // Images
+  getImages,
+  createImage,
+  updateImage,
+  deleteImage,
+  getImage,
 }
 
 export type {
