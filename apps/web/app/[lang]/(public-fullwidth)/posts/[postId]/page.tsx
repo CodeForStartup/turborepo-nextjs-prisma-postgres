@@ -18,7 +18,7 @@ export async function generateMetadata({ params }): Promise<Metadata> {
   const post = await getPost({ postIdOrSlug: params?.postId })
 
   return {
-    title: post?.title,
+    title: post?.data?.title,
     description: "", //post?.content.slice(0, 160),
   }
 }
@@ -33,7 +33,10 @@ export default async function Page({
   const post = await getPost({ postIdOrSlug: params?.postId })
   const session = await getServerSession()
 
-  if (!post || (post.postStatus === PostStatus.DRAFT && session?.user?.id !== post?.author?.id)) {
+  if (
+    !post ||
+    (post.data?.postStatus === PostStatus.DRAFT && session?.user?.id !== post?.data?.author?.id)
+  ) {
     return notFound()
   }
 
@@ -41,17 +44,17 @@ export default async function Page({
     <div className="grid grid-cols-12 gap-4">
       <div className="col-span-9 flex gap-4">
         <div className="mt-20 flex w-12 flex-col gap-6">
-          <LikeButton post={post} />
+          <LikeButton post={post.data} />
           <BookmarkButton
             showCount
-            post={post}
+            post={post.data}
           />
         </div>
 
         <div className="flex-1">
-          <PostDetail post={post} />
+          <PostDetail post={post.data} />
           <Comments
-            post={post}
+            post={post.data}
             searchParams={searchParams}
           />
         </div>

@@ -1,17 +1,15 @@
 "use client"
 
-import React, { useState } from "react"
+import React from "react"
 import dynamic from "next/dynamic"
 import Link from "next/link"
-import { useParams, useRouter } from "next/navigation"
 
 import { zodResolver } from "@hookform/resolvers/zod"
-import { createPost, Prisma, updatePost } from "database"
+import { Prisma } from "database"
 import { useSession } from "next-auth/react"
 import { useTranslations } from "next-intl"
 import { Controller, useForm } from "react-hook-form"
 import AsyncCreatableSelect from "react-select/async-creatable"
-import { toast } from "react-toastify"
 import { buttonVariants, cn, Label, LoadingButton } from "ui"
 import z from "zod"
 
@@ -20,18 +18,17 @@ import APP_ROUTES from "@/constants/routes"
 import InputTitle from "@/molecules/input-title"
 import { TPostItem } from "@/types/posts"
 
+import Upload from "../upload"
+import AssetManagement from "../upload/AssetsManagement"
+
 const Editor = dynamic(() => import("../editor-js"), { ssr: false })
 
 const PostForm = ({ post: postData }: { post?: TPostItem }) => {
-  const { title = "", content = "", tagOnPost = [] } = postData || {}
+  const { title = "", content = "", tagOnPost = [], id: postId } = postData || {}
   const t = useTranslations()
   const session = useSession()
-  const [pending, setPending] = useState(false)
-  const router = useRouter()
 
   const userId = session?.data?.user?.id
-
-  const { postId } = useParams()
 
   const postSchema = z.object({
     title: z.string().min(5, "Title must be at least 5 characters"),
@@ -120,9 +117,11 @@ const PostForm = ({ post: postData }: { post?: TPostItem }) => {
             </div>
           </div>
           <div className="col-span-1">
-            <div className="flex h-[150px] items-center justify-center rounded-sm bg-slate-300">
-              Cover Image
-            </div>
+            <Upload>
+              <div className="flex h-[150px] cursor-pointer items-center justify-center rounded-sm bg-slate-300">
+                <div>Upload</div>
+              </div>
+            </Upload>
             <div className="mt-4">
               <Label>Tags</Label>
               <Controller
@@ -161,7 +160,6 @@ const PostForm = ({ post: postData }: { post?: TPostItem }) => {
         <div className="flex justify-start gap-4">
           <LoadingButton
             type="submit"
-            loading={pending}
             className="w-[150px] uppercase"
           >
             {postId ? t("common.update") : t("common.publish")}

@@ -1,12 +1,11 @@
 import Link from "next/link"
 
+import { Tags } from "database"
 import { Tag } from "lucide-react"
 import { Button, Card, CardContent, CardHeader } from "ui"
 
-import { TTagItem } from "@/types/tags"
-
 export type TagDetailProp = {
-  tag: TTagItem
+  tag: Tags
 }
 
 const TagDetail = ({ tag }: TagDetailProp) => {
@@ -25,7 +24,7 @@ const TagDetail = ({ tag }: TagDetailProp) => {
             </h1>
             <div className="mt-4 flex w-full flex-1 divide-x">
               <div className="flex flex-1 flex-col items-center justify-center">
-                <div className="font-bold text-slate-800">{tag?.tagOnPost?.length}</div>
+                <div className="font-bold text-slate-800">{tag?.totalPost || 0}</div>
                 <div className="text-gray-400 hover:underline">
                   <Link href={`/tags/${tag.id}`}>posts</Link>
                 </div>

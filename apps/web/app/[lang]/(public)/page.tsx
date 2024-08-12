@@ -26,7 +26,7 @@ export default async function Page({
     <div className="">
       <Filter />
       <div className="mt-4">
-        {posts?.data?.map((post) => (
+        {posts?.data?.data?.map((post) => (
           <PostItem
             key={post.id}
             post={post}
