@@ -15,7 +15,7 @@ const ImageList: React.FC = () => {
     // Fetch images from API
     const fetchImages = async () => {
       try {
-        const response = await fetch("/api/images") // Replace with your API endpoint
+        const response = await fetch("/api/images/list") // Replace with your API endpoint
         const data = await response.json()
         setImages(data)
       } catch (error) {

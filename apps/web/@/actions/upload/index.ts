@@ -62,8 +62,6 @@ export async function handleUpload(file: File): Promise<
     },
   })
 
-  console.log("fileRecord", fileRecord)
-
   return {
     data: {
       url: fileRecord?.path,
