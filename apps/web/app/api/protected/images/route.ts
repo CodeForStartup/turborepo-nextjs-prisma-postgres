@@ -2,26 +2,44 @@ import fs from "fs/promises"
 import path from "path"
 import { NextRequest } from "next/server"
 
-import { createImage, getImage } from "database"
+import { createImage, getImage, getImages } from "database"
 import sharp from "sharp"
 import { v4 as uuidv4 } from "uuid"
 
 import { getServerSession } from "@/utils/auth"
 
+// GET /api/protected/images/list
+// GET /api/protected/images/list?page=1&limit=10
+// GET /api/protected/images/list?page=1&limit=10&userId=1
+// GET /api/protected/images/list?page=1&limit=10&userId=1&caption=test
+// GET /api/protected/images/list?page=1&limit=10&userId=1&caption=test&mime=image/jpeg
+// GET /api/protected/images/list?page=1&limit=10&userId=1&caption=test&mime=image/jpeg&sort=createdAt:desc
 export async function GET(request: NextRequest, { params }: { params: { imageId: string } }) {
   try {
-    const image = await getImage(params.imageId)
+    const session = await getServerSession()
 
-    if (!image)
+    if (!session) {
+      return Response.json({
+        status: 401,
+        data: undefined,
+        message: "Unauthorized",
+      })
+    }
+
+    const images = await getImages({
+      userId: session?.user?.id,
+    })
+
+    if (!images)
       return Response.json({
         status: 404,
-        data: undefined,
+        data: [],
         message: "Image not found",
       })
 
     return Response.json({
       status: 200,
-      data: image,
+      data: images,
     })
   } catch (error) {
     // TODO: Log error

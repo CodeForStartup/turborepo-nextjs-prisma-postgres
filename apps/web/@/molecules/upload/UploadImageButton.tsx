@@ -52,9 +52,10 @@ const UploadImageButton = () => {
         multiple={false}
       />
       <LoadingButton
-        variant="outline"
+        variant="default"
         onClick={handleButtonClick}
         // loading={loading}
+        className="gap-1"
       >
         <Upload size={16} />
         Upload

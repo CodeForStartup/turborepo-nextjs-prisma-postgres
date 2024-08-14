@@ -1,4 +1,5 @@
 import { createImage, deleteImage, getImage, getImages, updateImage } from "./images/queries"
+import { TImageFilter, TListImageResponse } from "./images/type"
 import { createPost, getPost, getPosts, updatePost, updatePostStatus } from "./posts/queries"
 import { TCreatePostInput, TPostActionType, TPostItem } from "./posts/selects"
 import { TGetPostsRequest, TGetPostsResponse } from "./posts/type"
@@ -43,6 +44,10 @@ export type {
   TPostItem,
   TGetPostsRequest,
   TGetPostsResponse,
+
+  // Images
+  TImageFilter,
+  TListImageResponse,
 
   // Shared
   ActionReturnType,

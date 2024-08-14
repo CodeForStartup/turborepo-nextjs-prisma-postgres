@@ -3,7 +3,7 @@ import { Image } from "@prisma/client"
 import prisma from "../prisma"
 import { ActionReturnType, DEFAULT_LIMIT, DEFAULT_PAGE, TGetListResponse } from "../shared/type"
 import { imageSelect } from "./selects"
-import { TImageFilter } from "./type"
+import { TImageFilter, TListImageResponse } from "./type"
 
 export const getImages = async (
   options: TImageFilter = {
@@ -13,7 +13,7 @@ export const getImages = async (
     orderBy: "updatedAt",
     order: "desc",
   }
-): Promise<ActionReturnType<TGetListResponse<Image>>> => {
+): Promise<TListImageResponse> => {
   try {
     let where = {}
     if (options.userId) {
@@ -32,7 +32,7 @@ export const getImages = async (
       }
     }
 
-    const result = await Promise.all([
+    const [total, data] = await Promise.all([
       prisma.image.count({ where }),
       prisma.image.findMany({
         where,
@@ -45,10 +45,10 @@ export const getImages = async (
 
     return {
       data: {
-        data: result,
-        total: result.length,
-        page: options.page,
-        limit: options.limit,
+        data,
+        total,
+        page: options.page ?? DEFAULT_PAGE,
+        limit: options.limit ?? DEFAULT_LIMIT,
       },
     }
   } catch (error) {

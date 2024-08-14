@@ -11,6 +11,7 @@ import {
 } from "ui"
 
 import AssetManagement from "./AssetsManagement"
+import UploadImageButton from "./UploadImageButton"
 
 interface UploadProps {
   children: ReactNode
@@ -29,12 +30,15 @@ const Upload: React.FC<UploadProps> = ({ children }) => {
     //   onOpenChange={handleOpenChange}
     >
       <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent className="top-[200px] w-full max-w-[800px]">
-        <DialogHeader>
-          <DialogTitle>Asset Management</DialogTitle>
+      <DialogContent className="w-full max-w-[800px]">
+        <DialogHeader className="flex flex-row items-center gap-4">
+          <DialogTitle className="mb-0">Asset Management</DialogTitle>
+          <UploadImageButton />
         </DialogHeader>
 
-        <AssetManagement />
+        <div className="h-[300px] overflow-scroll">
+          <AssetManagement />
+        </div>
 
         <DialogFooter>
           <Button>Select</Button>
