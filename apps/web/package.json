@@ -40,7 +40,7 @@
     "html-react-parser": "^5.0.11",
     "isomorphic-dompurify": "^2.14.0",
     "lowlight": "^3.1.0",
-    "lucide-react": "^0.270.0",
+    "lucide-react": "^0.427.0",
     "negotiator": "^0.6.3",
     "next": "14.2.0-canary.50",
     "next-auth": "^4.24.5",
