@@ -111,5 +111,11 @@
     "turn_publish": "Turn publish",
     "post_created": "Post created successfully",
     "post_updated": "Post updated successfully"
+  },
+  "upload": {
+    "asset_management": "Asset Management",
+    "upload_image": "Upload Image",
+    "select": "Select",
+    "upload": "Upload"
   }
 }
