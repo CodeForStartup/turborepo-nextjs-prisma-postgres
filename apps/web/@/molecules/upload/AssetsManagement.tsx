@@ -38,8 +38,8 @@ const AssetManagement = () => {
   }
 
   return (
-    <div className="gap-4">
-      <div className="flex gap-4 px-1 py-1">
+    <div className="py-4">
+      <div className="flex gap-4 p-1">
         <SearchBar />
         <div>filter...</div>
       </div>

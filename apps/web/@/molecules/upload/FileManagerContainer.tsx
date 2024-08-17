@@ -1,11 +1,7 @@
 import React, { createContext, useCallback, useContext, useReducer } from "react"
 
-import { OrderBy } from "database"
+import { Image, OrderBy } from "database"
 
-// newest
-// oldest
-// name A-Z
-// name Z-A
 export const OrderField = {
   newest: "createdAt",
   oldest: "createdAt",
@@ -14,13 +10,13 @@ export const OrderField = {
 }
 
 export type FileManagerState = {
-  selectedFiles: File[]
+  selectedFiles: Image[]
   search: string
   orderBy: OrderBy
   order: (typeof OrderField)[keyof typeof OrderField]
 }
 export type FileManagerContextType = FileManagerState & {
-  setSelectedFiles: (files: File[]) => void
+  setSelectedFiles: (files: Image[]) => void
   setSearch: (search: string) => void
   setOrder: (order: "asc" | "desc") => void
   setOrderBy: (orderBy: string) => void
@@ -64,7 +60,7 @@ const FileManagerContainer = ({ children }: { children: React.ReactNode }) => {
     orderBy: "asc",
   })
 
-  const setSelectedFiles = useCallback((files: File[]) => {
+  const setSelectedFiles = useCallback((files: Image[]) => {
     dispatch({ type: "SET_SELECTED_FILES", payload: files })
   }, [])
 

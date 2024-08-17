@@ -1,19 +1,25 @@
-import React, { useState } from "react"
+import React from "react"
 import Image from "next/image"
 
 import { Image as ImageType } from "database"
 import { Check, Circle, TrashIcon } from "lucide-react"
 import { Button } from "ui"
 
+import { useFileManager } from "./FileManagerContainer"
+
 type ImageListProps = {
   images: ImageType[]
 }
 
 const ImageList: React.FC<ImageListProps> = ({ images }) => {
-  const [selectedImage, setSelectedImage] = useState<ImageType | null>(null)
+  const { selectedFiles, setSelectedFiles } = useFileManager()
+
+  const handleSelect = (image: ImageType) => {
+    setSelectedFiles([image])
+  }
 
   return (
-    <div className="mt-2 flex flex-wrap gap-3">
+    <div className="mt-2 flex flex-wrap gap-3 p-1">
       {images?.map((image) => (
         <div
           key={image.id}
@@ -38,15 +44,17 @@ const ImageList: React.FC<ImageListProps> = ({ images }) => {
             variant="outline"
             className="absolute right-1 top-1 h-7 w-7 rounded-full p-0"
             onClick={() => {
-              console.log(image)
-
-              setSelectedImage(image)
+              if (selectedFiles?.at(0)?.id === image.id) {
+                setSelectedFiles([])
+              } else {
+                handleSelect(image)
+              }
             }}
           >
-            {selectedImage?.id === image.id ? (
+            {selectedFiles?.at(0)?.id === image.id ? (
               <Check
                 strokeWidth={1.5}
-                className="h-6 w-6 text-blue-500"
+                className="h-5 w-5 text-blue-500"
               />
             ) : (
               <Circle className="h-6 w-6" />
