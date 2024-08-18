@@ -117,6 +117,8 @@
     "upload_image": "Upload Image",
     "select": "Select",
     "upload": "Upload",
-    "has_been_selected": "has been selected"
+    "has_been_selected": "has been selected",
+    "image_uploaded_successfully": "Image uploaded successfully",
+    "error_uploading_image": "Error uploading image"
   }
 }

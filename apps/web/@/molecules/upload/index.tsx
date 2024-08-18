@@ -101,9 +101,7 @@ const Upload: React.FC<UploadProps> = ({ children, onSelect }) => {
             <UploadImageButton />
           </DialogHeader>
 
-          <div className="h-[400px] overflow-scroll px-4 py-0">
-            <AssetManagement />
-          </div>
+          <AssetManagement />
 
           <DialogFooter className="mt-0 flex flex-row items-center justify-between border-t px-4 py-2">
             <SelectedFiles />

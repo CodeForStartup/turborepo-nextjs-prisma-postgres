@@ -1,24 +1,24 @@
 "use client"
 
-import { useRef, useState } from "react"
+import { useRef } from "react"
 
 import { Upload } from "lucide-react"
+import { useTranslations } from "next-intl"
 import { toast } from "react-toastify"
 import { LoadingButton } from "ui"
 
 const UploadImageButton = () => {
   const fileInputRef = useRef<HTMLInputElement>(null)
+  const t = useTranslations("uploads")
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
 
-    console.log(file)
-
     if (file) {
-      // Handle file upload logic here
       const formData = new FormData()
       formData.append("file", file)
 
+      // Todo: replace with hook
       fetch("/api/protected/images", {
         method: "POST",
         body: formData,
@@ -28,11 +28,10 @@ const UploadImageButton = () => {
       })
         .then((res) => res.json())
         .then((data) => {
-          toast.success("Image uploaded successfully")
+          toast.success(t("image_uploaded_successfully"))
         })
         .catch((error) => {
-          toast.error("Error uploading image")
-          console.error("Error uploading image:", error)
+          toast.error(t("error_uploading_image"))
         })
     }
   }
@@ -54,11 +53,11 @@ const UploadImageButton = () => {
       <LoadingButton
         variant="default"
         onClick={handleButtonClick}
-        // loading={loading}
         className="gap-1"
+        size="sm"
       >
         <Upload size={16} />
-        Upload
+        {t("upload")}
       </LoadingButton>
     </div>
   )
