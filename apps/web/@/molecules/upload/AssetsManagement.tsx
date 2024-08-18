@@ -23,20 +23,6 @@ const AssetManagement = () => {
     fetchImages()
   }, [])
 
-  const handleSelect = (id: string) => {
-    // Handle image selection
-    console.log("Selected image:", id)
-  }
-
-  const handleDelete = async (id: string) => {
-    try {
-      await fetch(`/api/images/${id}`, { method: "DELETE" })
-      setImages(images.filter((image) => image.id !== id))
-    } catch (error) {
-      console.error("Error deleting image:", error)
-    }
-  }
-
   return (
     <div className="py-4">
       <div className="flex gap-4 p-1">

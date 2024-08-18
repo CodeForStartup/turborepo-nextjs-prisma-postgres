@@ -1,6 +1,7 @@
 import { ReactNode } from "react"
 
 import { Image } from "database"
+import { X } from "lucide-react"
 import { useTranslations } from "next-intl"
 import {
   Button,
@@ -34,19 +35,26 @@ const SelectButton: React.FC<SelectButtonProps> = ({ onSelect }) => {
     onSelect(selectedFiles?.at(0) || null)
   }
 
-  return <Button onClick={handleSelect}>{t("select")}</Button>
+  return (
+    <Button
+      onClick={handleSelect}
+      disabled={!selectedFiles || selectedFiles?.length === 0}
+    >
+      {t("select")}
+    </Button>
+  )
 }
 
 const SelectedFiles: React.FC = () => {
   const t = useTranslations("uploads")
 
-  const { selectedFiles } = useFileManager()
+  const { selectedFiles, setSelectedFiles } = useFileManager()
 
-  if (!selectedFiles || selectedFiles.length === 0) return null
+  if (!selectedFiles || selectedFiles.length === 0) return <div className="flex flex-1" />
 
   if (selectedFiles.length === 1) {
     return (
-      <div className="flex h-full items-center justify-center">
+      <div className="flex h-full flex-1 items-center justify-start">
         <Typography
           variant="span"
           className="max-w-[100px] truncate text-sm font-semibold"
@@ -59,6 +67,20 @@ const SelectedFiles: React.FC = () => {
         >
           {t("has_been_selected")}
         </Typography>
+
+        <Button
+          size="icon"
+          variant="ghost"
+          className="ml-2"
+          onClick={() => {
+            setSelectedFiles([])
+          }}
+        >
+          <X
+            size={16}
+            color="red"
+          />
+        </Button>
       </div>
     )
   }
@@ -85,7 +107,6 @@ const Upload: React.FC<UploadProps> = ({ children, onSelect }) => {
 
           <DialogFooter className="mt-0 flex flex-row items-center justify-between border-t px-4 py-2">
             <SelectedFiles />
-
             <SelectButton onSelect={onSelect} />
           </DialogFooter>
         </DialogContent>
