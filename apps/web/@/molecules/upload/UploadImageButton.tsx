@@ -7,32 +7,18 @@ import { useTranslations } from "next-intl"
 import { toast } from "react-toastify"
 import { LoadingButton } from "ui"
 
+import { useUploadImage } from "@/hooks/useUploadImage"
+
 const UploadImageButton = () => {
   const fileInputRef = useRef<HTMLInputElement>(null)
   const t = useTranslations("uploads")
+  const { uploadImage, isMutating } = useUploadImage()
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
 
     if (file) {
-      const formData = new FormData()
-      formData.append("file", file)
-
-      // Todo: replace with hook
-      fetch("/api/protected/images", {
-        method: "POST",
-        body: formData,
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          toast.success(t("image_uploaded_successfully"))
-        })
-        .catch((error) => {
-          toast.error(t("error_uploading_image"))
-        })
+      uploadImage(file)
     }
   }
 
@@ -51,6 +37,7 @@ const UploadImageButton = () => {
         multiple={false}
       />
       <LoadingButton
+        loading={isMutating}
         variant="default"
         onClick={handleButtonClick}
         className="gap-1"

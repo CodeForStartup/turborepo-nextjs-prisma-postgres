@@ -80,21 +80,38 @@ export async function POST(request: NextRequest) {
 
     // Resize and save images
     const sizes = [
-      { name: "large", width: 1024 },
-      { name: "medium", width: 640, height: 360 },
-      { name: "thumbnail", width: 320, height: 180 },
+      { name: "large", width: 1024, quality: 80 },
+      { name: "medium", width: 640, height: 360, quality: 70 },
+      { name: "thumbnail", width: 320, height: 180, quality: 60 },
     ]
 
     const urls = await Promise.all(
       sizes.map(async (size) => {
-        const resizedBuffer = await sharp(buffer).resize(size.width).toBuffer()
+        let resizedImage = sharp(buffer).resize(size.width, size.height)
+        const format = file.type.split("/")[1]
+
+        switch (format) {
+          case "jpeg":
+          case "jpg":
+            resizedImage = resizedImage.jpeg({ quality: size.quality })
+            break
+          case "png":
+            resizedImage = resizedImage.png({ quality: size.quality })
+            break
+          case "webp":
+            resizedImage = resizedImage.webp({ quality: size.quality })
+            break
+          // Add more cases for other formats if needed
+        }
+
+        const resizedBuffer = await resizedImage.toBuffer()
 
         const resizedFileName = `${size.name}-${fileName}`
         const filePath = path.join(uploadDir, resizedFileName)
 
         await fs.writeFile(filePath, resizedBuffer)
 
-        return `/images/${folderName}/${resizedFileName}`
+        return `/uploads/${folderName}/${resizedFileName}`
       })
     )
 
@@ -118,8 +135,6 @@ export async function POST(request: NextRequest) {
       data: image,
     })
   } catch (error) {
-    console.log(">>>>>", error)
-
     // TODO: Log error
     // TODO: Return error message
     return Response.error()
