@@ -1,21 +1,25 @@
-import { useEffect, useState } from "react"
-
-import { Image, TListImageResponse } from "database"
+import { useMemo } from "react"
 
 import { useGetImages } from "@/hooks/useGetImages"
 
-import SearchBar from "../nav/search-bar"
+import { useFileManager } from "./FileManagerContainer"
 import ImageList from "./ImageList"
+import ImageSearchBar from "./ImageSearchBar"
 
 const AssetManagement = () => {
-  const { images, isLoading, isError } = useGetImages({})
+  const { search } = useFileManager()
+
+  const filterParams = useMemo(() => {
+    return {
+      search,
+    }
+  }, [search])
+
+  const { images, isLoading, isError } = useGetImages(filterParams)
 
   return (
     <div className="h-[400px] overflow-scroll px-4 py-4">
-      <div className="flex gap-4">
-        <SearchBar />
-        <div>filter...</div>
-      </div>
+      <ImageSearchBar />
 
       <ImageList
         isLoading={isLoading}

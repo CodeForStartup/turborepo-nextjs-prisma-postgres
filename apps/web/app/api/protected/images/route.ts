@@ -2,7 +2,7 @@ import fs from "fs/promises"
 import path from "path"
 import { NextRequest } from "next/server"
 
-import { createImage, getImage, getImages } from "database"
+import { createImage, getImage, getImages, TImageFilter } from "database"
 import sharp from "sharp"
 import { v4 as uuidv4 } from "uuid"
 
@@ -14,7 +14,22 @@ import { getServerSession } from "@/utils/auth"
 // GET /api/protected/images/list?page=1&limit=10&userId=1&caption=test
 // GET /api/protected/images/list?page=1&limit=10&userId=1&caption=test&mime=image/jpeg
 // GET /api/protected/images/list?page=1&limit=10&userId=1&caption=test&mime=image/jpeg&sort=createdAt:desc
-export async function GET(request: NextRequest, { params }: { params: { imageId: string } }) {
+export async function GET(request: NextRequest) {
+  const searchParams = request.nextUrl.searchParams
+  const page = searchParams.get("page") ? parseInt(searchParams.get("page")!) : 1
+  const limit = searchParams.get("limit") ? parseInt(searchParams.get("limit")!) : 10
+  const search = searchParams.get("search") || undefined
+  // const orderBy = searchParams.get("orderBy") || undefined
+  // const order = searchParams.get("order") as "asc" | "desc" | undefined
+
+  const params: TImageFilter = {
+    page,
+    limit,
+    search,
+    // orderBy,
+    // order,
+  }
+
   try {
     const session = await getServerSession()
 
@@ -27,6 +42,7 @@ export async function GET(request: NextRequest, { params }: { params: { imageId:
     }
 
     const images = await getImages({
+      ...params,
       userId: session?.user?.id,
     })
 

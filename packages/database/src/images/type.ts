@@ -7,6 +7,7 @@ export type TImageFilter = {
   userId?: string
   orderBy?: string
   order?: OrderBy
+  search?: string
 }
 
 export type TListImageResponse = ActionReturnType<TGetListResponse<Image>>

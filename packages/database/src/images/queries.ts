@@ -23,6 +23,16 @@ export const getImages = async (
       }
     }
 
+    if (options.search) {
+      where = {
+        ...where,
+        name: {
+          contains: options.search,
+          mode: "insensitive",
+        },
+      }
+    }
+
     let orderBy = {}
 
     if (options.orderBy) {

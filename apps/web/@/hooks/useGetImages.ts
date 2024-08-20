@@ -6,7 +6,7 @@ const getImages = async (filter: TImageFilter) => {
 
   // TODO: will update filter params later
   // Add filter parameters to the query string
-  // if (filter.) queryParams.append('search', filter.search)
+  if (filter.search) queryParams.append("search", filter.search)
   if (filter.order) queryParams.append("order", filter.order)
   if (filter.orderBy) queryParams.append("orderBy", filter.orderBy)
   // Add any other filter parameters as needed

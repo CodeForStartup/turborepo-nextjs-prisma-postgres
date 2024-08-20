@@ -28,6 +28,7 @@
     "register": "Register",
     "profile": "Profile",
     "search": "Search",
+    "clear": "Clear",
     "searchPlaceholder": "Enter your search here...",
     "searchResults": "Search Results",
     "searchNoResults": "No results found",
