@@ -14,6 +14,8 @@ import {
   Typography,
 } from "ui"
 
+import { truncateFileName } from "@/utils/text"
+
 import AssetManagement from "./AssetsManagement"
 import FileManagerContainer, { useFileManager } from "./FileManagerContainer"
 import UploadImageButton from "./UploadImageButton"
@@ -57,9 +59,9 @@ const SelectedFiles: React.FC = () => {
       <div className="flex h-full flex-1 items-center justify-start">
         <Typography
           variant="span"
-          className="max-w-[100px] truncate text-sm font-semibold"
+          className="text-sm font-semibold"
         >
-          {selectedFiles[0].name}
+          {truncateFileName(selectedFiles[0].name)}
         </Typography>
         <Typography
           variant="span"
