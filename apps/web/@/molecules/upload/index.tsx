@@ -18,6 +18,7 @@ import { truncateFileName } from "@/utils/text"
 
 import AssetManagement from "./AssetsManagement"
 import FileManagerContainer, { useFileManager } from "./FileManagerContainer"
+import ImageSearchBar from "./ImageSearchBar"
 import UploadImageButton from "./UploadImageButton"
 
 interface UploadProps {
@@ -102,6 +103,8 @@ const Upload: React.FC<UploadProps> = ({ children, onSelect }) => {
             <DialogTitle className="mb-0">{t("asset_management")}</DialogTitle>
             <UploadImageButton />
           </DialogHeader>
+
+          <ImageSearchBar />
 
           <AssetManagement />
 

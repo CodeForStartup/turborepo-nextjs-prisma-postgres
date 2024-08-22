@@ -14,7 +14,7 @@ export default function ImageSearchBar() {
   }
 
   return (
-    <div className="flex gap-4">
+    <div className="flex gap-4 px-4 py-2">
       <Input
         value={search}
         onChange={(e) => setSearch(e.target.value)}
@@ -23,14 +23,13 @@ export default function ImageSearchBar() {
 
       <Select>
         <SelectTrigger className="w-[180px]">
-          <SelectValue placeholder="Select a fruit" />
+          <SelectValue placeholder={t("common.sort_by")} />
         </SelectTrigger>
         <SelectContent>
-          <SelectItem value="apple">Apple</SelectItem>
-          <SelectItem value="banana">Banana</SelectItem>
-          <SelectItem value="blueberry">Blueberry</SelectItem>
-          <SelectItem value="grapes">Grapes</SelectItem>
-          <SelectItem value="pineapple">Pineapple</SelectItem>
+          <SelectItem value="apple">Name A → Z</SelectItem>
+          <SelectItem value="banana">Name Z → A</SelectItem>
+          <SelectItem value="blueberry">Recent created</SelectItem>
+          <SelectItem value="grapes">Last created</SelectItem>
         </SelectContent>
       </Select>
 

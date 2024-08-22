@@ -1,18 +1,9 @@
-import { TImageFilter } from "database"
-import useSWR from "swr"
+import { useMemo } from "react"
 
-const getImages = async (filter: TImageFilter) => {
-  const queryParams = new URLSearchParams()
+import { TImageFilter, TListImageResponse } from "database"
+import useSWRInfinite from "swr/infinite"
 
-  // TODO: will update filter params later
-  // Add filter parameters to the query string
-  if (filter.search) queryParams.append("search", filter.search)
-  if (filter.order) queryParams.append("order", filter.order)
-  if (filter.orderBy) queryParams.append("orderBy", filter.orderBy)
-  // Add any other filter parameters as needed
-
-  const url = `/api/protected/images?${queryParams.toString()}`
-
+const getImages = async (url): Promise<TListImageResponse> => {
   const response = await fetch(url, {
     method: "GET",
     headers: {
@@ -28,14 +19,36 @@ const getImages = async (filter: TImageFilter) => {
 }
 
 export function useGetImages(filter: TImageFilter) {
-  const { data, error, isLoading, mutate } = useSWR(["/api/protected/images", filter], () =>
-    getImages(filter)
+  const { data, mutate, size, setSize, isLoading, error } = useSWRInfinite(
+    (index) => {
+      const queryParams = new URLSearchParams()
+
+      if (filter.search) queryParams.append("search", filter.search)
+      // if (filter.order) queryParams.append("order", filter.order)
+      // if (filter.orderBy) queryParams.append("orderBy", filter.orderBy)
+      queryParams.append("page", (index + 1).toString())
+
+      return `/api/protected/images?${queryParams.toString()}`
+    },
+    (url) => getImages(url)
   )
 
+  const images = useMemo(() => (data || []).flatMap((page) => page.data.data.data), [data])
+  const totalPages = useMemo(() => data?.[0]?.data?.data?.totalPages, [data])
+
+  const fetchMore = () => {
+    if (size >= totalPages) {
+      return
+    }
+
+    setSize(size + 1)
+  }
+
   return {
-    images: data?.data?.data?.data,
+    images,
     isLoading,
     isError: error,
     mutate,
+    fetchMore,
   }
 }

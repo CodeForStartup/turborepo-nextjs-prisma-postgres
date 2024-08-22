@@ -57,6 +57,7 @@ export const getImages = async (
       data: {
         data,
         total,
+        totalPages: Math.ceil(total / (options.limit ?? DEFAULT_LIMIT)),
         page: options.page ?? DEFAULT_PAGE,
         limit: options.limit ?? DEFAULT_LIMIT,
       },
