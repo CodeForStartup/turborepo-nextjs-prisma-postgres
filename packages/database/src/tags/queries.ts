@@ -2,7 +2,7 @@
 
 import { Prisma, Tags } from "@prisma/client"
 import slugify from "slugify"
-import { ActionReturnType, TGetListResponse } from "src/shared/type"
+import { IActionReturn, IGetListResponse } from "src/shared/type"
 
 import { LIMIT_PER_PAGE } from "../constant"
 import prisma from "../prisma"
@@ -20,7 +20,7 @@ export const getTags = async ({
   limit = LIMIT_PER_PAGE,
   query = "",
   sorting,
-}: GetTagsProps): Promise<ActionReturnType<TGetListResponse<Tags>>> => {
+}: GetTagsProps): Promise<IActionReturn<IGetListResponse<Tags>>> => {
   const tagQuery: Prisma.TagsFindManyArgs = {
     select: tagListSelect,
     take: Number(limit) || 10,
@@ -72,7 +72,7 @@ type GetTagProps = {
   tagIdOrSlug: string
 }
 
-export const getTag = async ({ tagIdOrSlug }: GetTagProps): Promise<ActionReturnType<Tags>> => {
+export const getTag = async ({ tagIdOrSlug }: GetTagProps): Promise<IActionReturn<Tags>> => {
   try {
     const data: Tags = await prisma.tags.findFirst({
       where: {

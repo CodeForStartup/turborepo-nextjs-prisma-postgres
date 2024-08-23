@@ -2,24 +2,24 @@ import React, { createContext, useCallback, useContext, useReducer } from "react
 
 import { Image, OrderBy } from "database"
 
-export const OrderField = {
-  newest: "createdAt",
-  oldest: "createdAt",
-  nameAsc: "name",
-  nameDesc: "name",
+export const OrderByField = {
+  newest: "newest",
+  oldest: "oldest",
+  nameAsc: "name_asc",
+  nameDesc: "name_desc",
 }
 
 export type FileManagerState = {
   selectedFiles: Image[]
   search: string
-  orderBy: OrderBy
-  order: (typeof OrderField)[keyof typeof OrderField]
+  order: (typeof OrderByField)[keyof typeof OrderByField]
+  total: number
 }
 export type FileManagerContextType = FileManagerState & {
   setSelectedFiles: (files: Image[]) => void
   setSearch: (search: string) => void
-  setOrder: (order: "asc" | "desc") => void
-  setOrderBy: (orderBy: string) => void
+  setOrder: (order: (typeof OrderByField)[keyof typeof OrderByField]) => void
+  setTotal: (total: number) => void
 }
 
 const FileManagerContext = createContext<FileManagerContextType | null>(null)
@@ -33,7 +33,7 @@ export const useFileManager = () => {
 }
 
 type FileManagerAction = {
-  type: "SET_SELECTED_FILES" | "SET_SEARCH" | "SET_ORDER" | "SET_ORDER_BY"
+  type: "SET_SELECTED_FILES" | "SET_SEARCH" | "SET_ORDER" | "SET_TOTAL"
   payload: any
 }
 
@@ -45,8 +45,8 @@ function fileManagerReducer(state: FileManagerState, action: FileManagerAction):
       return { ...state, search: action.payload }
     case "SET_ORDER":
       return { ...state, order: action.payload }
-    case "SET_ORDER_BY":
-      return { ...state, orderBy: action.payload }
+    case "SET_TOTAL":
+      return { ...state, total: action.payload }
     default:
       return state
   }
@@ -56,8 +56,8 @@ const FileManagerContainer = ({ children }: { children: React.ReactNode }) => {
   const [state, dispatch] = useReducer(fileManagerReducer, {
     selectedFiles: [],
     search: "",
-    order: OrderField.newest,
-    orderBy: "asc",
+    order: OrderByField.newest,
+    total: 0,
   })
 
   const setSelectedFiles = useCallback((files: Image[]) => {
@@ -72,8 +72,8 @@ const FileManagerContainer = ({ children }: { children: React.ReactNode }) => {
     dispatch({ type: "SET_ORDER", payload: order })
   }, [])
 
-  const setOrderBy = useCallback((orderBy: string) => {
-    dispatch({ type: "SET_ORDER_BY", payload: orderBy })
+  const setTotal = useCallback((total: number) => {
+    dispatch({ type: "SET_TOTAL", payload: total })
   }, [])
 
   return (
@@ -83,7 +83,7 @@ const FileManagerContainer = ({ children }: { children: React.ReactNode }) => {
         setSelectedFiles,
         setSearch,
         setOrder,
-        setOrderBy,
+        setTotal,
       }}
     >
       {children}

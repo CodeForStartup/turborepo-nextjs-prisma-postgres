@@ -11,9 +11,11 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
+  Separator,
   Typography,
 } from "ui"
 
+import { useGetImages } from "@/hooks/useGetImages"
 import { truncateFileName } from "@/utils/text"
 
 import AssetManagement from "./AssetsManagement"
@@ -57,20 +59,13 @@ const SelectedFiles: React.FC = () => {
 
   if (selectedFiles.length === 1) {
     return (
-      <div className="flex h-full flex-1 items-center justify-start">
-        <Typography
-          variant="span"
-          className="text-sm font-semibold"
-        >
-          {truncateFileName(selectedFiles[0].name)}
-        </Typography>
-        <Typography
-          variant="span"
-          className="ml-1 text-sm"
-        >
-          {t("has_been_selected")}
-        </Typography>
-
+      <div className="flex h-full flex-1 items-center justify-start gap-1">
+        <Separator
+          className="mr-4 h-4"
+          orientation="vertical"
+        />
+        <Typography variant="smallText">{truncateFileName(selectedFiles[0].name)}</Typography>
+        <Typography variant="mutedText">{t("has_been_selected")}</Typography>
         <Button
           size="icon"
           variant="ghost"
@@ -91,6 +86,13 @@ const SelectedFiles: React.FC = () => {
   return <div className="flex h-full items-center">{selectedFiles?.length} files selected</div>
 }
 
+const TotalItems: React.FC = () => {
+  const { total } = useFileManager()
+  const t = useTranslations("uploads")
+
+  return <Typography variant="smallText">{t("total_images", { total: total || 0 })}</Typography>
+}
+
 const Upload: React.FC<UploadProps> = ({ children, onSelect }) => {
   const t = useTranslations("uploads")
 
@@ -109,7 +111,10 @@ const Upload: React.FC<UploadProps> = ({ children, onSelect }) => {
           <AssetManagement />
 
           <DialogFooter className="mt-0 flex flex-row items-center justify-between border-t px-4 py-2">
-            <SelectedFiles />
+            <div className="flex flex-1 flex-row items-center gap-4">
+              <TotalItems />
+              <SelectedFiles />
+            </div>
             <SelectButton onSelect={onSelect} />
           </DialogFooter>
         </DialogContent>

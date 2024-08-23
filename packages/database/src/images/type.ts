@@ -1,13 +1,15 @@
 import { Image } from "@prisma/client"
-import { ActionReturnType, OrderBy, TGetListResponse } from "src/shared/type"
+import { IActionReturn, IGetListResponse, OrderBy } from "src/shared/type"
 
-export type TImageFilter = {
+export type ImageOrderBys = "createdAt" | "name"
+
+export interface IImageFilter {
   page?: number
   limit?: number
   userId?: string
-  orderBy?: string
+  orderBy?: ImageOrderBys
   order?: OrderBy
   search?: string
 }
 
-export type TListImageResponse = ActionReturnType<TGetListResponse<Image>>
+export interface IListImageResponse extends IActionReturn<IGetListResponse<Image>> {}

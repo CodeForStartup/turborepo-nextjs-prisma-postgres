@@ -21,7 +21,7 @@ const ImageList: React.FC<ImageListProps> = ({ images, isLoading }) => {
   }
 
   return (
-    <div className="mt-2 flex flex-wrap gap-3 p-1">
+    <div className="flex flex-wrap gap-3 p-1">
       {images?.map((image) => (
         <ImageItem
           key={image.id}

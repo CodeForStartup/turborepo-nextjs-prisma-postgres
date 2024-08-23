@@ -5,7 +5,7 @@ import dayjs from "dayjs"
 import slugify from "slugify"
 
 import prisma from "../prisma"
-import { ActionReturnType, FilterValues, PeriodValues } from "../shared/type"
+import { FilterValues, IActionReturn, PeriodValues } from "../shared/type"
 import { postSelect, TCreatePostInput, TPostItem } from "./selects"
 import { TGetPostsRequest, TGetPostsResponse } from "./type"
 
@@ -13,7 +13,7 @@ export const getPost = async ({
   postIdOrSlug,
 }: {
   postIdOrSlug: string
-}): Promise<ActionReturnType<TPostItem>> => {
+}): Promise<IActionReturn<TPostItem>> => {
   try {
     const post = await prisma.post.findFirst({
       where: {
@@ -175,7 +175,7 @@ export const getPosts = async ({ searchParams }: TGetPostsRequest): Promise<TGet
 export const createPost = async (
   data: TCreatePostInput,
   userId: string
-): Promise<ActionReturnType<TPostItem>> => {
+): Promise<IActionReturn<TPostItem>> => {
   let newPost: TPostItem
   try {
     const slug = slugify(data.title.toLocaleLowerCase()) + "-" + Date.now()
@@ -227,7 +227,7 @@ export const updatePost = async (
   id: string,
   data: TCreatePostInput,
   userId: string
-): Promise<ActionReturnType<TPostItem>> => {
+): Promise<IActionReturn<TPostItem>> => {
   try {
     const { tags, ...postData } = data
 
@@ -279,7 +279,7 @@ export const updatePostStatus = async (
   id: string,
   postStatus: PostStatus,
   userId: string
-): Promise<ActionReturnType<TPostItem>> => {
+): Promise<IActionReturn<TPostItem>> => {
   try {
     const post = await prisma.post.update({
       where: {

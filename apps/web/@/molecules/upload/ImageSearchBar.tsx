@@ -1,13 +1,29 @@
 "use client"
 
+import { ArrowDownWideNarrow } from "lucide-react"
 import { useTranslations } from "next-intl"
-import { Button, Input, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "ui"
+import {
+  Button,
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuLabel,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+  Input,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "ui"
 
-import { useFileManager } from "./FileManagerContainer"
+import { OrderByField, useFileManager } from "./FileManagerContainer"
 
 export default function ImageSearchBar() {
   const t = useTranslations()
-  const { search, setSearch } = useFileManager()
+  const { search, order, setSearch, setOrder } = useFileManager()
 
   const onClearSearch = () => {
     setSearch("")
@@ -21,17 +37,31 @@ export default function ImageSearchBar() {
         className="max-w-[300px]"
       />
 
-      <Select>
-        <SelectTrigger className="w-[180px]">
-          <SelectValue placeholder={t("common.sort_by")} />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectItem value="apple">Name A → Z</SelectItem>
-          <SelectItem value="banana">Name Z → A</SelectItem>
-          <SelectItem value="blueberry">Recent created</SelectItem>
-          <SelectItem value="grapes">Last created</SelectItem>
-        </SelectContent>
-      </Select>
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button
+            variant="outline"
+            className="gap-1"
+          >
+            <ArrowDownWideNarrow size={16} />
+            {t(`uploads.order_by.${order}`)}
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent className="w-56">
+          <DropdownMenuLabel>Order by</DropdownMenuLabel>
+          <DropdownMenuSeparator />
+          <DropdownMenuRadioGroup
+            value={order}
+            onValueChange={setOrder}
+          >
+            {Object.values(OrderByField).map((order) => (
+              <DropdownMenuRadioItem value={order}>
+                {t(`uploads.order_by.${order}`)}
+              </DropdownMenuRadioItem>
+            ))}
+          </DropdownMenuRadioGroup>
+        </DropdownMenuContent>
+      </DropdownMenu>
 
       {search && (
         <Button

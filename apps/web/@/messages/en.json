@@ -111,7 +111,15 @@
     "turn_draft": "Turn draft",
     "turn_publish": "Turn publish",
     "post_created": "Post created successfully",
-    "post_updated": "Post updated successfully"
+    "post_updated": "Post updated successfully",
+    "order_by": "Order by",
+    "order_by_asc": "Ascending",
+    "order_by_desc": "Descending",
+    "order_by_created_at": "Created at",
+    "order_by_name": "Name",
+    "order_by_size": "Size",
+    "order_by_type": "Type",
+    "order_by_uploaded_at": "Uploaded at"
   },
   "uploads": {
     "asset_management": "Asset Management",
@@ -120,6 +128,13 @@
     "upload": "Upload",
     "has_been_selected": "has been selected",
     "image_uploaded_successfully": "Image uploaded successfully",
-    "error_uploading_image": "Error uploading image"
+    "error_uploading_image": "Error uploading image",
+    "total_images": "{total, plural, =0 {No image found} =1 {Total 1 image} other {Total # images}}",
+    "order_by": {
+      "newest": "Newest",
+      "oldest": "Oldest",
+      "name_asc": "Name (A → Z)",
+      "name_desc": "Name (Z → A)"
+    }
   }
 }

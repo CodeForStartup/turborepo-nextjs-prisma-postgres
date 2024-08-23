@@ -2,7 +2,7 @@ import React from "react"
 import Image from "next/image"
 
 import { Image as ImageType } from "database"
-import { Check, CheckCircle, Circle, CircleDot, TrashIcon } from "lucide-react"
+import { CheckCircle, Circle, TrashIcon } from "lucide-react"
 import { Button, cn } from "ui"
 
 import { useFileManager } from "./FileManagerContainer"
@@ -14,15 +14,16 @@ interface ImageItemProps {
 export default function ImageItem({ image }: ImageItemProps) {
   const { selectedFiles, setSelectedFiles } = useFileManager()
 
-  const handleSelect = (image: ImageType) => {
-    setSelectedFiles([image])
+  const handleSelect = () => {
+    setSelectedFiles(selectedFiles?.at(0)?.id === image.id ? [] : [image])
   }
 
   return (
-    <div
+    <button
       className={cn("group relative border-2", {
         "border-blue-500": selectedFiles?.at(0)?.id === image.id,
       })}
+      onClick={handleSelect}
     >
       <Image
         src={`${process.env.NEXT_PUBLIC_FRONTEND_URL}${image.url}`}
@@ -42,13 +43,7 @@ export default function ImageItem({ image }: ImageItemProps) {
       <Button
         variant="outline"
         className="absolute right-1 top-1 h-7 w-7 rounded-full p-0"
-        onClick={() => {
-          if (selectedFiles?.at(0)?.id === image.id) {
-            setSelectedFiles([])
-          } else {
-            handleSelect(image)
-          }
-        }}
+        // onClick={() => handleSelect(image)}
       >
         {selectedFiles?.at(0)?.id === image.id ? (
           <CheckCircle className="h-6 w-6 text-blue-500" />
@@ -56,6 +51,6 @@ export default function ImageItem({ image }: ImageItemProps) {
           <Circle className="h-6 w-6" />
         )}
       </Button>
-    </div>
+    </button>
   )
 }

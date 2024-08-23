@@ -8,7 +8,6 @@ const useInfiniteScroll = (callback: () => void, root: HTMLElement | null, isFet
   const handleIntersection = useCallback(
     (entries: IntersectionObserverEntry[]) => {
       if (entries[0].isIntersecting && !isFetching) {
-        console.log("isIntersecting", entries[0])
         callback?.()
       }
     },

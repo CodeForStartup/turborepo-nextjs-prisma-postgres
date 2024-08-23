@@ -1,14 +1,13 @@
-import { useMemo, useRef } from "react"
+import { useEffect, useMemo, useRef } from "react"
 
 import { useGetImages } from "@/hooks/useGetImages"
 import useInfiniteScroll from "@/hooks/useInfinityScroll"
 
 import { useFileManager } from "./FileManagerContainer"
 import ImageList from "./ImageList"
-import ImageSearchBar from "./ImageSearchBar"
 
 const AssetManagement = () => {
-  const { search } = useFileManager()
+  const { search, setTotal } = useFileManager()
   const imageListRef = useRef<HTMLDivElement>(null)
 
   const filterParams = useMemo(() => {
@@ -17,8 +16,12 @@ const AssetManagement = () => {
     }
   }, [search])
 
-  const { images, isLoading, fetchMore } = useGetImages(filterParams)
+  const { images, isLoading, total, fetchMore } = useGetImages(filterParams)
   const { setNode } = useInfiniteScroll(fetchMore, imageListRef.current, isLoading)
+
+  useEffect(() => {
+    setTotal(total)
+  }, [total, setTotal])
 
   return (
     <div
@@ -30,9 +33,10 @@ const AssetManagement = () => {
         images={images}
       />
 
-      <div ref={setNode}>
-        <div className="h-10 w-full bg-transparent" />
-      </div>
+      <div
+        ref={setNode}
+        className="h-10 w-full bg-transparent"
+      />
     </div>
   )
 }

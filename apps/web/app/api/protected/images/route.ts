@@ -2,32 +2,26 @@ import fs from "fs/promises"
 import path from "path"
 import { NextRequest } from "next/server"
 
-import { createImage, getImage, getImages, TImageFilter } from "database"
+import { createImage, getImage, getImages, IImageFilter, ImageOrderBys, OrderBy } from "database"
 import sharp from "sharp"
 import { v4 as uuidv4 } from "uuid"
 
 import { getServerSession } from "@/utils/auth"
 
-// GET /api/protected/images/list
-// GET /api/protected/images/list?page=1&limit=10
-// GET /api/protected/images/list?page=1&limit=10&userId=1
-// GET /api/protected/images/list?page=1&limit=10&userId=1&caption=test
-// GET /api/protected/images/list?page=1&limit=10&userId=1&caption=test&mime=image/jpeg
-// GET /api/protected/images/list?page=1&limit=10&userId=1&caption=test&mime=image/jpeg&sort=createdAt:desc
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams
   const page = searchParams.get("page") ? parseInt(searchParams.get("page")!) : 1
   const limit = searchParams.get("limit") ? parseInt(searchParams.get("limit")!) : 10
   const search = searchParams.get("search") || undefined
-  // const orderBy = searchParams.get("orderBy") || undefined
-  // const order = searchParams.get("order") as "asc" | "desc" | undefined
+  const orderBy = searchParams.get("orderBy") || undefined
+  const order = searchParams.get("order") || undefined
 
-  const params: TImageFilter = {
+  const params: IImageFilter = {
     page,
     limit,
     search,
-    // orderBy,
-    // order,
+    orderBy: orderBy as ImageOrderBys,
+    order: order as OrderBy,
   }
 
   try {
@@ -151,8 +145,6 @@ export async function POST(request: NextRequest) {
       data: image,
     })
   } catch (error) {
-    // TODO: Log error
-    // TODO: Return error message
     return Response.error()
   }
 }

@@ -14,14 +14,14 @@ export enum FilterValues {
   // TRENDING = "trending",
 }
 
-export type ActionReturnType<T> = {
+export interface IActionReturn<T> {
   data?: T
   error?: any
 }
 
 export type OrderBy = "asc" | "desc"
 
-export type TGetListResponse<T> = {
+export interface IGetListResponse<T> {
   data: T[]
   total: number
   page: number

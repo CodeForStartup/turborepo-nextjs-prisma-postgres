@@ -1,44 +1,47 @@
 import { Image } from "@prisma/client"
 
 import prisma from "../prisma"
-import { ActionReturnType, DEFAULT_LIMIT, DEFAULT_PAGE, TGetListResponse } from "../shared/type"
+import { DEFAULT_LIMIT, DEFAULT_PAGE, IActionReturn, IGetListResponse } from "../shared/type"
 import { imageSelect } from "./selects"
-import { TImageFilter, TListImageResponse } from "./type"
+import { IImageFilter, IListImageResponse } from "./type"
 
-export const getImages = async (
-  options: TImageFilter = {
-    page: DEFAULT_PAGE,
-    limit: DEFAULT_LIMIT,
-    userId: undefined,
-    orderBy: "updatedAt",
-    order: "desc",
-  }
-): Promise<TListImageResponse> => {
+export const getImages = async (options: IImageFilter): Promise<IListImageResponse> => {
+  const {
+    page = DEFAULT_PAGE,
+    limit = DEFAULT_LIMIT,
+    userId,
+    orderBy: orderByKey,
+    order,
+    search,
+  } = options
+
   try {
     let where = {}
-    if (options.userId) {
+    if (userId) {
       where = {
         ...where,
-        userId: options.userId,
+        userId: userId,
       }
     }
 
-    if (options.search) {
+    if (search) {
       where = {
         ...where,
         name: {
-          contains: options.search,
+          contains: search,
           mode: "insensitive",
         },
       }
     }
 
-    let orderBy = {}
+    let orderBy = {
+      createdAt: "desc",
+    }
 
-    if (options.orderBy) {
+    if (orderByKey && order) {
       orderBy = {
         ...orderBy,
-        [options.orderBy]: options.order,
+        [orderByKey]: order,
       }
     }
 
@@ -47,8 +50,8 @@ export const getImages = async (
       prisma.image.findMany({
         where,
         orderBy,
-        take: options.limit,
-        skip: options.page,
+        take: limit,
+        skip: (page - 1) * limit,
         select: imageSelect,
       }),
     ])
@@ -57,9 +60,9 @@ export const getImages = async (
       data: {
         data,
         total,
-        totalPages: Math.ceil(total / (options.limit ?? DEFAULT_LIMIT)),
-        page: options.page ?? DEFAULT_PAGE,
-        limit: options.limit ?? DEFAULT_LIMIT,
+        page,
+        limit,
+        totalPages: Math.ceil(total / limit),
       },
     }
   } catch (error) {
@@ -67,6 +70,7 @@ export const getImages = async (
       error,
       data: {
         data: [],
+        totalPages: 0,
         total: 0,
         page: 0,
         limit: 0,
@@ -75,7 +79,7 @@ export const getImages = async (
   }
 }
 
-export const getImage = async (id: string): Promise<ActionReturnType<Image>> => {
+export const getImage = async (id: string): Promise<IActionReturn<Image>> => {
   try {
     const image = await prisma.image.findUnique({
       where: { id },
@@ -94,7 +98,7 @@ export const getImage = async (id: string): Promise<ActionReturnType<Image>> => 
 
 export const createImage = async (
   data: Omit<Image, "id" | "createdAt" | "updatedAt">
-): Promise<ActionReturnType<Image>> => {
+): Promise<IActionReturn<Image>> => {
   try {
     const image = await prisma.image.create({
       data,
@@ -113,7 +117,7 @@ export const createImage = async (
 export const updateImage = async (
   id: string,
   data: Partial<Omit<Image, "id" | "createdAt" | "updatedAt">>
-): Promise<ActionReturnType<Image>> => {
+): Promise<IActionReturn<Image>> => {
   try {
     const image = await prisma.image.update({
       where: { id },
@@ -130,14 +134,21 @@ export const updateImage = async (
   }
 }
 
-export const deleteImage = async (id: string): Promise<ActionReturnType<"">> => {
+export const deleteImage = async (id: string, userId: string): Promise<IActionReturn<"">> => {
   try {
-    await prisma.image.delete({
-      where: { id },
+    // only owner can delete
+    const deleteImage = await prisma.image.delete({
+      where: { id, userId },
     })
 
+    if (!deleteImage) {
+      return {
+        error: "Unauthorized",
+      }
+    }
+
     return {
-      data: "",
+      data: deleteImage,
     }
   } catch (error) {
     return {

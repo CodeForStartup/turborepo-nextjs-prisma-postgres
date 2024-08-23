@@ -1,16 +1,16 @@
 import { createImage, deleteImage, getImage, getImages, updateImage } from "./images/queries"
-import { TImageFilter, TListImageResponse } from "./images/type"
+import { IImageFilter, IListImageResponse, ImageOrderBys } from "./images/type"
 import { createPost, getPost, getPosts, updatePost, updatePostStatus } from "./posts/queries"
 import { TCreatePostInput, TPostActionType, TPostItem } from "./posts/selects"
 import { TGetPostsRequest, TGetPostsResponse } from "./posts/type"
 import prisma from "./prisma"
 import {
-  ActionReturnType,
   DEFAULT_LIMIT,
   DEFAULT_PAGE,
+  IActionReturn,
+  IGetListResponse,
   OrderBy,
   PeriodValues,
-  TGetListResponse,
 } from "./shared/type"
 import { createTag, getTag, getTags, getTopTags } from "./tags/queries"
 import type { TTagItem, TTagListItem } from "./tags/selects"
@@ -53,13 +53,14 @@ export type {
   TGetPostsResponse,
 
   // Images
-  TImageFilter,
-  TListImageResponse,
+  IImageFilter,
+  IListImageResponse,
+  ImageOrderBys,
 
   // Shared
-  ActionReturnType,
+  IActionReturn,
   OrderBy,
-  TGetListResponse,
+  IGetListResponse,
   PeriodValues,
   DEFAULT_LIMIT,
   DEFAULT_PAGE,

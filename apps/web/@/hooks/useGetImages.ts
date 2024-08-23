@@ -1,9 +1,9 @@
 import { useMemo } from "react"
 
-import { TImageFilter, TListImageResponse } from "database"
+import { IImageFilter, IListImageResponse } from "database"
 import useSWRInfinite from "swr/infinite"
 
-const getImages = async (url): Promise<TListImageResponse> => {
+const getImages = async (url): Promise<IListImageResponse> => {
   const response = await fetch(url, {
     method: "GET",
     headers: {
@@ -18,14 +18,14 @@ const getImages = async (url): Promise<TListImageResponse> => {
   return response.json()
 }
 
-export function useGetImages(filter: TImageFilter) {
+export function useGetImages(filter: IImageFilter) {
   const { data, mutate, size, setSize, isLoading, error } = useSWRInfinite(
     (index) => {
       const queryParams = new URLSearchParams()
 
       if (filter.search) queryParams.append("search", filter.search)
-      // if (filter.order) queryParams.append("order", filter.order)
-      // if (filter.orderBy) queryParams.append("orderBy", filter.orderBy)
+      if (filter.order) queryParams.append("order", filter.order)
+      if (filter.orderBy) queryParams.append("orderBy", filter.orderBy)
       queryParams.append("page", (index + 1).toString())
 
       return `/api/protected/images?${queryParams.toString()}`
@@ -33,8 +33,9 @@ export function useGetImages(filter: TImageFilter) {
     (url) => getImages(url)
   )
 
-  const images = useMemo(() => (data || []).flatMap((page) => page.data.data.data), [data])
+  const images = useMemo(() => (data || []).flatMap((page) => page?.data?.data?.data), [data])
   const totalPages = useMemo(() => data?.[0]?.data?.data?.totalPages, [data])
+  const total = useMemo(() => data?.[0]?.data?.data?.total, [data])
 
   const fetchMore = () => {
     if (size >= totalPages) {
@@ -46,6 +47,7 @@ export function useGetImages(filter: TImageFilter) {
 
   return {
     images,
+    total,
     isLoading,
     isError: error,
     mutate,
