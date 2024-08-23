@@ -13,6 +13,7 @@ const AssetManagement = () => {
   const filterParams = useMemo(() => {
     return {
       search,
+      // order,
     }
   }, [search])
 

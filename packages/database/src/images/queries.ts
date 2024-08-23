@@ -15,6 +15,8 @@ export const getImages = async (options: IImageFilter): Promise<IListImageRespon
     search,
   } = options
 
+  console.log(">>>options", options)
+
   try {
     let where = {}
     if (userId) {

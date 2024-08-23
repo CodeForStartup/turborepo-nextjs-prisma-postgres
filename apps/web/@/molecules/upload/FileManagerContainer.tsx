@@ -2,12 +2,7 @@ import React, { createContext, useCallback, useContext, useReducer } from "react
 
 import { Image, OrderBy } from "database"
 
-export const OrderByField = {
-  newest: "newest",
-  oldest: "oldest",
-  nameAsc: "name_asc",
-  nameDesc: "name_desc",
-}
+import { OrderByField } from "@/constants/upload"
 
 export type FileManagerState = {
   selectedFiles: Image[]

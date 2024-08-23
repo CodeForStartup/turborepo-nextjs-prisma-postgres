@@ -12,14 +12,11 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
   Input,
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
 } from "ui"
 
-import { OrderByField, useFileManager } from "./FileManagerContainer"
+import { OrderByField } from "@/constants/upload"
+
+import { useFileManager } from "./FileManagerContainer"
 
 export default function ImageSearchBar() {
   const t = useTranslations()

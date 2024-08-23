@@ -6,22 +6,41 @@ import { createImage, getImage, getImages, IImageFilter, ImageOrderBys, OrderBy 
 import sharp from "sharp"
 import { v4 as uuidv4 } from "uuid"
 
+import { OrderByField } from "@/constants/upload"
 import { getServerSession } from "@/utils/auth"
+
+const OrderMap = {
+  [OrderByField.nameAsc]: {
+    order: "asc",
+    orderBy: "name",
+  },
+  [OrderByField.nameDesc]: {
+    order: "desc",
+    orderBy: "name",
+  },
+  [OrderByField.newest]: {
+    order: "asc",
+    orderBy: "createdAt",
+  },
+  [OrderByField.oldest]: {
+    order: "desc",
+    orderBy: "createdAt",
+  },
+}
 
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams
   const page = searchParams.get("page") ? parseInt(searchParams.get("page")!) : 1
   const limit = searchParams.get("limit") ? parseInt(searchParams.get("limit")!) : 10
   const search = searchParams.get("search") || undefined
-  const orderBy = searchParams.get("orderBy") || undefined
-  const order = searchParams.get("order") || undefined
+  const order = searchParams.get("order") || OrderByField.newest
 
   const params: IImageFilter = {
     page,
     limit,
     search,
-    orderBy: orderBy as ImageOrderBys,
-    order: order as OrderBy,
+    orderBy: OrderMap[order].orderBy as ImageOrderBys,
+    order: OrderMap[order].order as OrderBy,
   }
 
   try {

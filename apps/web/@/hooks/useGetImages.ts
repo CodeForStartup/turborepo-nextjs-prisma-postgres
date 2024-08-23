@@ -25,7 +25,6 @@ export function useGetImages(filter: IImageFilter) {
 
       if (filter.search) queryParams.append("search", filter.search)
       if (filter.order) queryParams.append("order", filter.order)
-      if (filter.orderBy) queryParams.append("orderBy", filter.orderBy)
       queryParams.append("page", (index + 1).toString())
 
       return `/api/protected/images?${queryParams.toString()}`
