@@ -32,10 +32,10 @@ export default async function Page({ searchParams }) {
       <Filter total={total} />
 
       <div className="mt-12">
-        {data?.length === 0 ? (
+        {data?.data?.length === 0 ? (
           <NoItemFounded />
         ) : (
-          data?.map((post) => (
+          data?.data?.map((post) => (
             <PostItem
               key={post.id}
               {...post}

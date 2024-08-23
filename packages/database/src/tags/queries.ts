@@ -1,7 +1,8 @@
 "use server"
 
-import { Prisma } from "@prisma/client"
+import { Prisma, Tags } from "@prisma/client"
 import slugify from "slugify"
+import { IActionReturn, IGetListResponse } from "src/shared/type"
 
 import { LIMIT_PER_PAGE } from "../constant"
 import prisma from "../prisma"
@@ -14,20 +15,12 @@ type GetTagsProps = {
   sorting?: any[]
 }
 
-type GetTagsResponse = {
-  data: TTagListItem[]
-  total: number
-  limit: number
-  page: number
-  errorMessage?: string
-}
-
 export const getTags = async ({
   page = 1,
   limit = LIMIT_PER_PAGE,
   query = "",
   sorting,
-}: GetTagsProps): Promise<GetTagsResponse> => {
+}: GetTagsProps): Promise<IActionReturn<IGetListResponse<Tags>>> => {
   const tagQuery: Prisma.TagsFindManyArgs = {
     select: tagListSelect,
     take: Number(limit) || 10,
@@ -47,7 +40,7 @@ export const getTags = async ({
   }
 
   try {
-    const [data, total]: [TTagListItem[], number] = await Promise.all([
+    const [data, total]: [Tags[], number] = await Promise.all([
       prisma.tags.findMany(tagQuery),
       prisma.tags.count({
         where: tagQuery.where,
@@ -55,18 +48,22 @@ export const getTags = async ({
     ])
 
     return {
-      data,
-      total,
-      limit,
-      page,
+      data: {
+        data,
+        total,
+        limit,
+        page,
+      },
     }
   } catch (error) {
     throw {
-      data: [],
-      total: 0,
-      limit,
-      page,
-      errorMessage: error?.message,
+      data: {
+        data: [],
+        total: 0,
+        limit,
+        page,
+      },
+      error,
     }
   }
 }
@@ -75,14 +72,9 @@ type GetTagProps = {
   tagIdOrSlug: string
 }
 
-type GetTagResponse = {
-  data?: TTagItem
-  errorMessage?: string
-}
-
-export const getTag = async ({ tagIdOrSlug }: GetTagProps): Promise<GetTagResponse> => {
+export const getTag = async ({ tagIdOrSlug }: GetTagProps): Promise<IActionReturn<Tags>> => {
   try {
-    const data: TTagItem = await prisma.tags.findFirst({
+    const data: Tags = await prisma.tags.findFirst({
       where: {
         OR: [
           {
@@ -101,8 +93,7 @@ export const getTag = async ({ tagIdOrSlug }: GetTagProps): Promise<GetTagRespon
     }
   } catch (error) {
     return {
-      data: undefined,
-      errorMessage: error.message,
+      error,
     }
   }
 }

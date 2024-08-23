@@ -17,6 +17,7 @@ export async function generateMetadata({ searchParams }): Promise<Metadata> {
 // TODO: Hight light matching
 // TODO: Load more
 export default async function Page({ searchParams }) {
+  // TODO: Add pagination
   const posts = await getPosts({
     searchParams,
   })
@@ -24,7 +25,7 @@ export default async function Page({ searchParams }) {
   return (
     <div className="">
       <h1 className="flex-1 text-xl font-extrabold">
-        {`${posts?.total} results for`}
+        {`${posts?.data?.total} results for`}
         <span className="px-2 text-2xl">{`"${searchParams?.search}"`}</span>
       </h1>
 
@@ -32,12 +33,12 @@ export default async function Page({ searchParams }) {
 
       <Filter className="mt-3" />
 
-      {posts?.data?.length === 0 ? (
+      {posts?.data?.data?.length === 0 ? (
         <NoItemFounded />
       ) : (
         <div className="mt-4">
           <div className="mt-4">
-            {posts?.data?.map((post) => (
+            {posts?.data?.data?.map((post) => (
               <PostItem
                 key={post.id}
                 post={post}

@@ -1,13 +1,9 @@
 import { PostStatus } from "@prisma/client"
+import { IActionReturn, IGetListResponse } from "src/shared/type"
 
 import { TPostItem } from "./selects"
 
-export type TGetPostsResponse = {
-  data: TPostItem[]
-  total: number
-  page: number
-  limit: number
-}
+export type TGetPostsResponse = IActionReturn<IGetListResponse<TPostItem>>
 
 export type TGetPostsRequest = {
   searchParams: {

@@ -82,6 +82,8 @@ model Post {
   comments   Comment[]
   parentOf   ParentPost[] @relation("parentPost")
   parent     ParentPost[] @relation("post")
+  Image      Image?       @relation(fields: [imageId], references: [id])
+  imageId    String?
 }
 
 model ParentPost {
@@ -177,6 +179,7 @@ model User {
   followings    Follower[]      @relation("following")
   comment       Comment[]
   commentOnUser CommentOnUser[]
+  Image         Image[]
 }
 
 model Follower {
@@ -225,6 +228,8 @@ model Tags {
   count       Int     @default(0)
 
   tagOnPost TagOnPost[]
+  Image     Image?      @relation(fields: [imageId], references: [id])
+  imageId   String?
 }
 
 model Comment {
@@ -301,4 +306,28 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+model Image {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  path       String
+  name       String
+  hash       String
+  ext        String
+  width      Int
+  height     Int
+  format     String
+  previewUrl String?
+  caption    String?
+  url        String
+  mime       String
+
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
+
+  posts Post[]
+  tags  Tags[]
 }

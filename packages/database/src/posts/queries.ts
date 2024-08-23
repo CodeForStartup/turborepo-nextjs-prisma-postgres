@@ -5,7 +5,7 @@ import dayjs from "dayjs"
 import slugify from "slugify"
 
 import prisma from "../prisma"
-import { ActionReturnType, FilterValues, PeriodValues } from "../shared/type"
+import { FilterValues, IActionReturn, PeriodValues } from "../shared/type"
 import { postSelect, TCreatePostInput, TPostItem } from "./selects"
 import { TGetPostsRequest, TGetPostsResponse } from "./type"
 
@@ -13,7 +13,7 @@ export const getPost = async ({
   postIdOrSlug,
 }: {
   postIdOrSlug: string
-}): Promise<TPostItem | null> => {
+}): Promise<IActionReturn<TPostItem>> => {
   try {
     const post = await prisma.post.findFirst({
       where: {
@@ -30,12 +30,18 @@ export const getPost = async ({
     })
 
     if (!post) {
-      return null
+      return {
+        error: "NOT_FOUND",
+      }
     }
 
-    return post
+    return {
+      data: post,
+    }
   } catch (error) {
-    return null
+    return {
+      error,
+    }
   }
 }
 
@@ -146,17 +152,22 @@ export const getPosts = async ({ searchParams }: TGetPostsRequest): Promise<TGet
     ])
 
     return {
-      data: posts,
-      total: total,
-      page: Number(page),
-      limit: Number(limit),
+      data: {
+        data: posts,
+        total: total,
+        page: Number(page),
+        limit: Number(limit),
+      },
     }
   } catch (error) {
     return {
-      data: [],
-      total: 0,
-      page: Number(page),
-      limit: Number(limit),
+      data: {
+        data: [],
+        total: 0,
+        page: Number(page),
+        limit: Number(limit),
+      },
+      error,
     }
   }
 }
@@ -164,9 +175,7 @@ export const getPosts = async ({ searchParams }: TGetPostsRequest): Promise<TGet
 export const createPost = async (
   data: TCreatePostInput,
   userId: string
-): Promise<ActionReturnType<TPostItem>> => {
-  console.log("data", data)
-
+): Promise<IActionReturn<TPostItem>> => {
   let newPost: TPostItem
   try {
     const slug = slugify(data.title.toLocaleLowerCase()) + "-" + Date.now()
@@ -205,7 +214,6 @@ export const createPost = async (
 
     return {
       data: newPost,
-      error: null,
     }
   } catch (error) {
     throw {
@@ -219,7 +227,7 @@ export const updatePost = async (
   id: string,
   data: TCreatePostInput,
   userId: string
-): Promise<ActionReturnType<TPostItem>> => {
+): Promise<IActionReturn<TPostItem>> => {
   try {
     const { tags, ...postData } = data
 
@@ -258,7 +266,6 @@ export const updatePost = async (
 
     return {
       data: post,
-      error: null,
     }
   } catch (error) {
     throw {
@@ -272,7 +279,7 @@ export const updatePostStatus = async (
   id: string,
   postStatus: PostStatus,
   userId: string
-): Promise<ActionReturnType<TPostItem>> => {
+): Promise<IActionReturn<TPostItem>> => {
   try {
     const post = await prisma.post.update({
       where: {
@@ -287,7 +294,6 @@ export const updatePostStatus = async (
 
     return {
       data: post,
-      error: null,
     }
   } catch (error) {
     throw {

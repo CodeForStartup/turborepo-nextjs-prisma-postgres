@@ -1,3 +1,6 @@
+export const DEFAULT_LIMIT = 10
+export const DEFAULT_PAGE = 1
+
 export enum PeriodValues {
   THIS_WEEK = "week",
   THIS_MONTH = "month",
@@ -11,7 +14,17 @@ export enum FilterValues {
   // TRENDING = "trending",
 }
 
-export type ActionReturnType<T> = {
-  data: T
-  error: null | string
+export interface IActionReturn<T> {
+  data?: T
+  error?: any
+}
+
+export type OrderBy = "asc" | "desc"
+
+export interface IGetListResponse<T> {
+  data: T[]
+  total: number
+  page: number
+  totalPages: number
+  limit: number
 }
