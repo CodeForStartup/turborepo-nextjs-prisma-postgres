@@ -6,7 +6,7 @@ import Image from "next/image"
 import Link from "next/link"
 
 import { zodResolver } from "@hookform/resolvers/zod"
-import { Image as ImageType, Prisma } from "database"
+import { Image as ImageType, Prisma, TPostItem } from "database"
 import { Upload as UploadIcon, X } from "lucide-react"
 import { useSession } from "next-auth/react"
 import { useTranslations } from "next-intl"
@@ -18,18 +18,17 @@ import z from "zod"
 import { handleCreateUpdatePost } from "@/actions/protect/postAction"
 import APP_ROUTES from "@/constants/routes"
 import InputTitle from "@/molecules/input-title"
-import { TPostItem } from "@/types/posts"
 
 import Upload from "../upload"
-import AssetManagement from "../upload/AssetsManagement"
 
 const Editor = dynamic(() => import("../editor-js"), { ssr: false })
 
 const PostForm = ({ post: postData }: { post?: TPostItem }) => {
   const { title = "", content = "", tagOnPost = [], id: postId } = postData || {}
+
   const t = useTranslations()
   const session = useSession()
-  const [image, setImage] = useState<ImageType | null>(null)
+  const [image, setImage] = useState<ImageType | null>(postData?.Image)
 
   const userId = session?.data?.user?.id
 
@@ -81,7 +80,18 @@ const PostForm = ({ post: postData }: { post?: TPostItem }) => {
   }
 
   const onSubmit = async (data) =>
-    await handleCreateUpdatePost({ postId: postId as string, data, userId })
+    await handleCreateUpdatePost({
+      postId: postId as string,
+      data: {
+        ...data,
+        Image: {
+          connect: {
+            id: image?.id,
+          },
+        },
+      },
+      userId,
+    })
 
   return (
     <div className="w-full">
