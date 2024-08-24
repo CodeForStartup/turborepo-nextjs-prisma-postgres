@@ -10,6 +10,12 @@ export const postSelect = {
   postStatus: true,
   totalLike: true,
   totalFollow: true,
+  Image: {
+    select: {
+      id: true,
+      url: true,
+    },
+  },
   author: {
     select: {
       id: true,

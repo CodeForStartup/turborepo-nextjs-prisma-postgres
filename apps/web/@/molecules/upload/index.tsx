@@ -1,4 +1,4 @@
-import { ReactNode } from "react"
+import { ReactNode, useState } from "react"
 
 import { Image } from "database"
 import { X } from "lucide-react"
@@ -95,10 +95,19 @@ const TotalItems: React.FC = () => {
 
 const Upload: React.FC<UploadProps> = ({ children, onSelect }) => {
   const t = useTranslations("uploads")
+  const [open, setOpen] = useState(false)
+
+  const onSelectImage = (image?: Image) => {
+    onSelect(image)
+    setOpen(false)
+  }
 
   return (
     <FileManagerContainer>
-      <Dialog>
+      <Dialog
+        open={open}
+        onOpenChange={setOpen}
+      >
         <DialogTrigger asChild>{children}</DialogTrigger>
         <DialogContent className="w-full max-w-[800px] gap-0 p-0">
           <DialogHeader className="mb-0 flex flex-row items-center gap-4 border-b px-4 py-1">
@@ -115,7 +124,7 @@ const Upload: React.FC<UploadProps> = ({ children, onSelect }) => {
               <TotalItems />
               <SelectedFiles />
             </div>
-            <SelectButton onSelect={onSelect} />
+            <SelectButton onSelect={onSelectImage} />
           </DialogFooter>
         </DialogContent>
       </Dialog>
