@@ -120,17 +120,26 @@ const PostForm = ({ post: postData }: { post?: TPostItem }) => {
             </div>
           </div>
           <div className="col-span-1">
-            <div className="relative rounded-lg border-2 p-2">
+            <div className="relative overflow-hidden rounded-lg border-2 p-2">
               <Upload onSelect={setImage}>
                 {image ? (
-                  <div className="relative">
+                  <div className="group relative cursor-pointer">
                     <Image
                       src={image.url}
                       alt="image"
                       width={480}
                       height={270}
-                      className="border-1 flex aspect-video w-full cursor-pointer rounded-sm object-cover"
+                      className="border-1 flex aspect-video w-full rounded-sm object-cover hover:scale-90 hover:opacity-50"
                     />
+                    <div className="invisible absolute inset-0 flex-col items-center justify-center gap-2 group-hover:flex">
+                      <UploadIcon className="invisible group-hover:visible" />
+                      <Typography
+                        className="bold invisible group-hover:visible"
+                        variant="mutedText"
+                      >
+                        {t("uploads.upload_image")}
+                      </Typography>
+                    </div>
                   </div>
                 ) : (
                   <div className="border-1 flex aspect-video w-full cursor-pointer flex-col items-center justify-center gap-2 rounded-sm bg-slate-200">
