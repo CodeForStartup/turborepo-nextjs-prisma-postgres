@@ -1,16 +1,18 @@
 "use client"
 
-import React from "react"
+import React, { useState } from "react"
 import dynamic from "next/dynamic"
+import Image from "next/image"
 import Link from "next/link"
 
 import { zodResolver } from "@hookform/resolvers/zod"
-import { Prisma } from "database"
+import { Image as ImageType, Prisma } from "database"
+import { Upload as UploadIcon, X } from "lucide-react"
 import { useSession } from "next-auth/react"
 import { useTranslations } from "next-intl"
 import { Controller, useForm } from "react-hook-form"
 import AsyncCreatableSelect from "react-select/async-creatable"
-import { buttonVariants, cn, Label, LoadingButton } from "ui"
+import { Button, buttonVariants, cn, Label, LoadingButton, Typography } from "ui"
 import z from "zod"
 
 import { handleCreateUpdatePost } from "@/actions/protect/postAction"
@@ -27,6 +29,7 @@ const PostForm = ({ post: postData }: { post?: TPostItem }) => {
   const { title = "", content = "", tagOnPost = [], id: postId } = postData || {}
   const t = useTranslations()
   const session = useSession()
+  const [image, setImage] = useState<ImageType | null>(null)
 
   const userId = session?.data?.user?.id
 
@@ -117,11 +120,35 @@ const PostForm = ({ post: postData }: { post?: TPostItem }) => {
             </div>
           </div>
           <div className="col-span-1">
-            <Upload>
-              <div className="flex h-[150px] cursor-pointer items-center justify-center rounded-sm bg-slate-300">
-                <div>Upload</div>
-              </div>
-            </Upload>
+            <div className="relative rounded-lg border-2 p-2">
+              <Upload onSelect={setImage}>
+                {image ? (
+                  <div className="relative">
+                    <Image
+                      src={image.url}
+                      alt="image"
+                      width={480}
+                      height={270}
+                      className="border-1 flex aspect-video w-full cursor-pointer rounded-sm object-cover"
+                    />
+                  </div>
+                ) : (
+                  <div className="border-1 flex aspect-video w-full cursor-pointer flex-col items-center justify-center gap-2 rounded-sm bg-slate-200">
+                    <UploadIcon />
+                    <Typography variant="mutedText">{t("uploads.upload_image")}</Typography>
+                  </div>
+                )}
+              </Upload>
+              {image && (
+                <Button
+                  onClick={() => setImage(null)}
+                  variant="outline"
+                  className="absolute right-2 top-2 h-6 w-6 p-0"
+                >
+                  <X className="text-destructive" />
+                </Button>
+              )}
+            </div>
             <div className="mt-4">
               <Label>Tags</Label>
               <Controller
