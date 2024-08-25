@@ -22,4 +22,24 @@ const getImage = Prisma.validator<Prisma.ImageDefaultArgs>()({
   select: imageSelect,
 })
 
-export type TImageItem = Prisma.ImageGetPayload<typeof getImage>
+export type TImageItem = Prisma.ImageGetPayload<{
+  select: typeof imageSelect
+}>
+
+type Color =
+  | string
+  | {
+      r: number
+      g: number
+      b: number
+      a: number
+    }
+
+let a: Color = "red"
+let a1: Color = { r: 1, g: 2, b: 3, a: 4 }
+let b = { r: 1 } as Color
+let c = { r: 1, g: 2, b: 3, a: 4 } satisfies Color
+let c1 = "blue" satisfies Color
+
+a1.r
+c.r

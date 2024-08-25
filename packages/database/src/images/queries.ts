@@ -1,8 +1,8 @@
-import { Image } from "@prisma/client"
+import { Image, Prisma } from "@prisma/client"
 
 import prisma from "../prisma"
 import { DEFAULT_LIMIT, DEFAULT_PAGE, IActionReturn, IGetListResponse } from "../shared/type"
-import { imageSelect } from "./selects"
+import { imageSelect, TImageItem } from "./selects"
 import { IImageFilter, IListImageResponse } from "./type"
 
 export const getImages = async (options: IImageFilter): Promise<IListImageResponse> => {
@@ -14,8 +14,6 @@ export const getImages = async (options: IImageFilter): Promise<IListImageRespon
     order,
     search,
   } = options
-
-  console.log(">>>options", options)
 
   try {
     let where = {}
@@ -37,7 +35,7 @@ export const getImages = async (options: IImageFilter): Promise<IListImageRespon
     }
 
     let orderBy = {
-      createdAt: "desc",
+      createdAt: Prisma.SortOrder.desc,
     }
 
     if (orderByKey && order) {
@@ -88,6 +86,12 @@ export const getImage = async (id: string): Promise<IActionReturn<Image>> => {
       select: imageSelect,
     })
 
+    if (!image) {
+      return {
+        error: "NOT_FOUND",
+      }
+    }
+
     return {
       data: image,
     }
@@ -100,7 +104,7 @@ export const getImage = async (id: string): Promise<IActionReturn<Image>> => {
 
 export const createImage = async (
   data: Omit<Image, "id" | "createdAt" | "updatedAt">
-): Promise<IActionReturn<Image>> => {
+): Promise<IActionReturn<TImageItem>> => {
   try {
     const image = await prisma.image.create({
       data,
@@ -119,7 +123,7 @@ export const createImage = async (
 export const updateImage = async (
   id: string,
   data: Partial<Omit<Image, "id" | "createdAt" | "updatedAt">>
-): Promise<IActionReturn<Image>> => {
+): Promise<IActionReturn<TImageItem>> => {
   try {
     const image = await prisma.image.update({
       where: { id },
@@ -136,7 +140,7 @@ export const updateImage = async (
   }
 }
 
-export const deleteImage = async (id: string, userId: string): Promise<IActionReturn<"">> => {
+export const deleteImage = async (id: string, userId: string): Promise<IActionReturn<Image>> => {
   try {
     // only owner can delete
     const deleteImage = await prisma.image.delete({
@@ -145,7 +149,7 @@ export const deleteImage = async (id: string, userId: string): Promise<IActionRe
 
     if (!deleteImage) {
       return {
-        error: "Unauthorized",
+        error: "UNAUTHORIZED",
       }
     }
 
