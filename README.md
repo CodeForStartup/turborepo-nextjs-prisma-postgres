@@ -51,9 +51,9 @@ turbo dev
 🍾 react-textarea-autosize  
 🐠 lucide-react icon  
 🐴 dayjs  
-🤗 Eslint
+🤗 Eslint  
 💥 Husky  
-👽 Prettier
+👽 Prettier  
 
 # Functions
 
