@@ -18,8 +18,6 @@ export const imageSelect = {
   updatedAt: true,
 } satisfies Prisma.ImageSelect
 
-const getImage = Prisma.validator<Prisma.ImageDefaultArgs>()({
-  select: imageSelect,
-})
-
-export type TImageItem = Prisma.ImageGetPayload<typeof getImage>
+export type TImage = Prisma.ImageGetPayload<{
+  select: typeof imageSelect
+}>

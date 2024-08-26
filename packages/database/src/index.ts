@@ -1,4 +1,5 @@
 import { createImage, deleteImage, getImage, getImages, updateImage } from "./images/queries"
+import { TImage } from "./images/selects"
 import { IImageFilter, IListImageResponse, ImageOrderBys } from "./images/type"
 import { createPost, getPost, getPosts, updatePost, updatePostStatus } from "./posts/queries"
 import { TCreatePostInput, TPostActionType, TPostItem } from "./posts/selects"
@@ -9,7 +10,6 @@ import {
   DEFAULT_PAGE,
   IActionReturn,
   IGetListResponse,
-  OrderBy,
   PeriodValues,
 } from "./shared/type"
 import { createTag, getTag, getTags, getTopTags } from "./tags/queries"
@@ -56,10 +56,10 @@ export type {
   IImageFilter,
   IListImageResponse,
   ImageOrderBys,
+  TImage,
 
   // Shared
   IActionReturn,
-  OrderBy,
   IGetListResponse,
   PeriodValues,
   DEFAULT_LIMIT,
