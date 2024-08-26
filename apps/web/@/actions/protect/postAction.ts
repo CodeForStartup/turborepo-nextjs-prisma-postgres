@@ -3,7 +3,7 @@
 import { revalidatePath } from "next/cache"
 import { redirect } from "next/navigation"
 
-import {
+import prisma, {
   createPost,
   PostOnUserType,
   PostStatus,
