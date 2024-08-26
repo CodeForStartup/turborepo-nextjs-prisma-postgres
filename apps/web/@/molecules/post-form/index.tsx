@@ -6,7 +6,7 @@ import Image from "next/image"
 import Link from "next/link"
 
 import { zodResolver } from "@hookform/resolvers/zod"
-import { Image as ImageType, Prisma, TPostItem } from "database"
+import { Prisma, TImage, TPostItem } from "database"
 import { Upload as UploadIcon, X } from "lucide-react"
 import { useSession } from "next-auth/react"
 import { useTranslations } from "next-intl"
@@ -28,7 +28,7 @@ const PostForm = ({ post: postData }: { post?: TPostItem }) => {
 
   const t = useTranslations()
   const session = useSession()
-  const [image, setImage] = useState<ImageType | null>(postData?.Image)
+  const [image, setImage] = useState<TImage | null>(postData?.Image)
 
   const userId = session?.data?.user?.id
 

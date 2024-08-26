@@ -19,8 +19,6 @@ export interface IActionReturn<T> {
   error?: any
 }
 
-export type OrderBy = "asc" | "desc"
-
 export interface IGetListResponse<T> {
   data: T[]
   total: number

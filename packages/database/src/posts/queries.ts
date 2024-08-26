@@ -157,6 +157,7 @@ export const getPosts = async ({ searchParams }: TGetPostsRequest): Promise<TGet
         total: total,
         page: Number(page),
         limit: Number(limit),
+        totalPages: Math.ceil(total / Number(limit)),
       },
     }
   } catch (error) {
@@ -164,6 +165,7 @@ export const getPosts = async ({ searchParams }: TGetPostsRequest): Promise<TGet
       data: {
         data: [],
         total: 0,
+        totalPages: 0,
         page: Number(page),
         limit: Number(limit),
       },

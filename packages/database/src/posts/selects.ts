@@ -50,11 +50,9 @@ export const postSelect = {
   },
 } satisfies Prisma.PostSelect
 
-const getPostItem = Prisma.validator<Prisma.PostDefaultArgs>()({
-  select: postSelect,
-})
-
-export type TPostItem = Prisma.PostGetPayload<typeof getPostItem>
+export type TPostItem = Prisma.PostGetPayload<{
+  select: typeof postSelect
+}>
 
 export type TCreatePostInput = Prisma.PostCreateInput & {
   tags?: {
