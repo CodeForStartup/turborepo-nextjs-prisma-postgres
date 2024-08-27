@@ -1,6 +1,6 @@
 import { Prisma } from "@prisma/client"
 
-export const tagListSelect = Prisma.validator<Prisma.TagsSelect>()({
+export const tagListSelect = {
   id: true,
   name: true,
   slug: true,
@@ -15,9 +15,9 @@ export const tagListSelect = Prisma.validator<Prisma.TagsSelect>()({
       tagOnPost: true,
     },
   },
-})
+} satisfies Prisma.TagsSelect
 
-export const tagItemSelect = Prisma.validator<Prisma.TagsSelect>()({
+export const tagItemSelect = {
   id: true,
   name: true,
   slug: true,
@@ -31,16 +31,12 @@ export const tagItemSelect = Prisma.validator<Prisma.TagsSelect>()({
       tagOnPost: true,
     },
   },
-})
+} satisfies Prisma.TagsSelect
 
-const getTagItem = Prisma.validator<Prisma.TagsDefaultArgs>()({
-  select: tagItemSelect,
-})
+export type TTagItem = Prisma.TagsGetPayload<{
+  select: typeof tagItemSelect
+}>
 
-const getTagList = Prisma.validator<Prisma.TagsDefaultArgs>()({
-  select: tagListSelect,
-})
-
-export type TTagItem = Prisma.TagsGetPayload<typeof getTagItem>
-
-export type TTagListItem = Prisma.TagsGetPayload<typeof getTagList>
+export type TTagListItem = Prisma.TagsGetPayload<{
+  select: typeof tagListSelect
+}>

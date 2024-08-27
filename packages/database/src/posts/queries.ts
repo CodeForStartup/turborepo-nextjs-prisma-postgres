@@ -140,7 +140,7 @@ export const getPosts = async ({ searchParams }: TGetPostsRequest): Promise<TGet
   }
 
   try {
-    const [total, posts] = await Promise.all([
+    const [total, posts] = await prisma.$transaction([
       prisma.post.count({ where }),
       prisma.post.findMany({
         where,
@@ -154,7 +154,7 @@ export const getPosts = async ({ searchParams }: TGetPostsRequest): Promise<TGet
     return {
       data: {
         data: posts,
-        total: total,
+        total,
         page: Number(page),
         limit: Number(limit),
         totalPages: Math.ceil(total / Number(limit)),

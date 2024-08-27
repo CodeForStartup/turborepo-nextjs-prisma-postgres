@@ -53,7 +53,7 @@ turbo dev
 🐴 dayjs  
 🤗 Eslint  
 💥 Husky  
-👽 Prettier  
+👽 Prettier
 
 # Functions
 

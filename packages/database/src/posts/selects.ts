@@ -31,12 +31,12 @@ export const postSelect = {
       postId: true,
     },
   },
-  _count: {
-    select: {
-      comments: true,
-      postOnUser: true,
-    },
-  },
+  // _count: {
+  //   select: {
+  //     comments: true,
+  //     postOnUser: true,
+  //   },
+  // },
   tagOnPost: {
     select: {
       tag: {
@@ -54,12 +54,6 @@ export type TPostItem = Prisma.PostGetPayload<{
   select: typeof postSelect
 }>
 
-export type TCreatePostInput = Prisma.PostCreateInput & {
-  tags?: {
-    value: string
-    label: string
-    __isNew__: boolean
-  }[]
-}
+export type TCreatePostInput = Prisma.PostCreateInput
 
 export type TPostActionType = PostOnUserType | "UNLIKE" | "UNBOOKMARK"

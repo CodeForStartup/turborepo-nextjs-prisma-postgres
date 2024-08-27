@@ -3,9 +3,9 @@
 import React, { useState } from "react"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
 
+import { FilterValues, PeriodValues } from "database"
 import { cn } from "ui"
 
-import { FilterValues, PeriodValues } from "@/types/filter"
 import { capitalizeFirstLetter } from "@/utils/text"
 
 import { FilterItem } from "./filter-item"

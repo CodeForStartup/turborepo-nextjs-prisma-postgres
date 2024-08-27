@@ -1,10 +1,11 @@
+import Image from "next/image"
 import Link from "next/link"
 
+import { TPostItem } from "database"
 import { Typography } from "ui"
 
 import APP_ROUTES from "@/constants/routes"
 import TagList from "@/molecules/tag/tag-list"
-import { TPostItem } from "@/types/posts"
 import { generatePath } from "@/utils/generatePath"
 
 import BookmarkButton from "./bookmark-button"
@@ -38,14 +39,25 @@ export default function PostItem({ post }: { post: TPostItem }) {
           }}
         />
 
-        <div className="mt-2 flex justify-between">
+        {/* <div className="mt-2 flex justify-between">
           <div className="flex gap-4">
             <LikeButton post={post} />
             <CommentButton post={post} />
           </div>
           <BookmarkButton post={post} />
-        </div>
+        </div> */}
       </div>
+      {post.Image && (
+        <div className="flex items-center">
+          <Image
+            src={post.Image.url}
+            alt={post.title}
+            width={160}
+            height={120}
+            className="h-[120px] w-[160px] rounded-sm object-cover"
+          />
+        </div>
+      )}
     </div>
   )
 }

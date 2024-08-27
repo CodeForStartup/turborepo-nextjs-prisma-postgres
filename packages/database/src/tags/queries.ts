@@ -2,10 +2,10 @@
 
 import { Prisma, Tags } from "@prisma/client"
 import slugify from "slugify"
-import { IActionReturn, IGetListResponse } from "src/shared/type"
 
 import { LIMIT_PER_PAGE } from "../constant"
 import prisma from "../prisma"
+import { DEFAULT_LIMIT, DEFAULT_PAGE, IActionReturn, IGetListResponse } from "../shared/type"
 import { tagItemSelect, tagListSelect, TTagItem, TTagListItem } from "./selects"
 
 type GetTagsProps = {
@@ -53,6 +53,7 @@ export const getTags = async ({
         total,
         limit,
         page,
+        totalPages: Math.ceil(total / Number(limit)),
       },
     }
   } catch (error) {
@@ -72,9 +73,11 @@ type GetTagProps = {
   tagIdOrSlug: string
 }
 
-export const getTag = async ({ tagIdOrSlug }: GetTagProps): Promise<IActionReturn<Tags>> => {
+export const getTag = async ({
+  tagIdOrSlug,
+}: GetTagProps): Promise<IActionReturn<TTagItem | null>> => {
   try {
-    const data: Tags = await prisma.tags.findFirst({
+    const data = await prisma.tags.findFirst({
       where: {
         OR: [
           {
@@ -98,7 +101,7 @@ export const getTag = async ({ tagIdOrSlug }: GetTagProps): Promise<IActionRetur
   }
 }
 
-export const createTag = async (tag: Prisma.TagsCreateArgs["data"]): Promise<TTagItem> => {
+export const createTag = async (tag: Prisma.TagsCreateInput): Promise<TTagItem> => {
   return prisma.tags.create({
     data: {
       ...tag,
@@ -133,38 +136,38 @@ export const deleteTag = async (tagId: string): Promise<TTagItem> => {
   })
 }
 
-export const getTopTags = async ({ searchTerm = "", page = 0, limit = 10 }) => {
-  let query = {
+// Get top 10 tags
+export const getTopTags = async (props?: {
+  page?: number
+  limit?: number
+}): Promise<IActionReturn<IGetListResponse<TTagItem>>> => {
+  const { page = DEFAULT_PAGE, limit = DEFAULT_LIMIT } = props || {}
+  const query = {
     select: tagListSelect,
     take: Number(limit),
     skip: (page === 0 ? 0 : page - 1) * Number(limit),
-  } as Prisma.TagsFindManyArgs
-
-  if (searchTerm) {
-    query = {
-      ...query,
-      where: {
-        name: {
-          contains: searchTerm,
-          mode: "insensitive",
-        },
+    orderBy: {
+      tagOnPost: {
+        _count: "desc",
       },
-    }
-  }
+    },
+  } satisfies Prisma.TagsFindManyArgs
 
   try {
-    const [data, total] = await Promise.all([
-      prisma.tags.findMany(query),
-      prisma.tags.count({
-        where: query.where,
-      }),
-    ])
+    const data = await prisma.tags.findMany(query)
 
-    return { data, total }
+    return {
+      data: {
+        data,
+        total: data.length,
+        limit,
+        page,
+        totalPages: Math.ceil(data.length / limit),
+      },
+    }
   } catch (error) {
     throw {
       data: [],
-      total: 0,
       error,
     }
   }

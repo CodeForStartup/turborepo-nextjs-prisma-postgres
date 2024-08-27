@@ -26,6 +26,7 @@ const typographyVariants = cva("text-foreground", {
       smallText: "text-sm font-medium leading-none",
       mutedText: "text-sm text-muted-foreground p-0 m-0",
       span: "text-sm",
+      strong: "font-bold",
     },
   },
   defaultVariants: {
@@ -46,6 +47,7 @@ const variantElementMap: Record<NonNullable<VariantPropType["variant"]>, string>
   blockquote: "blockquote",
   inlineCode: "code",
   largeText: "div",
+  strong: "strong",
   smallText: "small",
   lead: "p",
   mutedText: "p",
