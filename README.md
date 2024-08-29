@@ -42,16 +42,16 @@ turbo dev
 🚀 Turborepo
 🎯 TailwindCSS  
 🔥 shadcn  
-💌 next-themes
-🖋 Zod validation
-🎰 React Form Hook
+💌 next-themes  
+🖋 Zod validation  
+🎰 React Form Hook  
 ️🥇 Tsup  
 💒 EditorJs  
 🐢 react-toastify
 🍾 react-textarea-autosize  
 🐠 lucide-react icon  
 🐴 dayjs  
-🤗 Eslint
+🤗 Eslint  
 💥 Husky  
 👽 Prettier
 

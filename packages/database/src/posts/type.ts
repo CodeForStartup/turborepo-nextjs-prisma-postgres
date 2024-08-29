@@ -6,15 +6,13 @@ import { TPostItem } from "./selects"
 export type TGetPostsResponse = IActionReturn<IGetListResponse<TPostItem>>
 
 export type TGetPostsRequest = {
-  searchParams: {
-    query?: string
-    search?: string
-    tag?: string
-    filter?: string
-    period?: string
-    limit?: string
-    page?: string
-    authorId?: string
-    postStatus?: PostStatus
-  }
+  query?: string
+  search?: string
+  tag?: string
+  filter?: string
+  period?: string
+  limit?: string
+  page?: string
+  authorId?: string
+  postStatus?: PostStatus
 }

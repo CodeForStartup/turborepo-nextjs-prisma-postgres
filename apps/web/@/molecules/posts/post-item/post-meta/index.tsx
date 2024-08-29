@@ -1,10 +1,10 @@
 import React from "react"
 import Link from "next/link"
 
+import { TPostItem } from "database"
 import dayjs from "dayjs"
 
 import APP_ROUTES from "@/constants/routes"
-import { TPostItem } from "@/types/posts"
 import { generatePath } from "@/utils/generatePath"
 
 type PostMetaProps = {
@@ -12,6 +12,8 @@ type PostMetaProps = {
 }
 
 const PostMeta: React.FC<PostMetaProps> = ({ post }) => {
+  if (!post?.author) return null
+
   return (
     <div className="mt-2 flex items-center gap-2 text-xs text-gray-400">
       <div className="text hover:underline">

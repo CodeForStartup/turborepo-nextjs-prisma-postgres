@@ -18,6 +18,8 @@ import APP_ROUTES from "@/constants/routes"
 import { TUserItem, userSelect } from "@/types/users"
 import { getServerSession } from "@/utils/auth"
 
+// TODO: move to database package
+// Get total actions (like, bookmark) for a post
 export const getTotalActions = async ({
   postId,
   actionType,

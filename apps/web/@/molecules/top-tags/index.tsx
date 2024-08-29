@@ -10,13 +10,13 @@ import NumberIndex from "./NumberIndex"
 const TopTag: React.FC = async () => {
   const t = await getTranslations()
 
-  const tagData = await getTopTags({})
+  const { data: topTags } = await getTopTags()
 
   return (
     <div className="mt-4 border-t pt-4">
       <Typography variant="h3">{t("common.trending")}</Typography>
       <ul>
-        {(tagData?.data || []).map((tag, index) => (
+        {(topTags?.data || []).map((tag, index) => (
           <li
             key={tag.id}
             className="mb-2 flex items-center gap-2"
@@ -24,11 +24,10 @@ const TopTag: React.FC = async () => {
             <NumberIndex number={index + 1} />
             <Link href={`/tags/${tag?.slug || tag?.id}`}>
               <div className="hover:underline">
-                <strong>{tag.name}</strong>
-                <Typography className="flex gap-1 text-xs">
-                  <strong>{tag?._count.tagOnPost}</strong>
-                  {t("common.post", {
-                    total: tag?._count.tagOnPost || 0,
+                <Typography variant="strong">#{tag.name}</Typography>
+                <Typography variant="mutedText">
+                  {t("common.total_post_plural", {
+                    total: tag?._count?.tagOnPost || 0,
                   })}
                 </Typography>
               </div>

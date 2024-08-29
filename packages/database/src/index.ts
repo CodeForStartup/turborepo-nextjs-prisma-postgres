@@ -8,6 +8,7 @@ import prisma from "./prisma"
 import {
   DEFAULT_LIMIT,
   DEFAULT_PAGE,
+  FilterValues,
   IActionReturn,
   IGetListResponse,
   PeriodValues,
@@ -31,6 +32,8 @@ export {
   createPost,
   updatePost,
   updatePostStatus,
+  FilterValues,
+  PeriodValues,
 
   // Images
   getImages,
@@ -61,7 +64,6 @@ export type {
   // Shared
   IActionReturn,
   IGetListResponse,
-  PeriodValues,
   DEFAULT_LIMIT,
   DEFAULT_PAGE,
 }
