@@ -1,7 +1,6 @@
+import { TPostItem } from "database"
 import { useTranslations } from "next-intl"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger, Typography } from "ui"
-
-import { TPostItem } from "@/types/posts"
 
 type LikeButtonProps = {
   post: TPostItem

@@ -42,13 +42,12 @@ export default function PostItem({ post }: { post: TPostItem }) {
           }}
         />
 
-        {/* <div className="mt-2 flex justify-between">
+        <div className="mt-2 flex justify-between">
           <div className="flex gap-4">
             <LikeButton post={post} />
             <CommentButton post={post} />
           </div>
-          <BookmarkButton post={post} />
-        </div> */}
+        </div>
       </div>
       {post.Image && (
         <div className="flex items-center">

@@ -15,7 +15,10 @@ export default async function Page({
 }: {
   searchParams: { [key: string]: string | string[] | undefined }
 }) {
-  const posts = await getPosts(searchParams)
+  const posts = await getPosts({
+    ...searchParams,
+    postStatus: PostStatus.PUBLISHED,
+  })
 
   return (
     <div className="">

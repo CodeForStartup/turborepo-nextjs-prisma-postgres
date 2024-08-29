@@ -1,10 +1,10 @@
 import React from "react"
 import Link from "next/link"
 
+import { TPostItem } from "database"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "ui"
 
 import APP_ROUTES from "@/constants/routes"
-import { TPostItem } from "@/types/posts"
 import { generatePath } from "@/utils/generatePath"
 
 type CommentButtonProps = {

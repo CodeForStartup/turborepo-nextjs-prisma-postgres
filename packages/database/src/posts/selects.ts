@@ -24,19 +24,12 @@ export const postSelect = {
       image: true,
     },
   },
-  postOnUser: {
+  _count: {
     select: {
-      type: true,
-      userId: true,
-      postId: true,
+      comments: true,
+      postOnUser: true,
     },
   },
-  // _count: {
-  //   select: {
-  //     comments: true,
-  //     postOnUser: true,
-  //   },
-  // },
   tagOnPost: {
     select: {
       tag: {

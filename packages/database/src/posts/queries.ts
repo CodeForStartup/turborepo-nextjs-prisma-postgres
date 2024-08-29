@@ -45,7 +45,7 @@ export const getPost = async ({
   }
 }
 
-export const getPosts = async ({ searchParams }: TGetPostsRequest): Promise<TGetPostsResponse> => {
+export const getPosts = async (searchParams: TGetPostsRequest): Promise<TGetPostsResponse> => {
   const searchTerm = searchParams?.search || ""
   const tag = searchParams?.tag || ""
   const filter = searchParams?.filter || FilterValues.LASTED // lasted or hot
@@ -144,7 +144,9 @@ export const getPosts = async ({ searchParams }: TGetPostsRequest): Promise<TGet
       prisma.post.count({ where }),
       prisma.post.findMany({
         where,
-        select: postSelect,
+        select: {
+          ...postSelect,
+        },
         take: Number(limit),
         skip: (Number(page) - 1) * Number(limit),
         orderBy,
@@ -153,8 +155,8 @@ export const getPosts = async ({ searchParams }: TGetPostsRequest): Promise<TGet
 
     return {
       data: {
-        data: posts,
         total,
+        data: posts,
         page: Number(page),
         limit: Number(limit),
         totalPages: Math.ceil(total / Number(limit)),

@@ -12,6 +12,8 @@ type PostMetaProps = {
 }
 
 const PostMeta: React.FC<PostMetaProps> = ({ post }) => {
+  if (!post?.author) return null
+
   return (
     <div className="mt-2 flex items-center gap-2 text-xs text-gray-400">
       <div className="text hover:underline">
