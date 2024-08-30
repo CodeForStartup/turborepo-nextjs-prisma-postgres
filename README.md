@@ -39,7 +39,7 @@ turbo dev
 🐧 next-auth  
 🤗 Prisma ORM  
 🎭 Postgres  
-🚀 Turborepo
+🚀 Turborepo  
 🎯 TailwindCSS  
 🔥 shadcn  
 💌 next-themes  
@@ -47,7 +47,7 @@ turbo dev
 🎰 React Form Hook  
 ️🥇 Tsup  
 💒 EditorJs  
-🐢 react-toastify
+🐢 react-toastify  
 🍾 react-textarea-autosize  
 🐠 lucide-react icon  
 🐴 dayjs  
