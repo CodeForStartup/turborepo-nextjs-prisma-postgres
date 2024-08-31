@@ -5,7 +5,12 @@ export const tagListSelect = {
   name: true,
   slug: true,
   description: true,
-  image: true,
+  image: {
+    select: {
+      id: true,
+      url: true,
+    },
+  },
   type: true,
   totalFollowers: true,
   updatedAt: true,
