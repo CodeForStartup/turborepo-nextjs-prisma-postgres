@@ -306,3 +306,24 @@ export const updatePostStatus = async (
     }
   }
 }
+
+export const deletePost = async (id: string, userId: string): Promise<IActionReturn<TPostItem>> => {
+  try {
+    const post = await prisma.post.delete({
+      where: {
+        id,
+        authorId: userId,
+      },
+      select: postSelect,
+    })
+
+    return {
+      data: post,
+    }
+  } catch (error) {
+    throw {
+      data: null,
+      error: error,
+    }
+  }
+}

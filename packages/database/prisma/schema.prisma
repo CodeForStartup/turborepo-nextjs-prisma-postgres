@@ -82,7 +82,7 @@ model Post {
   comments   Comment[]
   parentOf   ParentPost[] @relation("parentPost")
   parent     ParentPost[] @relation("post")
-  Image      Image?       @relation(fields: [imageId], references: [id])
+  image      Image?       @relation(fields: [imageId], references: [id])
   imageId    String?
 }
 
@@ -150,6 +150,7 @@ model User {
   email         String?   @unique
   emailVerified DateTime?
   image         String?
+  password      String?
 
   userType UserType @default(AUTHOR)
 
@@ -179,7 +180,7 @@ model User {
   followings    Follower[]      @relation("following")
   comment       Comment[]
   commentOnUser CommentOnUser[]
-  Image         Image[]
+  images        Image[]
 }
 
 model Follower {
@@ -213,8 +214,7 @@ model Tags {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  type  TagType @default(TAG)
-  image String?
+  type TagType @default(TAG)
 
   totalPost      Int @default(0)
   totalView      Int @default(0)
@@ -228,7 +228,7 @@ model Tags {
   count       Int     @default(0)
 
   tagOnPost TagOnPost[]
-  Image     Image?      @relation(fields: [imageId], references: [id])
+  image     Image?      @relation(fields: [imageId], references: [id])
   imageId   String?
 }
 

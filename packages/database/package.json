@@ -16,7 +16,8 @@
     "db:generate": "prisma generate",
     "db:push": "prisma db push --skip-generate",
     "db:migrate": "prisma migrate dev",
-    "db:reset": "prisma migrate reset"
+    "db:reset": "prisma migrate reset",
+    "db:seed": "ts-node prisma/seeds/seed.mjs"
   },
   "main": "./src/index.ts",
   "types": "./src/index.ts"

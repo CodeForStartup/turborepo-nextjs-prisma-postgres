@@ -2,8 +2,9 @@
 
 import Link from "next/link"
 
-import { PostStatus } from "database"
+import { deletePost, PostStatus, TPostItem } from "database"
 import dayjs from "dayjs"
+import { useSession } from "next-auth/react"
 import { useTranslations } from "next-intl"
 import {
   Badge,
@@ -17,14 +18,13 @@ import {
 } from "ui"
 
 import { togglePostStatus } from "@/actions/manage-post"
-import { deletePost } from "@/actions/protect/posts"
-import { TPostItem } from "@/types/posts"
 
 export default function PostItem(post: TPostItem) {
   const t = useTranslations()
+  const { data: session } = useSession()
 
   const onDeletePost = async () => {
-    await deletePost(post.id)
+    await deletePost(post.id, session?.user?.id)
   }
 
   const onTogglePostStatus = async () => {

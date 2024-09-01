@@ -1,7 +1,14 @@
 import { createImage, deleteImage, getImage, getImages, updateImage } from "./images/queries"
 import { TImage } from "./images/selects"
 import { IImageFilter, IListImageResponse, ImageOrderBys } from "./images/type"
-import { createPost, getPost, getPosts, updatePost, updatePostStatus } from "./posts/queries"
+import {
+  createPost,
+  deletePost,
+  getPost,
+  getPosts,
+  updatePost,
+  updatePostStatus,
+} from "./posts/queries"
 import { TCreatePostInput, TPostActionType, TPostItem } from "./posts/selects"
 import { TGetPostsRequest, TGetPostsResponse } from "./posts/type"
 import prisma from "./prisma"
@@ -31,6 +38,7 @@ export {
   getPosts,
   createPost,
   updatePost,
+  deletePost,
   updatePostStatus,
   FilterValues,
   PeriodValues,
