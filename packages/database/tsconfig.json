@@ -2,7 +2,8 @@
   "extends": "tsconfig/react-library.json",
   "include": [
     "**/*.ts",
-    "**/*.tsx"
+    "**/*.tsx",
+    "prisma/seeds/seed.mjs"
   ],
   "exclude": [
     "node_modules"
