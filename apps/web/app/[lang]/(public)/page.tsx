@@ -2,7 +2,9 @@ import { Metadata } from "next"
 
 import { getPosts, PostStatus } from "database"
 
+import useInfiniteScroll from "@/hooks/useInfinityScroll"
 import Filter from "@/molecules/home/filter"
+import PostList from "@/molecules/post-list"
 import PostItem from "@/molecules/posts/post-item"
 
 export const metadata: Metadata = {
@@ -15,22 +17,11 @@ export default async function Page({
 }: {
   searchParams: { [key: string]: string | string[] | undefined }
 }) {
-  const posts = await getPosts({
-    ...searchParams,
-    postStatus: PostStatus.PUBLISHED,
-  })
-
   return (
     <div className="">
       <Filter />
-      <div className="mt-4">
-        {posts?.data?.data?.map((post) => (
-          <PostItem
-            key={post.id}
-            post={post}
-          />
-        ))}
-      </div>
+
+      <PostList />
     </div>
   )
 }

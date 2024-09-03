@@ -14,10 +14,8 @@ export const metadata = {
 
 export default async function Page({ params, searchParams }) {
   const { data, total } = await getPosts({
-    searchParams: {
-      authorId: params?.authorId,
-      ...searchParams,
-    },
+    authorId: params?.authorId,
+    ...searchParams,
   })
 
   return (

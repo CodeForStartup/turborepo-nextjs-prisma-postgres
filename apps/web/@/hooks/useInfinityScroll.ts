@@ -7,6 +7,7 @@ const useInfiniteScroll = (callback: () => void, root: HTMLElement | null, isFet
 
   const handleIntersection = useCallback(
     (entries: IntersectionObserverEntry[]) => {
+      console.log("entries", entries)
       if (entries[0].isIntersecting && !isFetching) {
         callback?.()
       }
@@ -15,12 +16,13 @@ const useInfiniteScroll = (callback: () => void, root: HTMLElement | null, isFet
   )
 
   useEffect(() => {
-    if (!root || !node || isFetching) return
+    if (!node || isFetching) return
 
     if (observer.current) {
       observer.current.disconnect()
     }
 
+    console.log("observer.current", observer.current)
     observer.current = new IntersectionObserver(handleIntersection, {
       root,
       rootMargin: "100px",
