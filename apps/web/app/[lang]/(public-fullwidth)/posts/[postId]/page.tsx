@@ -33,6 +33,8 @@ export default async function Page({
   const post = await getPost({ postIdOrSlug: params?.postId })
   const session = await getServerSession()
 
+  console.log(">>>>", post)
+
   if (
     !post ||
     (post.data?.postStatus === PostStatus.DRAFT && session?.user?.id !== post?.data?.author?.id)

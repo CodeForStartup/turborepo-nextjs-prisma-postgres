@@ -1,27 +1,28 @@
+import { Suspense } from "react"
 import { Metadata } from "next"
 
-import { getPosts, PostStatus } from "database"
+import { PostStatus } from "database"
+import { PostSkeleton } from "ui"
 
-import useInfiniteScroll from "@/hooks/useInfinityScroll"
 import Filter from "@/molecules/home/filter"
-import PostList from "@/molecules/post-list"
-import PostItem from "@/molecules/posts/post-item"
+import PostList from "@/molecules/posts/post-list"
 
 export const metadata: Metadata = {
-  title: "Toplist360 - Share the best things",
+  title: "Next-forum - Share the best things",
   description: "Share the best things in the world",
 }
 
-export default async function Page({
-  searchParams,
-}: {
-  searchParams: { [key: string]: string | string[] | undefined }
-}) {
+export default async function Page() {
   return (
-    <div className="">
+    <div>
       <Filter />
-
-      <PostList />
+      <Suspense fallback={<PostSkeleton total={10} />}>
+        <PostList
+          getPostParams={{
+            postStatus: PostStatus.PUBLISHED,
+          }}
+        />
+      </Suspense>
     </div>
   )
 }

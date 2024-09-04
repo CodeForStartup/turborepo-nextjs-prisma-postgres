@@ -1,11 +1,11 @@
 import Link from "next/link"
 
+import { TPostItem } from "database"
 import { Typography } from "ui"
 
 import APP_ROUTES from "@/constants/routes"
 import TagList from "@/molecules/tag/tag-list"
 import PostMeta from "@/molecules/user/posts/post-meta"
-import { TPostItem } from "@/types/posts"
 import { generatePath } from "@/utils/generatePath"
 
 import EditPostButton from "./edit-post-button"

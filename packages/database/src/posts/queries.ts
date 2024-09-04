@@ -30,7 +30,7 @@ export const getPost = async ({
     })
 
     if (!post) {
-      return {
+      throw {
         error: "NOT_FOUND",
       }
     }
@@ -39,8 +39,9 @@ export const getPost = async ({
       data: post,
     }
   } catch (error) {
-    return {
+    throw {
       error,
+      data: null,
     }
   }
 }

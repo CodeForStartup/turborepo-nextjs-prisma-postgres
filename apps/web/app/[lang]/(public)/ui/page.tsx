@@ -7,7 +7,7 @@ import PageTitle from "@/molecules/page-title"
 import TagBadge from "@/molecules/tag/tag-badge"
 
 export const metadata: Metadata = {
-  title: "Toplist360 - Page UI",
+  title: "Next-forum - Page UI",
   description: "UI components for pages",
 }
 

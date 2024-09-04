@@ -1,11 +1,11 @@
 <p align="center">
     <a href="https://codeforstartup.com/">
         <img src="./images/home-screen.png">
-        <h1 align="center" style="color: red">TOPLIST</h1>
+        <h1 align="center" style="color: red">NEXT FORUM</h1>
     </a>
 </p>
 
-# About TOPLIST
+# About next-forum
 
 # Installation
 

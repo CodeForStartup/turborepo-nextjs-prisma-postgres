@@ -9,7 +9,6 @@ import APP_ROUTES from "@/constants/routes"
 import TagList from "@/molecules/tag/tag-list"
 import { generatePath } from "@/utils/generatePath"
 
-import BookmarkButton from "./bookmark-button"
 import CommentButton from "./comment-button"
 import LikeButton from "./like-button"
 import PostMeta from "./post-meta"
@@ -49,10 +48,10 @@ export default function PostItem({ post }: { post: TPostItem }) {
           </div>
         </div>
       </div>
-      {post.Image && (
+      {post.image && post.image.previewUrl && (
         <div className="flex items-center">
           <Image
-            src={post.Image.url}
+            src={post.image.previewUrl}
             alt={post.title}
             width={160}
             height={120}

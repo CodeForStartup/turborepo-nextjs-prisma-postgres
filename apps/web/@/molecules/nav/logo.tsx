@@ -16,7 +16,7 @@ const Logo: React.FC = () => {
           bebasNeue.className
         )}
       >
-        TOPLIST
+        NEXT-FORUM
       </h1>
     </Link>
   )
