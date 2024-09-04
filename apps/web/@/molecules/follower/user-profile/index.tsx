@@ -14,18 +14,18 @@ export type UserProfileProps = {
 }
 
 export async function UserProfile({ authorId }: UserProfileProps) {
-  const rawAuthor = await fetch(
-    `${process.env.NEXT_PUBLIC_FRONTEND_URL}${generatePath(APP_APIS.protected.user.GET, {
-      userId: authorId,
-    })}`,
-    {
-      method: "GET",
-      cache: "no-cache",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }
-  )
+  // const rawAuthor = await fetch(
+  //   `${process.env.NEXT_PUBLIC_FRONTEND_URL}${generatePath(APP_APIS.protected.user.GET, {
+  //     userId: authorId,
+  //   })}`,
+  //   {
+  //     method: "GET",
+  //     cache: "no-cache",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //   }
+  // )
   const author: TUserItem = await rawAuthor?.json()
   const t = await getTranslations()
 
