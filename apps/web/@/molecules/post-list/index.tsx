@@ -9,7 +9,11 @@ import useInfiniteScroll from "@/hooks/useInfinityScroll"
 
 import PostItem from "../posts/post-item"
 
-export default function PostList() {
+interface PostListProps {
+  containerClassName?: string
+}
+
+export default function PostList({ containerClassName }: PostListProps) {
   const searchParams = useSearchParams()
   const [page, setPage] = useState(1)
   const [hasMore, setHasMore] = useState(true)
@@ -31,7 +35,7 @@ export default function PostList() {
   const { setNode } = useInfiniteScroll(loadMoreBooks, null, loading)
 
   return (
-    <div>
+    <div className={containerClassName}>
       {posts?.map((post) => (
         <PostItem
           key={post.id}

@@ -27,6 +27,7 @@ const typographyVariants = cva("text-foreground", {
       mutedText: "text-sm text-muted-foreground p-0 m-0",
       span: "text-sm",
       strong: "font-bold",
+      code: "code",
     },
   },
   defaultVariants: {
@@ -53,6 +54,7 @@ const variantElementMap: Record<NonNullable<VariantPropType["variant"]>, string>
   mutedText: "p",
   ul: "ul",
   span: "span",
+  code: "code",
 }
 
 export interface TypographyProps
