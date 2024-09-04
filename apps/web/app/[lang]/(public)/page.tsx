@@ -4,7 +4,7 @@ import { Metadata } from "next"
 import { PostSkeleton } from "ui"
 
 import Filter from "@/molecules/home/filter"
-import PostList from "@/molecules/post-list"
+import PostList from "@/molecules/posts/post-list"
 
 export const metadata: Metadata = {
   title: "Next-forum - Share the best things",
@@ -16,7 +16,7 @@ export default async function Page() {
     <div>
       <Filter />
       <Suspense fallback={<PostSkeleton total={10} />}>
-        <PostList containerClassName="mt-4" />
+        <PostList />
       </Suspense>
     </div>
   )

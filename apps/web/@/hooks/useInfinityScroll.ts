@@ -1,12 +1,11 @@
 import { useCallback, useEffect, useRef, useState } from "react"
 
-const useInfiniteScroll = (callback: () => void, root: HTMLElement | null, isFetching: boolean) => {
+const useInfiniteScroll = (callback: Function, root: HTMLElement | null, isFetching: boolean) => {
   const observer = useRef<IntersectionObserver | null>(null)
   const [node, setNode] = useState<HTMLElement | null>(null)
 
   const handleIntersection = useCallback(
     (entries: IntersectionObserverEntry[]) => {
-      console.log("entries", entries)
       if (entries[0].isIntersecting && !isFetching) {
         callback?.()
       }

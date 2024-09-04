@@ -48,7 +48,7 @@ export default function PostItem({ post }: { post: TPostItem }) {
           </div>
         </div>
       </div>
-      {post.image && (
+      {post.image && post.image.previewUrl && (
         <div className="flex items-center">
           <Image
             src={post.image.previewUrl}
