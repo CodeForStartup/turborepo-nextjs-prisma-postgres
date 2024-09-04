@@ -1,11 +1,10 @@
 "use client"
 
-import { PostOnUserType } from "database"
+import { PostOnUserType, TPostItem } from "database"
 import { useTranslations } from "next-intl"
 import { Button, cn, Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "ui"
 
 import { addRelation, removeRelation } from "@/actions/protect/postAction"
-import { TPostItem } from "@/types/posts"
 
 type LikeButtonProps = {
   post: TPostItem

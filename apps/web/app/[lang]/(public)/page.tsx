@@ -1,6 +1,7 @@
 import { Suspense } from "react"
 import { Metadata } from "next"
 
+import { PostStatus } from "database"
 import { PostSkeleton } from "ui"
 
 import Filter from "@/molecules/home/filter"
@@ -16,7 +17,11 @@ export default async function Page() {
     <div>
       <Filter />
       <Suspense fallback={<PostSkeleton total={10} />}>
-        <PostList />
+        <PostList
+          getPostParams={{
+            postStatus: PostStatus.PUBLISHED,
+          }}
+        />
       </Suspense>
     </div>
   )
