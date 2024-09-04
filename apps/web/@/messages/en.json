@@ -119,7 +119,8 @@
     "order_by_name": "Name",
     "order_by_size": "Size",
     "order_by_type": "Type",
-    "order_by_uploaded_at": "Uploaded at"
+    "order_by_uploaded_at": "Uploaded at",
+    "search_results_for": "Search results for"
   },
   "uploads": {
     "asset_management": "Asset Management",

@@ -1,52 +1,43 @@
 import { Metadata } from "next"
 
-import { getPosts } from "database"
+import { getTranslations } from "next-intl/server"
+import { Typography } from "ui"
 
 import Filter from "@/molecules/home/filter"
 import SearchBar from "@/molecules/nav/search-bar"
-import NoItemFounded from "@/molecules/no-item-founded"
-import PostItem from "@/molecules/posts/post-item"
+import PostList from "@/molecules/posts/post-list"
 
 export async function generateMetadata({ searchParams }): Promise<Metadata> {
   return {
-    title: `${searchParams?.search} - Search result`,
-    description: `Search result for "${searchParams?.search}`,
+    title: `${searchParams?.search} - Search results`,
+    description: `Search results for "${searchParams?.search}"`,
   }
 }
 
-// TODO: Hight light matching
-// TODO: Load more
 export default async function Page({ searchParams }) {
-  // TODO: Add pagination
-  const posts = await getPosts({
-    searchParams,
+  const t = await getTranslations({
+    namespace: "common",
   })
 
   return (
-    <div className="">
-      <h1 className="flex-1 text-xl font-extrabold">
-        {`${posts?.data?.total} results for`}
-        <span className="px-2 text-2xl">{`"${searchParams?.search}"`}</span>
-      </h1>
+    <div>
+      <Typography
+        variant="h1"
+        className="flex-1 text-xl font-extrabold lg:text-2xl"
+      >
+        {t("search_results_for")}
+        <strong className="px-2 text-xl lg:text-2xl">{`"${searchParams?.search}"`}</strong>
+      </Typography>
 
       <SearchBar />
 
       <Filter className="mt-3" />
 
-      {posts?.data?.data?.length === 0 ? (
-        <NoItemFounded />
-      ) : (
-        <div className="mt-4">
-          <div className="mt-4">
-            {posts?.data?.data?.map((post) => (
-              <PostItem
-                key={post.id}
-                post={post}
-              />
-            ))}
-          </div>
-        </div>
-      )}
+      <PostList
+        getPostParams={{
+          search: searchParams?.search,
+        }}
+      />
     </div>
   )
 }

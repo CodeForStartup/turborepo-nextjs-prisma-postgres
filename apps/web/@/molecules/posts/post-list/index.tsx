@@ -3,13 +3,17 @@
 import React, { useCallback, useState } from "react"
 import { useParams } from "next/navigation"
 
-import { getPosts, TPostItem } from "database"
+import { getPosts, TGetPostsRequest, TPostItem } from "database"
 
 import InfiniteScroll from "@/molecules/infinite-scroll"
 
 import PostItem from "../post-item"
 
-export default function PostList() {
+export type TPostListProps = {
+  getPostParams?: TGetPostsRequest
+}
+
+export default function PostList({ getPostParams = {} }: TPostListProps) {
   const searchParams = useParams()
   const [isLoading, setIsLoading] = useState(false)
   const [posts, setPosts] = useState<TPostItem[]>([])
@@ -21,6 +25,7 @@ export default function PostList() {
 
     setIsLoading(true)
     const { data } = await getPosts({
+      ...getPostParams,
       ...searchParams,
       page: page.toString(),
     })
@@ -32,16 +37,18 @@ export default function PostList() {
   }, [searchParams, page])
 
   return (
-    <InfiniteScroll
-      loading={isLoading}
-      nextPage={loadPosts}
-    >
-      {posts?.map((post) => (
-        <PostItem
-          key={post.id}
-          post={post}
-        />
-      ))}
-    </InfiniteScroll>
+    <div className="mt-4">
+      <InfiniteScroll
+        loading={isLoading}
+        nextPage={loadPosts}
+      >
+        {posts?.map((post) => (
+          <PostItem
+            key={post.id}
+            post={post}
+          />
+        ))}
+      </InfiniteScroll>
+    </div>
   )
 }
