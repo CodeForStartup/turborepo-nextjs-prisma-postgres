@@ -1,4 +1,7 @@
+import { Suspense } from "react"
 import { Metadata } from "next"
+
+import { PostSkeleton } from "ui"
 
 import Filter from "@/molecules/home/filter"
 import PostList from "@/molecules/post-list"
@@ -12,7 +15,9 @@ export default async function Page() {
   return (
     <div>
       <Filter />
-      <PostList containerClassName="mt-4" />
+      <Suspense fallback={<PostSkeleton total={10} />}>
+        <PostList containerClassName="mt-4" />
+      </Suspense>
     </div>
   )
 }

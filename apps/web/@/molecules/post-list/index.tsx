@@ -4,6 +4,8 @@ import { useCallback, useState } from "react"
 import { useSearchParams } from "next/navigation"
 
 import { getPosts, PostStatus, TPostItem } from "database"
+import { Loader } from "lucide-react"
+import { PostSkeleton } from "ui"
 
 import useInfiniteScroll from "@/hooks/useInfinityScroll"
 
@@ -47,7 +49,11 @@ export default function PostList({ containerClassName }: PostListProps) {
         ref={setNode}
         className="h-10 w-full"
       >
-        {loading && <div>Loading...</div>}
+        {loading && (
+          <div className="flex min-h-10 items-center justify-center">
+            <Loader className="animate-spin" />
+          </div>
+        )}
       </div>
     </div>
   )

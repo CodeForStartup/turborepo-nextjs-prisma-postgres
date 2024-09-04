@@ -14,6 +14,7 @@ export const postSelect = {
     select: {
       id: true,
       url: true,
+      previewUrl: true,
     },
   },
   author: {
