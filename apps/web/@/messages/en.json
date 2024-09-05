@@ -7,6 +7,7 @@
     "category": "Category",
     "posts": "Posts",
     "total_post_plural": "Total {total} {total, plural, =0 {post} =1 {post} other {posts}}",
+    "post_plural": "{total} {total, plural, =0 {post} =1 {post} other {posts}}",
     "post": "{total, plural, =0 {post} =1 {post} other {posts}}",
     "pages": "Pages",
     "page": "Page",

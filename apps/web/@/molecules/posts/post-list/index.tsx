@@ -42,7 +42,7 @@ export default function PostList({ getPostParams = {} }: TPostListProps) {
         loading={isLoading}
         nextPage={loadPosts}
       >
-        {posts?.map((post) => (
+        {posts.map((post) => (
           <PostItem
             key={post.id}
             post={post}

@@ -6,7 +6,7 @@ import { useTranslations } from "next-intl"
 import { Typography } from "ui"
 
 import APP_ROUTES from "@/constants/routes"
-import TagList from "@/molecules/tag/tag-list"
+import TagListMeta from "@/molecules/tag/tag-list-meta"
 import { generatePath } from "@/utils/generatePath"
 
 import CommentButton from "./comment-button"
@@ -34,7 +34,7 @@ export default function PostItem({ post }: { post: TPostItem }) {
 
         <PostMeta post={post} />
 
-        <TagList
+        <TagListMeta
           tags={post?.tagOnPost}
           classes={{
             container: "mt-2",

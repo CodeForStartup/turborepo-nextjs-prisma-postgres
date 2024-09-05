@@ -4,7 +4,7 @@ import { TPostItem } from "database"
 import { Typography } from "ui"
 
 import APP_ROUTES from "@/constants/routes"
-import TagList from "@/molecules/tag/tag-list"
+import TagListMeta from "@/molecules/tag/tag-list-meta"
 import PostMeta from "@/molecules/user/posts/post-meta"
 import { generatePath } from "@/utils/generatePath"
 
@@ -37,7 +37,7 @@ export default function PostDetail({ post }: PostDetailProps) {
 
         <PostMeta post={post} />
 
-        <TagList
+        <TagListMeta
           tags={post?.tagOnPost}
           classes={{
             container: "mt-4",
