@@ -38,7 +38,11 @@ export default function PostDetail({ post }: PostDetailProps) {
         <PostMeta post={post} />
 
         <TagListMeta
-          tags={post?.tagOnPost}
+          tags={post?.tagOnPost?.map((tag) => ({
+            id: tag.tag.id,
+            slug: tag.tag.slug,
+            name: tag.tag.name,
+          }))}
           classes={{
             container: "mt-4",
           }}

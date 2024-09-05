@@ -1,14 +1,22 @@
 import Link from "next/link"
+import { notFound } from "next/navigation"
 
-import { TTagItem } from "database"
+import { getTag } from "database"
 import { Tag } from "lucide-react"
-import { Button, Card, CardContent, CardHeader } from "ui"
+import { getTranslations } from "next-intl/server"
+import { Button, Card, CardContent, CardHeader, Typography } from "ui"
 
-export type TagDetailProp = {
-  tag: TTagItem
-}
+export default async function TagDetail({ tagIdOrSlug }: { tagIdOrSlug: string }) {
+  const t = await getTranslations()
 
-const TagDetail = ({ tag }: TagDetailProp) => {
+  const { data: tag, error } = await getTag({
+    tagIdOrSlug,
+  })
+
+  if (error) {
+    return notFound()
+  }
+
   return (
     <div className="col-span-4">
       <Card>
@@ -19,9 +27,9 @@ const TagDetail = ({ tag }: TagDetailProp) => {
         </CardHeader>
         <CardContent>
           <div className="flex flex-col items-center justify-center gap-2">
-            <h1 className="flex-1 text-center text-4xl font-extrabold text-slate-700">
+            <Typography variant="h1">
               <Link href={`/tags/${tag?.slug || tag?.id}`}>{tag.name}</Link>
-            </h1>
+            </Typography>
             <div className="mt-4 flex w-full flex-1 divide-x">
               <div className="flex flex-1 flex-col items-center justify-center">
                 <div className="font-bold text-slate-800">{tag?._count?.tagOnPost || 0}</div>
@@ -40,7 +48,7 @@ const TagDetail = ({ tag }: TagDetailProp) => {
               className="mt-4 w-full"
               variant="outline"
             >
-              Follow
+              {t("common.follow")}
             </Button>
           </div>
         </CardContent>
@@ -48,5 +56,3 @@ const TagDetail = ({ tag }: TagDetailProp) => {
     </div>
   )
 }
-
-export default TagDetail

@@ -6,7 +6,7 @@ import { cn } from "ui"
 import TagBadge from "../tag-badge"
 
 export type TagListProps = {
-  tags: TTagItem[]
+  tags: Pick<TTagItem, "id" | "name" | "slug">[]
   classes?: {
     container?: string
   }

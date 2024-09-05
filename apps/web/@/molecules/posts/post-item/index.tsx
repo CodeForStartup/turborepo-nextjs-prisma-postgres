@@ -15,6 +15,7 @@ import PostMeta from "./post-meta"
 
 export default function PostItem({ post }: { post: TPostItem }) {
   const t = useTranslations("common")
+  console.log(post)
 
   return (
     <div className="mb-4 flex rounded-sm border px-8 py-4">
@@ -35,7 +36,7 @@ export default function PostItem({ post }: { post: TPostItem }) {
         <PostMeta post={post} />
 
         <TagListMeta
-          tags={post?.tagOnPost}
+          tags={post?.tagOnPost?.map((tag) => tag?.tag)}
           classes={{
             container: "mt-2",
           }}

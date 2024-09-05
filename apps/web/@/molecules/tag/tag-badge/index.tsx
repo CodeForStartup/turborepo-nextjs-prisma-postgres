@@ -20,7 +20,7 @@ const TagBadge: React.FC<TagBadgeProps> = ({ tag }) => {
     <Link
       key={tag.id}
       href={generatePath(APP_ROUTES.TAG, {
-        tagId: tag.slug,
+        tagId: tag.slug || tag.id,
       })}
     >
       <Badge
