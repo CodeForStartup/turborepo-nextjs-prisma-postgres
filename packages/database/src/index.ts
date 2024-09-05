@@ -22,6 +22,7 @@ import {
 } from "./shared/type"
 import { createTag, getTag, getTags, getTopTags } from "./tags/queries"
 import type { TTagItem, TTagListItem } from "./tags/selects"
+import { tagListSelect } from "./tags/selects"
 import { getUser } from "./users/queries"
 import { TUserDetail } from "./users/selects"
 
@@ -34,6 +35,7 @@ export {
   getTag,
   getTags,
   getTopTags,
+  tagListSelect,
 
   // Posts
   getPost,
