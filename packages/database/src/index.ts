@@ -22,6 +22,9 @@ import {
 } from "./shared/type"
 import { createTag, getTag, getTags, getTopTags } from "./tags/queries"
 import type { TTagItem, TTagListItem } from "./tags/selects"
+import { tagListSelect } from "./tags/selects"
+import { getUser } from "./users/queries"
+import { TUserDetail } from "./users/selects"
 
 export * from "@prisma/client"
 export default prisma
@@ -32,6 +35,7 @@ export {
   getTag,
   getTags,
   getTopTags,
+  tagListSelect,
 
   // Posts
   getPost,
@@ -42,6 +46,9 @@ export {
   updatePostStatus,
   FilterValues,
   PeriodValues,
+
+  // Users
+  getUser,
 
   // Images
   getImages,
@@ -68,6 +75,9 @@ export type {
   IListImageResponse,
   ImageOrderBys,
   TImage,
+
+  // Users
+  TUserDetail,
 
   // Shared
   IActionReturn,

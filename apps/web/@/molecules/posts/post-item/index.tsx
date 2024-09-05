@@ -6,7 +6,7 @@ import { useTranslations } from "next-intl"
 import { Typography } from "ui"
 
 import APP_ROUTES from "@/constants/routes"
-import TagList from "@/molecules/tag/tag-list"
+import TagListMeta from "@/molecules/tag/tag-list-meta"
 import { generatePath } from "@/utils/generatePath"
 
 import CommentButton from "./comment-button"
@@ -15,6 +15,7 @@ import PostMeta from "./post-meta"
 
 export default function PostItem({ post }: { post: TPostItem }) {
   const t = useTranslations("common")
+  console.log(post)
 
   return (
     <div className="mb-4 flex rounded-sm border px-8 py-4">
@@ -34,8 +35,8 @@ export default function PostItem({ post }: { post: TPostItem }) {
 
         <PostMeta post={post} />
 
-        <TagList
-          tags={post?.tagOnPost}
+        <TagListMeta
+          tags={post?.tagOnPost?.map((tag) => tag?.tag)}
           classes={{
             container: "mt-2",
           }}

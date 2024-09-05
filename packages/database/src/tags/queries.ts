@@ -20,7 +20,7 @@ export const getTags = async ({
   limit = LIMIT_PER_PAGE,
   query = "",
   sorting,
-}: GetTagsProps): Promise<IActionReturn<IGetListResponse<Tags>>> => {
+}: GetTagsProps): Promise<IActionReturn<IGetListResponse<TTagItem>>> => {
   const tagQuery: Prisma.TagsFindManyArgs = {
     select: tagListSelect,
     take: Number(limit) || 10,
@@ -40,7 +40,7 @@ export const getTags = async ({
   }
 
   try {
-    const [data, total]: [Tags[], number] = await Promise.all([
+    const [data, total] = await Promise.all([
       prisma.tags.findMany(tagQuery),
       prisma.tags.count({
         where: tagQuery.where,

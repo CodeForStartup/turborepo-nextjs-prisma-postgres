@@ -1,10 +1,10 @@
 import React from "react"
 import Link from "next/link"
 
+import { TTagItem } from "database"
 import { Badge } from "ui"
 
 import APP_ROUTES from "@/constants/routes"
-import { TTagItem } from "@/types/tags"
 import { generatePath } from "@/utils/generatePath"
 
 interface TagBadgeProps {
@@ -20,7 +20,7 @@ const TagBadge: React.FC<TagBadgeProps> = ({ tag }) => {
     <Link
       key={tag.id}
       href={generatePath(APP_ROUTES.TAG, {
-        tagId: tag.slug,
+        tagId: tag.slug || tag.id,
       })}
     >
       <Badge
