@@ -40,7 +40,7 @@ export const getTags = async ({
   }
 
   try {
-    const [data, total]: [Tags[], number] = await Promise.all([
+    const [data, total] = await Promise.all([
       prisma.tags.findMany(tagQuery),
       prisma.tags.count({
         where: tagQuery.where,

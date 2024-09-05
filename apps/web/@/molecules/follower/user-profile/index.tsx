@@ -1,11 +1,9 @@
 import Link from "next/link"
+import { notFound } from "next/navigation"
 
+import { getUser } from "database"
 import { getTranslations } from "next-intl/server"
 import { Avatar, AvatarFallback, AvatarImage, Card, CardContent, CardHeader, Typography } from "ui"
-
-import APP_APIS from "@/constants/apis"
-import { TUserItem } from "@/types/users"
-import { generatePath } from "@/utils/generatePath"
 
 import FollowButton from "./follow-button"
 
@@ -14,20 +12,12 @@ export type UserProfileProps = {
 }
 
 export async function UserProfile({ authorId }: UserProfileProps) {
-  // const rawAuthor = await fetch(
-  //   `${process.env.NEXT_PUBLIC_FRONTEND_URL}${generatePath(APP_APIS.protected.user.GET, {
-  //     userId: authorId,
-  //   })}`,
-  //   {
-  //     method: "GET",
-  //     cache: "no-cache",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //   }
-  // )
-  const author: TUserItem = await rawAuthor?.json()
   const t = await getTranslations()
+  const { data: author, error } = await getUser({ userId: authorId })
+
+  if (error) {
+    return notFound()
+  }
 
   return (
     <div className="col-span-4">
@@ -58,13 +48,13 @@ export async function UserProfile({ authorId }: UserProfileProps) {
             </Typography>
             <div className="mt-4 flex w-full flex-1 divide-x">
               <div className="flex flex-1 flex-col items-center justify-center">
-                <div className="font-bold">{author?._count?.post}</div>
+                <div className="font-bold">{author?.totalPost}</div>
                 <div className="hover:underline">
                   <Link href={`/author/${author?.id}`}>{t("common.posts")}</Link>
                 </div>
               </div>
               <div className="flex flex-1 flex-col items-center justify-center">
-                <div className="font-bold">{author?._count?.followers}</div>
+                <div className="font-bold">{author?.totalFollower}</div>
                 <div className="hover:underline">
                   <Link href={`/author/${author?.id}/followers`}>{t("common.followers")}</Link>
                 </div>
