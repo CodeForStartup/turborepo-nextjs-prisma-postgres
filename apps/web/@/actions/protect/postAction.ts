@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache"
 import { redirect } from "next/navigation"
 
+import { auth } from "configs/auth"
 import prisma, {
   createPost,
   PostOnUserType,
@@ -16,7 +17,6 @@ import { toast } from "react-toastify"
 
 import APP_ROUTES from "@/constants/routes"
 import { TUserItem, userSelect } from "@/types/users"
-import { auth } from "configs/auth"
 
 // TODO: move to database package
 // Get total actions (like, bookmark) for a post

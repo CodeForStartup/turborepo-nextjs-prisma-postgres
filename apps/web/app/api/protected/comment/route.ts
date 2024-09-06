@@ -1,10 +1,10 @@
 import { NextRequest } from "next/server"
 
+import { auth } from "configs/auth"
 import prisma from "database"
 import { z } from "zod"
 
 import { commentSelect } from "@/types/comment"
-import { auth } from "configs/auth"
 
 export async function POST(request: NextRequest) {
   const session = await auth()

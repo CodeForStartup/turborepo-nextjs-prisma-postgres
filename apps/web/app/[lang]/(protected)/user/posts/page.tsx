@@ -1,13 +1,13 @@
 import React from "react"
 import { Metadata } from "next/types"
 
+import { auth } from "configs/auth"
 import { getPosts } from "database"
 
 import NoItemFounded from "@/molecules/no-item-founded"
 import PageTitle from "@/molecules/page-title"
 import Filter from "@/molecules/user/posts/filter"
 import PostItem from "@/molecules/user/posts/post-item"
-import { auth } from "configs/auth"
 
 export async function generateMetadata(): Promise<Metadata> {
   return {

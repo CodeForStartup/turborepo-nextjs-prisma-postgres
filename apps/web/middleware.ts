@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from "next/server"
 
+import { auth } from "configs/auth"
 import { locales } from "i18n"
 import createIntlMiddleware from "next-intl/middleware"
-import { auth } from "configs/auth"
 
 const handleI18nRouting = createIntlMiddleware({
   locales,

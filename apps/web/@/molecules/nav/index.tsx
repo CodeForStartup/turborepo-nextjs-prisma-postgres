@@ -1,10 +1,9 @@
 import Link from "next/link"
 
+import { auth } from "configs/auth"
 import { Edit } from "lucide-react"
 import { getTranslations } from "next-intl/server"
 import { buttonVariants, cn } from "ui"
-
-import { auth } from "configs/auth"
 
 import { UserNav } from "../user-nav"
 import Logo from "./logo"

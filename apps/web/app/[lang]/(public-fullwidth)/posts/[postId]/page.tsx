@@ -10,9 +10,8 @@ import { TSearchParams } from "@/types"
 
 import "./tocbot.css"
 
-import { getPost, PostStatus } from "database"
-
 import { auth } from "configs/auth"
+import { getPost, PostStatus } from "database"
 
 export async function generateMetadata({ params }): Promise<Metadata> {
   const post = await getPost({ postIdOrSlug: params?.postId })
