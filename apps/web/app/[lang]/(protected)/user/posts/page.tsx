@@ -7,7 +7,7 @@ import NoItemFounded from "@/molecules/no-item-founded"
 import PageTitle from "@/molecules/page-title"
 import Filter from "@/molecules/user/posts/filter"
 import PostItem from "@/molecules/user/posts/post-item"
-import { getServerSession } from "@/utils/auth"
+import { auth } from "configs/auth"
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
@@ -17,7 +17,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function Page({ searchParams }) {
-  const session = await getServerSession()
+  const session = await auth()
   const { total, data } = await getPosts({
     searchParams: {
       authorId: session?.user?.id,

@@ -4,10 +4,10 @@ import prisma from "database"
 import { z } from "zod"
 
 import { commentSelect } from "@/types/comment"
-import { getServerSession } from "@/utils/auth"
+import { auth } from "configs/auth"
 
 export async function POST(request: NextRequest) {
-  const session = await getServerSession()
+  const session = await auth()
 
   if (!session?.user?.id) return Response.error()
 

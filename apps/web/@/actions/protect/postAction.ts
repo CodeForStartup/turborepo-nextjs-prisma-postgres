@@ -16,7 +16,7 @@ import { toast } from "react-toastify"
 
 import APP_ROUTES from "@/constants/routes"
 import { TUserItem, userSelect } from "@/types/users"
-import { getServerSession } from "@/utils/auth"
+import { auth } from "configs/auth"
 
 // TODO: move to database package
 // Get total actions (like, bookmark) for a post
@@ -27,7 +27,7 @@ export const getTotalActions = async ({
   postId: string
   actionType: PostOnUserType
 }) => {
-  const session = await getServerSession()
+  const session = await auth()
 
   try {
     const promises = []
@@ -70,7 +70,7 @@ export const addRelation = async ({
   postSlug: string
   action: PostOnUserType
 }) => {
-  const session = await getServerSession()
+  const session = await auth()
   const postField = action === PostOnUserType.LIKE ? "totalLike" : "totalFollow"
   try {
     await prisma.$transaction([
@@ -118,7 +118,7 @@ export const removeRelation = async ({
   postSlug: string
   action: PostOnUserType
 }) => {
-  const session = await getServerSession()
+  const session = await auth()
   const postField = action === PostOnUserType.LIKE ? "totalLike" : "totalFollow"
 
   try {

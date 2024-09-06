@@ -4,7 +4,7 @@ import { Edit } from "lucide-react"
 import { getTranslations } from "next-intl/server"
 import { buttonVariants, cn } from "ui"
 
-import { getServerSession } from "@/utils/auth"
+import { auth } from "configs/auth"
 
 import { UserNav } from "../user-nav"
 import Logo from "./logo"
@@ -12,7 +12,7 @@ import SearchBar from "./search-bar"
 import ThemeToggle from "./theme-toggle"
 
 export default async function Nav() {
-  const session = await getServerSession()
+  const session = await auth()
   const t = await getTranslations()
 
   return (

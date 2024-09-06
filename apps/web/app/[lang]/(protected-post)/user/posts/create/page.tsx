@@ -2,7 +2,7 @@ import { redirect } from "next/navigation"
 
 import APP_ROUTES from "@/constants/routes"
 import PostForm from "@/molecules/post-form"
-import { getServerSession } from "@/utils/auth"
+import { auth } from "configs/auth"
 
 export const metadata = {
   title: "Create Post",
@@ -10,7 +10,7 @@ export const metadata = {
 }
 
 export default async function Page() {
-  const session = await getServerSession()
+  const session = await auth()
 
   if (!session) {
     redirect(APP_ROUTES.LOGIN)

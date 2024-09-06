@@ -3,8 +3,7 @@
 import Link from "next/link"
 import { useSearchParams } from "next/navigation"
 
-import { Label } from "@radix-ui/react-dropdown-menu"
-import { GithubIcon } from "lucide-react"
+import { Github } from "lucide-react"
 import { signIn } from "next-auth/react"
 import {
   Button,
@@ -12,6 +11,7 @@ import {
   CardContent,
   CardFooter,
   Input,
+  Label,
   Tabs,
   TabsContent,
   TabsList,
@@ -116,7 +116,7 @@ export default function SignInForm() {
                   type="button"
                   onClick={onSignIn}
                 >
-                  <GithubIcon size={16} />
+                  <Github size={16} />
                   <span className="ml-2">GitHub</span>
                 </Button>
               </div>

@@ -2,7 +2,7 @@ import { NextRequest } from "next/server"
 
 import prisma from "database"
 
-import { getServerSession } from "@/utils/auth"
+import { auth } from "configs/auth"
 
 export async function GET(request: NextRequest, { params }: { params: { userId: string } }) {
   const { userId } = params

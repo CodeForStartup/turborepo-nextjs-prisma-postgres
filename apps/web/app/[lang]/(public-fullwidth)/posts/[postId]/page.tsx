@@ -12,7 +12,7 @@ import "./tocbot.css"
 
 import { getPost, PostStatus } from "database"
 
-import { getServerSession } from "@/utils/auth"
+import { auth } from "configs/auth"
 
 export async function generateMetadata({ params }): Promise<Metadata> {
   const post = await getPost({ postIdOrSlug: params?.postId })
@@ -31,7 +31,7 @@ export default async function Page({
   searchParams: TSearchParams
 }) {
   const post = await getPost({ postIdOrSlug: params?.postId })
-  const session = await getServerSession()
+  const session = await auth()
 
   if (
     !post ||

@@ -1,6 +1,6 @@
 import Link from "next/link"
 
-import { authConfigs } from "configs/auth"
+import { auth, authConfigs } from "configs/auth"
 import { getServerSession } from "next-auth"
 import { getTranslations } from "next-intl/server"
 import {
@@ -22,7 +22,7 @@ import {
 import { LogoutMenu } from "./LogoutMenu"
 
 export async function UserNav() {
-  const session = await getServerSession(authConfigs)
+  const session = await auth()
   const t = await getTranslations()
 
   return (

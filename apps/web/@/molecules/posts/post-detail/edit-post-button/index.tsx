@@ -10,7 +10,7 @@ import { Button, buttonVariants, cn, toast } from "ui"
 import { onTogglePost } from "@/actions/protect/postAction"
 import APP_ROUTES from "@/constants/routes"
 import { TPostItem } from "@/types/posts"
-import { getServerSession } from "@/utils/auth"
+import { auth } from "configs/auth"
 
 import TogglePost from "./toggle-post"
 
@@ -19,7 +19,7 @@ interface EditPostButtonProps {
 }
 
 const EditPostButton: React.FC<EditPostButtonProps> = async ({ post }) => {
-  const session = await getServerSession()
+  const session = await auth()
   const t = await getTranslations()
 
   if (post?.author?.id !== session?.user?.id) {

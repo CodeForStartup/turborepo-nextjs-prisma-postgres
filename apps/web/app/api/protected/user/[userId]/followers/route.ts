@@ -3,7 +3,7 @@ import { NextRequest } from "next/server"
 
 import prisma from "database"
 
-import { getServerSession } from "@/utils/auth"
+import { auth } from "configs/auth"
 
 export async function GET(request: NextRequest, { params }: { params: { userId: string } }) {
   const { userId } = params
@@ -33,7 +33,7 @@ export async function POST(request: NextRequest, { params }: { params: { userId:
   const { userId } = params
   const data = await request.json()
 
-  const session = await getServerSession()
+  const session = await auth()
   if (!session) {
     return new Response(null, { status: 403 })
   }

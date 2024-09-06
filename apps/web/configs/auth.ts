@@ -1,9 +1,9 @@
 import { PrismaAdapter } from "@auth/prisma-adapter"
 import prisma from "database"
-import { NextAuthOptions } from "next-auth"
+import NextAuth from "next-auth"
 import GithubProvider from "next-auth/providers/github"
 
-export const authConfigs = {
+export const { handlers, auth, signIn, signOut } = NextAuth({
   adapter: PrismaAdapter(prisma),
   providers: [
     GithubProvider({
@@ -20,7 +20,7 @@ export const authConfigs = {
     updateAge: 24 * 60 * 60,
   },
   jwt: {
-    secret: process.env.NEXTAUTH_SECRET,
+    // secret: process.env.NEXTAUTH_SECRET,
   },
   callbacks: {
     redirect: async ({ url, baseUrl }) => {
@@ -43,4 +43,4 @@ export const authConfigs = {
       return token
     },
   },
-} as NextAuthOptions
+})
