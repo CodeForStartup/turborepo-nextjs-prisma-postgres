@@ -1,7 +1,6 @@
 import Link from "next/link"
 
-import { auth, authConfigs } from "configs/auth"
-import { getServerSession } from "next-auth"
+import { auth } from "configs/auth"
 import { getTranslations } from "next-intl/server"
 import {
   Avatar,

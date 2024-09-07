@@ -1,6 +1,7 @@
 import { PrismaAdapter } from "@auth/prisma-adapter"
 import prisma from "database"
 import NextAuth from "next-auth"
+import Credentials from "next-auth/providers/credentials"
 import GithubProvider from "next-auth/providers/github"
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
@@ -9,6 +10,32 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     GithubProvider({
       clientId: process.env.GITHUB_ID,
       clientSecret: process.env.GITHUB_SECRET,
+    }),
+    Credentials({
+      credentials: {
+        email: {},
+        password: {},
+      },
+      authorize: async (credentials: Record<string, string>) => {
+        console.log(">>>>>", credentials)
+
+        try {
+          const user = await prisma.user.findUnique({
+            where: {
+              email: credentials.email,
+              password: credentials.password,
+            },
+          })
+
+          if (!user) {
+            return null
+          }
+
+          return user
+        } catch (e) {
+          return null
+        }
+      },
     }),
   ],
   pages: {
