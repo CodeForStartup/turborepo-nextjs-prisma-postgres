@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
 
+import { auth } from "configs/auth"
 import { locales } from "i18n"
-import { getToken } from "next-auth/jwt"
 import createIntlMiddleware from "next-intl/middleware"
 
 const handleI18nRouting = createIntlMiddleware({
@@ -12,12 +12,12 @@ const handleI18nRouting = createIntlMiddleware({
 
 export async function middleware(req: NextRequest) {
   const currentPathname = req.nextUrl.pathname
-  const session = await getToken({ req, secret: process.env.NEXTAUTH_SECRET })
+  const session = await auth()
 
-  if (!session?.email && currentPathname.startsWith("/user")) {
+  if (!session?.user?.email && currentPathname.startsWith("/user")) {
     const newUrl = req.nextUrl.clone()
     const currentSearchParam = newUrl.searchParams.toString()
-    newUrl.pathname = "/sign-in"
+    newUrl.pathname = "/signin"
     newUrl.searchParams.set(
       "callbackUrl",
       encodeURIComponent(`${currentPathname}?${currentSearchParam}`)

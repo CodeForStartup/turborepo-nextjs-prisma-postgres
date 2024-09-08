@@ -3,36 +3,52 @@
 import Link from "next/link"
 import { useSearchParams } from "next/navigation"
 
-import { Label } from "@radix-ui/react-dropdown-menu"
-import { GithubIcon } from "lucide-react"
-import { signIn } from "next-auth/react"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { signIn } from "configs/auth"
+import { Github } from "lucide-react"
+import { useTranslations } from "next-intl"
+import { useForm } from "react-hook-form"
 import {
   Button,
   Card,
   CardContent,
   CardFooter,
   Input,
+  Label,
   Tabs,
   TabsContent,
   TabsList,
   TabsTrigger,
   Typography,
 } from "ui"
+import { z } from "zod"
+
+import { signInWithCredentials, signInWithGithub } from "@/actions/auth"
+
+type FormData = {
+  email: string
+  password: string
+}
 
 export default function SignInForm() {
-  const searchParams = useSearchParams()
+  const t = useTranslations("auth")
 
-  const onSignIn = async (e) => {
-    e.preventDefault()
-    await signIn("github", {
-      redirect: true,
-      callbackUrl: (searchParams.get("callbackUrl") as string) || "/",
-    })
+  const { register, handleSubmit } = useForm<FormData>({
+    resolver: zodResolver(
+      z.object({
+        email: z.string().email(),
+        password: z.string().min(8),
+      })
+    ),
+  })
+
+  const onSignIn = async (data: FormData) => {
+    await signInWithCredentials(data.email, data.password)
   }
 
   return (
     <div className="mt-16 w-full max-w-md flex-1 rounded-md p-8">
-      <div>
+      <div className="text-center">
         <Typography variant="h1">Sign In</Typography>
 
         <Typography
@@ -44,99 +60,76 @@ export default function SignInForm() {
       </div>
 
       <div className="grid-6 mt-8 grid w-full">
-        <form>
-          <Card>
-            <CardContent className="pt-6">
-              <Tabs>
-                <div className="mb-1">
-                  <Label>Sign in mode</Label>
+        <Card>
+          <CardContent className="pt-6">
+            <form onSubmit={handleSubmit(onSignIn)}>
+              <div className="grid gap-4">
+                <div className="grid gap-2">
+                  <Label htmlFor="email">Email</Label>
+                  <Input
+                    id="email"
+                    placeholder="name@example.com"
+                    type="email"
+                    autoCapitalize="none"
+                    autoComplete="email"
+                    autoCorrect="off"
+                    {...register("email", { required: true })}
+                  />
                 </div>
-                <TabsList className="grid w-full grid-cols-2">
-                  <TabsTrigger value="magic">Magic Link</TabsTrigger>
-                  <TabsTrigger value="username_password">Username/Password</TabsTrigger>
-                </TabsList>
-                <TabsContent value="username_password">
-                  <div className="grid gap-4">
-                    <div className="grid gap-1">
-                      <Label className="">Email</Label>
-                      <Input
-                        id="email"
-                        placeholder="name@example.com"
-                        type="email"
-                        autoCapitalize="none"
-                        autoComplete="email"
-                        autoCorrect="off"
-                      />
-                    </div>
-                    <div className="grid gap-1">
-                      <Label className="">Password</Label>
-                      <Input
-                        id="password"
-                        placeholder="********"
-                        type="password"
-                        autoCapitalize="none"
-                        autoCorrect="off"
-                      />
-                    </div>
-                    <Button>Sign In</Button>
-                  </div>
-                </TabsContent>
-                <TabsContent value="magic">
-                  <div className="grid gap-4">
-                    <div className="grid gap-1">
-                      <Label className="">Email</Label>
-                      <Input
-                        id="email"
-                        placeholder="name@example.com"
-                        type="email"
-                        autoCapitalize="none"
-                        autoComplete="email"
-                        autoCorrect="off"
-                      />
-                    </div>
-                    <Button>Sign In With Email</Button>
-                  </div>
-                </TabsContent>
-              </Tabs>
-            </CardContent>
-            <CardFooter>
-              <div className="flex w-full flex-col">
-                <div className="relative">
-                  <div className="absolute inset-0 flex items-center">
-                    <span className="w-full border-t" />
-                  </div>
-                  <div className="relative flex justify-center py-4 text-xs uppercase">
-                    <span className="bg-background px-2 text-muted-foreground">
-                      Or continue with
-                    </span>
-                  </div>
+                <div className="grid gap-2">
+                  <Label htmlFor="password">Password</Label>
+                  <Input
+                    id="password"
+                    placeholder="********"
+                    type="password"
+                    autoCapitalize="none"
+                    autoCorrect="off"
+                    {...register("password", { required: true })}
+                  />
                 </div>
+                <Button type="submit">{t("sign_in.title")}</Button>
+              </div>
+            </form>
+          </CardContent>
+          <CardFooter>
+            <div className="flex w-full flex-col">
+              <div className="relative">
+                <div className="absolute inset-0 flex items-center">
+                  <span className="w-full border-t" />
+                </div>
+                <div className="relative flex justify-center py-4 text-xs uppercase">
+                  <span className="bg-background px-2 text-muted-foreground">
+                    {t("or_continue_with")}
+                  </span>
+                </div>
+              </div>
+
+              <form action={signInWithGithub}>
                 <Button
                   variant="outline"
-                  type="button"
-                  onClick={onSignIn}
+                  type="submit"
                 >
-                  <GithubIcon size={16} />
-                  <span className="ml-2">GitHub</span>
+                  <Github size={16} />
+                  <span className="ml-2">{t("github")}</span>
                 </Button>
-              </div>
-            </CardFooter>
-          </Card>
-        </form>
+              </form>
+            </div>
+          </CardFooter>
+        </Card>
       </div>
 
       <div className="mt-4 text-center">
-        <Link href="register">
+        <Link href="/signup">
           <Typography
             variant="span"
             className="mt-4"
           >
-            Don&apos;t have an account?{" "}
+            {t("dont_have_an_account")}
             <Typography
               className="font-bold hover:underline"
               variant="span"
             >
-              Sign Up
+              {t("sign_up.title")}
             </Typography>
           </Typography>
         </Link>

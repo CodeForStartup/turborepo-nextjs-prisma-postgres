@@ -2,12 +2,12 @@ import fs from "fs/promises"
 import path from "path"
 import { NextRequest } from "next/server"
 
+import { auth } from "configs/auth"
 import { createImage, getImage, getImages, IImageFilter, ImageOrderBys, OrderBy } from "database"
 import sharp from "sharp"
 import { v4 as uuidv4 } from "uuid"
 
 import { OrderByField } from "@/constants/upload"
-import { getServerSession } from "@/utils/auth"
 
 const OrderMap = {
   [OrderByField.nameAsc]: {
@@ -44,7 +44,7 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    const session = await getServerSession()
+    const session = await auth()
 
     if (!session) {
       return Response.json({
@@ -78,7 +78,7 @@ export async function GET(request: NextRequest) {
 }
 
 export async function POST(request: NextRequest) {
-  const session = await getServerSession()
+  const session = await auth()
 
   if (!session?.user?.id) return Response.error()
 

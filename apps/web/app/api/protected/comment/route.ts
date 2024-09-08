@@ -1,13 +1,13 @@
 import { NextRequest } from "next/server"
 
+import { auth } from "configs/auth"
 import prisma from "database"
 import { z } from "zod"
 
 import { commentSelect } from "@/types/comment"
-import { getServerSession } from "@/utils/auth"
 
 export async function POST(request: NextRequest) {
-  const session = await getServerSession()
+  const session = await auth()
 
   if (!session?.user?.id) return Response.error()
 
