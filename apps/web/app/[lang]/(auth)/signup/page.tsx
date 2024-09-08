@@ -64,7 +64,7 @@ const RegisterPage: React.FC = () => {
         </div>
 
         <div className="mt-4 text-center">
-          <Link href="sign-in">
+          <Link href="signin">
             <Typography
               variant="span"
               className="mt-4"

@@ -23,6 +23,7 @@ async function main() {
         title: post.title || '',
         content: post.description,
         slug: slugify(post.title || '-') + new Date().getTime(),
+        postStatus: "PUBLISHED",
         author: {
           connect: {
             id: user.id,

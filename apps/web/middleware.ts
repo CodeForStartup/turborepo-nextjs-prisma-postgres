@@ -17,7 +17,7 @@ export async function middleware(req: NextRequest) {
   if (!session?.user?.email && currentPathname.startsWith("/user")) {
     const newUrl = req.nextUrl.clone()
     const currentSearchParam = newUrl.searchParams.toString()
-    newUrl.pathname = "/sign-in"
+    newUrl.pathname = "/signin"
     newUrl.searchParams.set(
       "callbackUrl",
       encodeURIComponent(`${currentPathname}?${currentSearchParam}`)

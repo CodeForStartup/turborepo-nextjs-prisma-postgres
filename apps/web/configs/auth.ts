@@ -4,7 +4,12 @@ import NextAuth from "next-auth"
 import Credentials from "next-auth/providers/credentials"
 import GithubProvider from "next-auth/providers/github"
 
-export const { handlers, auth, signIn, signOut } = NextAuth({
+export const {
+  handlers: { GET, POST },
+  auth,
+  signIn,
+  signOut,
+} = NextAuth({
   adapter: PrismaAdapter(prisma),
   providers: [
     GithubProvider({
@@ -17,8 +22,6 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         password: {},
       },
       authorize: async (credentials: Record<string, string>) => {
-        console.log(">>>>>", credentials)
-
         try {
           const user = await prisma.user.findUnique({
             where: {
@@ -39,7 +42,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     }),
   ],
   pages: {
-    signIn: "/sign-in",
+    signIn: "/signin",
   },
   session: {
     strategy: "jwt",

@@ -1,9 +1,8 @@
 "use server"
 
-import { signIn } from "configs/auth"
+import { signIn, signOut } from "configs/auth"
 
 export const signInWithCredentials = async (email: string, password: string) => {
-  console.log(">>>>>", email, password)
   await signIn("credentials", {
     email,
     password,
@@ -12,4 +11,10 @@ export const signInWithCredentials = async (email: string, password: string) => 
 
 export const signInWithGithub = async () => {
   await signIn("github")
+}
+
+export const onSignOut = async () => {
+  await signOut({
+    redirectTo: "/",
+  })
 }

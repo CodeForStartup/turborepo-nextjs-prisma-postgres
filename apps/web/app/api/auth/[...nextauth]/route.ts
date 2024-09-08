@@ -1,3 +1,3 @@
-import { handlers } from "configs/auth"
+import { GET, POST } from "configs/auth"
 
-export { handlers as GET, handlers as POST }
+export { GET, POST }
