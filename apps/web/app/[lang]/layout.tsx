@@ -1,17 +1,14 @@
 import "./globals.css"
 import "ui/dist/index.css"
-
-import AuthProvider from "providers/authProvider"
-import { ToastContainer } from "react-toastify"
-
-import Nav from "@/molecules/nav"
-
 import "react-toastify/dist/ReactToastify.css"
 import "remixicon/fonts/remixicon.css"
 
 import { NextIntlClientProvider, useMessages } from "next-intl"
+import AuthProvider from "providers/authProvider"
+import { ToastContainer } from "react-toastify"
 
 import Footer from "@/molecules/footer"
+import Nav from "@/molecules/nav"
 import { Providers } from "@/providers"
 
 export const metadata = {
