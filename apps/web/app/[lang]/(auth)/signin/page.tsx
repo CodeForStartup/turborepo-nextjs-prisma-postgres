@@ -4,7 +4,7 @@ import { redirect } from "next/navigation"
 import { auth } from "configs/auth"
 import { getTranslations } from "next-intl/server"
 
-import SignInForm from "@/molecules/sign-in-form"
+import SignIn from "@/molecules/auth/sign-in"
 
 export async function generateMetadata() {
   const t = await getTranslations()
@@ -24,7 +24,7 @@ export default async function Page() {
 
   return (
     <div className="flex justify-center">
-      <SignInForm />
+      <SignIn />
     </div>
   )
 }
