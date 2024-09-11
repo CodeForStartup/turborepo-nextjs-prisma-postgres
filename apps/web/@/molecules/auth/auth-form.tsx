@@ -15,7 +15,7 @@ export default function AuthForm({ title, description, children }: AuthFormProps
       </div>
 
       <Card className="mt-6">
-        <CardContent>{children}</CardContent>
+        <CardContent className="p-6">{children}</CardContent>
       </Card>
     </div>
   )

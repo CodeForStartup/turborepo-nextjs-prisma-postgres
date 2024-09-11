@@ -41,7 +41,7 @@ export default function SignIn() {
         title={t("sign_in.title")}
         description={t("sign_in.description")}
       >
-        <div className="grid-6 mt-8 grid w-full">
+        <div className="w-full">
           <form onSubmit={handleSubmit(onSignIn)}>
             <div className="grid gap-4">
               <div className="grid gap-2">

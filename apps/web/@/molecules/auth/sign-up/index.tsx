@@ -1,60 +1,121 @@
+"use client"
+
 import Link from "next/link"
 
+import { zodResolver } from "@hookform/resolvers/zod"
 import { GithubIcon } from "lucide-react"
-import { Button, Card, CardContent, CardFooter, Input, Label, Typography } from "ui"
+import { useForm } from "react-hook-form"
+import {
+  Button,
+  Card,
+  CardContent,
+  CardFooter,
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  Input,
+  Label,
+  Typography,
+} from "ui"
+import { z } from "zod"
+
+import AuthForm from "../auth-form"
 
 export default function SignUp() {
+  const form = useForm({
+    resolver: zodResolver(
+      z.object({
+        email: z.string().email(),
+        password: z.string().min(8),
+        confirmPassword: z.string().min(8),
+      })
+    ),
+  })
+
+  const {
+    formState: { errors },
+    register,
+    handleSubmit,
+  } = form
+
+  const onSubmit = (data: any) => {
+    // TODO: Implement sign up
+  }
+
   return (
-    <div className="mt-16 w-full max-w-md flex-1 rounded-md p-8">
-      <div className="text-center">
-        <Typography variant="h1">Register</Typography>
+    <div className="w-full max-w-md flex-1 p-8">
+      <AuthForm
+        title="Register"
+        description="Register to your account to continue."
+      >
+        <Form {...form}>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <div className="grid w-full gap-4">
+              <FormField
+                name="email"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel htmlFor="email">Email</FormLabel>
+                    <FormControl>
+                      <Input
+                        id="email"
+                        placeholder="name@example.com"
+                        type="email"
+                        autoCapitalize="none"
+                        autoComplete="email"
+                        autoCorrect="off"
+                        {...field}
+                      />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+              <FormField
+                name="email"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel htmlFor="email">Email</FormLabel>
+                    <FormControl>
+                      <Input
+                        id="email"
+                        placeholder="name@example.com"
+                        type="email"
+                        autoCapitalize="none"
+                        autoComplete="email"
+                        autoCorrect="off"
+                        {...field}
+                      />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+              <FormField
+                name="email"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel htmlFor="email">Email</FormLabel>
+                    <FormControl>
+                      <Input
+                        id="email"
+                        placeholder="name@example.com"
+                        type="email"
+                        autoCapitalize="none"
+                        autoComplete="email"
+                        autoCorrect="off"
+                        {...field}
+                      />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
 
-        <Typography variant="span">Register to your account to continue.</Typography>
-      </div>
-
-      <div className="grid-6 mt-8 grid w-full">
-        <form>
-          <Card>
-            <CardContent className="pt-6">
-              <div className="grid gap-4">
-                <div className="grid gap-1">
-                  <Label className="">Email</Label>
-                  <Input
-                    id="email"
-                    placeholder="name@example.com"
-                    type="email"
-                    autoCapitalize="none"
-                    autoComplete="email"
-                    autoCorrect="off"
-                  />
-                </div>
-                <Button>Sign up</Button>
-              </div>
-            </CardContent>
-            <CardFooter>
-              <div className="flex w-full flex-col">
-                <div className="relative">
-                  <div className="absolute inset-0 flex items-center">
-                    <span className="w-full border-t" />
-                  </div>
-                  <div className="relative flex justify-center py-4 text-xs uppercase">
-                    <span className="bg-background px-2 text-muted-foreground">
-                      Or continue with
-                    </span>
-                  </div>
-                </div>
-                <Button
-                  variant="outline"
-                  type="button"
-                >
-                  <GithubIcon size={16} />
-                  <span className="ml-2">GitHub</span>
-                </Button>
-              </div>
-            </CardFooter>
-          </Card>
-        </form>
-      </div>
+              <Button type="submit">Register</Button>
+            </div>
+          </form>
+        </Form>
+      </AuthForm>
 
       <div className="mt-4 text-center">
         <Link href="signin">
