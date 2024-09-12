@@ -4,6 +4,7 @@ import Link from "next/link"
 
 import { zodResolver } from "@hookform/resolvers/zod"
 import { GithubIcon } from "lucide-react"
+import { useTranslations } from "next-intl"
 import { useForm } from "react-hook-form"
 import {
   Button,
@@ -15,6 +16,7 @@ import {
   FormField,
   FormItem,
   FormLabel,
+  FormMessage,
   Input,
   Label,
   Typography,
@@ -24,12 +26,14 @@ import { z } from "zod"
 import AuthForm from "../auth-form"
 
 export default function SignUp() {
+  const t = useTranslations("auth")
+
   const form = useForm({
     resolver: zodResolver(
       z.object({
-        email: z.string().email(),
-        password: z.string().min(8),
-        confirmPassword: z.string().min(8),
+        email: z.string().email(t("email.invalid")),
+        password: z.string().min(8, t("password.min")),
+        confirmPassword: z.string().min(8, t("password.min")),
       })
     ),
   })
@@ -57,14 +61,34 @@ export default function SignUp() {
                 name="email"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel htmlFor="email">Email</FormLabel>
+                    <FormLabel htmlFor="email">{t("email_label")}</FormLabel>
                     <FormControl>
                       <Input
                         id="email"
-                        placeholder="name@example.com"
+                        placeholder={t("email")}
                         type="email"
                         autoCapitalize="none"
                         autoComplete="email"
+                        autoCorrect="off"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                name="password"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel htmlFor="email">{t("password_label")}</FormLabel>
+                    <FormControl>
+                      <Input
+                        id="password"
+                        placeholder={t("password")}
+                        type="password"
+                        autoCapitalize="none"
+                        autoComplete="password"
                         autoCorrect="off"
                         {...field}
                       />
@@ -73,36 +97,17 @@ export default function SignUp() {
                 )}
               />
               <FormField
-                name="email"
+                name="confirmPassword"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel htmlFor="email">Email</FormLabel>
+                    <FormLabel htmlFor="email">{t("confirm_password_label")}</FormLabel>
                     <FormControl>
                       <Input
-                        id="email"
-                        placeholder="name@example.com"
-                        type="email"
+                        id="confirmPassword"
+                        placeholder={t("confirm_password_placeholder")}
+                        type="password"
                         autoCapitalize="none"
-                        autoComplete="email"
-                        autoCorrect="off"
-                        {...field}
-                      />
-                    </FormControl>
-                  </FormItem>
-                )}
-              />
-              <FormField
-                name="email"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel htmlFor="email">Email</FormLabel>
-                    <FormControl>
-                      <Input
-                        id="email"
-                        placeholder="name@example.com"
-                        type="email"
-                        autoCapitalize="none"
-                        autoComplete="email"
+                        autoComplete="password"
                         autoCorrect="off"
                         {...field}
                       />
@@ -111,7 +116,7 @@ export default function SignUp() {
                 )}
               />
 
-              <Button type="submit">Register</Button>
+              <Button type="submit">{t("sign_up.title")}</Button>
             </div>
           </form>
         </Form>
@@ -123,12 +128,12 @@ export default function SignUp() {
             variant="span"
             className="mt-4"
           >
-            Already have an account?{" "}
+            {t("sign_up.already_have_an_account")}
             <Typography
-              className="font-bold hover:underline"
+              className="pl-1 font-bold hover:underline"
               variant="span"
             >
-              Sign In
+              {t("sign_up.sign_in")}
             </Typography>
           </Typography>
         </Link>
