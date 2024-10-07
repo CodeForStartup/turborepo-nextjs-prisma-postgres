@@ -85,7 +85,7 @@ export default function SignUp() {
                     <FormControl>
                       <Input
                         id="password"
-                        placeholder={t("password")}
+                        placeholder="********"
                         type="password"
                         autoCapitalize="none"
                         autoComplete="password"
@@ -104,7 +104,7 @@ export default function SignUp() {
                     <FormControl>
                       <Input
                         id="confirmPassword"
-                        placeholder={t("confirm_password_placeholder")}
+                        placeholder="********"
                         type="password"
                         autoCapitalize="none"
                         autoComplete="password"

@@ -11,32 +11,25 @@ import { tagItemSelect, tagListSelect, TTagItem, TTagListItem } from "./selects"
 type GetTagsProps = {
   page?: number
   limit?: number
-  query?: string
-  sorting?: any[]
+  orderBy?: Prisma.TagsOrderByRelevanceInput
 }
 
 export const getTags = async ({
   page = 1,
   limit = LIMIT_PER_PAGE,
-  query = "",
-  sorting,
+  orderBy,
 }: GetTagsProps): Promise<IActionReturn<IGetListResponse<TTagItem>>> => {
-  const tagQuery: Prisma.TagsFindManyArgs = {
+  const tagQuery = {
     select: tagListSelect,
     take: Number(limit) || 10,
     skip: (page > 0 ? page - 1 : 0) * Number(limit),
     where: {
       name: {
-        contains: query,
+        contains: orderBy?.search,
         mode: "insensitive",
       },
     },
-  }
-
-  if (sorting) {
-    tagQuery.orderBy = sorting?.map((sort) => ({
-      [sort.id]: sort.desc ? "desc" : "asc",
-    }))
+    orderBy,
   }
 
   try {
@@ -57,6 +50,8 @@ export const getTags = async ({
       },
     }
   } catch (error) {
+    console.log("error", error)
+
     throw {
       data: {
         data: [],
