@@ -23,7 +23,7 @@ import {
 import { createTag, getTag, getTags, getTopTags } from "./tags/queries"
 import type { TTagItem, TTagListItem } from "./tags/selects"
 import { tagListSelect } from "./tags/selects"
-import { getUser } from "./users/queries"
+import { createUser, getUser, updateUser } from "./users/queries"
 import { TUserDetail } from "./users/selects"
 
 export * from "@prisma/client"
@@ -49,6 +49,8 @@ export {
 
   // Users
   getUser,
+  createUser,
+  updateUser,
 
   // Images
   getImages,

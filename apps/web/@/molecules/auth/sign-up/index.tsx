@@ -3,9 +3,12 @@
 import Link from "next/link"
 
 import { zodResolver } from "@hookform/resolvers/zod"
+import { Prisma } from "database"
 import { GithubIcon } from "lucide-react"
 import { useTranslations } from "next-intl"
+import { useFormState } from "react-dom"
 import { useForm } from "react-hook-form"
+import { toast } from "react-toastify"
 import {
   Button,
   Card,
@@ -23,29 +26,50 @@ import {
 } from "ui"
 import { z } from "zod"
 
+import { signUp, SignUpDataInput, signUpSchema } from "@/actions/auth"
+
 import AuthForm from "../auth-form"
 
 export default function SignUp() {
   const t = useTranslations("auth")
 
-  const form = useForm({
-    resolver: zodResolver(
-      z.object({
-        email: z.string().email(t("email.invalid")),
-        password: z.string().min(8, t("password.min")),
-        confirmPassword: z.string().min(8, t("password.min")),
-      })
-    ),
+  const form = useForm<SignUpDataInput>({
+    resolver: zodResolver(signUpSchema),
+    mode: "onTouched",
   })
 
   const {
     formState: { errors },
     register,
     handleSubmit,
+    setError,
   } = form
 
-  const onSubmit = (data: any) => {
-    // TODO: Implement sign up
+  // TODO:
+  // const [state, formAction] = useActionState<Pick<Prisma.UserCreateInput, "email" | "password">>(
+  //   signUp,
+  //   null
+  // )
+
+  console.log(">>>", errors)
+
+  const formAction = async ({ confirmPassword, ...data }: SignUpDataInput) => {
+    const error = await signUp(data)
+
+    console.log("formAction>>error", error)
+
+    if (error.formErrors) {
+      toast.error(error.formErrors?.at(0))
+    }
+
+    if (error.fieldErrors) {
+      Object?.entries(error.fieldErrors)?.forEach(([field, message]) => {
+        setError(field, {
+          type: "manual",
+          message,
+        })
+      })
+    }
   }
 
   return (
@@ -55,7 +79,7 @@ export default function SignUp() {
         description="Register to your account to continue."
       >
         <Form {...form}>
-          <form onSubmit={handleSubmit(onSubmit)}>
+          <form onSubmit={handleSubmit(formAction)}>
             <div className="grid w-full gap-4">
               <FormField
                 name="email"
@@ -65,7 +89,7 @@ export default function SignUp() {
                     <FormControl>
                       <Input
                         id="email"
-                        placeholder={t("email")}
+                        placeholder={t("email_label")}
                         type="email"
                         autoCapitalize="none"
                         autoComplete="email"

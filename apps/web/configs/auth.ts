@@ -1,5 +1,5 @@
 import { PrismaAdapter } from "@auth/prisma-adapter"
-import prisma from "database"
+import prisma, { getUser } from "database"
 import NextAuth from "next-auth"
 import Credentials from "next-auth/providers/credentials"
 import GithubProvider from "next-auth/providers/github"
@@ -23,7 +23,7 @@ export const {
       },
       authorize: async (credentials: Record<string, string>) => {
         try {
-          const user = await prisma.user.findUnique({
+          const { data: user } = await getUser({
             where: {
               email: credentials.email,
               password: credentials.password,

@@ -8,45 +8,30 @@ import prisma from "../prisma"
 import { DEFAULT_LIMIT, DEFAULT_PAGE, IActionReturn, IGetListResponse } from "../shared/type"
 import { tagItemSelect, tagListSelect, TTagItem, TTagListItem } from "./selects"
 
-type GetTagsProps = {
-  page?: number
-  limit?: number
-  orderBy?: Prisma.TagsOrderByRelevanceInput
-}
-
-export const getTags = async ({
-  page = 1,
-  limit = LIMIT_PER_PAGE,
-  orderBy,
-}: GetTagsProps): Promise<IActionReturn<IGetListResponse<TTagItem>>> => {
-  const tagQuery = {
-    select: tagListSelect,
-    take: Number(limit) || 10,
-    skip: (page > 0 ? page - 1 : 0) * Number(limit),
-    where: {
-      name: {
-        contains: orderBy?.search,
-        mode: "insensitive",
-      },
-    },
-    orderBy,
+export const getTags = async (
+  tagsFindManyArgs: Prisma.TagsFindManyArgs = {
+    take: LIMIT_PER_PAGE,
+    skip: DEFAULT_LIMIT * (DEFAULT_PAGE - 1),
   }
-
+): Promise<IActionReturn<IGetListResponse<TTagListItem>>> => {
   try {
     const [data, total] = await Promise.all([
-      prisma.tags.findMany(tagQuery),
+      prisma.tags.findMany({
+        ...tagsFindManyArgs,
+        select: tagListSelect,
+      }),
       prisma.tags.count({
-        where: tagQuery.where,
+        where: tagsFindManyArgs?.where || {},
       }),
     ])
+
+    prisma.tags.findMany()
 
     return {
       data: {
         data,
         total,
-        limit,
-        page,
-        totalPages: Math.ceil(total / Number(limit)),
+        limit: tagsFindManyArgs?.take || DEFAULT_LIMIT,
       },
     }
   } catch (error) {
@@ -56,8 +41,7 @@ export const getTags = async ({
       data: {
         data: [],
         total: 0,
-        limit,
-        page,
+        limit: DEFAULT_LIMIT,
       },
       error,
     }

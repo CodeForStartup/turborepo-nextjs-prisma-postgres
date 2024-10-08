@@ -4,7 +4,11 @@ import UserProfile from "@/molecules/follower/user-profile"
 import PostList from "@/molecules/posts/post-list"
 
 export const generateMetadata = async ({ params }) => {
-  const { data: author, error } = await getUser({ userId: params?.authorId })
+  const { data: author, error } = await getUser({
+    where: {
+      id: params?.authorId,
+    },
+  })
 
   return {
     title: author?.name,
