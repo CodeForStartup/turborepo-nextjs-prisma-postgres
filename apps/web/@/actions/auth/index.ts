@@ -7,6 +7,8 @@ import { Prisma } from "database"
 import { createUser } from "database/src/users/queries"
 import { z } from "zod"
 
+import { SignUpDataOutput } from "./type"
+
 export const signInWithCredentials = async (email: string, password: string) => {
   await signIn("credentials", {
     email,
@@ -25,16 +27,6 @@ export const onSignOut = async () => {
 }
 
 // SIGN UP
-export const signUpSchema = z.object({
-  email: z.string().email("Email is invalid"),
-  password: z.string().min(8),
-  confirmPassword: z.string().min(8),
-})
-
-export type SignUpDataInput = z.infer<typeof signUpSchema>
-
-export type SignUpDataOutput = z.inferFlattenedErrors<typeof signUpSchema>
-
 export const signUp = async (
   data: Pick<Prisma.UserCreateInput, "email" | "password">
 ): Promise<SignUpDataOutput> => {

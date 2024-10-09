@@ -26,7 +26,8 @@ import {
 } from "ui"
 import { z } from "zod"
 
-import { signUp, SignUpDataInput, signUpSchema } from "@/actions/auth"
+import { signUp } from "@/actions/auth"
+import { SignUpDataInput, signUpSchema } from "@/actions/auth/type"
 
 import AuthForm from "../auth-form"
 

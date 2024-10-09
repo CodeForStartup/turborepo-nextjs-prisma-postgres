@@ -23,7 +23,14 @@ export const {
       },
       authorize: async (credentials: Record<string, string>) => {
         try {
-          const { data: user } = await getUser({
+          // IMPROVE:
+          // const { data: user } = await getUser({
+          //   where: {
+          //     email: credentials.email,
+          //     password: credentials.password,
+          //   },
+          // })
+          const user = await prisma.user.findUnique({
             where: {
               email: credentials.email,
               password: credentials.password,

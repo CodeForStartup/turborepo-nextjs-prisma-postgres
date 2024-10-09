@@ -1,13 +1,12 @@
 "use client"
 
 import Link from "next/link"
-import { useSearchParams } from "next/navigation"
 
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Github } from "lucide-react"
 import { useTranslations } from "next-intl"
 import { useForm } from "react-hook-form"
-import { Button, Card, CardContent, CardFooter, Input, Label, Typography } from "ui"
+import { Button, Input, Label, Typography } from "ui"
 import { z } from "zod"
 
 import { signInWithCredentials, signInWithGithub } from "@/actions/auth"
