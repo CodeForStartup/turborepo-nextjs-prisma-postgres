@@ -142,8 +142,10 @@
   "auth": {
     "email_label": "Email",
     "password_label": "Password",
+    "confirm_password_label": "Confirm Password",
     "email_placeholder": "Enter your email",
     "password_placeholder": "Enter your password",
+    "confirm_password_placeholder": "Enter your password again",
     "dont_have_an_account": "Don't have an account?",
     "or_continue_with": "Or continue with",
     "github": "GitHub",
@@ -165,11 +167,14 @@
       "sign_in_with_linkedin": "Sign in with LinkedIn",
       "sign_in_with_instagram": "Sign in with Instagram",
       "sign_in_with_youtube": "Sign in with YouTube",
-      "sign_in_with_tiktok": "Sign in with TikTok"
+      "sign_in_with_tiktok": "Sign in with TikTok",
+      "sign_in_to_your_account_to_continue": "Sign in to your account to continue"
     },
     "sign_up": {
       "title": "Sign Up",
-      "description": "Sign up for an account"
+      "description": "Sign up for an account",
+      "already_have_an_account": "Already have an account?",
+      "sign_in": "Sign In"
     },
     "forgot_password": {
       "title": "Forgot Password",

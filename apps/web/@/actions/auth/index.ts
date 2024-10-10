@@ -1,6 +1,13 @@
 "use server"
 
+import bcrypt from "bcrypt"
 import { signIn, signOut } from "configs/auth"
+import { Prisma } from "database"
+import { createUser } from "database/src/users/queries"
+
+import { redirect } from "@/utils/navigation"
+
+import { SignUpDataOutput, signUpSchema } from "./type"
 
 export const signInWithCredentials = async (email: string, password: string) => {
   await signIn("credentials", {
@@ -17,4 +24,39 @@ export const onSignOut = async () => {
   await signOut({
     redirectTo: "/",
   })
+}
+
+// SIGN UP
+export const signUp = async (
+  data: Pick<Prisma.UserCreateInput, "email" | "password">
+): Promise<SignUpDataOutput> => {
+  try {
+    // hash password
+    const { email, password } = data
+    const hashedPassword = await bcrypt.hash(password, 10)
+
+    await createUser({
+      data: {
+        email,
+        password: hashedPassword,
+      },
+    })
+  } catch (error) {
+    if (error?.error?.code === "P2002") {
+      return {
+        formErrors: null,
+        fieldErrors: {
+          email: ["Email already exists"], // TODO: localize error message
+        },
+      }
+    }
+
+    return {
+      formErrors: [error?.message],
+      fieldErrors: {},
+    }
+  }
+
+  // TODO: white this redirect not work
+  redirect("/login")
 }

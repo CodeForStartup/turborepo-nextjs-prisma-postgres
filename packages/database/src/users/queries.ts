@@ -1,23 +1,66 @@
+"use server"
+
+import { Prisma } from "@prisma/client"
+
 import prisma from "../prisma"
 import { IActionReturn } from "../shared/type"
 import { TUserDetail, userDetailSelect } from "./selects"
-import { TGetUserProps } from "./type"
 
-export const getUser = async ({ userId }: TGetUserProps): Promise<IActionReturn<TUserDetail>> => {
+export const getUser = async (
+  userFindFirstArgs: Prisma.UserFindFirstArgs
+): Promise<IActionReturn<TUserDetail>> => {
   try {
     const data = await prisma.user.findFirst({
-      where: {
-        id: userId,
-      },
+      ...userFindFirstArgs,
       select: userDetailSelect,
     })
 
     if (!data) {
       throw {
+        data: null,
         error: "NOT_FOUND",
       }
     }
 
+    return {
+      data,
+    }
+  } catch (error) {
+    throw {
+      error,
+      data: null,
+    }
+  }
+}
+
+export const createUser = async (
+  userCreateArgs: Prisma.UserCreateArgs
+): Promise<IActionReturn<TUserDetail>> => {
+  try {
+    const data = await prisma.user.create({
+      ...userCreateArgs,
+      select: userDetailSelect,
+    })
+
+    return {
+      data,
+    }
+  } catch (error) {
+    throw {
+      error,
+      data: null,
+    }
+  }
+}
+
+export const updateUser = async (
+  userUpdateArgs: Prisma.UserUpdateArgs
+): Promise<IActionReturn<TUserDetail>> => {
+  try {
+    const data = await prisma.user.update({
+      ...userUpdateArgs,
+      select: userDetailSelect,
+    })
     return {
       data,
     }

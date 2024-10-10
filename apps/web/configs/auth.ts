@@ -1,5 +1,6 @@
 import { PrismaAdapter } from "@auth/prisma-adapter"
-import prisma from "database"
+import bcryptjs from "bcryptjs"
+import prisma, { getUser } from "database"
 import NextAuth from "next-auth"
 import Credentials from "next-auth/providers/credentials"
 import GithubProvider from "next-auth/providers/github"
@@ -23,15 +24,28 @@ export const {
       },
       authorize: async (credentials: Record<string, string>) => {
         try {
-          const user = await prisma.user.findUnique({
+          // IMPROVE:
+          const { data: user } = await getUser({
             where: {
               email: credentials.email,
-              password: credentials.password,
             },
           })
 
+          // const user = await prisma.user.findUnique({
+          //   where: {
+          //     email: credentials.email,
+          //     password: credentials.password,
+          //   },
+          // })
+
           if (!user) {
             return null
+          }
+
+          const isPasswordValid = await bcryptjs.compare(credentials.password, user.password)
+
+          if (!isPasswordValid) {
+            return null // Invalid password
           }
 
           return user

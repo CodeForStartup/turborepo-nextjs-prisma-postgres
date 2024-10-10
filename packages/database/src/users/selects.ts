@@ -12,6 +12,7 @@ export const userDetailSelect = {
   totalFollowing: true,
   totalPost: true,
   totalView: true,
+  password: true,
 } satisfies Prisma.UserSelect
 
 export type TUserDetail = Prisma.UserGetPayload<{
