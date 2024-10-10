@@ -1,13 +1,13 @@
 "use server"
 
-import { redirect } from "next/navigation"
-
+import bcrypt from "bcrypt"
 import { signIn, signOut } from "configs/auth"
 import { Prisma } from "database"
 import { createUser } from "database/src/users/queries"
-import { z } from "zod"
 
-import { SignUpDataOutput } from "./type"
+import { redirect } from "@/utils/navigation"
+
+import { SignUpDataOutput, signUpSchema } from "./type"
 
 export const signInWithCredentials = async (email: string, password: string) => {
   await signIn("credentials", {
@@ -31,13 +31,20 @@ export const signUp = async (
   data: Pick<Prisma.UserCreateInput, "email" | "password">
 ): Promise<SignUpDataOutput> => {
   try {
-    await createUser({ data })
+    // hash password
+    const { email, password } = data
+    const hashedPassword = await bcrypt.hash(password, 10)
 
-    redirect("/login")
+    await createUser({
+      data: {
+        email,
+        password: hashedPassword,
+      },
+    })
   } catch (error) {
-    if (error.code === "P2002") {
+    if (error?.error?.code === "P2002") {
       return {
-        formErrors: [],
+        formErrors: null,
         fieldErrors: {
           email: ["Email already exists"], // TODO: localize error message
         },
@@ -49,4 +56,7 @@ export const signUp = async (
       fieldErrors: {},
     }
   }
+
+  // TODO: white this redirect not work
+  redirect("/login")
 }

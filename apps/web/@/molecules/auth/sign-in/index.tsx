@@ -21,7 +21,7 @@ type FormData = {
 export default function SignIn() {
   const t = useTranslations("auth")
 
-  const { register, handleSubmit } = useForm<FormData>({
+  const { register, handleSubmit, formState } = useForm<FormData>({
     resolver: zodResolver(
       z.object({
         email: z.string().email(),
@@ -29,6 +29,8 @@ export default function SignIn() {
       })
     ),
   })
+
+  console.log("formState", formState)
 
   const onSignIn = async (data: FormData) => {
     await signInWithCredentials(data.email, data.password)

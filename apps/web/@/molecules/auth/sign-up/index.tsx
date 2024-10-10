@@ -28,6 +28,7 @@ import { z } from "zod"
 
 import { signUp } from "@/actions/auth"
 import { SignUpDataInput, signUpSchema } from "@/actions/auth/type"
+import { redirect } from "@/utils/navigation"
 
 import AuthForm from "../auth-form"
 
@@ -52,17 +53,14 @@ export default function SignUp() {
   //   null
   // )
 
-  console.log(">>>", errors)
-
   const formAction = async ({ confirmPassword, ...data }: SignUpDataInput) => {
     const error = await signUp(data)
 
-    console.log("formAction>>error", error)
-
     if (error.formErrors) {
       toast.error(error.formErrors?.at(0))
-    }
 
+      return
+    }
     if (error.fieldErrors) {
       Object?.entries(error.fieldErrors)?.forEach(([field, message]) => {
         setError(field, {
@@ -70,7 +68,10 @@ export default function SignUp() {
           message,
         })
       })
+      return
     }
+
+    redirect("/login")
   }
 
   return (
@@ -106,7 +107,7 @@ export default function SignUp() {
                 name="password"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel htmlFor="email">{t("password_label")}</FormLabel>
+                    <FormLabel htmlFor="password">{t("password_label")}</FormLabel>
                     <FormControl>
                       <Input
                         id="password"
@@ -125,7 +126,7 @@ export default function SignUp() {
                 name="confirmPassword"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel htmlFor="email">{t("confirm_password_label")}</FormLabel>
+                    <FormLabel htmlFor="confirmPassword">{t("confirm_password_label")}</FormLabel>
                     <FormControl>
                       <Input
                         id="confirmPassword"
