@@ -33,27 +33,27 @@ turbo dev
 
 # Libraries
 
-🤖 ReactJS  
-🎯 TypeScript  
-💫 NextJS 14 - App router and server actions  
-🐧 next-auth  
-🤗 Prisma ORM  
-🎭 Postgres  
-🚀 Turborepo  
-🎯 TailwindCSS  
-🔥 shadcn  
-💌 next-themes  
-🖋 Zod validation  
-🎰 React Form Hook  
-️🥇 Tsup  
-💒 EditorJs  
-🐢 react-toastify  
-🍾 react-textarea-autosize  
-🐠 lucide-react icon  
-🐴 dayjs  
-🤗 Eslint  
-💥 Husky  
-👽 Prettier
+- ReactJS  
+- TypeScript  
+- NextJS 14 - App router and server actions  
+- next-auth  
+- Prisma ORM  
+- Postgres  
+- Turborepo  
+- TailwindCSS  
+- shadcn  
+- next-themes  
+- Zod validation  
+- React Form Hook  
+️- Tsup  
+- EditorJs  
+- react-toastify  
+- react-textarea-autosize  
+- lucide-react icon  
+- dayjs  
+- Eslint  
+- Husky  
+- Prettier
 
 # Functions
 
