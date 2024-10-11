@@ -1,6 +1,6 @@
 "use server"
 
-import bcrypt from "bcrypt"
+import bcryptjs from "bcryptjs"
 import { signIn, signOut } from "configs/auth"
 import { Prisma } from "database"
 import { createUser } from "database/src/users/queries"
@@ -33,7 +33,7 @@ export const signUp = async (
   try {
     // hash password
     const { email, password } = data
-    const hashedPassword = await bcrypt.hash(password, 10)
+    const hashedPassword = await bcryptjs.hash(password, 10)
 
     await createUser({
       data: {
