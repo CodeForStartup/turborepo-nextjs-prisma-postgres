@@ -1,7 +1,6 @@
 import "./globals.css"
 import "ui/dist/index.css"
 import "react-toastify/dist/ReactToastify.css"
-import "remixicon/fonts/remixicon.css"
 
 import { NextIntlClientProvider, useMessages } from "next-intl"
 import AuthProvider from "providers/authProvider"

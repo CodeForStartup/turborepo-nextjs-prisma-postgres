@@ -1,6 +1,7 @@
 "use client"
 
 import { PostOnUserType, TPostItem } from "database"
+import { Heart } from "lucide-react"
 import { useTranslations } from "next-intl"
 import { Button, cn, Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "ui"
 
@@ -35,11 +36,9 @@ const LikeButton: React.FC<LikeButtonProps> = ({ children, post, isLiked }: Like
                 "hover:border-stale-300 border-stale-800 flex h-12 w-12 items-center justify-center rounded-full border bg-white p-0 text-2xl hover:bg-slate-200"
               )}
             >
-              <i
-                className={cn("ri-heart-3-fill", {
-                  "text-red-500": isLiked,
-                  "text-gray-500 ": !isLiked,
-                })}
+              <Heart
+                fill={isLiked ? "tomato" : "gray"}
+                color={isLiked ? "tomato" : "gray"}
               />
             </Button>
           </TooltipTrigger>

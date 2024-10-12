@@ -1,4 +1,5 @@
 import { TPostItem } from "database"
+import { Heart } from "lucide-react"
 import { useTranslations } from "next-intl"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger, Typography } from "ui"
 
@@ -15,7 +16,12 @@ const LikeButton: React.FC<LikeButtonProps> = ({ post }: LikeButtonProps) => {
         <Tooltip>
           <TooltipTrigger asChild>
             <div className="flex items-center gap-1">
-              <i className="ri-heart-3-fill text-red-500" />
+              <Heart
+                size={16}
+                strokeWidth={2}
+                fill="tomato"
+                color="tomato"
+              />
               <Typography
                 variant="span"
                 className="text-sm text-gray-600"

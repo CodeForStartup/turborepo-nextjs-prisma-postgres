@@ -2,6 +2,7 @@ import React from "react"
 import Link from "next/link"
 
 import { TPostItem } from "database"
+import { MessageSquareCode } from "lucide-react"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "ui"
 
 import APP_ROUTES from "@/constants/routes"
@@ -22,7 +23,7 @@ const CommentButton: React.FC<CommentButtonProps> = ({ post }) => {
             })}#comments`}
             className="flex h-8 items-center justify-center rounded-md px-2 hover:bg-slate-300"
           >
-            <i className="ri-message-2-line" />
+            <MessageSquareCode size={16} />
             <div className="ml-1 flex items-center text-sm text-gray-600">
               {post?._count?.comments || 0}
             </div>
