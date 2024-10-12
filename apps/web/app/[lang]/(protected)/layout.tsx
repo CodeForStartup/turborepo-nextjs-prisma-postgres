@@ -9,14 +9,14 @@ const SIDE_BAR = [
     label: "Posts",
     link: "/user/posts",
   },
-  {
-    label: "Password",
-    link: "/user/change-password",
-  },
-  {
-    label: "Setting",
-    link: "/user/settings",
-  },
+  // {
+  //   label: "Password",
+  //   link: "/user/change-password",
+  // },
+  // {
+  //   label: "Setting",
+  //   link: "/user/settings",
+  // },
 ] as Array<SidebarItemProps>
 
 export default async function ProtectedLayout({ children }: { children: React.ReactNode }) {

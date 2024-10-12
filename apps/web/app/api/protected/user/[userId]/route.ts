@@ -1,5 +1,7 @@
 import { NextRequest } from "next/server"
 
+import prisma from "database"
+
 import { userSelect } from "@/types/users"
 
 export async function GET(request: NextRequest, { params }: { params: { userId: string } }) {
