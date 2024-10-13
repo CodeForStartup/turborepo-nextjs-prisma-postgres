@@ -1,10 +1,11 @@
 import {
   Body,
+  Button,
   Container,
   Head,
   Heading,
   Html,
-  Img,
+  Link,
   Preview,
   Section,
   Tailwind,
@@ -19,14 +20,7 @@ export default function VerifyEmail({}) {
       <Tailwind>
         <Body className="mx-auto my-auto bg-white font-sans">
           <Container className="mx-auto my-10 max-w-[500px] rounded border border-solid border-gray-200 px-10 py-5">
-            <Section className="mt-8">
-              {/* <Img
-                src={DUB_WORDMARK}
-                height="40"
-                alt="Dub"
-                className="mx-auto my-0"
-              /> */}
-            </Section>
+            <Section className="mt-8 text-center text-[24px] font-bold">Next Forum</Section>
             <Heading className="mx-0 my-7 p-0 text-center text-xl font-semibold text-black">
               Please confirm your email address
             </Heading>
@@ -34,11 +28,16 @@ export default function VerifyEmail({}) {
               Click link below to verify your email:
             </Text>
             <Section className="my-8">
-              <div className="mx-auto w-fit rounded-xl px-6 py-3 text-center font-mono text-2xl font-semibold tracking-[0.25em]">
-                123456
-              </div>
+              <Link
+                href=""
+                className="align-center flex w-[100%] justify-center rounded-sm bg-[tomato] py-2 text-center font-medium text-white"
+              >
+                GET STARTED
+              </Link>
             </Section>
-            <Text className="text-sm leading-6 text-black">This code expires in 10 minutes.</Text>
+            <Text className="text-sm leading-6 text-black">
+              This link is expired in 10 minutes.
+            </Text>
           </Container>
         </Body>
       </Tailwind>
