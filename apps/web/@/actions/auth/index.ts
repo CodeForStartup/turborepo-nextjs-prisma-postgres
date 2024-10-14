@@ -41,6 +41,8 @@ export const signUp = async (
         password: hashedPassword,
       },
     })
+
+    // send email
   } catch (error) {
     if (error?.error?.code === "P2002") {
       return {
