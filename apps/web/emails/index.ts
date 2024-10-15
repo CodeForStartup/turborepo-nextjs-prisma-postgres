@@ -4,7 +4,7 @@ import { render } from "@react-email/components"
 import nodemailer from "nodemailer"
 import { CreateEmailOptions } from "resend"
 
-import { resend } from "@/lib/resend"
+import { resend } from "@/libs/resend"
 
 // Send email using SMTP (Recommended for local development)
 const sendEmailViaSMTP = async ({
@@ -63,10 +63,13 @@ export const sendEmailViaResend = async ({
   return await resend.emails.send({
     to: email,
     from:
-      from || (marketing ? "Steven from Dub.co <steven@ship.dub.co>" : "Dub.co <system@dub.co>"),
+      from ||
+      (marketing
+        ? "Luan Nguyen from codeforstartup.com <support@codeforstartup.com>"
+        : "codeforstartup.com <support@codeforstartup.com>"),
     bcc: bcc,
     ...(!replyToFromEmail && {
-      replyTo: "support@dub.co",
+      replyTo: "support@codeforstartup.com",
     }),
     subject: subject,
     text: text,
@@ -74,7 +77,7 @@ export const sendEmailViaResend = async ({
     scheduledAt,
     ...(marketing && {
       headers: {
-        "List-Unsubscribe": "https://app.dub.co/account/settings",
+        "List-Unsubscribe": process.env.NEXT_PUBLIC_FRONTEND_URL,
       },
     }),
   })
@@ -97,6 +100,8 @@ export const sendEmail = async ({
   marketing?: boolean
 }) => {
   if (resend) {
+    console.info("sendmail...", email)
+
     return await sendEmailViaResend({
       email,
       subject,

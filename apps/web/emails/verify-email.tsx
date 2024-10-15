@@ -12,7 +12,7 @@ import {
   Text,
 } from "@react-email/components"
 
-export default function VerifyEmail({}) {
+export default function VerifyEmail({ token, email }: { token: string; email: string }) {
   return (
     <Html>
       <Head />
@@ -29,7 +29,7 @@ export default function VerifyEmail({}) {
             </Text>
             <Section className="my-8">
               <Link
-                href=""
+                href={`${process.env.NEXT_PUBLIC_APP_URL}/auth/verify-email?code=${token}&email=${email}`}
                 className="align-center flex w-[100%] justify-center rounded-sm bg-[tomato] py-2 text-center font-medium text-white"
               >
                 GET STARTED
