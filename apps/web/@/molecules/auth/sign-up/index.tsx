@@ -3,17 +3,11 @@
 import Link from "next/link"
 
 import { zodResolver } from "@hookform/resolvers/zod"
-import { Prisma } from "database"
-import { GithubIcon } from "lucide-react"
 import { useTranslations } from "next-intl"
-import { useFormState } from "react-dom"
 import { useForm } from "react-hook-form"
 import { toast } from "react-toastify"
 import {
   Button,
-  Card,
-  CardContent,
-  CardFooter,
   Form,
   FormControl,
   FormField,
@@ -21,7 +15,6 @@ import {
   FormLabel,
   FormMessage,
   Input,
-  Label,
   Typography,
 } from "ui"
 import { z } from "zod"

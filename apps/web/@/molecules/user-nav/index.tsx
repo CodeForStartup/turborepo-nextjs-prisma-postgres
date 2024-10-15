@@ -47,8 +47,10 @@ export async function UserNav() {
       >
         <DropdownMenuLabel className="font-normal">
           <Link href={`/author/${session?.user?.id}`}>
-            <div className="flex flex-col justify-center rounded-sm p-2 hover:bg-muted hover:underline">
-              <Typography className="font-bold leading-none">@{session?.user?.name}</Typography>
+            <div className="flex flex-col justify-center gap-2 rounded-sm p-2 hover:bg-muted hover:underline">
+              <Typography className="font-bold leading-none">
+                @{session?.user?.name || session?.user?.email.split("@")[0]}
+              </Typography>
               <Typography
                 variant="span"
                 className="text-xs leading-none text-muted-foreground"
@@ -78,7 +80,7 @@ export async function UserNav() {
             </Link>
             <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
           </DropdownMenuItem>
-          <DropdownMenuItem>
+          {/* <DropdownMenuItem>
             <Link
               href="/user/settings"
               className="flex flex-1"
@@ -86,8 +88,8 @@ export async function UserNav() {
               {t("common.setting")}
             </Link>
             <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
-          </DropdownMenuItem>
-          <DropdownMenuItem>
+          </DropdownMenuItem> */}
+          {/* <DropdownMenuItem>
             <Link
               href="/user/password"
               className="flex flex-1"
@@ -95,7 +97,7 @@ export async function UserNav() {
               {t("common.password")}
             </Link>
             <DropdownMenuShortcut>⌘P</DropdownMenuShortcut>
-          </DropdownMenuItem>
+          </DropdownMenuItem> */}
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <LogoutMenu />

@@ -31,13 +31,6 @@ export const {
             },
           })
 
-          // const user = await prisma.user.findUnique({
-          //   where: {
-          //     email: credentials.email,
-          //     password: credentials.password,
-          //   },
-          // })
-
           if (!user) {
             return null
           }

@@ -1,10 +1,8 @@
 import "./globals.css"
 import "ui/dist/index.css"
 import "react-toastify/dist/ReactToastify.css"
-import "remixicon/fonts/remixicon.css"
 
 import { NextIntlClientProvider, useMessages } from "next-intl"
-import AuthProvider from "providers/authProvider"
 import { ToastContainer } from "react-toastify"
 
 import Footer from "@/molecules/footer"
@@ -36,16 +34,14 @@ export default function RootLayout({
           locale={lang}
           messages={messages}
         >
-          <AuthProvider>
-            <Providers>
-              <Nav />
-              <main className="container mx-auto mt-12 min-h-[800px] px-4 pb-16 sm:px-6 lg:px-8">
-                {children}
-                <ToastContainer />
-              </main>
-              <Footer />
-            </Providers>
-          </AuthProvider>
+          <Providers>
+            <Nav />
+            <main className="container mx-auto mt-12 min-h-[800px] px-4 pb-16 sm:px-6 lg:px-8">
+              {children}
+              <ToastContainer />
+            </main>
+            <Footer />
+          </Providers>
         </NextIntlClientProvider>
       </body>
     </html>

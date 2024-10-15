@@ -2,8 +2,8 @@
 import Link from "next/link"
 
 import dayjs from "dayjs"
+import { Avatar, AvatarFallback, AvatarImage } from "ui"
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { TPostItem } from "@/types/posts"
 
 export type PostMetaProps = {

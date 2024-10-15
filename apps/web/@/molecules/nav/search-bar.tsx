@@ -3,8 +3,9 @@
 import { useEffect, useRef, useState } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
 
+import { SquareX, X } from "lucide-react"
 import { useTranslations } from "next-intl"
-import { Button, cn, Input } from "ui"
+import { Button, Input } from "ui"
 
 export default function SearchBar() {
   const t = useTranslations()
@@ -71,13 +72,16 @@ export default function SearchBar() {
         <div className="absolute right-1 top-1 flex h-8 items-center">
           {searchTerm && (
             <>
-              <Button
-                className="h-8 w-8 border-none hover:bg-transparent"
-                variant="outline"
+              <button
+                className="h-8 w-8 border-none"
                 onClick={onClear}
               >
-                <i className="ri-close-line text-[20px]" />
-              </Button>
+                <X
+                  size={20}
+                  strokeWidth={2}
+                  color="black"
+                />
+              </button>
               <Button
                 variant="default"
                 onClick={onSearch}

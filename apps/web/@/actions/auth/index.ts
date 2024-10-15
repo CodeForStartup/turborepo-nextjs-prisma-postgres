@@ -1,9 +1,11 @@
 "use server"
 
-import bcrypt from "bcrypt"
+import bcryptjs from "bcryptjs"
 import { signIn, signOut } from "configs/auth"
 import { Prisma } from "database"
 import { createUser } from "database/src/users/queries"
+import { sendEmail } from "emails"
+import VerifyEmail from "emails/verify-email"
 
 import { redirect } from "@/utils/navigation"
 
@@ -33,7 +35,7 @@ export const signUp = async (
   try {
     // hash password
     const { email, password } = data
-    const hashedPassword = await bcrypt.hash(password, 10)
+    const hashedPassword = await bcryptjs.hash(password, 10)
 
     await createUser({
       data: {
@@ -41,7 +43,32 @@ export const signUp = async (
         password: hashedPassword,
       },
     })
+
+    console.log("create user...successfully")
+
+    // create verification code
+    const token = crypto.randomUUID()
+    await prisma.verificationToken.create({
+      data: {
+        token, // 6 digits code
+        identifier: email,
+        expires: new Date(Date.now() + 1000 * 60 * 60 * 24), // 1 day
+      },
+    })
+
+    console.log("verification token...successfully")
+
+    // send email
+    await sendEmail({
+      email,
+      subject: "Welcome to Next Forum",
+      react: VerifyEmail({
+        token,
+        email,
+      }),
+    })
   } catch (error) {
+    console.error("signUp.error", error)
     if (error?.error?.code === "P2002") {
       return {
         formErrors: null,

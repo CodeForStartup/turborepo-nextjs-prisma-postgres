@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
 
+import { X } from "lucide-react"
 import { useTranslations } from "next-intl"
 
 import { Input } from "@/components/ui/input"
@@ -80,7 +81,7 @@ export default function SearchBar() {
                 variant="outline"
                 onClick={onClear}
               >
-                <i className="ri-close-line text-[20px]" />
+                <X />
               </Button>
               <Button
                 variant="default"

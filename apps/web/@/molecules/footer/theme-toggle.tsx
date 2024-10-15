@@ -2,6 +2,7 @@
 
 import React from "react"
 
+import { MonitorDot, Moon, Sun } from "lucide-react"
 import { useTheme } from "next-themes"
 import { Button } from "ui"
 
@@ -19,21 +20,21 @@ const ThemeToggle: React.FC = () => {
         variant="link"
         className="hover:no-underline"
       >
-        <i className="ri-mac-line" />
+        <MonitorDot />
       </Button>
       <Button
         onClick={toggleTheme}
         variant="link"
         className="hover:no-underline"
       >
-        <i className="ri-sun-line" />
+        <Sun />
       </Button>
       <Button
         onClick={toggleTheme}
         variant="link"
         className="hover:no-underline"
       >
-        <i className="ri-moon-line" />
+        <Moon />
       </Button>
     </div>
   )

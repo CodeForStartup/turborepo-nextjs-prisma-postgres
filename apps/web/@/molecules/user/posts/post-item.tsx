@@ -4,6 +4,7 @@ import Link from "next/link"
 
 import { deletePost, PostStatus, TPostItem } from "database"
 import dayjs from "dayjs"
+import { Bookmark, Heart } from "lucide-react"
 import { useSession } from "next-auth/react"
 import { useTranslations } from "next-intl"
 import {
@@ -17,8 +18,6 @@ import {
   Typography,
 } from "ui"
 
-import { togglePostStatus } from "@/actions/manage-post"
-
 export default function PostItem(post: TPostItem) {
   const t = useTranslations()
   const { data: session } = useSession()
@@ -28,7 +27,7 @@ export default function PostItem(post: TPostItem) {
   }
 
   const onTogglePostStatus = async () => {
-    await togglePostStatus(post.id, post.postStatus)
+    // TODO:
   }
 
   return (
@@ -53,7 +52,10 @@ export default function PostItem(post: TPostItem) {
 
         <div className="mt-2 flex gap-8">
           <div className="flex items-center gap-2">
-            <i className="ri-heart-fill text-[tomato]" />
+            <Heart
+              size="20"
+              color="text-[tomato]"
+            />
             <Typography
               variant="span"
               className="text-sm"
@@ -63,6 +65,10 @@ export default function PostItem(post: TPostItem) {
           </div>
           <div className="flex items-center gap-2">
             <i className="ri-bookmark-3-line text-blue-900" />
+            <Bookmark
+              size={20}
+              strokeWidth={3}
+            />
             <Typography
               variant="span"
               className="text-sm"

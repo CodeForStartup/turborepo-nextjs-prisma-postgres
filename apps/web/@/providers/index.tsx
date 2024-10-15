@@ -2,6 +2,8 @@
 
 import { ThemeProvider } from "next-themes"
 
+import AuthProvider from "./authProvider"
+
 export function Providers({ children }: { children: React.ReactNode }) {
   return (
     <ThemeProvider
@@ -9,7 +11,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
       defaultTheme="system"
       enableSystem
     >
-      {children}
+      <AuthProvider>{children}</AuthProvider>
     </ThemeProvider>
   )
 }
