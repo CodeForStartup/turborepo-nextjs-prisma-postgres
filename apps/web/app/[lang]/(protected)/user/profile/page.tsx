@@ -1,4 +1,4 @@
-import { auth } from "configs/auth"
+import { auth } from "auth"
 
 import APP_APIS from "@/constants/apis"
 import PageTitle from "@/molecules/page-title"

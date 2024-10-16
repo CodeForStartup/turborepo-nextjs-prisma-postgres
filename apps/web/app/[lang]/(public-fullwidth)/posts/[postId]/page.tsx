@@ -10,7 +10,7 @@ import { TSearchParams } from "@/types"
 
 import "./tocbot.css"
 
-import { auth } from "configs/auth"
+import { auth } from "auth"
 import { getPost, PostStatus } from "database"
 
 export async function generateMetadata({ params }): Promise<Metadata> {

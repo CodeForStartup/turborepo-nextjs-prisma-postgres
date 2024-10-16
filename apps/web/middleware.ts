@@ -1,8 +1,9 @@
 import { NextRequest, NextResponse } from "next/server"
 
-import { auth } from "configs/auth"
 import { locales } from "i18n"
 import createIntlMiddleware from "next-intl/middleware"
+
+import { getAuth } from "@/actions/auth"
 
 const handleI18nRouting = createIntlMiddleware({
   locales,
@@ -12,7 +13,7 @@ const handleI18nRouting = createIntlMiddleware({
 
 export async function middleware(req: NextRequest) {
   const currentPathname = req.nextUrl.pathname
-  const session = await auth()
+  const session = await getAuth()
 
   if (!session?.user?.email && currentPathname.startsWith("/user")) {
     const newUrl = req.nextUrl.clone()
