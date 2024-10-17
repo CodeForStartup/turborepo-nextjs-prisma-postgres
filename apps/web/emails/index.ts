@@ -1,7 +1,5 @@
-import { ReactElement } from "react"
+"use server"
 
-import { render } from "@react-email/components"
-import nodemailer from "nodemailer"
 import { CreateEmailOptions } from "resend"
 
 import { resend } from "@/libs/resend"
@@ -100,8 +98,6 @@ export const sendEmail = async ({
   marketing?: boolean
 }) => {
   if (resend) {
-    console.info("sendmail...", email)
-
     return await sendEmailViaResend({
       email,
       subject,
