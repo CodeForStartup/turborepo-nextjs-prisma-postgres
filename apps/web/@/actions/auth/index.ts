@@ -1,15 +1,18 @@
 "use server"
 
+import { auth, signIn, signOut } from "auth"
 import bcryptjs from "bcryptjs"
-import { signIn, signOut } from "configs/auth"
-import { Prisma } from "database"
+import prisma from "database"
 import { createUser } from "database/src/users/queries"
-import { sendEmail } from "emails"
-import VerifyEmail from "emails/verify-email"
 
 import { redirect } from "@/utils/navigation"
 
-import { SignUpDataOutput, signUpSchema } from "./type"
+// import { Prisma } from 'database'
+import { SignUpDataOutput } from "./type"
+
+export const getAuth = async () => {
+  return await auth()
+}
 
 export const signInWithCredentials = async (email: string, password: string) => {
   await signIn("credentials", {
@@ -44,10 +47,8 @@ export const signUp = async (
       },
     })
 
-    console.log("create user...successfully")
-
     // create verification code
-    const token = crypto.randomUUID()
+    const token = bcryptjs.randomUUID()
     await prisma.verificationToken.create({
       data: {
         token, // 6 digits code
@@ -58,15 +59,16 @@ export const signUp = async (
 
     console.log("verification token...successfully")
 
-    // send email
-    await sendEmail({
-      email,
-      subject: "Welcome to Next Forum",
-      react: VerifyEmail({
-        token,
-        email,
-      }),
-    })
+    // send email:
+    // TODO: issue https://github.com/resend/resend-node/issues/437
+    // await sendEmail({
+    //   email,
+    //   subject: "Welcome to Next Forum",
+    //   react: VerifyEmail({
+    //     token,
+    //     email,
+    //   }),
+    // })
   } catch (error) {
     console.error("signUp.error", error)
     if (error?.error?.code === "P2002") {

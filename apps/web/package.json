@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --turbo",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
@@ -15,7 +15,8 @@
   "dependencies": {
     "@auth/prisma-adapter": "^1.0.3",
     "@hookform/resolvers": "^3.3.1",
-    "@react-email/components": "^0.0.25",
+    "@react-email/components": "0.0.26-canary.4",
+    "@react-email/render": "1.0.2-canary.0",
     "@tiptap/extension-blockquote": "^2.1.13",
     "@tiptap/extension-bold": "^2.1.13",
     "@tiptap/extension-bullet-list": "^2.1.13",
@@ -47,8 +48,8 @@
     "lowlight": "^3.1.0",
     "lucide-react": "^0.427.0",
     "negotiator": "^0.6.3",
-    "next": "14.2.0-canary.50",
-    "next-auth": "5.0.0-beta.20",
+    "next": "15.0.0-canary.195",
+    "next-auth": "5.0.0-beta.21",
     "next-intl": "^3.10.0",
     "next-themes": "^0.2.1",
     "nodemailer": "^6.9.15",
@@ -56,13 +57,13 @@
     "postcss": "^8.4.28",
     "prismjs": "^1.29.0",
     "qs": "^6.11.2",
-    "react": "^18.2.0",
+    "react": "19.0.0-rc-cd22717c-20241013",
     "react-dnd": "^16.0.1",
     "react-dnd-html5-backend": "^16.0.1",
-    "react-dom": "^18.2.0",
+    "react-dom": "19.0.0-rc-cd22717c-20241013",
     "react-dropzone": "^14.2.3",
     "react-editor-js": "^2.1.0",
-    "react-email": "^3.0.1",
+    "react-email": "3.0.2-canary.3",
     "react-hook-form": "^7.46.1",
     "react-html-parser": "^2.0.2",
     "react-select": "^5.8.0",
@@ -85,11 +86,16 @@
     "uuid": "^10.0.0",
     "zod": "^3.22.2"
   },
+  "overrides": {
+    "resend": {
+      "@react-email/render": "1.0.2-canary.0"
+    }
+  },
   "devDependencies": {
     "@svgr/webpack": "^8.1.0",
     "@types/node": "^17.0.12",
-    "@types/react": "^18.0.22",
-    "@types/react-dom": "^18.0.7",
+    "@types/react": "npm:types-react@19.0.0-rc.1",
+    "@types/react-dom": "npm:types-react-dom@19.0.0-rc.1",
     "database": "workspace:^",
     "eslint-config-custom": "workspace:*",
     "postcss-import": "^15.1.0",

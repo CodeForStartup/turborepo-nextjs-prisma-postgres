@@ -2,7 +2,7 @@ import fs from "fs/promises"
 import path from "path"
 import { NextRequest } from "next/server"
 
-import { auth } from "configs/auth"
+import { auth } from "auth"
 import { createImage, getImage, getImages, IImageFilter, ImageOrderBys, OrderBy } from "database"
 import sharp from "sharp"
 import { v4 as uuidv4 } from "uuid"

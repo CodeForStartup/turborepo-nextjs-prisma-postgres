@@ -1,7 +1,7 @@
 import { revalidatePath } from "next/cache"
 import { NextRequest } from "next/server"
 
-import { auth } from "configs/auth"
+import { auth } from "auth"
 import prisma from "database"
 
 export async function GET(request: NextRequest, { params }: { params: { userId: string } }) {

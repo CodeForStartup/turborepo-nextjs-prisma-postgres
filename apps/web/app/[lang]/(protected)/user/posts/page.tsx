@@ -1,7 +1,7 @@
 import React from "react"
 import { Metadata } from "next/types"
 
-import { auth } from "configs/auth"
+import { auth } from "auth"
 import { getUser } from "database"
 
 import PageTitle from "@/molecules/page-title"

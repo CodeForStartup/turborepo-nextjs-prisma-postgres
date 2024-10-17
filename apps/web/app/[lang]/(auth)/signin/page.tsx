@@ -1,7 +1,7 @@
 import React from "react"
 import { redirect } from "next/navigation"
 
-import { auth } from "configs/auth"
+import { auth } from "auth"
 import { getTranslations } from "next-intl/server"
 
 import SignIn from "@/molecules/auth/sign-in"

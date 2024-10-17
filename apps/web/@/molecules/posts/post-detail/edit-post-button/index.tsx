@@ -1,7 +1,7 @@
 import React from "react"
 import Link from "next/link"
 
-import { auth } from "configs/auth"
+import { auth } from "auth"
 import { PostStatus } from "database"
 import { updatePostStatus } from "database/src/posts/queries"
 import { LucideEdit } from "lucide-react"
