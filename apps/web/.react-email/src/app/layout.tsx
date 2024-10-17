@@ -9,8 +9,6 @@ export const metadata: Metadata = {
   title: 'React Email',
 };
 
-
-
 const RootLayout = async ({ children }: { children: React.ReactNode }) => {
   const emailsDirectoryMetadata = await getEmailsDirectoryMetadata(
     emailsDirectoryAbsolutePath,

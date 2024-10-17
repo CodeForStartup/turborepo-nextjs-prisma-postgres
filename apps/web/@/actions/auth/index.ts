@@ -2,13 +2,13 @@
 
 import { auth, signIn, signOut } from "auth"
 import bcryptjs from "bcryptjs"
+import prisma from "database"
 import { createUser } from "database/src/users/queries"
+
 import { redirect } from "@/utils/navigation"
+
 // import { Prisma } from 'database'
 import { SignUpDataOutput } from "./type"
-import prisma from "database"
-
-
 
 export const getAuth = async () => {
   return await auth()
@@ -59,7 +59,7 @@ export const signUp = async (
 
     console.log("verification token...successfully")
 
-    // send email: 
+    // send email:
     // TODO: issue https://github.com/resend/resend-node/issues/437
     // await sendEmail({
     //   email,

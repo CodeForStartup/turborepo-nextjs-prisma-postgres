@@ -10,8 +10,6 @@ import Preview from './preview';
 
 export const dynamicParams = true;
 
-
-
 export interface PreviewParams {
   slug: string[];
 }
@@ -75,9 +73,6 @@ export function generateMetadata({ params }: { params: PreviewParams }) {
 
 export default Page;
 
-
-export function generateStaticParams() { 
-  return Promise.resolve(
-    [{"slug":["verify-email"]}]
-  );
+export function generateStaticParams() {
+  return Promise.resolve([{ slug: ['verify-email'] }]);
 }
